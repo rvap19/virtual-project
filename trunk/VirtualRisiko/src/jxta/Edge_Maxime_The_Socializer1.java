@@ -66,7 +66,7 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
 
     public void presenceUpdated(PlayerAdvertisement playerInfo) {
 
-            System.out.println("trovato adv per peer "+playerInfo.Name);
+            System.out.println("trovato adv per peer "+playerInfo.getName());
 
         }
     
@@ -115,7 +115,7 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
 
         for(int i=0;i<25;i++){
             discover.announcePresence(10, Name);
-            Iterator<PlayerAdvertisement> e=discover.searchPlayers(false).iterator();
+            Iterator<PlayerAdvertisement> e=discover.searchPlayers(true).iterator();
             while(e.hasNext()){
                PlayerAdvertisement pA=e.next();
                System.out.println("trovato player "+pA.getName());
