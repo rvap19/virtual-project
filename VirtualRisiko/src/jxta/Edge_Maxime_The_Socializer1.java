@@ -59,7 +59,7 @@ import net.jxta.platform.NetworkManager;
 public class Edge_Maxime_The_Socializer1 implements PlayerListener {
     
 
-    public static final String Name = "giuseppe";
+    public static final String Name = "raffaele";
 
     public static final int TcpPort = 9721;
     public static final PeerID PID = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
@@ -68,7 +68,7 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
 
     public void presenceUpdated(PlayerAdvertisement playerInfo) {
 
-            System.out.println("trovato adv per peer "+playerInfo.getName());
+            System.out.println("trovato adv per ppppppeeeerrrr "+playerInfo.getName());
 
         }
     
@@ -114,16 +114,10 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
         discover.init(NetPeerGroup);
         discover.addPlayerListener(new Edge_Maxime_The_Socializer1());
         discover.startApp(null);
+discover.announcePresence(10, Name);
+discover.searchPlayers(true);
 
-        for(int i=0;i<25;i++){
-            discover.announcePresence(10, Name);
-            Iterator<PlayerAdvertisement> e=discover.searchPlayers(true).iterator();
-            while(e.hasNext()){
-               PlayerAdvertisement pA=e.next();
-               System.out.println("trovato player "+pA.getName());
-            }
-            Thread.sleep(10*1000);
-        }
+   
 
 
 
