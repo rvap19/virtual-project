@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package jxta;
+package jxta.listener;
+
+import jxta.advertisement.PlayerAdvertisement;
 
 /**
  *

@@ -1,5 +1,5 @@
 
-package jxta;
+package jxta.advertisement;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,12 +29,15 @@ public class GameAdvertisement extends Advertisement {
     
 
     private static final String tagName = "NameTag";
+    private String gameName=null;
     
     private static final String tagCreatorID = "CreatorIDTag";
+    private String creatorID;
 
     private static final String tagMaxPlayers = "MaxPlayersTag";
+    private int maxPlayer=0;
 
-    private static final String tagCurrentPlayers="CurrentPlayersTag";
+    
     
     private final static String[] IndexableFields = { tagCreatorID, tagName };
 
@@ -95,21 +98,21 @@ public class GameAdvertisement extends Advertisement {
         
         if (TheElementName.compareTo(tagName)==0) {
             
-            name = TheTextValue;
+            gameName = TheTextValue;
             return;
             
         }
         
         if (TheElementName.compareTo(tagMaxPlayers)==0) {
             
-            presenceStatus = Integer.parseInt(TheTextValue);
+            maxPlayer = Integer.parseInt(TheTextValue);
             return;
             
         }
 
         if (TheElementName.compareTo(tagCreatorID)==0) {
 
-            peerID = TheTextValue;
+            creatorID = TheTextValue;
             return;
 
         }
@@ -126,13 +129,13 @@ public class GameAdvertisement extends Advertisement {
         // Adding elements
         Element MyTempElement;
         
-        MyTempElement = TheResult.createElement(tagName, name);
+        MyTempElement = TheResult.createElement(tagName, gameName);
         TheResult.appendChild(MyTempElement);
         
-        MyTempElement = TheResult.createElement(tagMaxPlayers, Integer.toString(presenceStatus));
+        MyTempElement = TheResult.createElement(tagMaxPlayers, Integer.toString(maxPlayer));
         TheResult.appendChild(MyTempElement);
 
-        MyTempElement = TheResult.createElement(tagCreatorID, peerID);
+        MyTempElement = TheResult.createElement(tagCreatorID, creatorID);
         TheResult.appendChild(MyTempElement);
         
         return TheResult;
@@ -153,29 +156,30 @@ public class GameAdvertisement extends Advertisement {
         return IndexableFields;
     }
 
-    public String getName() {
-        return name;
+    public String getCreatorID() {
+        return creatorID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreatorID(String creatorID) {
+        this.creatorID = creatorID;
     }
 
-    public String getPeerID() {
-        return peerID;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setPeerID(String peerID) {
-        this.peerID = peerID;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
-    public int getPresenceStatus() {
-        return presenceStatus;
+    public int getMaxPlayer() {
+        return maxPlayer;
     }
 
-    public void setPresenceStatus(int presenceStatus) {
-        this.presenceStatus = presenceStatus;
+    public void setMaxPlayer(int maxPlayer) {
+        this.maxPlayer = maxPlayer;
     }
+
 
     
     
@@ -186,9 +190,9 @@ public class GameAdvertisement extends Advertisement {
                 (GameAdvertisement) super.clone();
 
         Result.AdvertisementID = this.AdvertisementID;
-        Result.name = this.name;
-        Result.presenceStatus = this.presenceStatus;
-        Result.peerID=this.peerID;
+        Result.gameName = this.gameName;
+        Result.maxPlayer = this.maxPlayer;
+        Result.creatorID=this.creatorID;
         
         return Result;
         

@@ -3,7 +3,8 @@
  * and open the template in the editor.
  */
 
-package jxta;
+package jxta.discover;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,7 +13,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.jar.Attributes.Name;
+
+import jxta.advertisement.GameAdvertisement;
+import jxta.listener.GameListener;
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.discovery.DiscoveryService;
@@ -24,17 +27,15 @@ import net.jxta.id.IDFactory;
 import net.jxta.peer.PeerID;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.peergroup.PeerGroupID;
-import net.jxta.pipe.PipeID;
-import net.jxta.pipe.PipeService;
+
 import net.jxta.protocol.DiscoveryResponseMsg;
-import net.jxta.protocol.PeerAdvertisement;
-import net.jxta.protocol.PipeAdvertisement;
+
 
 /**
  *
  * @author root
  */
-public class PlayerPresenceDiscover implements DiscoveryListener {
+public class GameDiscover implements DiscoveryListener {
 
     /**
      * The default expiration timeout for published presence advertisements.
@@ -54,8 +55,8 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
      */
     private DiscoveryService discovery = null;
     
-    private List<PlayerListener> registeredListeners;
-    private List<PipeListener> registredPipeListeners;
+    private List<GameListener> registeredListeners;
+    
 
      /**
      * The local Peer ID.
@@ -69,39 +70,25 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
     
 
-    private PipeAdvertisement MyPipeAdvertisement;
-    private PlayerAdvertisement presenceInfo;
+    
+    private GameAdvertisement gameInfo;
 
     private PeerID searchedPeer;
     
 
-    public  void addPlayerListener(PlayerListener listener)
+    public  void addGameListener(GameListener listener)
     {
         registeredListeners.add(listener);
     }
 
-    public void removePlayerListener(PlayerListener listener){
+    public void removeGameListener(GameListener listener){
         registeredListeners.remove(listener);
     }
 
-    public void addPlayerPipeListener(PipeListener listener){
-        registredPipeListeners.add(listener);
-    }
-
-    public void removePlayerPipeListener(PipeListener listener){
-        registredPipeListeners.remove(listener);
-
-    }
-
-
-    public void getPlayerAdvertisementUpdated(PeerID peer){
-        searchedPeer=peer;
-        this.discovery.getRemoteAdvertisements(peer.URIEncodingName, DiscoveryService.ADV, null, null, 10);
-        
-    }
+  
 
     public void discoveryEvent(DiscoveryEvent TheDiscoveryEvent) {
-        System.out.println("remote discovery event....");
+        System.out.println("game remote discovery event....");
 
         // Who triggered the event?
         
@@ -116,31 +103,18 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
                 Advertisement adv=TheEnumeration.nextElement();
                 try {   
-                    if(adv.getAdvType().equalsIgnoreCase(PlayerAdvertisement.getAdvertisementType())){
-                        PlayerAdvertisement advertisement = (PlayerAdvertisement) adv;
+                    if(adv.getAdvType().equalsIgnoreCase(GameAdvertisement.getAdvertisementType())){
+                        GameAdvertisement advertisement = (GameAdvertisement) adv;
                         
-                        Iterator<PlayerListener> listeners = registeredListeners.iterator();
+                        Iterator<GameListener> listeners = registeredListeners.iterator();
                         while (listeners.hasNext())
                         {
-                            PlayerListener listener = listeners.next();
+                            GameListener listener = listeners.next();
 
                             // Notify the listener of the presence update.
-                            listener.presenceUpdated(advertisement);
+                            listener.gameUpdated(advertisement);
                         }
                        
-                        
-                    }else if(adv.getAdvType().equalsIgnoreCase(PipeAdvertisement.getAdvertisementType())){
-                        PipeAdvertisement advertisement = (PipeAdvertisement) adv;
-
-                        Iterator<PipeListener> listeners = registredPipeListeners.iterator();
-                        while (listeners.hasNext())
-                        {
-                            PipeListener listener = listeners.next();
-
-                            // Notify the listener of the presence update.
-                            listener.pipeUpdated(advertisement);
-                        }
-                        
                         
                     }
 
@@ -161,31 +135,31 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
     }
 
-    public void announcePresence(int presenceStatus,String name)
+    public void announceGame(int maxgame,String name)
     {
-        System.out.println("player presence announcing");
+        System.out.println("game presence announcing");
         if (discovery != null)
         {
-             presenceInfo = (PlayerAdvertisement)
+             gameInfo = (GameAdvertisement)
                 AdvertisementFactory.newAdvertisement(
-                    PlayerAdvertisement.getAdvertisementType());
+                    GameAdvertisement.getAdvertisementType());
             
              searchedPeer=null;
             
 
             // Configure the new advertisement.
-            presenceInfo.setPresenceStatus(presenceStatus);
-            presenceInfo.setName(name);
-            presenceInfo.setPeerID(localPeerID);
+            gameInfo.setMaxPlayer(maxgame);
+            gameInfo.setGameName(name);
+            gameInfo.setCreatorID(localPeerID);
             
 
             try
             {
                 // Publish the advertisement locally.
-                discovery.publish(presenceInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
+                discovery.publish(gameInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
                 // Publish the advertisement remotely.
-                discovery.remotePublish(presenceInfo,DEFAULT_LIFETIME);
-                this.publishPipeAdvertisement(name);
+                discovery.remotePublish(gameInfo,DEFAULT_LIFETIME);
+                
             }
             catch (IOException e)
             {
@@ -194,13 +168,13 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
             
         }
-        System.out.println("player presence annunced");
+        System.out.println("game presence annunced");
     }
 
     
 
     public void init(PeerGroup group)throws PeerGroupException    {
-        System.out.println("init player presence discover");
+        System.out.println("init game presence discover");
 
         // Save a reference to the group of which that this service is
         // a part.
@@ -209,10 +183,10 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
         // Get the local Peer ID.
         localPeerID = group.getPeerID().toString();
 
-        this.registeredListeners=new ArrayList<PlayerListener>();
-        this.registredPipeListeners=new ArrayList<PipeListener>();
+        this.registeredListeners=new ArrayList<GameListener>();
+        
         // Registering our customized advertisement instance
-        System.out.println("initiated player presence discover");
+        System.out.println("initiated game presence discover");
         
     }
 
@@ -225,18 +199,18 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
     public int startApp(String[] args) throws IOException
 
     {
-        System.out.println("player presence discover starting");
+        System.out.println("game presence discover starting");
         // Now that the service is being started, set the DiscoveryService
         // object to use to publish presence information.
         discovery = peerGroup.getDiscoveryService();
-System.out.println("player presence discover started");
+System.out.println("game presence discover started");
         
 
         return 0;
     }
 
-    public Enumeration<Advertisement> searchPlayers() throws IOException{
-        System.out.println("searching players...");
+    public Enumeration<Advertisement> searchGames() throws IOException{
+        System.out.println("searching games...");
         // Add ourselves as a listener.
         discovery.addDiscoveryListener(this);
 
@@ -249,8 +223,8 @@ System.out.println("player presence discover started");
         return e;
     }
 
-    public Enumeration<Advertisement> searchPlayers(int type) throws IOException{
-        System.out.println("searching players...");
+    public Enumeration<Advertisement> searchGames(int type) throws IOException{
+        System.out.println("searching games...");
         // Add ourselves as a listener.
         discovery.addDiscoveryListener(this);
 
@@ -268,7 +242,7 @@ System.out.println("player presence discover started");
      */
     public void stopApp()
     {
-        System.out.println("player presence discover stopping");
+        System.out.println("game presence discover stopping");
         if (discovery != null)
         {
             // Unregister ourselves as a listener.
@@ -278,28 +252,10 @@ System.out.println("player presence discover started");
 
             // Empty the set of listeners.
             registeredListeners.clear();
-            registredPipeListeners.clear();
+            
         }
-        System.out.println("player presence discover stopped");
+        System.out.println("game presence discover stopped");
     }
 
-    private void  publishPipeAdvertisement(String name) throws IOException {
-
-        System.out.println("publishing pipe adv");
-        // Creating a Pipe Advertisement
-        String newName="Player "+name;
-        MyPipeAdvertisement = (PipeAdvertisement) AdvertisementFactory.newAdvertisement(PipeAdvertisement.getAdvertisementType());
-        PipeID MyPipeID = IDFactory.newPipeID(PeerGroupID.defaultNetPeerGroupID, newName.getBytes());
-
-        MyPipeAdvertisement.setPipeID(MyPipeID);
-        MyPipeAdvertisement.setType(PipeService.PropagateType);
-        MyPipeAdvertisement.setName(name+" Pipe");
-        MyPipeAdvertisement.setDescription("Created by " + name);
-
-        this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
-        this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME);
-
-        System.out.println("pipe adv published");
-
-    }
+  
 }

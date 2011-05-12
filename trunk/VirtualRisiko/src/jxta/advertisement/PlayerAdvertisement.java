@@ -1,5 +1,5 @@
 
-package jxta;
+package jxta.advertisement;
 
 import java.net.URI;
 import java.net.URISyntaxException;

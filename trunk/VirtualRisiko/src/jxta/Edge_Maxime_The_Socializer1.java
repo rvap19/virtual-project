@@ -41,6 +41,9 @@
 package jxta;
 
 
+import jxta.discover.PlayerPresenceDiscover;
+import jxta.listener.PlayerListener;
+import jxta.advertisement.PlayerAdvertisement;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -109,14 +112,11 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
             MyNetworkConfigurator.setPeerID(PID);
 
             // Starting the JXTA network
-            Tools.PopInformationMessage(Name, "Start the JXTA network and to wait for a rendezvous\nconnection with "
-                    + RendezVous_Jack.Name + " for maximum 2 minutes");
+            Tools.PopInformationMessage(Name, "Start the JXTA network and player discovery");
             PeerGroup NetPeerGroup = MyNetworkManager.startNetwork();
             
            
             
-            // Launching query to retrieve peer advertisements
-            Tools.PopInformationMessage(Name, "Start peer discovery and going to sleep for 60 seconds");
             
             
              PlayerPresenceDiscover discover=new PlayerPresenceDiscover();
