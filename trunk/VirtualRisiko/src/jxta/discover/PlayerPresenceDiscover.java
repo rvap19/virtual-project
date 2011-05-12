@@ -234,14 +234,14 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
         discovery = peerGroup.getDiscoveryService();
 System.out.println("player presence discover started");
         
-
+discovery.addDiscoveryListener(this);
         return 0;
     }
 
     public List<PlayerAdvertisement> searchPlayers(boolean includeRemoteSearch) throws IOException{
         System.out.println("searching players...");
         // Add ourselves as a listener.
-        discovery.addDiscoveryListener(this);
+        
 
         Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
         ArrayList<PlayerAdvertisement> advs=new ArrayList<PlayerAdvertisement>();
