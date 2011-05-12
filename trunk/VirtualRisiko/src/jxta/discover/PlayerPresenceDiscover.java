@@ -238,33 +238,28 @@ System.out.println("player presence discover started");
         return 0;
     }
 
-    public Enumeration<PlayerAdvertisement> searchPlayers(boolean includeRemoteSearch) throws IOException{
+    public List<PlayerAdvertisement> searchPlayers(boolean includeRemoteSearch) throws IOException{
         System.out.println("searching players...");
         // Add ourselves as a listener.
         discovery.addDiscoveryListener(this);
 
         Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
+        ArrayList<PlayerAdvertisement> advs=new ArrayList<PlayerAdvertisement>();
+        while(e.hasMoreElements()){
+            Advertisement a=e.nextElement();
+            if(a.getAdvType().equals(PlayerAdvertisement.AdvertisementType)){
+                advs.add((PlayerAdvertisement) a);
+            }
+        }
         
         if(includeRemoteSearch)
             discovery.getRemoteAdvertisements(null, DiscoveryService.ADV,
             null, null, 10, this);
 
-        return e;
+        return advs;
     }
 
-    public Enumeration<Advertisement> searchPlayers(int type) throws IOException{
-        System.out.println("searching players...");
-        // Add ourselves as a listener.
-        discovery.addDiscoveryListener(this);
-
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(type, null, null);
-
-
-        discovery.getRemoteAdvertisements(null, type,
-            null, null, 10, this);
-
-        return e;
-    }
+    
 
     /**
      * Stop the service.
