@@ -46,16 +46,8 @@ import jxta.listener.PlayerListener;
 import jxta.advertisement.PlayerAdvertisement;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.logging.LogManager;
-import net.jxta.discovery.DiscoveryEvent;
-import net.jxta.discovery.DiscoveryListener;
-import net.jxta.discovery.DiscoveryService;
-import net.jxta.document.Advertisement;
+import java.util.Iterator;
 import net.jxta.document.AdvertisementFactory;
-import net.jxta.document.MimeMediaType;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
 import net.jxta.peer.PeerID;
@@ -63,9 +55,6 @@ import net.jxta.peergroup.PeerGroup;
 import net.jxta.peergroup.PeerGroupID;
 import net.jxta.platform.NetworkConfigurator;
 import net.jxta.platform.NetworkManager;
-import net.jxta.protocol.DiscoveryResponseMsg;
-import net.jxta.protocol.PeerAdvertisement;
-import net.jxta.protocol.PipeAdvertisement;
 
 public class Edge_Maxime_The_Socializer1 implements PlayerListener {
     
@@ -126,15 +115,12 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
 
         for(int i=0;i<25;i++){
             discover.announcePresence(10, Name);
-            Enumeration<Advertisement> e=discover.searchPlayers(DiscoveryService.PEER);
-            while(e.hasMoreElements()){
-                Advertisement a=e.nextElement();
-                if(a.getAdvType().equals(PlayerAdvertisement.AdvertisementType)){
-                    PlayerAdvertisement pA=(PlayerAdvertisement)a;
-                    System.out.println("trovato player adv di "+pA.getName());
-                }
+            Iterator<PlayerAdvertisement> e=discover.searchPlayers(false).iterator();
+            while(e.hasNext()){
+               PlayerAdvertisement pA=e.next();
+               System.out.println("trovato player "+pA.getName());
             }
-            Thread.sleep(20*1000);
+            Thread.sleep(10*1000);
         }
 
 

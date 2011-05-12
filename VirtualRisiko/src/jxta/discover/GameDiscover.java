@@ -204,38 +204,32 @@ public class GameDiscover implements DiscoveryListener {
         // object to use to publish presence information.
         discovery = peerGroup.getDiscoveryService();
 System.out.println("game presence discover started");
-        
+        discovery.addDiscoveryListener(this);
 
         return 0;
     }
 
-    public Enumeration<Advertisement> searchGames() throws IOException{
+    public List<GameAdvertisement> searchGames(boolean includeRemote) throws IOException{
         System.out.println("searching games...");
         // Add ourselves as a listener.
-        discovery.addDiscoveryListener(this);
-
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
         
 
-        discovery.getRemoteAdvertisements(null, DiscoveryService.ADV,
-            null, null, 10, this);
+        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
+        ArrayList<GameAdvertisement> advs=new ArrayList<GameAdvertisement>();
+        while(e.hasMoreElements()){
+            Advertisement a=e.nextElement();
+            if(a.getAdvType().equals(GameAdvertisement.AdvertisementType)){
+                advs.add((GameAdvertisement) a);
+            }
+        }
+        
+        if(includeRemote)
+            discovery.getRemoteAdvertisements(null, DiscoveryService.ADV,null, null, 10, this);
 
-        return e;
+        return advs;
     }
 
-    public Enumeration<Advertisement> searchGames(int type) throws IOException{
-        System.out.println("searching games...");
-        // Add ourselves as a listener.
-        discovery.addDiscoveryListener(this);
-
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(type, null, null);
-
-
-        discovery.getRemoteAdvertisements(null, type,
-            null, null, 10, this);
-
-        return e;
-    }
+    
 
     /**
      * Stop the service.
