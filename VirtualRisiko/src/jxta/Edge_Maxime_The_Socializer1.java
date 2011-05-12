@@ -46,7 +46,11 @@ import jxta.listener.PlayerListener;
 import jxta.advertisement.PlayerAdvertisement;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import jxta.advertisement.GameAdvertisement;
+import jxta.discover.GameDiscover;
+import jxta.listener.GameListener;
 import net.jxta.document.AdvertisementFactory;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
@@ -56,7 +60,7 @@ import net.jxta.peergroup.PeerGroupID;
 import net.jxta.platform.NetworkConfigurator;
 import net.jxta.platform.NetworkManager;
 
-public class Edge_Maxime_The_Socializer1 implements PlayerListener {
+public class Edge_Maxime_The_Socializer1 implements PlayerListener,GameListener {
     
 
     public static final String Name = "raffaele";
@@ -66,31 +70,30 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
     public static final File ConfigurationFile = new File("." + System.getProperty("file.separator") + Name);
 
 
-    public void presenceUpdated(PlayerAdvertisement playerInfo) {
+    private HashMap<String,PlayerAdvertisement> players;
+    private HashMap<String,GameAdvertisement> games;
 
-            System.out.println("trovato adv per ppppppeeeerrrr "+playerInfo.getName());
+    private PeerGroup NetPeerGroup;
+    private PlayerPresenceDiscover playerDiscover;
+    private GameDiscover gameDiscover;
+    private NetworkManager MyNetworkManager;
 
-        }
-    
-    public static void main(String[] args) throws InterruptedException {
-        AdvertisementFactory.registerAdvertisementInstance(
-                PlayerAdvertisement.getAdvertisementType(),
-                new PlayerAdvertisement.Instantiator());
-        try {
-            
+    public void init() throws IOException, PeerGroupException{
+        
             
             // Removing any existing configuration?
             Tools.CheckForExistingConfigurationDeletion(Name, ConfigurationFile);
-            
+
             // Creation of the network manager
-            NetworkManager MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
+             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
                     Name, ConfigurationFile.toURI());
+
 
             // Retrieving the network configurator
             NetworkConfigurator MyNetworkConfigurator = MyNetworkManager.getConfigurator();
-            
+
             // Checking if RendezVous_Jack should be a seed
-            
+
 
             // Setting Configuration
             MyNetworkConfigurator.setTcpPort(TcpPort);
@@ -104,18 +107,84 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener {
 
             // Starting the JXTA network
             Tools.PopInformationMessage(Name, "Start the JXTA network and player discovery");
-            PeerGroup NetPeerGroup = MyNetworkManager.startNetwork();
-            
+            NetPeerGroup  = MyNetworkManager.startNetwork();
+             playerDiscover=new PlayerPresenceDiscover();
+             playerDiscover.init(NetPeerGroup);
+             playerDiscover.addPlayerListener(this);
+             playerDiscover.startApp(null);
+
+             gameDiscover=new GameDiscover();
+             gameDiscover.init(NetPeerGroup);
+            gameDiscover.addGameListener(this);
+            gameDiscover.startApp(null);
+
+    }
+
+    public void findPlayers() throws PeerGroupException, IOException{
+        
+        
+        playerDiscover.announcePresence(10, Name);
+        playerDiscover.searchPlayers(true);
+
+    }
+
+    public void findGames() throws PeerGroupException, IOException{
+        
+        
+        gameDiscover.searchGames(true);
+
+    }
+
+    public void stop(){
+        this.playerDiscover.stopApp();
+        this.gameDiscover.stopApp();
+        this.MyNetworkManager.stopNetwork();
+    }
+
+    public void presenceUpdated(PlayerAdvertisement playerInfo) {
+
+        System.out.println("trovato adv per player "+playerInfo.getName());
+        this.players.put(playerInfo.getPeerID(), playerInfo);
+    }
+
+     public void gameUpdated(GameAdvertisement adv) {
+        
+        this.games.put(adv.getCreatorID(), adv);
+        String creator="SCONOSCIUTO";
+        if(players.containsKey(adv.getCreatorID())){
+            creator=players.get(adv.getCreatorID()).getName();
+        }
+        System.out.println("trovato adv per game "+adv.getGameName()+" creato da "+creator);
+
+    }
+
+    
+    public static void main(String[] args) throws IOException, PeerGroupException, InterruptedException  {
+        AdvertisementFactory.registerAdvertisementInstance(
+                PlayerAdvertisement.getAdvertisementType(),
+                new PlayerAdvertisement.Instantiator());
+
+        AdvertisementFactory.registerAdvertisementInstance(
+                GameAdvertisement.getAdvertisementType(),
+                new GameAdvertisement.Instantiator());
+        
+            Edge_Maxime_The_Socializer1 socializer=new Edge_Maxime_The_Socializer1();
+            socializer.init();
+            socializer.findPlayers();
+            socializer.findGames();
+
+
+            Thread.sleep(10*1000);
+
+            socializer.findPlayers();
+            socializer.findGames();
+
+            Thread.sleep(10*1000);
            
             
             
             
-             PlayerPresenceDiscover discover=new PlayerPresenceDiscover();
-        discover.init(NetPeerGroup);
-        discover.addPlayerListener(new Edge_Maxime_The_Socializer1());
-        discover.startApp(null);
-discover.announcePresence(10, Name);
-discover.searchPlayers(true);
+        
 
    
 
@@ -128,18 +197,10 @@ discover.searchPlayers(true);
             
             
             
-        } catch (IOException Ex) {
-            
-            // Raised when access to local file and directories caused an error
-            Tools.PopErrorMessage(Name, Ex.toString());
-            
-        } catch (PeerGroupException Ex) {
-            
-            // Raised when the net peer group could not be created
-            Tools.PopErrorMessage(Name, Ex.toString());
-            
-        }
+       
 
     }
+
+
 
 }
