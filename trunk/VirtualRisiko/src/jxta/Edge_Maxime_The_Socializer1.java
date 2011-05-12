@@ -58,7 +58,9 @@ import net.jxta.platform.NetworkManager;
 
 public class Edge_Maxime_The_Socializer1 implements PlayerListener {
     
-    public static final String Name = "foggiano";
+
+    public static final String Name = "giuseppe";
+
     public static final int TcpPort = 9721;
     public static final PeerID PID = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
     public static final File ConfigurationFile = new File("." + System.getProperty("file.separator") + Name);
