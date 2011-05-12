@@ -67,7 +67,7 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener,GameListener 
 
     public static final int TcpPort = 9721;
     public static final PeerID PID = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
-    public static final File ConfigurationFile = new File("." + System.getProperty("file.separator") + Name);
+    public static final File ConfigurationFile = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
 
 
     private HashMap<String,PlayerAdvertisement> players;
@@ -104,7 +104,8 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener,GameListener 
             // Setting the Peer ID
             Tools.PopInformationMessage(Name, "Setting the peer ID to :\n\n" + PID.toString());
             MyNetworkConfigurator.setPeerID(PID);
-
+            this.players=new HashMap<String, PlayerAdvertisement>();
+            this.games=new HashMap<String, GameAdvertisement>();
             // Starting the JXTA network
             Tools.PopInformationMessage(Name, "Start the JXTA network and player discovery");
             NetPeerGroup  = MyNetworkManager.startNetwork();
@@ -133,6 +134,10 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener,GameListener 
         
         gameDiscover.searchGames(true);
 
+    }
+
+    public void createGame(String name,int max){
+        this.gameDiscover.announceGame(max, name);
     }
 
     public void stop(){
@@ -171,12 +176,13 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener,GameListener 
             Edge_Maxime_The_Socializer1 socializer=new Edge_Maxime_The_Socializer1();
             socializer.init();
             socializer.findPlayers();
-            socializer.findGames();
+            socializer.createGame("scemo  ki legge", 6);
 
 
             Thread.sleep(10*1000);
 
             socializer.findPlayers();
+            socializer.createGame("scemo  ki legge", 6);
             socializer.findGames();
 
             Thread.sleep(10*1000);
