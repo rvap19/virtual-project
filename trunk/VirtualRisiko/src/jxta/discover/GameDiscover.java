@@ -7,6 +7,11 @@ package jxta.discover;
 
 
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 import jxta.advertisement.GameAdvertisement;
 import jxta.listener.GameListener;
 import net.jxta.discovery.DiscoveryEvent;
