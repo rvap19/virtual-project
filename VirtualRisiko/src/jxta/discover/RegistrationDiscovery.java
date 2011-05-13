@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import jxta.advertisement.GameAdvertisement;
-import jxta.listener.GameListener;
+import jxta.advertisement.RegistrationAdvertisement;
+import jxta.listener.RegistrationListener;
+
+
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.discovery.DiscoveryService;
@@ -33,7 +35,7 @@ import net.jxta.protocol.DiscoveryResponseMsg;
  *
  * @author root
  */
-public class GameDiscover implements DiscoveryListener {
+public class RegistrationDiscovery implements DiscoveryListener {
 
     /**
      * The default expiration timeout for published presence advertisements.
@@ -53,7 +55,7 @@ public class GameDiscover implements DiscoveryListener {
      */
     private DiscoveryService discovery = null;
     
-    private List<GameListener> registeredListeners;
+    private List<RegistrationListener> registeredListeners;
     
 
      /**
@@ -67,20 +69,21 @@ public class GameDiscover implements DiscoveryListener {
     private PeerGroup peerGroup = null;
 
     
+    
 
-    public  void addGameListener(GameListener listener)
+    public  void addRegistrationListener(RegistrationListener listener)
     {
         registeredListeners.add(listener);
     }
 
-    public void removeGameListener(GameListener listener){
+    public void removeRegistartionListener(RegistrationListener listener){
         registeredListeners.remove(listener);
     }
 
   
 
     public void discoveryEvent(DiscoveryEvent TheDiscoveryEvent) {
-        System.out.println("game remote discovery event....");
+        System.out.println("registration remote discovery event....");
 
         // Who triggered the event?
         
@@ -95,16 +98,16 @@ public class GameDiscover implements DiscoveryListener {
 
                 Advertisement adv=TheEnumeration.nextElement();
                 try {   
-                    if(adv.getAdvType().equalsIgnoreCase(GameAdvertisement.getAdvertisementType())){
-                        GameAdvertisement advertisement = (GameAdvertisement) adv;
+                    if(adv.getAdvType().equalsIgnoreCase(RegistrationAdvertisement.getAdvertisementType())){
+                        RegistrationAdvertisement advertisement = (RegistrationAdvertisement) adv;
                         
-                        Iterator<GameListener> listeners = registeredListeners.iterator();
+                        Iterator<RegistrationListener> listeners = registeredListeners.iterator();
                         while (listeners.hasNext())
                         {
-                            GameListener listener = listeners.next();
+                            RegistrationListener listener = listeners.next();
 
                             // Notify the listener of the presence update.
-                            listener.gameUpdated(advertisement);
+                            listener.registrationUpdated(advertisement);
                         }
                        
                         
@@ -127,68 +130,45 @@ public class GameDiscover implements DiscoveryListener {
 
     }
 
-    public GameAdvertisement announceGame(int maxgame,String name)
+    public RegistrationAdvertisement announceRegistartion(String gameID)
     {
-        System.out.println("game presence announcing");
+        System.out.println("registration  announcing");
         if (discovery != null)
         {
-             GameAdvertisement gameInfo = (GameAdvertisement)
+             RegistrationAdvertisement registrationInfo = (RegistrationAdvertisement)
                 AdvertisementFactory.newAdvertisement(
-                    GameAdvertisement.getAdvertisementType());
-            
-            
-            
+                    RegistrationAdvertisement.getAdvertisementType());
+              if(gameID==null){
+                  return null;
+              }
 
             // Configure the new advertisement.
-            gameInfo.setMaxPlayer(maxgame);
-            gameInfo.setGameName(name);
-            gameInfo.setCreatorID(localPeerID);
-            gameInfo.setGameID(name+Long.toString(System.currentTimeMillis()));
+            registrationInfo.setGameID(gameID);
+            registrationInfo.setPeerID(localPeerID);
+            registrationInfo.setTime(System.currentTimeMillis());
             
 
             try
             {
                 // Publish the advertisement locally.
-                discovery.publish(gameInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
+                discovery.publish(registrationInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
                 // Publish the advertisement remotely.
-                discovery.remotePublish(gameInfo,DEFAULT_LIFETIME);
+                discovery.remotePublish(registrationInfo,DEFAULT_LIFETIME);
                 
             }
             catch (IOException e)
             {
                 System.out.println("Error publishing locally: " + e);
             }
-            System.out.println("game presence annunced");
-            return gameInfo;
+            System.out.println("registration annunced");
+                return registrationInfo;
             
-        }else{
-            System.out.println("impossible annouce presence");
-            return null;
         }
-
-
+        System.out.println("impossibile pubblicare registrazione ...");
+        return null;
         
     }
 
-    public void registerPlayer(GameAdvertisement gameAdv,List<String>playersID) throws IOException{
-        System.out.println("updating game "+gameAdv.getGameName());
-        this.discovery.flushAdvertisement(gameAdv);
-        gameAdv.setPlayerIds(playersID);
-        try
-            {
-                // Publish the advertisement locally.
-                discovery.publish(gameAdv, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
-                // Publish the advertisement remotely.
-                discovery.remotePublish(gameAdv,DEFAULT_LIFETIME);
-
-            }
-            catch (IOException e)
-            {
-                System.out.println("Error publishing locally: " + e);
-            }
-        System.out.println("update game ");
-
-    }
     
 
     public void init(PeerGroup group)throws PeerGroupException    {
@@ -201,10 +181,10 @@ public class GameDiscover implements DiscoveryListener {
         // Get the local Peer ID.
         localPeerID = group.getPeerID().toString();
 
-        this.registeredListeners=new ArrayList<GameListener>();
+        this.registeredListeners=new ArrayList<RegistrationListener>();
         
         // Registering our customized advertisement instance
-        System.out.println("initiated game presence discover");
+        System.out.println("initiated registration discover");
         
     }
 
@@ -217,32 +197,32 @@ public class GameDiscover implements DiscoveryListener {
     public int startApp(String[] args) throws IOException
 
     {
-        System.out.println("game presence discover starting");
+        System.out.println("registartion discover starting");
         // Now that the service is being started, set the DiscoveryService
         // object to use to publish presence information.
         discovery = peerGroup.getDiscoveryService();
-System.out.println("game presence discover started");
+System.out.println("registration discover started");
         discovery.addDiscoveryListener(this);
 
         return 0;
     }
 
-    public List<GameAdvertisement> searchGames(boolean includeRemote) throws IOException{
-        System.out.println("searching games...");
+    public List<RegistrationAdvertisement> searchRegistrations(String gameID,boolean includeRemote) throws IOException{
+        System.out.println("searching registration ...");
         // Add ourselves as a listener.
         
 
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
-        ArrayList<GameAdvertisement> advs=new ArrayList<GameAdvertisement>();
+        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, RegistrationAdvertisement.tagGameID, gameID);
+        ArrayList<RegistrationAdvertisement> advs=new ArrayList<RegistrationAdvertisement>();
         while(e.hasMoreElements()){
             Advertisement a=e.nextElement();
-            if(a.getAdvType().equals(GameAdvertisement.AdvertisementType)){
-                advs.add((GameAdvertisement) a);
+            if(a.getAdvType().equals(RegistrationAdvertisement.AdvertisementType)){
+                advs.add((RegistrationAdvertisement) a);
             }
         }
         
         if(includeRemote)
-            discovery.getRemoteAdvertisements(null, DiscoveryService.ADV,null, null, 10, this);
+            discovery.getRemoteAdvertisements(null, DiscoveryService.ADV,RegistrationAdvertisement.tagGameID, gameID, 10, this);
 
         return advs;
     }
@@ -254,7 +234,7 @@ System.out.println("game presence discover started");
      */
     public void stopApp()
     {
-        System.out.println("game presence discover stopping");
+        System.out.println("registration discover stopping");
         if (discovery != null)
         {
             // Unregister ourselves as a listener.
@@ -266,7 +246,7 @@ System.out.println("game presence discover started");
             registeredListeners.clear();
             
         }
-        System.out.println("game presence discover stopped");
+        System.out.println("registration discover stopped");
     }
 
   

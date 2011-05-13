@@ -15,12 +15,12 @@ import net.jxta.document.TextElement;
 import net.jxta.id.ID;
 import net.jxta.id.IDFactory;
 
-public class PlayerAdvertisement extends Advertisement {
+public class RegistrationAdvertisement  extends Advertisement implements Comparable<RegistrationAdvertisement> {
     
-    public static final String Name = "Player advertisement";
+    public static final String Name = "Registration advertisement";
 
     // Advertisement elements, tags and indexables
-    public final static String AdvertisementType = "jxta:PresenceAdvertisement";
+    public final static String AdvertisementType = "jxta:RegistrationAdvertisement";
     
     private ID AdvertisementID = ID.nullID;
 
@@ -28,50 +28,37 @@ public class PlayerAdvertisement extends Advertisement {
     private final static String IDTag = "MyIDTag";
     
 
-    private static final String tagName = "NameTag";
+    public static final String tagGameID = "GameIDTag";
 
     /**
      * The element name for the presence advertisement's Peer ID.
      */
     private static final String tagPeerID = "PeerIDTag";
 
-    /**
-     * The element name for the presence advertisement's status info.
-     */
-    private static final String tagPresenceStatus = "PresenceStatusTag";
+    private static final String tagTime="TimeTag";
 
-     private final static String[] IndexableFields = { tagPeerID, tagName };
+     private final static String[] IndexableFields = { tagPeerID, tagGameID };
 
-    public static final int IN_GAME=0;
 
-    public static final int OUT_GAME=1;
-
-    /**
-     * A simple name for the user specified by the advertisement's
-     * email address.
-     */
-    private String name = null;
+    
 
     /**
      * The Peer ID locating the peer on the network.
      */
     private String peerID = null;
 
-    /**
-     * A simple descriptor identifying the user's presence status.
-     * The user can indicate that he or she is online, offline, busy, or
-     * away.
-     */
-    private int presenceStatus = OUT_GAME;
+    private String gameID = null;
+
+    private long time=0;
      
 
-    public PlayerAdvertisement() {
+    public RegistrationAdvertisement() {
         
         // Accepting default values
 
     }
 
-    public PlayerAdvertisement(Element Root) {
+    public RegistrationAdvertisement(Element Root) {
         
         // Retrieving the elements
         TextElement MyTextElement = (TextElement) Root;
@@ -115,16 +102,16 @@ public class PlayerAdvertisement extends Advertisement {
             
         }
         
-        if (TheElementName.compareTo(tagName)==0) {
+        if (TheElementName.compareTo(tagGameID)==0) {
             
-            name = TheTextValue;
+            gameID = TheTextValue;
             return;
             
         }
         
-        if (TheElementName.compareTo(tagPresenceStatus)==0) {
+        if (TheElementName.compareTo(tagTime)==0) {
             
-            presenceStatus = Integer.parseInt(TheTextValue);
+            time = Long.parseLong(TheTextValue);
             return;
             
         }
@@ -148,10 +135,10 @@ public class PlayerAdvertisement extends Advertisement {
         // Adding elements
         Element MyTempElement;
         
-        MyTempElement = TheResult.createElement(tagName, name);
+        MyTempElement = TheResult.createElement(tagGameID, gameID);
         TheResult.appendChild(MyTempElement);
         
-        MyTempElement = TheResult.createElement(tagPresenceStatus, Integer.toString(presenceStatus));
+        MyTempElement = TheResult.createElement(tagTime, Long.toString(time));
         TheResult.appendChild(MyTempElement);
 
         MyTempElement = TheResult.createElement(tagPeerID, peerID);
@@ -175,12 +162,12 @@ public class PlayerAdvertisement extends Advertisement {
         return IndexableFields;
     }
 
-    public String getName() {
-        return name;
+    public String getGameID() {
+        return gameID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
     }
 
     public String getPeerID() {
@@ -191,25 +178,27 @@ public class PlayerAdvertisement extends Advertisement {
         this.peerID = peerID;
     }
 
-    public int getPresenceStatus() {
-        return presenceStatus;
+    public long getTime() {
+        return time;
     }
 
-    public void setPresenceStatus(int presenceStatus) {
-        this.presenceStatus = presenceStatus;
+    public void setTime(long time) {
+        this.time = time;
     }
+
+    
 
     
     
     @Override
-    public PlayerAdvertisement clone() throws CloneNotSupportedException {
+    public RegistrationAdvertisement clone() throws CloneNotSupportedException {
         
-        PlayerAdvertisement Result =
-                (PlayerAdvertisement) super.clone();
+        RegistrationAdvertisement Result =
+                (RegistrationAdvertisement) super.clone();
 
         Result.AdvertisementID = this.AdvertisementID;
-        Result.name = this.name;
-        Result.presenceStatus = this.presenceStatus;
+        Result.gameID  = this.gameID;
+        Result.time = this.time;
         Result.peerID=this.peerID;
         
         return Result;
@@ -225,20 +214,24 @@ public class PlayerAdvertisement extends Advertisement {
     
     public static String getAdvertisementType() {
         return AdvertisementType;
-    }    
+    }
+
+    public int compareTo(RegistrationAdvertisement o) {
+        return (int) (this.time - o.time);
+    }
     
     public static class Instantiator implements AdvertisementFactory.Instantiator {
 
         public String getAdvertisementType() {
-            return PlayerAdvertisement.getAdvertisementType();
+            return RegistrationAdvertisement.getAdvertisementType();
         }
 
         public Advertisement newInstance() {
-            return new PlayerAdvertisement();
+            return new RegistrationAdvertisement();
         }
 
         public Advertisement newInstance(net.jxta.document.Element root) {
-            return new PlayerAdvertisement(root);
+            return new RegistrationAdvertisement(root);
         }
         
     }

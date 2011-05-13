@@ -164,7 +164,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
     }
 
-    public void announcePresence(int presenceStatus,String name)
+    public PlayerAdvertisement announcePresence(int presenceStatus,String name)
     {
         System.out.println("player presence announcing");
         if (discovery != null)
@@ -195,9 +195,13 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
                 System.out.println("Error publishing locally: " + e);
             }
 
+            System.out.println("player presence annunced");
+            return presenceInfo;
             
         }
-        System.out.println("player presence annunced");
+        System.out.println("impossibile annunciare player");
+        return null;
+        
     }
 
     
