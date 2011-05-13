@@ -28,7 +28,7 @@ import net.jxta.platform.NetworkManager;
 public class PlayerManager implements PlayerListener,GameListener,RegistrationListener {
     
 
-    public static final String Name = "raffaele";
+    public static final String Name = "grunger84";
 
     public static final int TcpPort = 9721;
     public static final PeerID PID = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
@@ -191,6 +191,23 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         registrationDiscover.addRegistrationListener(listener);
     }
 
+    public void removePlayerListener(PlayerListener listener) {
+        playerDiscover.removePlayerListener(listener);
+    }
+
+    public void addPlayerListener(PlayerListener listener) {
+        playerDiscover.addPlayerListener(listener);
+    }
+
+    public void removeGameListener(GameListener listener) {
+        gameDiscover.removeGameListener(listener);
+    }
+
+    public void addGameListener(GameListener listener) {
+        gameDiscover.addGameListener(listener);
+    }
+
+    
 
      
     
