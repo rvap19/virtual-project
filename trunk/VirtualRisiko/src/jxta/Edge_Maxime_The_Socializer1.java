@@ -67,7 +67,7 @@ public class Edge_Maxime_The_Socializer1 implements PlayerListener,GameListener 
 
     public static final int TcpPort = 9721;
     public static final PeerID PID = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
-    public static final File ConfigurationFile = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
+    public static final File ConfigurationFile = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + "jxta_conf" + System.getProperty("file.separator") + Name);
 
 
     private HashMap<String,PlayerAdvertisement> players;
