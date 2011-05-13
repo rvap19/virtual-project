@@ -38,6 +38,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     public PlayerManagerGUI() throws IOException, PeerGroupException {
         manager=new PlayerManager();
         manager.init();
+        manager.addRegistrationListener(this);
+        manager.addGameListener(this);
+        manager.addPlayerListener(this);
         manager.findGames();
         manager.findPlayers();
         
@@ -228,15 +231,19 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     // End of variables declaration//GEN-END:variables
 
     public void gameUpdated(GameAdvertisement adv) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(!this.games.contains(adv)){
+            games.add(adv);
+        }
     }
 
     public void presenceUpdated(PlayerAdvertisement playerInfo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(!this.players.contains(playerInfo)){
+            players.add(playerInfo);
+        }
     }
 
     public void registrationUpdated(RegistrationAdvertisement adv) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
 }
