@@ -3,7 +3,10 @@ package jxta.advertisement;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 import net.jxta.document.Advertisement;
 import net.jxta.document.AdvertisementFactory;
 import net.jxta.document.Document;
@@ -37,6 +40,11 @@ public class GameAdvertisement extends Advertisement {
     private static final String tagMaxPlayers = "MaxPlayersTag";
     private int maxPlayer=0;
 
+    private static final String tagIdGame="IDGameID";
+    private String gameID;
+
+    private static final String tagPlayer="PlayerTag";
+    private List<String> playerIds= new ArrayList<String>();
     
     
     private final static String[] IndexableFields = { tagCreatorID, tagName };
@@ -116,6 +124,17 @@ public class GameAdvertisement extends Advertisement {
             return;
 
         }
+
+        if (TheElementName.compareTo(tagIdGame)==0) {
+
+            gameID = TheTextValue;
+            return;
+
+        }
+
+        if(TheElementName.compareTo(tagPlayer)==0){
+            this.playerIds.add(TheTextValue);
+        }
         
     }
     
@@ -137,6 +156,15 @@ public class GameAdvertisement extends Advertisement {
 
         MyTempElement = TheResult.createElement(tagCreatorID, creatorID);
         TheResult.appendChild(MyTempElement);
+
+        MyTempElement = TheResult.createElement(tagIdGame, gameID);
+        TheResult.appendChild(MyTempElement);
+
+        Iterator<String> iter=this.playerIds.iterator();
+        while(iter.hasNext()){
+            MyTempElement = TheResult.createElement(tagPlayer, iter.next());
+            TheResult.appendChild(MyTempElement);
+        }
         
         return TheResult;
         
@@ -180,6 +208,25 @@ public class GameAdvertisement extends Advertisement {
         this.maxPlayer = maxPlayer;
     }
 
+    public List<String> getPlayerIds() {
+        return playerIds;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
+    }
+
+    
+
+    public void setPlayerIds(List<String> playerIds) {
+        this.playerIds = playerIds;
+    }
+
+
 
     
     
@@ -193,6 +240,8 @@ public class GameAdvertisement extends Advertisement {
         Result.gameName = this.gameName;
         Result.maxPlayer = this.maxPlayer;
         Result.creatorID=this.creatorID;
+        Result.playerIds=new ArrayList<String>();
+        Result.playerIds.addAll(playerIds);
         
         return Result;
         
