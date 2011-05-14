@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.RegistrationAdvertisement;
 import jxta.discover.GameDiscover;
@@ -28,12 +29,8 @@ import net.jxta.platform.NetworkManager;
 public class PlayerManager implements PlayerListener,GameListener,RegistrationListener {
     
 
-    public static final String Name = "grunger84";
-
-    public static final int TcpPort = 9721;
-    public static final PeerID PID = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
-    public static final File ConfigurationFile = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
-
+    
+   
 
     private HashMap<String,PlayerAdvertisement> players;
     private HashMap<String,GameAdvertisement> games;
@@ -49,8 +46,25 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
     private PlayerPresenceDiscover playerDiscover;
     private GameDiscover gameDiscover;
     private RegistrationDiscovery registrationDiscover;
-    
 
+    private   String Name;// = "foggiano";
+
+    private   int TcpPort;// = 9721;
+
+    private PeerID PID;// = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
+    private File ConfigurationFile;// = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
+
+
+    public PlayerManager(){
+        
+        this("foggiano",9721);
+    }
+    public PlayerManager(String name,int tcpPort){
+        this.Name=name;
+        this.TcpPort=tcpPort;
+        PID=IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
+        ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
+    }
     public void init() throws IOException, PeerGroupException{
         AdvertisementFactory.registerAdvertisementInstance(
                 PlayerAdvertisement.getAdvertisementType(),
@@ -65,11 +79,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
                 new RegistrationAdvertisement.Instantiator());
 
 
-        
-            
-            // Removing any existing configuration?
-            Tools.CheckForExistingConfigurationDeletion(Name, ConfigurationFile);
-
+            NetworkManager.RecursiveDelete(ConfigurationFile);
             // Creation of the network manager
              MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
                     Name, ConfigurationFile.toURI());
@@ -87,44 +97,42 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             MyNetworkConfigurator.setTcpIncoming(true);
             MyNetworkConfigurator.setTcpOutgoing(true);
 
-            // Setting the Peer ID
-            Tools.PopInformationMessage(Name, "Setting the peer ID to :\n\n" + PID.toString());
             MyNetworkConfigurator.setPeerID(PID);
             this.players=new HashMap<String, PlayerAdvertisement>();
             this.games=new HashMap<String, GameAdvertisement>();
-            // Starting the JXTA network
-            Tools.PopInformationMessage(Name, "Start the JXTA network and player discovery");
+            this.registrations=new HashMap<String, RegistrationAdvertisement>();
+            
             NetPeerGroup  = MyNetworkManager.startNetwork();
 
              playerDiscover=new PlayerPresenceDiscover();
              playerDiscover.init(NetPeerGroup);
-             playerDiscover.addPlayerListener(this);
+           //  playerDiscover.addPlayerListener(this);
              playerDiscover.startApp(null);
 
              gameDiscover=new GameDiscover();
              gameDiscover.init(NetPeerGroup);
-            gameDiscover.addGameListener(this);
+           // gameDiscover.addGameListener(this);
             gameDiscover.startApp(null);
 
             registrationDiscover=new RegistrationDiscovery();
             registrationDiscover.init(NetPeerGroup);
-            registrationDiscover.addRegistrationListener( this);
+      //      registrationDiscover.addRegistrationListener( this);
             registrationDiscover.startApp(null);
 
     }
 
-    public void findPlayers() throws PeerGroupException, IOException{
+    public List<PlayerAdvertisement> findPlayers() throws PeerGroupException, IOException{
         
         
         this.myPlayerAdvertisement=playerDiscover.announcePresence(10, Name);
-        playerDiscover.searchPlayers(true);
+        return playerDiscover.searchPlayers(true);
 
     }
 
-    public void findGames() throws PeerGroupException, IOException{
+    public List<GameAdvertisement> findGames() throws PeerGroupException, IOException{
         
         
-        gameDiscover.searchGames(true);
+        return gameDiscover.searchGames(true);
 
     }
 
@@ -142,8 +150,8 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         this.myRegistrationAdvertisement=this.registrationDiscover.announceRegistartion(gameId);
     }
 
-    public void findRegistrations(String gameID) throws IOException{
-        registrationDiscover.searchRegistrations(gameID, true);
+    public List<RegistrationAdvertisement> findRegistrations(String gameID) throws IOException{
+        return registrationDiscover.searchRegistrations(gameID, true);
     }
 
 
@@ -207,6 +215,19 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         gameDiscover.addGameListener(listener);
     }
 
+    public GameAdvertisement getMyGameAdvertisement() {
+        return myGameAdvertisement;
+    }
+
+    public PlayerAdvertisement getMyPlayerAdvertisement() {
+        return myPlayerAdvertisement;
+    }
+
+    public RegistrationAdvertisement getMyRegistrationAdvertisement() {
+        return myRegistrationAdvertisement;
+    }
+
+    
     
 
      
