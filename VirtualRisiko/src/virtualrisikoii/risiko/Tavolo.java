@@ -20,7 +20,7 @@ public  class Tavolo {
     private Mappa mappa;
     private List<Carta> carte;
     private List<Giocatore> giocatori;
-    
+    private Giocatore myGiocatore;
     private int numeroGiocatori;
     private int turno;
     private int minGiocatori=3;
@@ -31,19 +31,34 @@ public  class Tavolo {
     private boolean inizializzazione;
 
     private Attacco lastAttacco;
-    public Tavolo(){
+
+
+
+    private static Tavolo instance=null;
+    private  Tavolo(){
 
     }
 
-    public void iniTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori) throws MappaException{
-        dado=new Random();
+    public static Tavolo getInstance(){
+        return instance;
+    }
+
+    public static Tavolo createInstance(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards) throws MappaException{
+        instance=new Tavolo();
+        instance.initTavolo(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_cards);
+        return instance;
+    }
+
+    private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards) throws MappaException{
+        dado=new Random(seed_dice);
         this.mappa=mappa;
         this.obiettivi=obiettivi;
         this.turno=turno;
         this.numeroGiocatori=numeroGiocatori;
-        this.initGiocatori(numeroGiocatori);
-        this.assegnaTerritori();
-        this.initCarte();
+        this.initGiocatori(numeroGiocatori,seed_dice);
+        this.assegnaTerritori(seed_region);
+        this.initCarte(seed_cards);
+        this.myGiocatore=giocatori.get(myTurno);
         inizializzazione=true;
     }
 
@@ -74,6 +89,10 @@ public  class Tavolo {
  
     public Giocatore getGiocatoreCorrente(){
         return giocatori.get(turno);
+    }
+
+    public boolean isTurnoMyGiocatore(){
+        return getGiocatoreCorrente()==this.myGiocatore;
     }
     
     public void passaTurno(){
@@ -242,7 +261,7 @@ public  class Tavolo {
         return Rinforzo.getRinfornzo(g, c1, c2, c3, mappa);
     }
 
-    private boolean assegnaUnita(int unita,Territorio territorio){
+    public boolean assegnaUnita(int unita,Territorio territorio){
         Giocatore g=territorio.getOccupante();
         if(this.giocatori.get(turno)!=territorio.getOccupante()){
             return false;
@@ -262,7 +281,9 @@ public  class Tavolo {
     }
 
 
-    private void assegnaTerritori(){
+
+
+    private void assegnaTerritori(int seed){
         int giocatoreCorrente=0;
         Territorio[] territori=mappa.getNazioni();
         boolean[] occupati=new boolean[territori.length];
@@ -271,7 +292,7 @@ public  class Tavolo {
         }
 
         int territoriDisponibili=territori.length;
-        Random random=new Random();
+        Random random=new Random(seed);
         while(territoriDisponibili>0){
             int next=random.nextInt(territori.length);
             while(occupati[next]){
@@ -293,7 +314,7 @@ public  class Tavolo {
     }
 
 
-    private void initGiocatori(int numeroGiocatori){
+    private void initGiocatori(int numeroGiocatori,int seed){
        giocatori=new ArrayList<Giocatore>();
        if(numeroGiocatori<this.minGiocatori){
            numeroGiocatori=minGiocatori;
@@ -310,7 +331,7 @@ public  class Tavolo {
        }else if(numeroGiocatori==5){
            truppe=25;
        }else if(numeroGiocatori==6){
-           truppe=10;
+           truppe=20;
        }
        for(int i=0;i<numeroGiocatori;i++){
            g=new Giocatore(i);
@@ -318,7 +339,7 @@ public  class Tavolo {
            giocatori.add(g);
        }
 
-       Random random=new Random();
+       Random random=new Random(seed);
        for(int i=0;i<this.giocatori.size();i++){
            int obiettivoIndex=random.nextInt(this.obiettivi.size());
            Obiettivo obiettivo=obiettivi.get(obiettivoIndex);
@@ -328,7 +349,7 @@ public  class Tavolo {
 
     }
 
-    private void initCarte(){
+    private void initCarte(int seed){
         this.carte=new ArrayList<Carta>();
         Territorio[] territori=mappa.getNazioni();
         int numTerritori=territori.length/3;
@@ -394,6 +415,18 @@ public  class Tavolo {
         this.turno=0;
         assegnaRinforziSuTerritori(this.getGiocatoreCorrente());
 
+    }
+
+    public int getTurnoSuccessivo() {
+        int newTurno=(turno+1)%this.numeroGiocatori;
+        while(getGiocatoreCorrente().getStato()==Giocatore.FUORI_GIOCO){
+            newTurno=(newTurno+1)%this.numeroGiocatori;
+        }
+        return newTurno;
+    }
+
+    public Giocatore getMyGiocatore() {
+        return this.myGiocatore;
     }
 
    

@@ -130,7 +130,7 @@ public class RegistrationDiscovery implements DiscoveryListener {
 
     }
 
-    public RegistrationAdvertisement announceRegistartion(String gameID)
+    public RegistrationAdvertisement announceRegistartion(String peerName,String gameID)
     {
         System.out.println("registration  announcing");
         if (discovery != null)
@@ -144,7 +144,7 @@ public class RegistrationDiscovery implements DiscoveryListener {
 
             // Configure the new advertisement.
             registrationInfo.setGameID(gameID);
-            registrationInfo.setPeerID(localPeerID);
+            registrationInfo.setPeerID(peerName);
             registrationInfo.setTime(System.currentTimeMillis());
             
 

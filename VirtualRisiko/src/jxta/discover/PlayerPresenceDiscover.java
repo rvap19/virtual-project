@@ -188,7 +188,9 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
                 discovery.publish(presenceInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
                 // Publish the advertisement remotely.
                 discovery.remotePublish(presenceInfo,DEFAULT_LIFETIME);
-                this.publishPipeAdvertisement(name);
+
+                if(this.MyPipeAdvertisement==null)
+                    this.publishPipeAdvertisement(name);
             }
             catch (IOException e)
             {
@@ -298,10 +300,14 @@ discovery.addDiscoveryListener(this);
         MyPipeAdvertisement.setName(name+" Pipe");
         MyPipeAdvertisement.setDescription("Created by " + name);
 
-        this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
-        this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME);
+        this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION*60, DEFAULT_LIFETIME*60);
+        this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME*60);
 
         System.out.println("pipe adv published");
 
+    }
+
+    public PipeAdvertisement getPipeAdvertisement(){
+        return this.MyPipeAdvertisement;
     }
 }

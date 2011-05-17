@@ -11,7 +11,12 @@
 
 package virtualrisikoii;
 
+import java.io.IOException;
 import javax.swing.border.TitledBorder;
+import jxta.communication.Communicator;
+import net.jxta.endpoint.Message;
+import virtualrisikoii.listener.ChatListener;
+import virtualrisikoii.listener.PassListener;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Tavolo;
 import virtualrisikoii.risiko.Territorio;
@@ -20,13 +25,18 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class InformationPanel extends javax.swing.JPanel {
+public class InformationPanel extends javax.swing.JPanel implements ChatListener,PassListener{
 
     private Tavolo tavolo;
+    private Communicator communicator;
 
     /** Creates new form InformationPanel */
     public InformationPanel() {
         initComponents();
+        communicator=Communicator.getInstance();
+        communicator.addChatListener(this);
+        communicator.addPassListener(this);
+        this.obiettivoTextArea.setText(tavolo.getMyGiocatore().getObiettivo().toString());
     }
 
     public void setTavolo(Tavolo tavolo){
@@ -67,13 +77,13 @@ public class InformationPanel extends javax.swing.JPanel {
         rinforziOttenuti = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jTextField4 = new javax.swing.JTextField();
+        chatTextArea = new javax.swing.JTextArea();
+        chatMessageField = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        inviaATuttiButton = new javax.swing.JButton();
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(virtualrisikoii.VirtualRisikoIIApp.class).getContext().getResourceMap(InformationPanel.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(InformationPanel.class);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("Form.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, resourceMap.getFont("Form.border.titleFont"))); // NOI18N
         setName("Form"); // NOI18N
 
@@ -265,13 +275,13 @@ public class InformationPanel extends javax.swing.JPanel {
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setName("jTextArea2"); // NOI18N
-        jScrollPane2.setViewportView(jTextArea2);
+        chatTextArea.setColumns(20);
+        chatTextArea.setRows(5);
+        chatTextArea.setName("chatTextArea"); // NOI18N
+        jScrollPane2.setViewportView(chatTextArea);
 
-        jTextField4.setText(resourceMap.getString("jTextField4.text")); // NOI18N
-        jTextField4.setName("jTextField4"); // NOI18N
+        chatMessageField.setText(resourceMap.getString("chatMessageField.text")); // NOI18N
+        chatMessageField.setName("chatMessageField"); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setName("jComboBox1"); // NOI18N
@@ -279,11 +289,11 @@ public class InformationPanel extends javax.swing.JPanel {
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
 
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        inviaATuttiButton.setText(resourceMap.getString("inviaATuttiButton.text")); // NOI18N
+        inviaATuttiButton.setName("inviaATuttiButton"); // NOI18N
+        inviaATuttiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                inviaATuttiButtonActionPerformed(evt);
             }
         });
 
@@ -295,14 +305,14 @@ public class InformationPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chatMessageField, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(inviaATuttiButton)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -312,12 +322,12 @@ public class InformationPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chatMessageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(inviaATuttiButton)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -346,14 +356,41 @@ public class InformationPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_punteggioTextFieldActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void inviaATuttiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaATuttiButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String chatMessage=this.tavolo.getMyGiocatore().getNome()+" > "+this.chatMessageField.getText();
+        try {
+            Message msg = this.communicator.createChatMessage(Communicator.ChatAttributes.all, chatMessage);
+            communicator.sendMessage(msg);
+            communicator.waitForAck(msg, 6);
+            this.chatMessageField.setText("");
+        } catch (InterruptedException ex) {
+            System.out.println("impossibile inviare messaggio");
+            System.exit(1);
+        } catch (IOException ex) {
+            System.out.println("impossibile inviare messaggio");
+            System.exit(1);
+        }
+
+    }//GEN-LAST:event_inviaATuttiButtonActionPerformed
 
     private void passaTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passaTurnoButtonActionPerformed
         // TODO add your handling code here:
         if(!tavolo.isInizializzazione()){
             this.tavolo.passaTurno();
+            Message msg=this.communicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+            try {
+
+                        this.communicator.sendMessage(msg);
+                        this.communicator.waitForAck(msg, 6);
+
+                    } catch (InterruptedException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    } catch (IOException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    }
             this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
         }
         
@@ -373,7 +410,7 @@ public class InformationPanel extends javax.swing.JPanel {
         TitledBorder border=(TitledBorder) this.getBorder();
         border.setTitle("Informazioni Giocatore "+giocatore.getNome());
         
-        this.obiettivoTextArea.setText(giocatore.getObiettivo().toString());
+        
 
         this.numeroArmateDisponibili.setText(Integer.toString(giocatore.getArmateDisposte()));
         this.rinforziOttenuti.setText(Integer.toString(giocatore.getNumeroTruppe()));
@@ -400,8 +437,10 @@ public class InformationPanel extends javax.swing.JPanel {
     private javax.swing.JTextField avversarioTextField;
     private javax.swing.JTextField azioneTextField;
     private javax.swing.JTextField carteSelezionate;
+    private javax.swing.JTextField chatMessageField;
+    private javax.swing.JTextArea chatTextArea;
+    private javax.swing.JButton inviaATuttiButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
@@ -416,8 +455,6 @@ public class InformationPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField numeroArmateDisponibili;
     private javax.swing.JLabel obiettivoLabel;
     private javax.swing.JTextArea obiettivoTextArea;
@@ -425,6 +462,18 @@ public class InformationPanel extends javax.swing.JPanel {
     private javax.swing.JTextField punteggioTextField;
     private javax.swing.JTextField rinforziOttenuti;
     // End of variables declaration//GEN-END:variables
+
+    public void updateChat(String to, String messageString) {
+        this.chatTextArea.setText(chatTextArea.getText()+"\\n"+messageString);
+    }
+
+    public void updatePass(int turno_successivo) {
+        if(!tavolo.isInizializzazione()){
+            this.tavolo.passaTurno();
+            this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
+        }
+
+    }
 
     
 }

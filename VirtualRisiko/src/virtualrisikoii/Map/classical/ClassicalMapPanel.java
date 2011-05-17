@@ -13,13 +13,18 @@ package virtualrisikoii.Map.classical;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
+import jxta.communication.Communicator;
+import net.jxta.endpoint.Message;
 import virtualrisikoii.InformationPanel;
 import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIEndGameBox;
+import virtualrisikoii.listener.ApplianceListener;
+import virtualrisikoii.listener.AttackListener;
+import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Giocatore;
@@ -31,7 +36,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class ClassicalMapPanel extends javax.swing.JPanel {
+public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceListener,AttackListener,MovementListener {
 
     private JLabel[] territoriLabels;
     private Tavolo tavolo;
@@ -41,6 +46,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
     private Territorio firstSelection;
     private Territorio secondSelection;
     private int truppeSelezionate;
+
+    private Communicator comunicator;
 
 
     /** Creates new form ClassicalMapPanel */
@@ -94,6 +101,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
         for(int i=0;i<territoriLabels.length;i++){
             this.territoriLabels[i].addMouseListener(selector);
         }
+        this.comunicator=Communicator.getInstance();
+        comunicator.addApplianceListener(this);
+        comunicator.addAttackListener(this);
+        comunicator.addMovementListener(this);
     }
 
     public void setInformationPanel(InformationPanel panel){
@@ -435,17 +446,42 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void makeAction(JLabel label,java.awt.event.MouseEvent event){
+        if(!tavolo.isTurnoMyGiocatore()){
+            return;
+        }
         Territorio t=this.getTerritorio(label);
         if(this.tavolo.isInizializzazione()){
             if(truppeSelezionate<3&&this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
                 
                 if(tavolo.assegnaUnita(t)){
-                    truppeSelezionate++;
+                    try {
+                        Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
+                        comunicator.sendMessage(msg);
+                        comunicator.waitForAck(msg, 6);
+                        truppeSelezionate++;
+                    } catch (InterruptedException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    } catch (IOException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    }
                 }
             }
 
             if(truppeSelezionate==3){
-                tavolo.passaTurno();
+                try{
+                    Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+                    comunicator.sendMessage(msg);
+                    comunicator.waitForAck(msg, 6);
+                    tavolo.passaTurno();
+                }catch (InterruptedException ex) {
+                    System.out.println("impossibile inviare messaggio");
+                    System.exit(1);
+                } catch (IOException ex) {
+                    System.out.println("impossibile inviare messaggio");
+                    System.exit(1);
+                }
                 this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 truppeSelezionate=0;
             }
@@ -461,7 +497,18 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
 
         if(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==this.tavolo.getGiocatoreCorrente()){
             if(tavolo.assegnaUnita(t)){
-                
+                try {
+                        Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
+                        comunicator.sendMessage(msg);
+                        comunicator.waitForAck(msg, 6);
+
+                    } catch (InterruptedException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    } catch (IOException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    }
                 setLabel(t);
             }
             return;
@@ -495,6 +542,18 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
 
             if(azione!=null){
                 tavolo.eseguiAttacco((Attacco)azione);
+                try {
+                        Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
+                        comunicator.sendMessage(msg);
+                        comunicator.waitForAck(msg, 6);
+
+                    } catch (InterruptedException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    } catch (IOException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    }
                 
                 
                     
@@ -504,6 +563,18 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
                 azione=tavolo.preparaSpostamento(firstSelection, secondSelection, truppeSelezionate);
                 if(azione!=null){
                     tavolo.eseguiSpostamento((Spostamento) azione);
+                    try {
+                        Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
+                        comunicator.sendMessage(msg);
+                        comunicator.waitForAck(msg, 6);
+
+                    } catch (InterruptedException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    } catch (IOException ex) {
+                        System.out.println("impossibile inviare messaggio");
+                        System.exit(1);
+                    }
                     
                 }
             }
@@ -576,6 +647,120 @@ public class ClassicalMapPanel extends javax.swing.JPanel {
        }
        return this.tavolo.getMappa().getTerritorio(i-1);
    }
+
+    public void updateAppliance(int troops_number, int region) {
+
+        Territorio territorio=this.tavolo.getMappa().getTerritorio(region);
+        System.out.println("ricevuto messaggio di appliance per territorio "+territorio.getNome()+" di "+troops_number+" unita");
+        if(tavolo.assegnaUnita(troops_number, territorio)){
+            this.territoriLabels[region].setText(Integer.toString(territorio.getNumeroUnita()));
+        }else{
+            System.out.println("errore comunicazione appliance");
+            System.exit(1);
+        }
+    }
+
+    public void updateAttack(int troops_number, int from, int to) {
+        Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
+        Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
+        Azione azione=tavolo.preparaAttacco(fromTerritorio, toTerritorio, troops_number);
+        VirtualRisikoIIEndGameBox endGameBox;
+        System.out.println("ricevuto messaggio di attacco da territorio "+fromTerritorio.getNome()+"a territorio "+toTerritorio.getNome()+" con "+troops_number+" unita");
+            if(azione!=null){
+                tavolo.eseguiAttacco((Attacco)azione);
+
+                this.informationPanel.setAzione(azione.toString());
+                this.setLabel(azione.getDaTerritorio());
+                this.setLabel(azione.getaTerritorio());
+
+                if(azione.isAttacco()){
+                    int[] a=((Attacco)azione).getPunteggio();
+                    String s="";
+                    for(int i=0;i<a.length;i++){
+                        s=s+" - "+Integer.toString(a[i]);
+                    }
+                    this.informationPanel.setPunteggio(s);
+
+                    a=((Attacco)azione).getPunteggioAvversario();
+                     s="";
+                    for(int i=0;i<a.length;i++){
+                        s=s+" - "+Integer.toString(a[i]);
+                    }
+                    this.informationPanel.setPunteggioAvversario(s);
+
+
+                }else{
+                    this.informationPanel.setPunteggio("###");
+                    this.informationPanel.setPunteggioAvversario("###");
+                    this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
+                }
+
+                //azione diversa da null::controllare stato obiettivi
+                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
+
+                    JFrame mainFrame = VirtualRisikoIIApp.getApplication().getMainFrame();
+                    endGameBox = new VirtualRisikoIIEndGameBox(mainFrame);
+                    endGameBox.setLocationRelativeTo(mainFrame);
+
+                     VirtualRisikoIIApp.getApplication().show(endGameBox);
+                     System.exit(0);
+                }
+
+            }else{
+            System.out.println("errore comunicazione attacco");
+            System.exit(1);
+        }
+
+    }
+
+    public void updateMovement(int troops_number, int from, int to) {
+        Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
+        Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
+        Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection, truppeSelezionate);
+        VirtualRisikoIIEndGameBox endGameBox;
+        if(azione!=null){
+            tavolo.eseguiSpostamento((Spostamento) azione);
+
+                this.informationPanel.setAzione(azione.toString());
+                this.setLabel(azione.getDaTerritorio());
+                this.setLabel(azione.getaTerritorio());
+
+                if(azione.isAttacco()){
+                    int[] a=((Attacco)azione).getPunteggio();
+                    String s="";
+                    for(int i=0;i<a.length;i++){
+                        s=s+" - "+Integer.toString(a[i]);
+                    }
+                    this.informationPanel.setPunteggio(s);
+
+                    a=((Attacco)azione).getPunteggioAvversario();
+                     s="";
+                    for(int i=0;i<a.length;i++){
+                        s=s+" - "+Integer.toString(a[i]);
+                    }
+                    this.informationPanel.setPunteggioAvversario(s);
+
+
+                }else{
+                    this.informationPanel.setPunteggio("###");
+                    this.informationPanel.setPunteggioAvversario("###");
+                    this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
+                }
+
+                //azione diversa da null::controllare stato obiettivi
+                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
+
+                    JFrame mainFrame = VirtualRisikoIIApp.getApplication().getMainFrame();
+                    endGameBox = new VirtualRisikoIIEndGameBox(mainFrame);
+                    endGameBox.setLocationRelativeTo(mainFrame);
+
+                     VirtualRisikoIIApp.getApplication().show(endGameBox);
+                     System.exit(0);
+                }
+
+            }
+
+    }
 
    private class LabelSelector extends MouseAdapter{
        public void mouseClicked(MouseEvent e){
