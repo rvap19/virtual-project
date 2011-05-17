@@ -35,6 +35,8 @@ import net.jxta.exception.PeerGroupException;
 import net.jxta.protocol.PipeAdvertisement;
 import util.GameFactory;
 import util.ObiettiviException;
+import virtualrisikoii.VirtualRisikoIIApp;
+import virtualrisikoii.VirtualRisikoIIView;
 import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
@@ -417,10 +419,29 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         PipeAdvertisement myPipe=pipes.get(array[0].getPeerID()+" Pipe");
         try {
             Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe, pipesArray);
+            comuni.createInitMessage(0, "classicalMap", 0, 0);
+            GameFactory factory = new GameFactory();
+            //factory.loadGame("classicalMap");
+            factory.loadGame("classicalMap");
+            Mappa mappa = factory.getMappa();
+            List<Obiettivo> obiettivi = factory.getObiettivi();
+            int turno=0;
+            int numeroGiocatori=this.registrations.keySet().size();
+            int myTurno=0;
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, 0, 0, 0);
+            this.setVisible(false);
+            VirtualRisikoIIApp app=new VirtualRisikoIIApp();
+            app.show(new VirtualRisikoIIView(app));
+        } catch (MappaException ex) {
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ObiettiviException ex) {
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             System.out.println("impossibile avviare gioco ...comm problem");
             System.exit(1);
         }
+
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
 
@@ -533,6 +554,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 System.exit(1);
             }
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_card);
+            this.setVisible(false);
+            VirtualRisikoIIApp app=new VirtualRisikoIIApp();
+            app.show(new VirtualRisikoIIView(app));
         } catch (MappaException ex) {
             System.out.println("impossibile avviare gioco");
             System.exit(1);
