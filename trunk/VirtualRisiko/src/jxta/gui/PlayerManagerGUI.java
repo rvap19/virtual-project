@@ -392,12 +392,27 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             String gamaName = gamesList.getSelectedValue().toString();
             GameAdvertisement gameAdv = this.games.get(gamaName);
             this.manager.createRegistration(gameAdv.getGameID());
+            if(this.myName.equals(gameAdv.getCreatorID())){
+                return;
+            }
             PipeAdvertisement pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
+            int tentativi=10;
+            int counter=0;
+            while(pipeAdv==null&&counter<tentativi){
+                manager.findPlayers();
+                Thread.sleep(5000);
+                pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
+                counter++;
+            }
             Communicator comm=Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv, null);
             comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
+        } catch (InterruptedException ex) {
+            System.out.println("tempo scaduto...pipe creator non trovata");
+        } catch (PeerGroupException ex) {
+            System.out.println("group exception");
         } catch (IOException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("connection problem");
         }
 
 
@@ -416,7 +431,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             pipesArray[i]=this.pipes.get(array[i].getPeerID()+" Pipe");
         }
 
-        PipeAdvertisement myPipe=pipes.get(array[0].getPeerID()+" Pipe");
+        PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
         try {
             Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe, pipesArray);
             comuni.createInitMessage(0, "classicalMap", 0, 0);
