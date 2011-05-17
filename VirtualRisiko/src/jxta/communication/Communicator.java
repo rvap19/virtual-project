@@ -14,6 +14,8 @@ import net.jxta.endpoint.MessageElement;
 import net.jxta.endpoint.StringMessageElement;
 import net.jxta.pipe.InputPipe;
 import net.jxta.pipe.OutputPipe;
+import net.jxta.pipe.OutputPipeEvent;
+import net.jxta.pipe.OutputPipeListener;
 import net.jxta.pipe.PipeMsgEvent;
 import net.jxta.pipe.PipeMsgListener;
 import net.jxta.pipe.PipeService;
@@ -30,7 +32,7 @@ import virtualrisikoii.listener.PassListener;
  *
  * @author root
  */
-public class Communicator implements PipeMsgListener{
+public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     public static Communicator instance;
     
@@ -158,7 +160,7 @@ public class Communicator implements PipeMsgListener{
 
     private void init(PipeService pipeService,PipeAdvertisement myPipe,PipeAdvertisement creatorPipe,PipeAdvertisement[] peerPipeAdvs) throws IOException{
         this.pipeService=pipeService;
-        toPeers=pipeService.createOutputPipe(myPipe, 5*1000);
+        pipeService.createOutputPipe(myPipe,this);
         for(int i=0;i<peerPipeAdvs.length;i++){
             PipeAdvertisement currentAdv=peerPipeAdvs[i];
             if(currentAdv!=myPipe&&currentAdv!=creatorPipe){
@@ -402,6 +404,10 @@ public class Communicator implements PipeMsgListener{
 
        Message ackMSG=createACKMessage(current_message_id);
 
+    }
+
+    public void outputPipeEvent(OutputPipeEvent ope) {
+        this.toPeers=ope.getOutputPipe();
     }
 
     public class InitMessageAttributes{

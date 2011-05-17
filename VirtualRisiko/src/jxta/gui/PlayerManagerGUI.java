@@ -435,7 +435,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             try {
                 System.out.println(" ########## tentativo "+j);
                 manager.findPlayers();
-                Thread.sleep(2500);
+                Thread.sleep(1500);
                 for (int i = 0; i < array.length; i++) {
                     pipesArray[i] = this.pipes.get(array[i].getPeerID() + " Pipe");
                     System.out.println("-------->>>>> "+array[i].getPeerID()+" esistente "+pipesArray[i]!=null);
@@ -472,7 +472,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             VirtualRisikoIIApp app=new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
         } catch (InterruptedException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("impossibile avviare gioco ...comm problem");
+            System.exit(1);
         } catch (MappaException ex) {
             Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ObiettiviException ex) {
