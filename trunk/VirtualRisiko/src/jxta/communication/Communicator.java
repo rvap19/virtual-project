@@ -80,6 +80,7 @@ public class Communicator implements PipeMsgListener{
     public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator,PipeAdvertisement[] peerPipes) throws IOException{
         instance=new Communicator();
         instance.creatorPipe=pipeCreator;
+        instance.pipeService=pipeService;
         if(!creator)
             instance.initComm(pipeService,pipeCreator);
         else{
@@ -98,6 +99,7 @@ public class Communicator implements PipeMsgListener{
 
     private void initComm(PipeService pipeS,PipeAdvertisement creatorAdvertisementPipe) throws IOException{
         this.creatorPipe=creatorAdvertisementPipe;
+        this.pipeService=pipeS;
         InputPipe input=pipeService.createInputPipe(creatorAdvertisementPipe, this);
     }
 
