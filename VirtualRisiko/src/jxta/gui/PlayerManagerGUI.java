@@ -437,6 +437,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 Thread.sleep(2500);
                 for (int i = 0; i < array.length; i++) {
                     pipesArray[i] = this.pipes.get(array[i].getPeerID() + " Pipe");
+                    System.out.println("-------->>>>> "+array[i].getPeerID()+" esistente "+pipesArray[i]!=null);
                 }
             } catch (InterruptedException ex) {
                 System.out.println("impossibile contattare peer");
