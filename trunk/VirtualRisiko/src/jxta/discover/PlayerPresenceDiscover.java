@@ -189,7 +189,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
                 // Publish the advertisement remotely.
                 discovery.remotePublish(presenceInfo,DEFAULT_LIFETIME);
 
-                if(this.MyPipeAdvertisement==null)
+                
                     this.publishPipeAdvertisement(name);
             }
             catch (IOException e)
@@ -292,13 +292,15 @@ discovery.addDiscoveryListener(this);
         System.out.println("publishing pipe adv");
         // Creating a Pipe Advertisement
         String newName="Player "+name;
-        MyPipeAdvertisement = (PipeAdvertisement) AdvertisementFactory.newAdvertisement(PipeAdvertisement.getAdvertisementType());
-        PipeID MyPipeID = IDFactory.newPipeID(PeerGroupID.defaultNetPeerGroupID, newName.getBytes());
+        if(MyPipeAdvertisement==null){
+            MyPipeAdvertisement = (PipeAdvertisement) AdvertisementFactory.newAdvertisement(PipeAdvertisement.getAdvertisementType());
+            PipeID MyPipeID = IDFactory.newPipeID(PeerGroupID.defaultNetPeerGroupID, newName.getBytes());
 
-        MyPipeAdvertisement.setPipeID(MyPipeID);
-        MyPipeAdvertisement.setType(PipeService.PropagateType);
-        MyPipeAdvertisement.setName(name+" Pipe");
-        MyPipeAdvertisement.setDescription("Created by " + name);
+            MyPipeAdvertisement.setPipeID(MyPipeID);
+            MyPipeAdvertisement.setType(PipeService.PropagateType);
+            MyPipeAdvertisement.setName(name+" Pipe");
+            MyPipeAdvertisement.setDescription("Created by " + name);
+        }
 
         this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION*60, DEFAULT_LIFETIME*60);
         this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME*60);

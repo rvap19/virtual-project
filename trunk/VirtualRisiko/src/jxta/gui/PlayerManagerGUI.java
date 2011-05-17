@@ -396,11 +396,11 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 return;
             }
             PipeAdvertisement pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
-            int tentativi=10;
+            int tentativi=5;
             int counter=0;
             while(pipeAdv==null&&counter<tentativi){
                 manager.findPlayers();
-                Thread.sleep(5000);
+                Thread.sleep(2500);
                 pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
                 counter++;
             }
