@@ -402,6 +402,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 manager.findPlayers();
                 Thread.sleep(2500);
                 pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
+                System.out.println("tentativo "+counter+" "+pipeAdv.getName()+" non trovata ");
                 counter++;
             }
 
