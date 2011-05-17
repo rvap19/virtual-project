@@ -551,7 +551,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
               *  per prima cosa continuare l'inizializzazione del communicator
               */
 
-
+            System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");

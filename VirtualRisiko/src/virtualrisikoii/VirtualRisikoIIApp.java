@@ -39,7 +39,5 @@ public class VirtualRisikoIIApp extends SingleFrameApplication {
     /**
      * Main method launching the application.
      */
-    public static void main(String[] args) {
-        launch(VirtualRisikoIIApp.class, args);
-    }
+    
 }
