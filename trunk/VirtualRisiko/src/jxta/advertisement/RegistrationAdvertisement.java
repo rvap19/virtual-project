@@ -14,6 +14,7 @@ import net.jxta.document.Element;
 import net.jxta.document.TextElement;
 import net.jxta.id.ID;
 import net.jxta.id.IDFactory;
+import net.jxta.protocol.PipeAdvertisement;
 
 public class RegistrationAdvertisement  extends Advertisement implements Comparable<RegistrationAdvertisement> {
     
@@ -143,6 +144,9 @@ public class RegistrationAdvertisement  extends Advertisement implements Compara
 
         MyTempElement = TheResult.createElement(tagPeerID, peerID);
         TheResult.appendChild(MyTempElement);
+
+        PipeAdvertisement a;
+        
         
         return TheResult;
         

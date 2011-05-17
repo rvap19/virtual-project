@@ -97,24 +97,13 @@ public class VirtualRisikoIIView extends FrameView {
         });
          dialog=new MicroMapDialog(this.getFrame(), false);
 
-         GameFactory factory=new GameFactory();
-        try {
-            factory.loadGame("classicalMap");
-            Mappa mappa=factory.getMappa();
-            List<Obiettivo> obiettivi=factory.getObiettivi();
-            tavolo=new Tavolo();
-            tavolo.iniTavolo(mappa, obiettivi, 0, 6);
+            tavolo=Tavolo.getInstance();
+            
             classicalMapPanel1.initMap(tavolo);
             classicalMapPanel1.setInformationPanel(informationPanel1);
             informationPanel1.setTavolo(tavolo);
             informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-        } catch (MappaException ex) {
-            Logger.getLogger(VirtualRisikoIIView.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(-1);
-        } catch (ObiettiviException ex) {
-            Logger.getLogger(VirtualRisikoIIView.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(-1);
-        }
+        
          
          this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
 

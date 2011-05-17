@@ -12,13 +12,11 @@
 package jxta.gui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -27,25 +25,36 @@ import jxta.PlayerManager;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.PlayerAdvertisement;
 import jxta.advertisement.RegistrationAdvertisement;
+import jxta.communication.Communicator;
 import jxta.listener.GameListener;
+import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
 import jxta.listener.RegistrationListener;
 import net.jxta.document.Advertisement;
 import net.jxta.exception.PeerGroupException;
-import org.jdesktop.swingbinding.JListBinding;
+import net.jxta.protocol.PipeAdvertisement;
+import util.GameFactory;
+import util.ObiettiviException;
+import virtualrisikoii.listener.InitListener;
+import virtualrisikoii.risiko.Mappa;
+import virtualrisikoii.risiko.MappaException;
+import virtualrisikoii.risiko.Obiettivo;
+import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
  * @author root
  */
-public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,RegistrationListener {
+public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener , InitListener{
 
     private PlayerManager manager;
     private GameDialog gameDialog;
+    private String myName;
 
     private HashMap<String,PlayerAdvertisement>players;
     private HashMap<String,GameAdvertisement>games;
     private HashMap<String,RegistrationAdvertisement>registrations;
+    private HashMap<String,PipeAdvertisement> pipes;
     /** Creates new form PlayerManagerGUI */
     
     public PlayerManagerGUI() throws IOException,PeerGroupException{
@@ -57,7 +66,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         
         
         manager=new PlayerManager(name,port);
-
+        myName=name;
         
         gameDialog=new GameDialog(this, true);
         
@@ -65,12 +74,13 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         players=new HashMap<String, PlayerAdvertisement>();
         games=new HashMap<String, GameAdvertisement>();
         registrations=new HashMap<String, RegistrationAdvertisement>();
-
+        pipes=new HashMap<String,PipeAdvertisement>();
         manager.init();
         
         manager.addRegistrationListener(this);
         manager.addGameListener(this);
         manager.addPlayerListener(this);
+        manager.addPipeListener(this);
         manager.findGames();
         manager.findPlayers();
         
@@ -208,6 +218,11 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
         jButton5.setText("start my game");
         jButton5.setName("jButton5"); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/sfondo.jpg"))); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
@@ -264,11 +279,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addContainerGap())
@@ -378,6 +390,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             String gamaName = gamesList.getSelectedValue().toString();
             GameAdvertisement gameAdv = this.games.get(gamaName);
             this.manager.createRegistration(gameAdv.getGameID());
+            PipeAdvertisement pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
+            Communicator comm=Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv, null);
+            comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
         } catch (IOException ex) {
             Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -386,6 +401,27 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Collection<RegistrationAdvertisement> reg=this.registrations.values();
+        RegistrationAdvertisement[] array=new RegistrationAdvertisement[reg.size()];
+        array=reg.toArray(array);
+        Arrays.sort(array);
+
+        PipeAdvertisement[] pipesArray=new  PipeAdvertisement[array.length-1];
+        for(int i=0;i<array.length;i++){
+            pipesArray[i]=this.pipes.get(array[i].getPeerID()+" Pipe");
+        }
+
+        PipeAdvertisement myPipe=pipes.get(array[0].getPeerID()+" Pipe");
+        try {
+            Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe, pipesArray);
+        } catch (IOException ex) {
+            System.out.println("impossibile avviare gioco ...comm problem");
+            System.exit(1);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     /**
@@ -452,5 +488,60 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             model.addElement(key);
         }
     }
+
+    public void pipeUpdated(PipeAdvertisement pipeInfo) {
+        this.pipes.put(pipeInfo.getName(), pipeInfo);
+    }
+
+    public void init(int seed_dice, String map_name, int seed_card, int seed_region) {
+        try {/*
+              *  per prima cosa continuare l'inizializzazione del communicator
+              */
+
+
+
+            GameFactory factory = new GameFactory();
+            //factory.loadGame("classicalMap");
+            factory.loadGame(map_name);
+            Mappa mappa = factory.getMappa();
+            List<Obiettivo> obiettivi = factory.getObiettivi();
+            int turno=0;
+            int numeroGiocatori=this.registrations.keySet().size();
+            int myTurno;
+            
+            RegistrationAdvertisement[] array=new RegistrationAdvertisement[registrations.keySet().size()];
+            array=registrations.values().toArray(array);
+            Arrays.sort(array);
+            boolean trovato=false;
+            int counter=0;
+            while(!trovato){
+                trovato=array[counter].getPeerID().equals(myName);
+                counter++;
+            }
+            myTurno=counter-1;
+            
+            PipeAdvertisement[] pipArray=new PipeAdvertisement[array.length];
+            for(int i=0;i<array.length;i++){
+                pipArray[i]=pipes.get(array[i].getPeerID()+" Pipe");
+            }
+
+            PipeAdvertisement myPipe=pipes.get(array[myTurno].getPeerID()+" Pipe");
+            try {
+                Communicator.updatePipes(myPipe, pipArray);
+            } catch (IOException ex) {
+                System.out.println("impossibile avviare gioco");
+                System.exit(1);
+            }
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_card);
+        } catch (MappaException ex) {
+            System.out.println("impossibile avviare gioco");
+            System.exit(1);
+        } catch (ObiettiviException ex) {
+            System.out.println("impossbile avviare gioco");
+        }
+
+    }
+
+    
 
 }

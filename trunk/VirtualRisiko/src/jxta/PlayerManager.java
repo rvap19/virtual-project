@@ -15,6 +15,7 @@ import jxta.advertisement.RegistrationAdvertisement;
 import jxta.discover.GameDiscover;
 import jxta.discover.RegistrationDiscovery;
 import jxta.listener.GameListener;
+import jxta.listener.PipeListener;
 import jxta.listener.RegistrationListener;
 import net.jxta.discovery.DiscoveryService;
 import net.jxta.document.AdvertisementFactory;
@@ -23,8 +24,10 @@ import net.jxta.id.IDFactory;
 import net.jxta.peer.PeerID;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.peergroup.PeerGroupID;
+import net.jxta.pipe.OutputPipe;
 import net.jxta.platform.NetworkConfigurator;
 import net.jxta.platform.NetworkManager;
+import net.jxta.protocol.PipeAdvertisement;
 
 public class PlayerManager implements PlayerListener,GameListener,RegistrationListener {
     
@@ -54,6 +57,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
     private PeerID PID;// = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
     private File ConfigurationFile;// = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
 
+    private OutputPipe outputPipe;
 
     public PlayerManager(){
         
@@ -64,6 +68,10 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         this.TcpPort=tcpPort;
         PID=IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
         ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
+    }
+
+    public PipeAdvertisement getOutputPipe(){
+        return this.playerDiscover.getPipeAdvertisement();
     }
     public void init() throws IOException, PeerGroupException{
         AdvertisementFactory.registerAdvertisementInstance(
@@ -125,10 +133,14 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         
         
         this.myPlayerAdvertisement=playerDiscover.announcePresence(10, Name);
+        
         return playerDiscover.searchPlayers(true);
 
     }
 
+    public void addPipeListener(PipeListener listener){
+        this.playerDiscover.addPlayerPipeListener(listener);
+    }
     public List<GameAdvertisement> findGames() throws PeerGroupException, IOException{
         
         
@@ -140,14 +152,14 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         if(myGameAdvertisement!=null){
             this.NetPeerGroup.getDiscoveryService().flushAdvertisement(myGameAdvertisement);
         }
-        this.myGameAdvertisement=this.gameDiscover.announceGame(max, name);
+        this.myGameAdvertisement=this.gameDiscover.announceGame(Name,max, name);
     }
 
     public void createRegistration(String gameId) throws IOException{
         if(myRegistrationAdvertisement!=null){
             this.NetPeerGroup.getDiscoveryService().flushAdvertisement(myRegistrationAdvertisement);
         }
-        this.myRegistrationAdvertisement=this.registrationDiscover.announceRegistartion(gameId);
+        this.myRegistrationAdvertisement=this.registrationDiscover.announceRegistartion(Name,gameId);
     }
 
     public List<RegistrationAdvertisement> findRegistrations(String gameID) throws IOException{
@@ -227,6 +239,9 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         return myRegistrationAdvertisement;
     }
 
+    public PeerGroup getPeerGroup(){
+        return this.NetPeerGroup;
+    }
     
     
 

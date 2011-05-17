@@ -364,7 +364,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTextField4" min="-2" pref="274" max="-2" attributes="0"/>
+                          <Component id="chatMessageField" min="-2" pref="274" max="-2" attributes="0"/>
                           <EmptySpace pref="74" max="32767" attributes="0"/>
                           <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -372,7 +372,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="inviaATuttiButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -386,13 +386,13 @@
                   <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chatMessageField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="inviaATuttiButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -409,19 +409,19 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea2">
+            <Component class="javax.swing.JTextArea" name="chatTextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="name" type="java.lang.String" value="jTextArea2" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="chatTextArea" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="chatMessageField">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="jTextField4.text"/>
-            <Property name="name" type="java.lang.String" value="jTextField4" noResource="true"/>
+            <Property name="text" type="java.lang.String" resourceKey="chatMessageField.text"/>
+            <Property name="name" type="java.lang.String" value="chatMessageField" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -443,13 +443,13 @@
             <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="inviaATuttiButton">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="jButton2.text"/>
-            <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+            <Property name="text" type="java.lang.String" resourceKey="inviaATuttiButton.text"/>
+            <Property name="name" type="java.lang.String" value="inviaATuttiButton" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inviaATuttiButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
