@@ -89,7 +89,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
             NetworkManager.RecursiveDelete(ConfigurationFile);
             // Creation of the network manager
-             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
+             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS,
                     Name, ConfigurationFile.toURI());
 
 
