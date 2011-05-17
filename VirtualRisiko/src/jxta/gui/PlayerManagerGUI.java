@@ -31,6 +31,7 @@ import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
 import jxta.listener.RegistrationListener;
 import net.jxta.document.Advertisement;
+import net.jxta.endpoint.Message;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.protocol.PipeAdvertisement;
 import util.GameFactory;
@@ -451,7 +452,13 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
         try {
             Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe, pipesArray);
-            comuni.createInitMessage(0, "classicalMap", 0, 0);
+            Message msg=comuni.createInitMessage(0, "classicalMap", 0, 0);
+            comuni.sendMessage(msg);
+            comuni.waitForAck(msg, 6);
+
+
+
+
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
             factory.loadGame("classicalMap");
@@ -464,6 +471,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             this.setVisible(false);
             VirtualRisikoIIApp app=new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MappaException ex) {
             Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ObiettiviException ex) {
