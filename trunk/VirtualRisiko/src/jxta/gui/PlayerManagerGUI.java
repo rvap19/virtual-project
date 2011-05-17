@@ -428,10 +428,23 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         RegistrationAdvertisement[] array=new RegistrationAdvertisement[reg.size()];
         array=reg.toArray(array);
         Arrays.sort(array);
-
         PipeAdvertisement[] pipesArray=new  PipeAdvertisement[array.length];
-        for(int i=0;i<array.length;i++){
-            pipesArray[i]=this.pipes.get(array[i].getPeerID()+" Pipe");
+
+        for(int j=0;j<4;j++){
+            try {
+                System.out.println(" ########## tentativo "+j);
+                manager.findPlayers();
+                Thread.sleep(2500);
+                for (int i = 0; i < array.length; i++) {
+                    pipesArray[i] = this.pipes.get(array[i].getPeerID() + " Pipe");
+                }
+            } catch (InterruptedException ex) {
+                System.out.println("impossibile contattare peer");
+            } catch (PeerGroupException ex) {
+                System.out.println("impossibile contattare peer");
+            } catch (IOException ex) {
+                System.out.println("impossibile contattare peer");
+            }
         }
 
         PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
