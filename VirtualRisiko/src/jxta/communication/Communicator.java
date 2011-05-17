@@ -158,14 +158,14 @@ public class Communicator implements PipeMsgListener{
 
     private void init(PipeService pipeService,PipeAdvertisement myPipe,PipeAdvertisement creatorPipe,PipeAdvertisement[] peerPipeAdvs) throws IOException{
         this.pipeService=pipeService;
-        
+        toPeers=pipeService.createOutputPipe(myPipe, 5*1000);
         for(int i=0;i<peerPipeAdvs.length;i++){
             PipeAdvertisement currentAdv=peerPipeAdvs[i];
             if(currentAdv!=myPipe&&currentAdv!=creatorPipe){
                  InputPipe input=pipeService.createInputPipe(currentAdv, this);
             }
         }
-        toPeers=pipeService.createOutputPipe(myPipe, 5*1000);
+        
         
     }
 
@@ -179,7 +179,7 @@ public class Communicator implements PipeMsgListener{
     public void waitForAck(Message message,int loops) throws InterruptedException, IOException{
         acked=0;
         for(int i=0;i<loops;i++){
-            Thread.sleep(5000);
+            Thread.sleep(1500);
             if(this.acked==player)
                 return;
             toPeers.send(message);
@@ -378,8 +378,10 @@ public class Communicator implements PipeMsgListener{
 
     public void pipeMsgEvent(PipeMsgEvent pme) {
        Message msg=pme.getMessage();
+       System.out.println(msg);
        String messageType=msg.getMessageElement(namespace, type).toString();
 
+       
        if(messageType.equals(INIT)){
            this.elaborateInitMessage(msg);
        }else if(messageType.equals(APPLIANCE)){
