@@ -36,6 +36,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         communicator=Communicator.getInstance();
         communicator.addChatListener(this);
         communicator.addPassListener(this);
+        tavolo=Tavolo.getInstance();
         this.obiettivoTextArea.setText(tavolo.getMyGiocatore().getObiettivo().toString());
     }
 
