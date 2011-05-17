@@ -426,7 +426,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         array=reg.toArray(array);
         Arrays.sort(array);
 
-        PipeAdvertisement[] pipesArray=new  PipeAdvertisement[array.length-1];
+        PipeAdvertisement[] pipesArray=new  PipeAdvertisement[array.length];
         for(int i=0;i<array.length;i++){
             pipesArray[i]=this.pipes.get(array[i].getPeerID()+" Pipe");
         }
