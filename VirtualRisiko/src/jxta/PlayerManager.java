@@ -243,55 +243,13 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         return this.NetPeerGroup;
     }
     
-    
+    public PipeAdvertisement getMyPipeAdvertisement(){
+        return this.playerDiscover.getPipeAdvertisement();
+    }
 
      
     
-    public static void main(String[] args) throws IOException, PeerGroupException, InterruptedException  {
-        AdvertisementFactory.registerAdvertisementInstance(
-                PlayerAdvertisement.getAdvertisementType(),
-                new PlayerAdvertisement.Instantiator());
-
-        AdvertisementFactory.registerAdvertisementInstance(
-                GameAdvertisement.getAdvertisementType(),
-                new GameAdvertisement.Instantiator());
-        
-            PlayerManager socializer=new PlayerManager();
-            socializer.init();
-            socializer.findPlayers();
-            socializer.createGame("scemo  ki legge", 6);
-
-
-            Thread.sleep(10*1000);
-
-            socializer.findPlayers();
-            socializer.createGame("scemo  ki legge", 6);
-            socializer.findGames();
-
-            Thread.sleep(10*1000);
-           
-            
-            
-            
-        
-
    
-
-
-
-        
-            
-            
-            
-            
-            
-            
-       
-
-    }
-
-
-
 
 
 }
