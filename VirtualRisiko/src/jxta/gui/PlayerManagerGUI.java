@@ -404,6 +404,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 pipeAdv=pipes.get(gameAdv.getCreatorID()+" Pipe");
                 counter++;
             }
+
+            System.out.println("trovata pipe del creatore ??????? "+pipeAdv!=null);
             Communicator comm=Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv, null);
             comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
