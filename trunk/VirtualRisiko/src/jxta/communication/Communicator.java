@@ -380,6 +380,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     public void pipeMsgEvent(PipeMsgEvent pme) {
        Message msg=pme.getMessage();
+       
        System.out.println(msg);
        String messageType=msg.getMessageElement(namespace, type).toString();
 
