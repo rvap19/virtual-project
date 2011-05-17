@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.MessageElement;
 import net.jxta.endpoint.StringMessageElement;
@@ -182,8 +184,10 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         acked=0;
         for(int i=0;i<loops;i++){
             Thread.sleep(1500);
-            if(this.acked==player)
+            if(this.acked==player){
+                this.current_message_id++;
                 return;
+            }
             toPeers.send(message);
         }
     }
@@ -381,12 +385,28 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     public void pipeMsgEvent(PipeMsgEvent pme) {
        Message msg=pme.getMessage();
        
-       System.out.println(msg);
+       System.out.println(msg.getMessageElement(type).toString());
+
        String messageType=msg.getMessageElement(namespace, type).toString();
 
-       
+       int id=-1;
+       try{
+           id=new Integer(msg.getMessageElement(namespace, ID_MSG).toString()).intValue();
+       }catch(Exception e){
+
+       }
+       if(id<current_message_id){
+           Message simpleAck=createACKMessage(id);
+            try {
+                toPeers.send(simpleAck);
+            } catch (IOException ex) {
+                System.out.println("simple msk ack ");
+            }
+       }
+
        if(messageType.equals(INIT)){
            this.elaborateInitMessage(msg);
+
        }else if(messageType.equals(APPLIANCE)){
            this.elaborateApplianceMessage(msg);
        }else if(messageType.equals(ATTACK)){
@@ -399,11 +419,17 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
            this.elaboratePassesMessage(msg);
        }else if(messageType.equals(ACK)){
            this.elaborateAckMessage(msg);
+           return;
        }else if(messageType.equals(CHAT)){
            this.elaborateChatMessage(msg);
+           return;
+       }else{
+           return;
        }
 
+
        Message ackMSG=createACKMessage(current_message_id);
+       current_message_id++;
 
     }
 
