@@ -390,6 +390,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     }
 
     public void pipeMsgEvent(PipeMsgEvent pme) {
+        
        Message msg=pme.getMessage();
        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
        
