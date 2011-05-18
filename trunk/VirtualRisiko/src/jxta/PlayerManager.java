@@ -100,10 +100,10 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
             // Checking if RendezVous_Jack should be a seed
 
-            String TheSeed = "tcp:// 192.168.1.111:" +Integer.toString(TcpPort);
+           /* String TheSeed = "tcp:// 192.168.1.111:" +Integer.toString(TcpPort);
             Tools.CheckForRendezVousSeedAddition(Name, TheSeed, MyNetworkConfigurator);
             URI LocalSeedingRendezVousURI = URI.create(TheSeed);
-            MyNetworkConfigurator.addSeedRendezvous(LocalSeedingRendezVousURI);
+            MyNetworkConfigurator.addSeedRendezvous(LocalSeedingRendezVousURI);*/
             // Setting Configuration
             MyNetworkConfigurator.setTcpPort(TcpPort);
             MyNetworkConfigurator.setTcpEnabled(true);
@@ -117,6 +117,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             
             NetPeerGroup  = MyNetworkManager.startNetwork();
              NetPeerGroup.getRendezVousService().setAutoStart(true);
+             MyNetworkManager.waitForRendezvousConnection(120000);
              playerDiscover=new PlayerPresenceDiscover();
              playerDiscover.init(NetPeerGroup);
            //  playerDiscover.addPlayerListener(this);
