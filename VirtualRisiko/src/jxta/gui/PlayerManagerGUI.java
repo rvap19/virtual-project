@@ -352,7 +352,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
            System.out.println("impossbile creare gioco "+name);
         }
 
-      PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
+      PipeAdvertisement myPipe=this.pipes.get(this.manager.getMyGameAdvertisement().getCreatorID()+" Pipe");
         try {
             Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
         } catch (IOException ex) {
@@ -409,7 +409,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             int tentativi = 5;
             int counter = 0;
             pipeAdv = pipes.get(gameAdv.getCreatorID() + " Pipe");
-            System.out.println("trovata pipe del creatore ??????? " + pipeAdv != null);
+            System.out.println("trovata pipe del creatore ??????? " + (pipeAdv != null));
             Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv);
             comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());

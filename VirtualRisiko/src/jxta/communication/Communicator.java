@@ -391,7 +391,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     public void pipeMsgEvent(PipeMsgEvent pme) {
        Message msg=pme.getMessage();
-       
+       System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
        
        System.out.println(msg.getMessageElement(type).toString()+" FROM "+msg.getMessageElement(GAMER)+" ID "+msg.getMessageElement(ID_MSG));
 
@@ -442,6 +442,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     }
 
     public void outputPipeEvent(OutputPipeEvent ope) {
+        System.out.println("###################################################################BINDING PIPEEEEEEEEEEEEEEEEEE");
         this.toPeers=ope.getOutputPipe();
         
     }
