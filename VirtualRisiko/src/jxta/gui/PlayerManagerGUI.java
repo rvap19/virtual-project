@@ -470,6 +470,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
         
         try {
+            int numeroGiocatori=this.registrations.keySet().size();
              Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,new HashSet<ID>());
            // Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
             Communicator.updatePipes(myPipe, pipesArray);
@@ -480,7 +481,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                  Thread.sleep(2500);
             }
                  comuni=Communicator.getInstance();
-                 msg=comuni.createInitMessage(0, "classicalMap", 0, 0);
+                 msg=comuni.createInitMessage(numeroGiocatori,0, "classicalMap", 0, 0);
                 comuni.sendMessage(msg);
                 comuni.waitForAck(msg, 10);
 
@@ -494,7 +495,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno=0;
-            int numeroGiocatori=this.registrations.keySet().size();
+            
             int myTurno=0;
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, 0, 0, 0);
             this.setVisible(false);
@@ -585,7 +586,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         this.pipes.put(pipeInfo.getName(), pipeInfo);
     }
 
-    public void init(int seed_dice, String map_name, int seed_card, int seed_region) {
+    public void init(int players,int seed_dice, String map_name, int seed_card, int seed_region) {
         try {/*
               *  per prima cosa continuare l'inizializzazione del communicator
               */
@@ -601,7 +602,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno=0;
-            int numeroGiocatori=this.registrations.keySet().size();
+            int numeroGiocatori=players;
             int myTurno;
             
             RegistrationAdvertisement[] array=new RegistrationAdvertisement[registrations.keySet().size()];

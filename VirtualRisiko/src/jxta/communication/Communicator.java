@@ -207,7 +207,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         }
     }
 
-    public Message createInitMessage(int seed_dice,String map_name,int seed_card,int seed_region){
+    public Message createInitMessage(int players,int seed_dice,String map_name,int seed_card,int seed_region){
         Message message=new Message();
         StringMessageElement mE=new StringMessageElement(type, INIT, null);
         message.addMessageElement(namespace, mE);
@@ -220,6 +220,8 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         message.addMessageElement(namespace, mElement);
         mElement = new StringMessageElement(InitMessageAttributes.SEED_REGION,Integer.toString(seed_region), null);
         message.addMessageElement(namespace, mElement);
+        mElement = new StringMessageElement(InitMessageAttributes.PLAYERS,Integer.toString(players), null);
+        message.addMessageElement(namespace, mElement);
         return message;
 
     }
@@ -229,9 +231,10 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         String map_name=message.getMessageElement(namespace, InitMessageAttributes.MAP_NAME).toString();
         int seed_card=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_CARDS).toString());
         int seed_region=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_REGION).toString());
+        int players=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.PLAYERS).toString());
         Iterator<InitListener> listeners=this.initListeners.iterator();
         while(listeners.hasNext()){
-            listeners.next().init(seed_dice, map_name, seed_card, seed_region);
+            listeners.next().init(players,seed_dice, map_name, seed_card, seed_region);
         }
     }
 
@@ -461,6 +464,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         public static final String MAP_NAME="map_name";
         public static final String SEED_CARDS="seed_cards";
         public static final String SEED_REGION="seed_region";
+        public static final String PLAYERS="players_number";
     }
 
     public class ApplianceAttributes{
