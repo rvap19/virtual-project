@@ -95,6 +95,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
             // Retrieving the network configurator
             NetworkConfigurator MyNetworkConfigurator = MyNetworkManager.getConfigurator();
+           
 
             // Checking if RendezVous_Jack should be a seed
 
@@ -111,7 +112,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             this.registrations=new HashMap<String, RegistrationAdvertisement>();
             
             NetPeerGroup  = MyNetworkManager.startNetwork();
-
+             NetPeerGroup.getRendezVousService().setAutoStart(true);
              playerDiscover=new PlayerPresenceDiscover();
              playerDiscover.init(NetPeerGroup);
            //  playerDiscover.addPlayerListener(this);
