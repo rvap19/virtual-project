@@ -63,6 +63,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     private HashMap<String,GameAdvertisement>games;
     private HashMap<String,RegistrationAdvertisement>registrations;
     private HashMap<String,PipeAdvertisement> pipes;
+
+    private boolean receivedInit=false;
     /** Creates new form PlayerManagerGUI */
     
     public PlayerManagerGUI() throws IOException,PeerGroupException{
@@ -574,7 +576,10 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         try {/*
               *  per prima cosa continuare l'inizializzazione del communicator
               */
+            if(receivedInit)
+                return;
 
+            receivedInit=true;
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             GameFactory factory = new GameFactory();
