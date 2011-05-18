@@ -7,6 +7,7 @@ import jxta.listener.PlayerListener;
 import jxta.advertisement.PlayerAdvertisement;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -99,7 +100,10 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
             // Checking if RendezVous_Jack should be a seed
 
-
+            String TheSeed = "tcp:// 192.168.1.111:" +Integer.toString(TcpPort);
+            Tools.CheckForRendezVousSeedAddition(Name, TheSeed, MyNetworkConfigurator);
+            URI LocalSeedingRendezVousURI = URI.create(TheSeed);
+            MyNetworkConfigurator.addSeedRendezvous(LocalSeedingRendezVousURI);
             // Setting Configuration
             MyNetworkConfigurator.setTcpPort(TcpPort);
             MyNetworkConfigurator.setTcpEnabled(true);

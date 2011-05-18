@@ -124,7 +124,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random random=new Random();
         try {
-            gui = new PlayerManagerGUI(this.usernameField.getText(), random.nextInt(10000));
+            gui = new PlayerManagerGUI(this.usernameField.getText(), 9700);
             this.setVisible(false);
             gui.setVisible(true);
         } catch (IOException ex) {
