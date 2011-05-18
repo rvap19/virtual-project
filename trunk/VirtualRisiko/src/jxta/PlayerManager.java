@@ -117,7 +117,9 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             
             NetPeerGroup  = MyNetworkManager.startNetwork();
              NetPeerGroup.getRendezVousService().setAutoStart(true);
-             MyNetworkManager.waitForRendezvousConnection(120000);
+             MyNetworkManager.waitForRendezvousConnection(3000);
+             
+
              playerDiscover=new PlayerPresenceDiscover();
              playerDiscover.init(NetPeerGroup);
            //  playerDiscover.addPlayerListener(this);
