@@ -98,13 +98,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             NetworkConfigurator MyNetworkConfigurator = MyNetworkManager.getConfigurator();
            
 
-            // Checking if RendezVous_Jack should be a seed
-
-            String TheSeed = "tcp:// 192.168.1.111:" +Integer.toString(TcpPort);
-            Tools.CheckForRendezVousSeedAddition(Name, TheSeed, MyNetworkConfigurator);
-            URI LocalSeedingRendezVousURI = URI.create(TheSeed);
-            MyNetworkConfigurator.addSeedRendezvous(LocalSeedingRendezVousURI);
-            // Setting Configuration
+            
             MyNetworkConfigurator.setTcpPort(TcpPort);
             MyNetworkConfigurator.setTcpEnabled(true);
             MyNetworkConfigurator.setTcpIncoming(true);

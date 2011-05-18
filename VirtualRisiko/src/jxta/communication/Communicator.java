@@ -9,11 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.MessageElement;
 import net.jxta.endpoint.StringMessageElement;
+import net.jxta.id.ID;
 import net.jxta.pipe.InputPipe;
 import net.jxta.pipe.OutputPipe;
 import net.jxta.pipe.OutputPipeEvent;
@@ -82,7 +84,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     }
 
-    public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator) throws IOException{
+    public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator,Set<ID> ids) throws IOException{
         instance=new Communicator();
         
         if(!creator){
@@ -92,7 +94,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
             
                 instance.pipeService=pipeService;
                 instance.creatorPipe=pipeCreator;
-                pipeService.createOutputPipe(pipeCreator,instance);
+                pipeService.createOutputPipe(pipeCreator,ids,instance);
             
             //instance.init(pipeService, pipeCreator,pipeCreator, peerPipes);
         }

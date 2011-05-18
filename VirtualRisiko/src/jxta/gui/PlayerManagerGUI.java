@@ -12,9 +12,12 @@
 package jxta.gui;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,6 +36,8 @@ import jxta.listener.RegistrationListener;
 import net.jxta.document.Advertisement;
 import net.jxta.endpoint.Message;
 import net.jxta.exception.PeerGroupException;
+import net.jxta.id.ID;
+import net.jxta.id.IDFactory;
 import net.jxta.protocol.PipeAdvertisement;
 import util.GameFactory;
 import util.ObiettiviException;
@@ -352,12 +357,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
            System.out.println("impossbile creare gioco "+name);
         }
 
-      PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
-        try {
-            Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
-        } catch (IOException ex) {
-            System.out.println("Impossibile creare pipe");
-        }
+      
 
       
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -410,7 +410,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             int counter = 0;
             pipeAdv = pipes.get(gameAdv.getCreatorID() + " Pipe");
             System.out.println("trovata pipe del creatore ??????? " + (pipeAdv != null));
-            Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv);
+            Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv,null);
             comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
         } catch (IOException ex) {
@@ -443,6 +443,25 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         
 
         PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
+
+
+        HashSet<ID> ids=new HashSet<ID>();
+        String peerID;
+        for(int i=0;i<array.length;i++){
+            try {
+                peerID=players.get(array[i].getPeerID()).getPeerID();
+                ids.add(IDFactory.fromURI(new URI(peerID)));
+            } catch (URISyntaxException ex) {
+                System.out.println("id factory from uri-string");
+            }
+        }
+
+
+        try {
+            Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,ids);
+        } catch (IOException ex) {
+            System.out.println("Impossibile creare pipe");
+        }
         try {
            // Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
             Communicator.updatePipes(myPipe, pipesArray);
