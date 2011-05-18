@@ -130,9 +130,10 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
     }
 
     public List<PlayerAdvertisement> findPlayers() throws PeerGroupException, IOException{
-        
-        if(myPlayerAdvertisement!=null)
-            this.NetPeerGroup.getDiscoveryService().flushAdvertisement(myGameAdvertisement);
+        Object o=NetPeerGroup.getDiscoveryService();
+     /*   if(myPlayerAdvertisement!=null){
+            this.NetPeerGroup.getDiscoveryService().flushAdvertisement(myPlayerAdvertisement);
+        }*/
         this.myPlayerAdvertisement=playerDiscover.announcePresence(10, Name);
         
         return playerDiscover.searchPlayers(true);
