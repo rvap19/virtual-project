@@ -108,7 +108,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             this.players=new HashMap<String, PlayerAdvertisement>();
             this.games=new HashMap<String, GameAdvertisement>();
             this.registrations=new HashMap<String, RegistrationAdvertisement>();
-            NetPeerGroup.getRendezVousService().setAutoStart(true);
+           // NetPeerGroup.getRendezVousService().setAutoStart(true);
              MyNetworkManager.waitForRendezvousConnection(3000);
 
             NetPeerGroup  = MyNetworkManager.startNetwork();
