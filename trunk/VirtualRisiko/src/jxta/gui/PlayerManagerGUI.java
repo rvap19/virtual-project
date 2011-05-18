@@ -412,9 +412,17 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             int counter = 0;
             pipeAdv = pipes.get(gameAdv.getCreatorID() + " Pipe");
             System.out.println("trovata pipe del creatore ??????? " + (pipeAdv != null));
-            Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv,null);
-            comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
+            while(!this.receivedInit){
+                Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv,null);
+                comm.addInitListener(this);
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         } catch (IOException ex) {
             System.out.println("error");
         }
@@ -470,7 +478,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             Communicator comuni=Communicator.getInstance();
             Message msg=comuni.createInitMessage(0, "classicalMap", 0, 0);
             comuni.sendMessage(msg);
-            comuni.waitForAck(msg, 6);
+            comuni.waitForAck(msg, 12);
 
 
 
