@@ -165,7 +165,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         pipeService.createOutputPipe(myPipe,this);
         for(int i=0;i<peerPipeAdvs.length;i++){
             PipeAdvertisement currentAdv=peerPipeAdvs[i];
-            if(currentAdv!=myPipe&&currentAdv!=creatorPipe){
+            if((!currentAdv.getName().equalsIgnoreCase(myPipe.getName()))&&(!currentAdv.getName().equalsIgnoreCase(creatorPipe.getName()))){
                  InputPipe input=pipeService.createInputPipe(currentAdv, this);
             }
         }
