@@ -82,14 +82,19 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     }
 
-    public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator,PipeAdvertisement[] peerPipes) throws IOException{
+    public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator) throws IOException{
         instance=new Communicator();
-        instance.creatorPipe=pipeCreator;
-        instance.pipeService=pipeService;
-        if(!creator)
+        
+        if(!creator){
             instance.initComm(pipeService,pipeCreator);
+        }
         else{
-            instance.init(pipeService, pipeCreator,pipeCreator, peerPipes);
+            
+                instance.pipeService=pipeService;
+                instance.creatorPipe=pipeCreator;
+                pipeService.createOutputPipe(pipeCreator,instance);
+            
+            //instance.init(pipeService, pipeCreator,pipeCreator, peerPipes);
         }
         return instance;
     }
@@ -162,8 +167,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     
 
     private void init(PipeService pipeService,PipeAdvertisement myPipe,PipeAdvertisement creatorPipe,PipeAdvertisement[] peerPipeAdvs) throws IOException{
-        this.pipeService=pipeService;
-        pipeService.createOutputPipe(myPipe,this);
+        
         for(int i=0;i<peerPipeAdvs.length;i++){
             PipeAdvertisement currentAdv=peerPipeAdvs[i];
             if((!currentAdv.getName().equalsIgnoreCase(myPipe.getName()))&&(!currentAdv.getName().equalsIgnoreCase(creatorPipe.getName()))){
@@ -185,7 +189,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     public void waitForAck(Message message,int loops) throws InterruptedException, IOException{
         acked=0;
-        for(int i=0;i<1;i++){
+        for(int i=0;i<0;i++){
             Thread.sleep(1500);
             if(this.acked==player){
                 this.current_message_id++;

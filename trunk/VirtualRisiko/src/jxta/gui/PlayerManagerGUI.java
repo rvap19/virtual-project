@@ -351,6 +351,15 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         } catch (IOException ex) {
            System.out.println("impossbile creare gioco "+name);
         }
+
+      PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
+        try {
+            Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
+        } catch (IOException ex) {
+            System.out.println("Impossibile creare pipe");
+        }
+
+      
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void gamesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_gamesListValueChanged
@@ -401,7 +410,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             int counter = 0;
             pipeAdv = pipes.get(gameAdv.getCreatorID() + " Pipe");
             System.out.println("trovata pipe del creatore ??????? " + pipeAdv != null);
-            Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv, null);
+            Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv);
             comm.addInitListener(this);
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
         } catch (IOException ex) {
@@ -434,7 +443,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
         PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
         try {
-            Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe, pipesArray);
+           // Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
+            Communicator.updatePipes(myPipe, pipesArray);
+            Communicator comuni=Communicator.getInstance();
             Message msg=comuni.createInitMessage(0, "classicalMap", 0, 0);
             comuni.sendMessage(msg);
             comuni.waitForAck(msg, 6);
