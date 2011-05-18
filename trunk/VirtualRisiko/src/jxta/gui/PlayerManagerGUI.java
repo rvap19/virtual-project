@@ -352,7 +352,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
            System.out.println("impossbile creare gioco "+name);
         }
 
-      PipeAdvertisement myPipe=this.pipes.get(this.manager.getMyGameAdvertisement().getCreatorID()+" Pipe");
+      PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
         try {
             Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
         } catch (IOException ex) {
