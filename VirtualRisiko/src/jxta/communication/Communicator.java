@@ -85,12 +85,17 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     }
 
     public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator,Set<ID> ids) throws IOException{
-        instance=new Communicator();
+        instance=null;
         
         if(!creator){
+            if(instance!=null){
+                pipeService.removeOutputPipeListener(pipeCreator.getID(), instance);
+            }
+            instance=new Communicator();
             instance.initComm(pipeService,pipeCreator);
         }
         else{
+            instance=new Communicator();
             
                 instance.pipeService=pipeService;
                 instance.creatorPipe=pipeCreator;
@@ -191,8 +196,8 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     public void waitForAck(Message message,int loops) throws InterruptedException, IOException{
         acked=0;
-        for(int i=0;i<0;i++){
-            Thread.sleep(1500);
+        for(int i=0;i<loops;i++){
+            Thread.sleep(2000);
             if(this.acked==player){
                 this.current_message_id++;
                 return;
