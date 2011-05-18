@@ -417,9 +417,10 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv,null);
                 comm.addInitListener(this);
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("error !!!!!!!!!!!!!!");
+                    System.exit(1);
                 }
             }
             
@@ -467,18 +468,22 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         }
 
 
+        
         try {
-            Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,ids);
-        } catch (IOException ex) {
-            System.out.println("Impossibile creare pipe");
-        }
-        try {
+             Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,new HashSet<ID>());
            // Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
             Communicator.updatePipes(myPipe, pipesArray);
-            Communicator comuni=Communicator.getInstance();
-            Message msg=comuni.createInitMessage(0, "classicalMap", 0, 0);
-            comuni.sendMessage(msg);
-            comuni.waitForAck(msg, 12);
+            Communicator comuni=null;
+            Message msg=null;
+            for(int i=0;i<10;i++){
+                 comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,new HashSet<ID>());
+                 Thread.sleep(2500);
+            }
+                 comuni=Communicator.getInstance();
+                 msg=comuni.createInitMessage(0, "classicalMap", 0, 0);
+                comuni.sendMessage(msg);
+                comuni.waitForAck(msg, 10);
+
 
 
 

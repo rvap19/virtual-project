@@ -88,13 +88,14 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         instance=null;
         
         if(!creator){
-            if(instance!=null){
-                pipeService.removeOutputPipeListener(pipeCreator.getID(), instance);
-            }
+            
             instance=new Communicator();
             instance.initComm(pipeService,pipeCreator);
         }
         else{
+             if(instance!=null){
+                pipeService.removeOutputPipeListener(pipeCreator.getID(), instance);
+            }
             instance=new Communicator();
             
                 instance.pipeService=pipeService;
