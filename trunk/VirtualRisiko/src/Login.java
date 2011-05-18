@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import jxta.gui.PlayerManagerGUI;
 import net.jxta.exception.PeerGroupException;
@@ -28,6 +29,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
+        LogManager.getLogManager().reset();
     }
 
     /** This method is called from within the constructor to

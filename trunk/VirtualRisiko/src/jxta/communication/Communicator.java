@@ -69,6 +69,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     private List<MovementListener> movementListeners;
     private List<PassListener> passListeners;
     private PipeAdvertisement creatorPipe;
+    private final  String GAMER="gamer";
 
     private Communicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -177,12 +178,14 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     public boolean sendMessage(Message message) throws IOException{
         StringMessageElement mElement=new StringMessageElement(ID_MSG, Integer.toString(current_message_id), null);
         message.addMessageElement(namespace, mElement);
+        mElement=new StringMessageElement(GAMER, "prova", null);
+        message.addMessageElement(namespace, mElement);
         return toPeers.send(message);
     }
 
     public void waitForAck(Message message,int loops) throws InterruptedException, IOException{
         acked=0;
-        for(int i=0;i<loops;i++){
+        for(int i=0;i<1;i++){
             Thread.sleep(1500);
             if(this.acked==player){
                 this.current_message_id++;
@@ -385,7 +388,8 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     public void pipeMsgEvent(PipeMsgEvent pme) {
        Message msg=pme.getMessage();
        
-       System.out.println(msg.getMessageElement(type).toString());
+       
+       System.out.println(msg.getMessageElement(type).toString()+" FROM "+msg.getMessageElement(GAMER)+" ID "+msg.getMessageElement(ID_MSG));
 
        String messageType=msg.getMessageElement(namespace, type).toString();
 
@@ -435,6 +439,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     public void outputPipeEvent(OutputPipeEvent ope) {
         this.toPeers=ope.getOutputPipe();
+        
     }
 
     public class InitMessageAttributes{
