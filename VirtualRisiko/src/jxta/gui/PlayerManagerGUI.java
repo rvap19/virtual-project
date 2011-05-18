@@ -424,6 +424,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        pipes.put(myName+" Pipe", manager.getMyPipeAdvertisement());
         Collection<RegistrationAdvertisement> reg=this.registrations.values();
         RegistrationAdvertisement[] array=new RegistrationAdvertisement[reg.size()];
         array=reg.toArray(array);
