@@ -426,6 +426,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             
         } catch (IOException ex) {
             System.out.println("error");
+            ex.printStackTrace();
         }
        
 
