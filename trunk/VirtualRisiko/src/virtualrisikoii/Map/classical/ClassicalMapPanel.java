@@ -457,15 +457,11 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     try {
                         Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
                         comunicator.sendMessage(msg);
-                        comunicator.waitForAck(msg, 6);
+                       
                         truppeSelezionate++;
-                    } catch (InterruptedException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    } catch (IOException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    } 
                 }
             }
 
@@ -473,15 +469,11 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 try{
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
                     comunicator.sendMessage(msg);
-                    comunicator.waitForAck(msg, 6);
+                   
                     tavolo.passaTurno();
-                }catch (InterruptedException ex) {
-                    System.out.println("impossibile inviare messaggio");
-                    System.exit(1);
-                } catch (IOException ex) {
-                    System.out.println("impossibile inviare messaggio");
-                    System.exit(1);
-                }
+                }catch (Exception ex) {
+                    ex.printStackTrace();
+                } 
                 this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 truppeSelezionate=0;
             }
@@ -500,15 +492,11 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 try {
                         Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
                         comunicator.sendMessage(msg);
-                        comunicator.waitForAck(msg, 6);
+                        
 
-                    } catch (InterruptedException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    } catch (IOException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    } 
                 setLabel(t);
             }
             return;
@@ -545,15 +533,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 try {
                         Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
                         comunicator.sendMessage(msg);
-                        comunicator.waitForAck(msg, 6);
-
-                    } catch (InterruptedException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    } catch (IOException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    }
+                      
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    } 
                 
                 
                     
@@ -566,15 +549,11 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     try {
                         Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         comunicator.sendMessage(msg);
-                        comunicator.waitForAck(msg, 6);
+                       
 
-                    } catch (InterruptedException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    } catch (IOException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    }
+                    } catch (Exception ex) {
+                       ex.printStackTrace();
+                    } 
                     
                 }
             }

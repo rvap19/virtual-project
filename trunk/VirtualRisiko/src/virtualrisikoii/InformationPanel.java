@@ -363,15 +363,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         try {
             Message msg = this.communicator.createChatMessage(Communicator.ChatAttributes.all, chatMessage);
             communicator.sendMessage(msg);
-            communicator.waitForAck(msg, 6);
+            
             this.chatMessageField.setText("");
-        } catch (InterruptedException ex) {
-            System.out.println("impossibile inviare messaggio");
-            System.exit(1);
-        } catch (IOException ex) {
-            System.out.println("impossibile inviare messaggio");
-            System.exit(1);
-        }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
 
     }//GEN-LAST:event_inviaATuttiButtonActionPerformed
 
@@ -383,15 +379,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             try {
 
                         this.communicator.sendMessage(msg);
-                        this.communicator.waitForAck(msg, 6);
+                       
 
-                    } catch (InterruptedException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    } catch (IOException ex) {
-                        System.out.println("impossibile inviare messaggio");
-                        System.exit(1);
-                    }
+                    } catch (Exception  ex) {
+                        ex.printStackTrace();
+                    } 
             this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
         }
         

@@ -9,21 +9,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.MessageElement;
 import net.jxta.endpoint.StringMessageElement;
-import net.jxta.id.ID;
+import net.jxta.peergroup.PeerGroup;
 import net.jxta.pipe.InputPipe;
-import net.jxta.pipe.OutputPipe;
-import net.jxta.pipe.OutputPipeEvent;
-import net.jxta.pipe.OutputPipeListener;
 import net.jxta.pipe.PipeMsgEvent;
 import net.jxta.pipe.PipeMsgListener;
 import net.jxta.pipe.PipeService;
 import net.jxta.protocol.PipeAdvertisement;
+import net.jxta.util.JxtaBiDiPipe;
+import net.jxta.util.JxtaServerPipe;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
@@ -36,7 +34,7 @@ import virtualrisikoii.listener.PassListener;
  *
  * @author root
  */
-public class Communicator implements PipeMsgListener,OutputPipeListener{
+public class Communicator implements PipeMsgListener{
 
     public static Communicator instance;
     
@@ -53,15 +51,8 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     public final String ACK="ack";
     public final String CHAT="chat";
 
-    public PipeService pipeService;
 
-    public OutputPipe toPeers;
 
-    public int current_message_id=0;
-    public int last_ack=0;
-    public int acked=0;
-
-    public int player=2;
 
     private List<ApplianceListener> applianceListeners;
     private List<AttackListener> attackListeners;
@@ -70,8 +61,14 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     private List<InitListener> initListeners;
     private List<MovementListener> movementListeners;
     private List<PassListener> passListeners;
-    private PipeAdvertisement creatorPipe;
+    
     private final  String GAMER="gamer";
+
+    private List<JxtaBiDiPipe> toPeersPipes;
+    private JxtaBiDiPipe toCentralPeer;
+
+    private boolean isCentral;
+    private int current_message_id=0;
 
     private Communicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -81,6 +78,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         initListeners=new ArrayList<InitListener>();
         movementListeners=new ArrayList<MovementListener>();
         passListeners=new ArrayList<PassListener>();
+        
 
     }
 
@@ -89,21 +87,29 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
      *
      */
 
-    public static Communicator initCommunicator(PipeService service,PipeAdvertisement outputPipe) throws IOException{
+    public static Communicator initCentralCommunicator1(PeerGroup group,PipeAdvertisement pipe,int players) throws IOException{
         instance=new Communicator();
-        service.createOutputPipe(outputPipe, instance);
+        instance.isCentral=true;
+        instance.toPeersPipes=new ArrayList<JxtaBiDiPipe>();
+        JxtaServerPipe serverPipe=new JxtaServerPipe(group, pipe);
+        serverPipe.setPipeTimeout(30*1000);
+        for(int i=0;i<players-1;i++){
+            JxtaBiDiPipe bdpipe=serverPipe.accept();
+            if(bdpipe==null){
+                throw new IOException("impossibile stabilire connessione");
+            }
+            bdpipe.setMessageListener(instance);
+            instance.toPeersPipes.add(bdpipe);
+
+        }
         return instance;
     }
 
-    public void createPeerPipes(String myNamePipe,PipeService service,List<PipeAdvertisement> pipes) throws IOException{
-        Iterator<PipeAdvertisement> iter=pipes.iterator();
-        PipeAdvertisement adv;
-        while(iter.hasNext()){
-            adv=iter.next();
-            if(!adv.getName().equalsIgnoreCase(myNamePipe)){
-                service.createInputPipe(adv, this);
-            }
-        }
+    public static Communicator initPeerComunicator(PeerGroup group,PipeAdvertisement pipe) throws IOException{
+        instance=new Communicator();
+        instance.isCentral=false;
+        instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,12*1000, instance, true);
+        return instance;
     }
 
 
@@ -185,25 +191,31 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     }
 
 
-    public boolean sendMessage(Message message) throws IOException{
-        StringMessageElement mElement=new StringMessageElement(ID_MSG, Integer.toString(current_message_id), null);
+    private boolean sendMessage(Message message,int msgID) throws IOException{
+        StringMessageElement mElement=new StringMessageElement(ID_MSG, Integer.toString(msgID), null);
         message.addMessageElement(namespace, mElement);
         mElement=new StringMessageElement(GAMER, "prova", null);
         message.addMessageElement(namespace, mElement);
-        return toPeers.send(message);
+
+        if(!this.isCentral){
+            return this.toCentralPeer.sendMessage(message);
+        }
+        boolean result=true;
+        Iterator<JxtaBiDiPipe> pipes=this.toPeersPipes.iterator();
+        while(pipes.hasNext()){
+            result=result&&pipes.next().sendMessage(message);
+        }
+        return result;
     }
 
-    public void waitForAck(Message message,int loops) throws InterruptedException, IOException{
-        acked=0;
-        for(int i=0;i<loops;i++){
-            Thread.sleep(2000);
-            if(this.acked==player){
-                this.current_message_id++;
-                return;
-            }
-            toPeers.send(message);
-        }
-    }
+     public boolean sendMessage(Message message) throws IOException{
+         return sendMessage(message,current_message_id);
+         
+     }
+
+
+
+    
 
     public Message createInitMessage(int players,int seed_dice,String map_name,int seed_card,int seed_region){
         Message message=new Message();
@@ -366,12 +378,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         return message;
     }
 
-    public void elaborateAckMessage(Message message){
-        int ackMsg=Integer.parseInt(message.getMessageElement(namespace, AckAttributes.ACK_FOR_MESSAGE_ID).toString());
-        if(ackMsg==current_message_id){
-            acked++;
-        }
-    }
+   
 
     public Message createChatMessage(String to,String messageString){
         Message message=new Message();
@@ -407,17 +414,14 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
        String messageType=msg.getMessageElement(namespace, type).toString();
 
-       int id=-1;
-       try{
-           id=new Integer(msg.getMessageElement(namespace, ID_MSG).toString()).intValue();
-       }catch(Exception e){
-
-       }
-       if(id<current_message_id){
-          // Message simpleAck=createACKMessage(id);
-           return;
-            
-       }
+     if(this.isCentral){
+            try {
+                this.sendMessage(msg);
+            } catch (IOException ex) {
+                Logger.getLogger(Communicator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     }
+      
 
        if(messageType.equals(INIT)){
            this.elaborateInitMessage(msg);
@@ -432,9 +436,6 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
            this.elaborateChangeCardsMessage(msg);
        }else if(messageType.equals(PASSES)){
            this.elaboratePassesMessage(msg);
-       }else if(messageType.equals(ACK)){
-           this.elaborateAckMessage(msg);
-           return;
        }else if(messageType.equals(CHAT)){
            this.elaborateChatMessage(msg);
            return;
@@ -443,16 +444,13 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
        }
 
 
-       Message ackMSG=createACKMessage(current_message_id);
-       current_message_id++;
+   
 
     }
 
-    public void outputPipeEvent(OutputPipeEvent ope) {
-        System.out.println("###################################################################BINDING PIPEEEEEEEEEEEEEEEEEE");
-        this.toPeers=ope.getOutputPipe();
-        
-    }
+    
+
+   
 
     public class InitMessageAttributes{
         public static final String SEED_DICE="seed_dice";
