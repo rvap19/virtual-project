@@ -444,14 +444,18 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             RegistrationAdvertisement[] array = new RegistrationAdvertisement[reg.size()];
             array = reg.toArray(array);
             Arrays.sort(array);
-            Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
+            
             List<PipeAdvertisement> pipesList = findPipes();
             Communicator communicator = Communicator.getInstance();
             communicator.createPeerPipes(myName + " Pipe", manager.getPeerGroup().getPipeService(), pipesList);
             int numeroGiocatori = this.registrations.keySet().size();
             Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
-            communicator.sendMessage(msg);
-            communicator.waitForAck(msg, 3);
+
+            while(){
+                Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
+                communicator.sendMessage(msg);
+                communicator.waitForAck(msg, 3);
+            }
 
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
