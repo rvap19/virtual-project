@@ -467,11 +467,15 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 }
             }
 
+            this.setLabel(t);
+
             if(truppeSelezionate==3){
                 try{
+                    
+                    Thread.sleep(2000);
                     tavolo.passaTurno();
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-                    //Thread.sleep(3000);
+                    
                     comunicator.sendMessage(msg);
                    
                     
@@ -481,7 +485,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 truppeSelezionate=0;
             }
-            this.setLabel(t);
+            
            /* if(!tavolo.isInizializzazione()){
                 tavolo.avviaGioco();
                 
