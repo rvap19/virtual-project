@@ -418,6 +418,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             List<PipeAdvertisement> pipesList=new ArrayList<PipeAdvertisement>();
             pipesList.add(creatorPipe);
             Communicator communicator=Communicator.getInstance();
+            communicator.addInitListener(this);
             while(!this.receivedInit){
                 communicator.createPeerPipes(this.manager.getMyPipeAdvertisement().getName(), manager.getPeerGroup().getPipeService(), pipesList);
                 Thread.sleep(2000);
