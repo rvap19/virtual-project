@@ -631,7 +631,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
 
         Territorio territorio=this.tavolo.getMappa().getTerritorio(region);
         String message="Il "+territorio.getOccupante().getNome()+" posiziona "+troops_number+" in "+territorio.getNome();
-        
+        this.informationPanel.appendActionInHistory(message);
         System.out.println("ricevuto messaggio di appliance per territorio "+territorio.getNome()+" di "+troops_number+" unita");
         if(tavolo.assegnaUnita(troops_number, territorio)){
             this.territoriLabels[region].setText(Integer.toString(territorio.getNumeroUnita()));
