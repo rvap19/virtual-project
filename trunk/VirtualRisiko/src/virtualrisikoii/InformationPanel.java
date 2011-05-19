@@ -384,7 +384,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             this.tavolo.passaTurno();
             Message msg=this.communicator.createPassesMessage(tavolo.getTurnoSuccessivo());
             try {
-
+                        Thread.sleep(3000);
                         this.communicator.sendMessage(msg);
                        
 

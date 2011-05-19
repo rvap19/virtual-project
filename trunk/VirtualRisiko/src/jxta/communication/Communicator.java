@@ -71,6 +71,8 @@ public class Communicator implements PipeMsgListener{
     private int current_message_id=0;
     private String playerName;
 
+    
+
     private Communicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
         attackListeners=new ArrayList<AttackListener>();
@@ -454,6 +456,7 @@ public class Communicator implements PipeMsgListener{
        }catch(NumberFormatException ex){
 
        }
+
 
 
 
