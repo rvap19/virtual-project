@@ -61,7 +61,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
     public int last_ack=0;
     public int acked=0;
 
-    public int player=1;
+    public int player=2;
 
     private List<ApplianceListener> applianceListeners;
     private List<AttackListener> attackListeners;
@@ -414,12 +414,9 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
        }
        if(id<current_message_id){
-           Message simpleAck=createACKMessage(id);
-            try {
-                toPeers.send(simpleAck);
-            } catch (IOException ex) {
-                System.out.println("simple msk ack ");
-            }
+         
+           return;
+            
        }
 
        if(messageType.equals(INIT)){
