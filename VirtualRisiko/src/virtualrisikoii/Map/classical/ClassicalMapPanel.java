@@ -451,6 +451,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         if(!tavolo.isTurnoMyGiocatore()){
             return;
         }
+
         Territorio t=this.getTerritorio(label);
         if(this.tavolo.isInizializzazione()){
             if(truppeSelezionate<3&&this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
@@ -469,11 +470,16 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
 
             this.setLabel(t);
 
-            if(truppeSelezionate==3){
+            if((truppeSelezionate==3)||(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
                 try{
+
                     
                     Thread.sleep(2000);
+                    if((tavolo.getTurno()==tavolo.getGiocatori().size()-1)&&(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
+                        tavolo.setInizializzazione(false);
+                    }
                     tavolo.passaTurno();
+
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
                     
                     comunicator.sendMessage(msg);
