@@ -128,7 +128,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -222,14 +221,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         userNameLabel.setText("####");
         userNameLabel.setName("userNameLabel"); // NOI18N
 
-        jButton5.setText("start my game");
-        jButton5.setName("jButton5"); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/sfondo.jpg"))); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -258,8 +249,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
-                    .addComponent(jButton5))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -287,9 +277,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                         .addComponent(jButton3))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
-                .addContainerGap())
+                .addGap(45, 45, 45))
         );
 
         bindingGroup.bind();
@@ -408,6 +396,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             if (this.myName.equals(gameAdv.getCreatorID())) {
                 this.registrations.put(manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement());
                 updateList(registrations, manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement(), currentPlayersInGameList);
+                startGame();
                 return;
             }
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
@@ -427,10 +416,11 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+    private void startGame(){
         try {
-            // TODO add your handling code here:
-         //   pipes.put(myName + " Pipe", manager.getMyPipeAdvertisement());
+
+            //   pipes.put(myName + " Pipe", manager.getMyPipeAdvertisement());
             Collection<RegistrationAdvertisement> reg = this.registrations.values();
             RegistrationAdvertisement[] array = new RegistrationAdvertisement[reg.size()];
             array = reg.toArray(array);
@@ -444,14 +434,14 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             }
             int myTurno=counter-1;
             int numeroGiocatori = this.registrations.keySet().size();
-         
-            
 
-            
+
+
+
             Communicator communicator=Communicator.getInstance();
             Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
             communicator.sendMessage(msg);
-           
+
 
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
@@ -459,20 +449,17 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
-            
+
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, 0, 0, 0);
             this.setVisible(false);
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
         } catch (Exception ex) {
             ex.printStackTrace();
-        } 
-      
-
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
+        }
 
 
+    }
     /**
     * @param args the command line arguments
     */
@@ -498,7 +485,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

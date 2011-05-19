@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import jxta.communication.Communicator;
 import net.jxta.endpoint.Message;
 import virtualrisikoii.InformationPanel;
@@ -107,6 +108,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         comunicator.addMovementListener(this);
     }
 
+    private void showInfo(String title,String message){
+        JOptionPane.showMessageDialog(null, message,title, JOptionPane.OK_OPTION);
+
+    }
     public void setInformationPanel(InformationPanel panel){
         this.informationPanel=panel;
     }
@@ -630,6 +635,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
     public void updateAppliance(int troops_number, int region) {
 
         Territorio territorio=this.tavolo.getMappa().getTerritorio(region);
+        String message="Il "+territorio.getOccupante()+" posiziona "+troops_number+" in "+territorio.getNome();
+        showInfo("Disposizione", message);
         System.out.println("ricevuto messaggio di appliance per territorio "+territorio.getNome()+" di "+troops_number+" unita");
         if(tavolo.assegnaUnita(troops_number, territorio)){
             this.territoriLabels[region].setText(Integer.toString(territorio.getNumeroUnita()));
@@ -651,7 +658,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 this.informationPanel.setAzione(azione.toString());
                 this.setLabel(azione.getDaTerritorio());
                 this.setLabel(azione.getaTerritorio());
-
+                String message="Il "+fromTerritorio.getOccupante().getNome()+" attacca da "+fromTerritorio.getNome()+"\n"+" a "+toTerritorio.getNome()+"\n"+" con "+troops_number+" unita"+
+                        "attacco : ";
                 if(azione.isAttacco()){
                     int[] a=((Attacco)azione).getPunteggio();
                     String s="";
@@ -659,14 +667,15 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                         s=s+" - "+Integer.toString(a[i]);
                     }
                     this.informationPanel.setPunteggio(s);
-
+                    message=message+s+"\n"+"difesa : " ;
                     a=((Attacco)azione).getPunteggioAvversario();
                      s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
                     }
+                     message=message+s;
                     this.informationPanel.setPunteggioAvversario(s);
-
+                    showInfo("Attacco", message);
 
                 }else{
                     this.informationPanel.setPunteggio("###");
@@ -695,6 +704,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
     public void updateMovement(int troops_number, int from, int to) {
         Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
+        this.showInfo("Spostamento", "Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
         Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection, truppeSelezionate);
         VirtualRisikoIIEndGameBox endGameBox;
         if(azione!=null){

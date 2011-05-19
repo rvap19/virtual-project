@@ -107,7 +107,7 @@ public class VirtualRisikoIIView extends FrameView {
         
          
          this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-         showInfo("inizio partita", "E' il turno del "+tavolo.getGiocatoreCorrente().getNome());
+         showInfo("VIRTUAL RISIKO :: inizio partita", "E' il turno del "+tavolo.getGiocatoreCorrente().getNome());
     }
 
     private void showInfo(String title,String message){
