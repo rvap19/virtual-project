@@ -253,6 +253,8 @@ public class Communicator implements PipeMsgListener{
         while(iter.hasNext()){
             msg=createInitMessage(players, seed_dice, map_name, seed_card, seed_region);
             StringMessageElement mE=new StringMessageElement(InitMessageAttributes.TURN, Integer.toString(turn), null);
+             StringMessageElement mElement=new StringMessageElement(ID_MSG, Integer.toString(0), null);
+            msg.addMessageElement(namespace, mElement);
             msg.addMessageElement(namespace, mE);
             gine=gine&&iter.next().sendMessage(msg);
             turn++;
