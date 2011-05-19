@@ -451,10 +451,10 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             int numeroGiocatori = this.registrations.keySet().size();
             Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
 
-            while(){
+            for(int i=0;i<registrations.size();i++){
                 Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
                 communicator.sendMessage(msg);
-                communicator.waitForAck(msg, 3);
+                communicator.waitForAck(msg, 0);
             }
 
             GameFactory factory = new GameFactory();
