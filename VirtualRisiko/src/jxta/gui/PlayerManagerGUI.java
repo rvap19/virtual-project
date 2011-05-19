@@ -418,9 +418,15 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             List<PipeAdvertisement> pipesList=new ArrayList<PipeAdvertisement>();
             pipesList.add(creatorPipe);
             Communicator communicator=Communicator.getInstance();
-            communicator.createPeerPipes(this.manager.getMyPipeAdvertisement().getName(), manager.getPeerGroup().getPipeService(), pipesList);
+            while(!this.receivedInit){
+                communicator.createPeerPipes(this.manager.getMyPipeAdvertisement().getName(), manager.getPeerGroup().getPipeService(), pipesList);
+                Thread.sleep(2000);
+            }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         } catch (IOException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+           ex.printStackTrace();
+
         }
             
        
@@ -437,6 +443,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             RegistrationAdvertisement[] array = new RegistrationAdvertisement[reg.size()];
             array = reg.toArray(array);
             Arrays.sort(array);
+            Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
             List<PipeAdvertisement> pipesList = findPipes();
             Communicator communicator = Communicator.getInstance();
             communicator.createPeerPipes(myName + " Pipe", manager.getPeerGroup().getPipeService(), pipesList);
