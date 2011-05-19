@@ -245,6 +245,22 @@ public class Communicator implements PipeMsgListener{
 
     }
 
+    public boolean sendInitMessages(int players,int seed_dice,String map_name,int seed_card,int seed_region) throws IOException{
+        Message msg;
+        boolean gine=true;
+        int turn=0;
+        Iterator<JxtaBiDiPipe> iter=toPeersPipes.iterator();
+        while(iter.hasNext()){
+            msg=createInitMessage(players, seed_dice, map_name, seed_card, seed_region);
+            StringMessageElement mE=new StringMessageElement(InitMessageAttributes.TURN, Integer.toString(turn), null);
+            msg.addMessageElement(namespace, mE);
+            gine=gine&&iter.next().sendMessage(msg);
+            turn++;
+        }
+        return gine;
+
+    }
+
     public void elaborateInitMessage(Message message){
         String name=message.getMessageElement(namespace, GAMER).toString();
         if(name.equals(playerName)){
@@ -255,9 +271,10 @@ public class Communicator implements PipeMsgListener{
         int seed_card=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_CARDS).toString());
         int seed_region=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_REGION).toString());
         int players=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.PLAYERS).toString());
+        int myTurno=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.TURN).toString());
         Iterator<InitListener> listeners=this.initListeners.iterator();
         while(listeners.hasNext()){
-            listeners.next().init(players,seed_dice, map_name, seed_card, seed_region);
+            listeners.next().init(myTurno,players,seed_dice, map_name, seed_card, seed_region);
         }
     }
 
@@ -504,6 +521,7 @@ public class Communicator implements PipeMsgListener{
         public static final String SEED_CARDS="seed_cards";
         public static final String SEED_REGION="seed_region";
         public static final String PLAYERS="players_number";
+        public static final String TURN="myTurn";
     }
 
     public class ApplianceAttributes{
