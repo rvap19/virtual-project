@@ -488,7 +488,7 @@ public class Communicator implements PipeMsgListener{
             try {
                 this.sendMessage(msg,msgID);
             } catch (IOException ex) {
-                Logger.getLogger(Communicator.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
             }
      }
       
