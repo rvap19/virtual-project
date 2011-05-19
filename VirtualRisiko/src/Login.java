@@ -19,7 +19,7 @@ import net.jxta.exception.PeerGroupException;
  */
 
 /**
- *
+ *>
  * @author root
  */
 public class Login extends javax.swing.JFrame {
