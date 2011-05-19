@@ -706,8 +706,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
     public void updateMovement(int troops_number, int from, int to) {
         Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
-       // this.showInfo("Spostamento", "Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
-        Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection, truppeSelezionate);
+        System.out.println("Spostamento :Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
+        Azione azione=tavolo.preparaSpostamento(fromTerritorio, toTerritorio, troops_number);
         VirtualRisikoIIEndGameBox endGameBox;
         if(azione!=null){
             tavolo.eseguiSpostamento((Spostamento) azione);
@@ -716,23 +716,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 this.setLabel(azione.getDaTerritorio());
                 this.setLabel(azione.getaTerritorio());
 
-                if(azione.isAttacco()){
-                    int[] a=((Attacco)azione).getPunteggio();
-                    String s="";
-                    for(int i=0;i<a.length;i++){
-                        s=s+" - "+Integer.toString(a[i]);
-                    }
-                    this.informationPanel.appendActionInHistory(s);
-
-                    a=((Attacco)azione).getPunteggioAvversario();
-                     s="";
-                    for(int i=0;i<a.length;i++){
-                        s=s+" - "+Integer.toString(a[i]);
-                    }
-                    this.informationPanel.appendActionInHistory(s);
-
-
-                }
+                
 
                 //azione diversa da null::controllare stato obiettivi
                 if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
