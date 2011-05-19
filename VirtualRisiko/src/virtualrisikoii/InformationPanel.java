@@ -366,7 +366,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             communicator.sendMessage(msg);
             
             this.chatMessageField.setText("");
-            this.chatTextArea.setText(chatTextArea.getText()+"\n"+chatMessage);
+            this.chatTextArea.append(chatMessage);
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
@@ -459,7 +459,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     // End of variables declaration//GEN-END:variables
 
     public void updateChat(String to, String messageString) {
-        this.chatTextArea.setText(chatTextArea.getText()+"\n"+messageString);
+
+        this.chatTextArea.append(messageString);
     }
 
     public void updatePass(int turno_successivo) {
