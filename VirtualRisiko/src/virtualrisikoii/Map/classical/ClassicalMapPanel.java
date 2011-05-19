@@ -642,7 +642,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             this.territoriLabels[region].setText(Integer.toString(territorio.getNumeroUnita()));
         }else{
             System.out.println("errore comunicazione appliance");
-            System.exit(1);
+            
         }
     }
 
