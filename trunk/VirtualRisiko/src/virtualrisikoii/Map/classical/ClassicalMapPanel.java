@@ -566,7 +566,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             truppeSelezionate=0;
 
             if(azione!=null){
-                this.informationPanel.setAzione(azione.toString());
+                this.informationPanel.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
                 this.setLabel(azione.getDaTerritorio());
                 this.setLabel(azione.getaTerritorio());
                 firstSelection=null;
@@ -576,20 +576,16 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
                     }
-                    this.informationPanel.setPunteggio(s);
+                    this.informationPanel.appendActionInHistory(s);
                     
                     a=((Attacco)azione).getPunteggioAvversario();
                      s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
                     }
-                    this.informationPanel.setPunteggioAvversario(s);
+                    this.informationPanel.appendActionInHistory(s);
 
 
-                }else{
-                    this.informationPanel.setPunteggio("###");
-                    this.informationPanel.setPunteggioAvversario("###");
-                    this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 }
 
                 //azione diversa da null::controllare stato obiettivi
@@ -655,7 +651,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             if(azione!=null){
                 tavolo.eseguiAttacco((Attacco)azione);
 
-                this.informationPanel.setAzione(azione.toString());
+                this.informationPanel.appendActionInHistory(azione.toString());
                 this.setLabel(azione.getDaTerritorio());
                 this.setLabel(azione.getaTerritorio());
                 String message="Il "+fromTerritorio.getOccupante().getNome()+" attacca da "+fromTerritorio.getNome()+"\n"+" a "+toTerritorio.getNome()+"\n"+" con "+troops_number+" unita"+
@@ -666,7 +662,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
                     }
-                    this.informationPanel.setPunteggio(s);
+                    this.informationPanel.appendActionInHistory(s);
                     message=message+s+"\n"+"difesa : " ;
                     a=((Attacco)azione).getPunteggioAvversario();
                      s="";
@@ -674,13 +670,9 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                         s=s+" - "+Integer.toString(a[i]);
                     }
                      message=message+s;
-                    this.informationPanel.setPunteggioAvversario(s);
+                    this.informationPanel.appendActionInHistory(s);
                 
 
-                }else{
-                    this.informationPanel.setPunteggio("###");
-                    this.informationPanel.setPunteggioAvversario("###");
-                    this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 }
 
                 //azione diversa da null::controllare stato obiettivi
@@ -710,7 +702,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         if(azione!=null){
             tavolo.eseguiSpostamento((Spostamento) azione);
 
-                this.informationPanel.setAzione(azione.toString());
+                this.informationPanel.appendActionInHistory(azione.toString());
                 this.setLabel(azione.getDaTerritorio());
                 this.setLabel(azione.getaTerritorio());
 
@@ -720,20 +712,16 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
                     }
-                    this.informationPanel.setPunteggio(s);
+                    this.informationPanel.appendActionInHistory(s);
 
                     a=((Attacco)azione).getPunteggioAvversario();
                      s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
                     }
-                    this.informationPanel.setPunteggioAvversario(s);
+                    this.informationPanel.appendActionInHistory(s);
 
 
-                }else{
-                    this.informationPanel.setPunteggio("###");
-                    this.informationPanel.setPunteggioAvversario("###");
-                    this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 }
 
                 //azione diversa da null::controllare stato obiettivi

@@ -48,9 +48,6 @@
             </Container>
             <Component class="virtualrisikoii.InformationPanel" name="informationPanel1">
               <Properties>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[211, 643]"/>
-                </Property>
                 <Property name="name" type="java.lang.String" value="informationPanel1" noResource="true"/>
               </Properties>
               <Constraints>

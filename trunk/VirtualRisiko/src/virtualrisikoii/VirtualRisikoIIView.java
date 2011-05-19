@@ -170,7 +170,6 @@ public class VirtualRisikoIIView extends FrameView {
 
         jSplitPane1.setRightComponent(jScrollPane1);
 
-        informationPanel1.setMinimumSize(new java.awt.Dimension(211, 643));
         informationPanel1.setName("informationPanel1"); // NOI18N
         jSplitPane1.setLeftComponent(informationPanel1);
 
@@ -178,7 +177,7 @@ public class VirtualRisikoIIView extends FrameView {
 
         menuBar.setName("menuBar"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(virtualrisikoii.VirtualRisikoIIApp.class).getContext().getResourceMap(VirtualRisikoIIView.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(VirtualRisikoIIView.class);
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
@@ -191,7 +190,7 @@ public class VirtualRisikoIIView extends FrameView {
         });
         fileMenu.add(jMenuItem1);
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(virtualrisikoii.VirtualRisikoIIApp.class).getContext().getActionMap(VirtualRisikoIIView.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(VirtualRisikoIIView.class, this);
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         fileMenu.add(exitMenuItem);
