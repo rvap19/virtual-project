@@ -198,7 +198,7 @@ public  class Tavolo {
 
     public void eseguiSpostamento(Spostamento s){
         s.eseguiAzione();
-        this.passaTurno();
+        
     }
 
     public boolean recuperaCarta(Giocatore giocatore){
