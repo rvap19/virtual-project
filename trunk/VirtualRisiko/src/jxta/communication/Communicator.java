@@ -96,7 +96,7 @@ public class Communicator implements PipeMsgListener{
         instance.isCentral=true;
         instance.toPeersPipes=new ArrayList<JxtaBiDiPipe>();
         JxtaServerPipe serverPipe=new JxtaServerPipe(group, pipe);
-        serverPipe.setPipeTimeout(30*1000);
+        serverPipe.setPipeTimeout(10*1000);
         try{
            while(true){
                 JxtaBiDiPipe bdpipe=serverPipe.accept();
