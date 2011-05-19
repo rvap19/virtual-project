@@ -84,42 +84,40 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
 
     }
 
-    public static Communicator initCommunicator(boolean creator,PipeService pipeService,PipeAdvertisement pipeCreator,Set<ID> ids) throws IOException{
-        instance=null;
-        
-        if(!creator){
-            
-            instance=new Communicator();
-            instance.initComm(pipeService,pipeCreator);
-        }
-        else{
-             if(instance!=null){
-                pipeService.removeOutputPipeListener(pipeCreator.getID(), instance);
-            }
-            instance=new Communicator();
-            
-                instance.pipeService=pipeService;
-                instance.creatorPipe=pipeCreator;
-                pipeService.createOutputPipe(pipeCreator,ids,instance);
-            
-            //instance.init(pipeService, pipeCreator,pipeCreator, peerPipes);
-        }
+    /*
+     * l'inizializzazione del comunicatore deve prevedere la pubblicazione di una propagate pipe verso tutti i peer
+     *
+     */
+
+    public static Communicator initCommunicator(PipeService service,PipeAdvertisement outputPipe) throws IOException{
+        instance=new Communicator();
+        service.createOutputPipe(outputPipe, instance);
         return instance;
     }
 
-    public static void updatePipes(PipeAdvertisement myPipe,PipeAdvertisement[] pipes) throws IOException{
-        instance.init(instance.pipeService, myPipe, instance.creatorPipe, pipes);
+    public void createPeerPipes(String myNamePipe,PipeService service,List<PipeAdvertisement> pipes) throws IOException{
+        Iterator<PipeAdvertisement> iter=pipes.iterator();
+        PipeAdvertisement adv;
+        while(iter.hasNext()){
+            adv=iter.next();
+            if(!adv.getName().equalsIgnoreCase(myNamePipe)){
+                service.createInputPipe(iter.next(), this);
+            }
+        }
     }
+
+
+
+
+
+
+   
 
     public static Communicator getInstance(){
         return instance;
     }
 
-    private void initComm(PipeService pipeS,PipeAdvertisement creatorAdvertisementPipe) throws IOException{
-        this.creatorPipe=creatorAdvertisementPipe;
-        this.pipeService=pipeS;
-        InputPipe input=pipeService.createInputPipe(creatorAdvertisementPipe, this);
-    }
+   
 
     public void addApplianceListener(ApplianceListener listener){
         this.applianceListeners.add(listener);

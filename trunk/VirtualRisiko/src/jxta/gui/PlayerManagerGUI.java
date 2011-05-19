@@ -14,6 +14,7 @@ package jxta.gui;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -93,7 +94,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         manager.addPipeListener(this);
         manager.findGames();
         manager.findPlayers();
-        
+
+        Communicator communicator=Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
         initComponents();
         userNameLabel.setText(name);
         
@@ -395,6 +397,10 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         }
         
     }
+
+    /*
+     * registrazione alla partita
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
@@ -407,27 +413,16 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             if (this.myName.equals(gameAdv.getCreatorID())) {
                 return;
             }
-            PipeAdvertisement pipeAdv = pipes.get(gameAdv.getCreatorID() + " Pipe");
-            int tentativi = 5;
-            int counter = 0;
-            pipeAdv = pipes.get(gameAdv.getCreatorID() + " Pipe");
-            System.out.println("trovata pipe del creatore ??????? " + (pipeAdv != null));
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
-            while(!this.receivedInit){
-                Communicator comm = Communicator.initCommunicator(false, manager.getPeerGroup().getPipeService(), pipeAdv,null);
-                comm.addInitListener(this);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    System.out.println("error !!!!!!!!!!!!!!");
-                    System.exit(1);
-                }
-            }
-            
+            PipeAdvertisement creatorPipe=pipes.get(gameAdv.getCreatorID()+" Pipe");
+            List<PipeAdvertisement> pipesList=new ArrayList<PipeAdvertisement>();
+            pipesList.add(creatorPipe);
+            Communicator communicator=Communicator.getInstance();
+            communicator.createPeerPipes(this.manager.getMyPipeAdvertisement().getName(), manager.getPeerGroup().getPipeService(), pipesList);
         } catch (IOException ex) {
-            System.out.println("error");
-            ex.printStackTrace();
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
        
 
 
@@ -435,84 +430,42 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        pipes.put(myName+" Pipe", manager.getMyPipeAdvertisement());
-        Collection<RegistrationAdvertisement> reg=this.registrations.values();
-        RegistrationAdvertisement[] array=new RegistrationAdvertisement[reg.size()];
-        array=reg.toArray(array);
-        Arrays.sort(array);
-        PipeAdvertisement[] pipesArray=new  PipeAdvertisement[array.length];
-
-        
-           
-              
-                
-                for (int i = 0; i < array.length; i++) {
-                    pipesArray[i] = this.pipes.get(array[i].getPeerID() + " Pipe");
-                    System.out.println("-------->>>>> "+array[i].getPeerID()+" esistente "+pipesArray[i]!=null);
-                }
-           
-        
-
-        PipeAdvertisement myPipe=this.manager.getMyPipeAdvertisement();
-
-
-        HashSet<ID> ids=new HashSet<ID>();
-        String peerID;
-        for(int i=0;i<array.length;i++){
-            try {
-                peerID=players.get(array[i].getPeerID()).getPeerID();
-                ids.add(IDFactory.fromURI(new URI(peerID)));
-            } catch (URISyntaxException ex) {
-                System.out.println("id factory from uri-string");
-            }
-        }
-
-
-        
         try {
-            int numeroGiocatori=this.registrations.keySet().size();
-             Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,new HashSet<ID>());
-           // Communicator comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe);
-            Communicator.updatePipes(myPipe, pipesArray);
-            Communicator comuni=null;
-            Message msg=null;
-            for(int i=0;i<10;i++){
-                 comuni = Communicator.initCommunicator(true, manager.getPeerGroup().getPipeService(), myPipe,new HashSet<ID>());
-                 Thread.sleep(2500);
-            }
-                 comuni=Communicator.getInstance();
-                 msg=comuni.createInitMessage(numeroGiocatori,0, "classicalMap", 0, 0);
-                comuni.sendMessage(msg);
-                comuni.waitForAck(msg, 10);
-
-
-
-
+            // TODO add your handling code here:
+         //   pipes.put(myName + " Pipe", manager.getMyPipeAdvertisement());
+            Collection<RegistrationAdvertisement> reg = this.registrations.values();
+            RegistrationAdvertisement[] array = new RegistrationAdvertisement[reg.size()];
+            array = reg.toArray(array);
+            Arrays.sort(array);
+            List<PipeAdvertisement> pipesList = findPipes();
+            Communicator communicator = Communicator.getInstance();
+            communicator.createPeerPipes(myName + " Pipe", manager.getPeerGroup().getPipeService(), pipesList);
+            int numeroGiocatori = this.registrations.keySet().size();
+            Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
+            communicator.sendMessage(msg);
+            communicator.waitForAck(msg, 3);
 
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
             factory.loadGame("classicalMap");
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
-            int turno=0;
-            
-            int myTurno=0;
+            int turno = 0;
+            int myTurno = 0;
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, 0, 0, 0);
             this.setVisible(false);
-            VirtualRisikoIIApp app=new VirtualRisikoIIApp();
+            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
-        } catch (InterruptedException ex) {
-           System.out.println("impossibile avviare gioco ...comm problem");
-            System.exit(1);
         } catch (MappaException ex) {
             Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ObiettiviException ex) {
             Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            System.out.println("impossibile avviare gioco ...comm problem");
-            System.exit(1);
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
 
         
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -597,6 +550,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             receivedInit=true;
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
+            List<PipeAdvertisement> pipesList=findPipes();
+            Communicator communicator=Communicator.getInstance();
+            communicator.createPeerPipes(myName+" Pipe", manager.getPeerGroup().getPipeService(), pipesList);
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
             factory.loadGame(map_name);
@@ -617,22 +573,15 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             }
             myTurno=counter-1;
             
-            PipeAdvertisement[] pipArray=new PipeAdvertisement[array.length];
-            for(int i=0;i<array.length;i++){
-                pipArray[i]=pipes.get(array[i].getPeerID()+" Pipe");
-            }
+            
 
-            PipeAdvertisement myPipe=pipes.get(array[myTurno].getPeerID()+" Pipe");
-            try {
-                Communicator.updatePipes(myPipe, pipArray);
-            } catch (IOException ex) {
-                System.out.println("impossibile avviare gioco");
-                System.exit(1);
-            }
+            
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_card);
             this.setVisible(false);
             VirtualRisikoIIApp app=new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
+        } catch (IOException ex) {
+            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MappaException ex) {
             System.out.println("impossibile avviare gioco");
             System.exit(1);
@@ -640,6 +589,15 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             System.out.println("impossbile avviare gioco");
         }
 
+    }
+
+    private List<PipeAdvertisement> findPipes() {
+        ArrayList<PipeAdvertisement> result=new ArrayList<PipeAdvertisement>();
+        Iterator<RegistrationAdvertisement> iter=this.registrations.values().iterator();
+        while(iter.hasNext()){
+            result.add(pipes.get(iter.next().getPeerID()+" Pipe"));
+        }
+        return result;
     }
 
     
