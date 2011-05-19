@@ -108,10 +108,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         comunicator.addMovementListener(this);
     }
 
-    private void showInfo(String title,String message){
-        JOptionPane.showMessageDialog(null, message,title, JOptionPane.OK_OPTION);
-
-    }
+   
     public void setInformationPanel(InformationPanel panel){
         this.informationPanel=panel;
     }
@@ -472,11 +469,12 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
 
             if(truppeSelezionate==3){
                 try{
+                    tavolo.passaTurno();
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
                     Thread.sleep(3000);
                     comunicator.sendMessage(msg);
                    
-                    tavolo.passaTurno();
+                    
                 }catch (Exception ex) {
                     ex.printStackTrace();
                 } 
@@ -677,7 +675,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     }
                      message=message+s;
                     this.informationPanel.setPunteggioAvversario(s);
-                    showInfo("Attacco", message);
+                
 
                 }else{
                     this.informationPanel.setPunteggio("###");
@@ -706,7 +704,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
     public void updateMovement(int troops_number, int from, int to) {
         Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
-        this.showInfo("Spostamento", "Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
+       // this.showInfo("Spostamento", "Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
         Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection, truppeSelezionate);
         VirtualRisikoIIEndGameBox endGameBox;
         if(azione!=null){
