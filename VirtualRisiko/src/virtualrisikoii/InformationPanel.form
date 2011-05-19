@@ -181,6 +181,7 @@
             <Component class="javax.swing.JTextArea" name="chatTextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" resourceKey="chatTextArea.font"/>
                 <Property name="rows" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="chatTextArea" noResource="true"/>
               </Properties>
@@ -269,6 +270,7 @@
             <Component class="javax.swing.JTextArea" name="gameInformationArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" resourceKey="gameInformationArea.font"/>
                 <Property name="rows" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="gameInformationArea" noResource="true"/>
               </Properties>

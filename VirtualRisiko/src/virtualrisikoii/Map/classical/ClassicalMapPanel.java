@@ -471,7 +471,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 try{
                     tavolo.passaTurno();
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-                    Thread.sleep(3000);
+                    //Thread.sleep(3000);
                     comunicator.sendMessage(msg);
                    
                     
