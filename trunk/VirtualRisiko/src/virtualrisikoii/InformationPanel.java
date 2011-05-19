@@ -131,6 +131,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
         chatTextArea.setColumns(20);
+        chatTextArea.setFont(resourceMap.getFont("chatTextArea.font")); // NOI18N
         chatTextArea.setRows(5);
         chatTextArea.setName("chatTextArea"); // NOI18N
         jScrollPane2.setViewportView(chatTextArea);
@@ -195,6 +196,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         gameInformationArea.setColumns(20);
+        gameInformationArea.setFont(resourceMap.getFont("gameInformationArea.font")); // NOI18N
         gameInformationArea.setRows(5);
         gameInformationArea.setName("gameInformationArea"); // NOI18N
         jScrollPane1.setViewportView(gameInformationArea);
@@ -254,7 +256,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             this.tavolo.passaTurno();
             Message msg=this.communicator.createPassesMessage(tavolo.getTurnoSuccessivo());
             try {
-                        Thread.sleep(3000);
+                        //Thread.sleep(3000);
                         this.communicator.sendMessage(msg);
                        
 
