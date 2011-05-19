@@ -288,6 +288,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jComboBox1.setName("jComboBox1"); // NOI18N
 
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setEnabled(false);
         jButton1.setName("jButton1"); // NOI18N
 
         inviaATuttiButton.setText(resourceMap.getString("inviaATuttiButton.text")); // NOI18N
@@ -325,7 +326,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chatMessageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(inviaATuttiButton)))
@@ -365,6 +366,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             communicator.sendMessage(msg);
             
             this.chatMessageField.setText("");
+            this.chatTextArea.setText(chatTextArea.getText()+"\n"+chatMessage);
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
@@ -457,7 +459,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     // End of variables declaration//GEN-END:variables
 
     public void updateChat(String to, String messageString) {
-        this.chatTextArea.setText(chatTextArea.getText()+"\\n"+messageString);
+        this.chatTextArea.setText(chatTextArea.getText()+"\n"+messageString);
     }
 
     public void updatePass(int turno_successivo) {
