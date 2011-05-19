@@ -318,6 +318,9 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         
             this.tavolo.passaTurno();
             this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
+            if(tavolo.isTurnoMyGiocatore()){
+                this.appendActionInHistory(tavolo.getGiocatoreCorrente().getNome()+" ancora "+tavolo.getGiocatoreCorrente().getNumeroTruppe());
+            }
         
 
     }
