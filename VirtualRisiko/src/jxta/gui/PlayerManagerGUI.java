@@ -560,7 +560,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             }
             myTurno=counter-1;
             
-            
+            System.out.println("REGISTRAZIONE "+myTurno);
 
             
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_card);
