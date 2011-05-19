@@ -559,6 +559,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             List<PipeAdvertisement> pipesList=findPipes();
+            Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
             Communicator communicator=Communicator.getInstance();
             communicator.createPeerPipes(myName+" Pipe", manager.getPeerGroup().getPipeService(), pipesList);
             GameFactory factory = new GameFactory();
