@@ -252,7 +252,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
     private void passaTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passaTurnoButtonActionPerformed
         // TODO add your handling code here:
-        if(!tavolo.isInizializzazione()){
+        if((!tavolo.isInizializzazione())&&tavolo.isTurnoMyGiocatore()){
             this.tavolo.passaTurno();
             Message msg=this.communicator.createPassesMessage(tavolo.getTurnoSuccessivo());
             try {
