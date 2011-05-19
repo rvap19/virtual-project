@@ -463,7 +463,7 @@ public class Communicator implements PipeMsgListener{
         
     }
 
-    public void pipeMsgEvent(PipeMsgEvent pme) {
+    public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
