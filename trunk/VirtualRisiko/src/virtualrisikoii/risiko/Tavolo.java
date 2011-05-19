@@ -63,16 +63,12 @@ public  class Tavolo {
     }
 
     public boolean isInizializzazione(){
-        if(!inizializzazione){
-            return false;
-        }
-        boolean hasTruppe=false;
-        for(int i=0;i<this.numeroGiocatori;i++){
-            hasTruppe=hasTruppe||(this.giocatori.get(i).getNumeroTruppe()>0);
-        }
-
-        inizializzazione=inizializzazione&&hasTruppe;
+       
         return inizializzazione;
+    }
+
+    public void setInizializzazione(boolean init){
+        this.inizializzazione=init;
     }
 
     public boolean isTurno(Giocatore g){
@@ -412,11 +408,12 @@ public  class Tavolo {
         return risultato;
     }
 
-    public void avviaGioco() {
+  /*  public void avviaGioco() {
         this.turno=0;
+
         assegnaRinforziSuTerritori(this.getGiocatoreCorrente());
 
-    }
+    }*/
 
     public int getTurnoSuccessivo() {
         int newTurno=(turno+1)%this.numeroGiocatori;
@@ -429,6 +426,12 @@ public  class Tavolo {
     public Giocatore getMyGiocatore() {
         return this.myGiocatore;
     }
+
+    public int getTurno(){
+        return turno;
+    }
+
+
 
    
 
