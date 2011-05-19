@@ -351,7 +351,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
              name = gameDialog.getGameName();
              maxPlayers = gameDialog.getMaxPlayer();
             manager.createGame(name, maxPlayers);
-            Communicator communicator =Communicator.initCentralCommunicator1(manager.getPeerGroup(), manager.getMyPipeAdvertisement(), 0);
+            Communicator communicator =Communicator.initCentralCommunicator1(myName,manager.getPeerGroup(), manager.getMyPipeAdvertisement(), 0);
         } catch (IOException ex) {
            System.out.println("impossbile creare gioco "+name);
         }
@@ -410,7 +410,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             }
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
             PipeAdvertisement creatorPipe = pipes.get(gameAdv.getCreatorID() + " Pipe");
-            Communicator communicator = Communicator.initPeerComunicator(manager.getPeerGroup(), creatorPipe);
+            Communicator communicator = Communicator.initPeerComunicator(myName,manager.getPeerGroup(), creatorPipe);
             communicator.addInitListener(this);
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -69,6 +69,7 @@ public class Communicator implements PipeMsgListener{
 
     private boolean isCentral;
     private int current_message_id=0;
+    private String playerName;
 
     private Communicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -87,8 +88,9 @@ public class Communicator implements PipeMsgListener{
      *
      */
 
-    public static Communicator initCentralCommunicator1(PeerGroup group,PipeAdvertisement pipe,int players) throws IOException{
+    public static Communicator initCentralCommunicator1(String peerName,PeerGroup group,PipeAdvertisement pipe,int players) throws IOException{
         instance=new Communicator();
+        instance.playerName=peerName;
         instance.isCentral=true;
         instance.toPeersPipes=new ArrayList<JxtaBiDiPipe>();
         JxtaServerPipe serverPipe=new JxtaServerPipe(group, pipe);
@@ -109,8 +111,9 @@ public class Communicator implements PipeMsgListener{
         return instance;
     }
 
-    public static Communicator initPeerComunicator(PeerGroup group,PipeAdvertisement pipe) throws IOException{
+    public static Communicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
         instance=new Communicator();
+        instance.playerName=peerName;
         instance.isCentral=false;
         instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,12*1000, instance, true);
         int counter=0;
@@ -133,6 +136,10 @@ public class Communicator implements PipeMsgListener{
         return instance;
     }
 
+
+    public void setPlayerName(String player){
+        this.playerName=player;
+    }
    
 
     public void addApplianceListener(ApplianceListener listener){
@@ -193,8 +200,7 @@ public class Communicator implements PipeMsgListener{
     private boolean sendMessage(Message message,int msgID) throws IOException{
         StringMessageElement mElement=new StringMessageElement(ID_MSG, Integer.toString(msgID), null);
         message.addMessageElement(namespace, mElement);
-        mElement=new StringMessageElement(GAMER, "prova", null);
-        message.addMessageElement(namespace, mElement);
+       
 
         if(!this.isCentral){
             return this.toCentralPeer.sendMessage(message);
@@ -208,6 +214,8 @@ public class Communicator implements PipeMsgListener{
     }
 
      public boolean sendMessage(Message message) throws IOException{
+          StringMessageElement mElement=new StringMessageElement(GAMER,playerName , null);
+        message.addMessageElement(namespace, mElement);
          return sendMessage(message,current_message_id);
          
      }
@@ -236,6 +244,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateInitMessage(Message message){
+        String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         int seed_dice=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_DICE).toString());
         String map_name=message.getMessageElement(namespace, InitMessageAttributes.MAP_NAME).toString();
         int seed_card=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_CARDS).toString());
@@ -260,7 +272,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateApplianceMessage(Message message){
-
+         String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         int troopNumber=Integer.parseInt(message.getMessageElement(namespace, ApplianceAttributes.TROOPS_NUMBER).toString());
         int region=Integer.parseInt(message.getMessageElement(namespace, ApplianceAttributes.REGION_IDS).toString());
         Iterator<ApplianceListener> listeners=this.applianceListeners.iterator();
@@ -284,6 +299,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateAttackMessage(Message message){
+         String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         int troops_number=Integer.parseInt(message.getMessageElement(namespace, AttackAttributes.TROOPS_NUMBER).toString());
         int from=Integer.parseInt(message.getMessageElement(namespace, AttackAttributes.FROM_REGION_ID).toString());
         int to=Integer.parseInt(message.getMessageElement(namespace, AttackAttributes.TO_REGION_ID).toString());
@@ -309,6 +328,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateMovementMessage(Message message){
+         String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         int troops=Integer.parseInt(message.getMessageElement(namespace, MovementAttributes.TROOPS_NUMBER).toString());
         int from = Integer.parseInt(message.getMessageElement(namespace, MovementAttributes.FROM_REGION_ID).toString());
         int to= Integer.parseInt(message.getMessageElement(namespace, MovementAttributes.TO_REGION_ID).toString());
@@ -334,6 +357,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateChangeCardsMessage(Message message){
+         String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         Message.ElementIterator iterator= message.getMessageElements(namespace, ChangeCardsAttributes.CARD_ID);
         
         MessageElement element=iterator.next();
@@ -359,6 +386,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaboratePassesMessage(Message message){
+         String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         int turn=Integer.parseInt(message.getMessageElement(namespace, PassAttributes.SUCC_TURN).toString());
         Iterator<PassListener> listeners=this.passListeners.iterator();
         while(listeners.hasNext()){
@@ -395,6 +426,10 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateChatMessage(Message message){
+         String name=message.getMessageElement(namespace, GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
         String to=message.getMessageElement(namespace, ChatAttributes.DESTINATION).toString();
         String messageString=message.getMessageElement(namespace, ChatAttributes.MESSAGE).toString();
         Iterator<ChatListener> listeners=this.chatListeners.iterator();
@@ -412,10 +447,19 @@ public class Communicator implements PipeMsgListener{
        System.out.println(msg.getMessageElement(type).toString()+" FROM "+msg.getMessageElement(GAMER)+" ID "+msg.getMessageElement(ID_MSG));
 
        String messageType=msg.getMessageElement(namespace, type).toString();
+       int msgID=0;
+
+       try{
+           msgID=new Integer(msg.getMessageElement(namespace, ID_MSG).toString()).intValue();
+       }catch(NumberFormatException ex){
+
+       }
+
+
 
      if(this.isCentral){
             try {
-                this.sendMessage(msg);
+                this.sendMessage(msg,msgID);
             } catch (IOException ex) {
                 Logger.getLogger(Communicator.class.getName()).log(Level.SEVERE, null, ex);
             }
