@@ -297,7 +297,7 @@ discovery.addDiscoveryListener(this);
             PipeID MyPipeID = IDFactory.newPipeID(PeerGroupID.defaultNetPeerGroupID, newName.getBytes());
 
             MyPipeAdvertisement.setPipeID(MyPipeID);
-            MyPipeAdvertisement.setType(PipeService.PropagateType);
+            MyPipeAdvertisement.setType(PipeService.UnicastType);
             MyPipeAdvertisement.setName(name+" Pipe");
             MyPipeAdvertisement.setDescription("Created by " + name);
         }

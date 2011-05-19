@@ -113,6 +113,12 @@ public class Communicator implements PipeMsgListener{
         instance=new Communicator();
         instance.isCentral=false;
         instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,12*1000, instance, true);
+        int counter=0;
+        int limit=4;
+        while((!instance.toCentralPeer.isBound())&&counter<limit){
+            instance.toCentralPeer=new JxtaBiDiPipe(group,pipe,12*1000, instance, true);
+            counter++;
+        }
         return instance;
     }
 
