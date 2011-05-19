@@ -93,14 +93,18 @@ public class Communicator implements PipeMsgListener{
         instance.toPeersPipes=new ArrayList<JxtaBiDiPipe>();
         JxtaServerPipe serverPipe=new JxtaServerPipe(group, pipe);
         serverPipe.setPipeTimeout(30*1000);
-        for(int i=0;i<players-1;i++){
-            JxtaBiDiPipe bdpipe=serverPipe.accept();
-            if(bdpipe==null){
-                throw new IOException("impossibile stabilire connessione");
-            }
-            bdpipe.setMessageListener(instance);
-            instance.toPeersPipes.add(bdpipe);
+        try{
+           while(true){
+                JxtaBiDiPipe bdpipe=serverPipe.accept();
+                if(bdpipe==null){
+                    throw new IOException("impossibile stabilire connessione");
+                }
+                bdpipe.setMessageListener(instance);
+                instance.toPeersPipes.add(bdpipe);
 
+            }
+        }catch(Exception ex){
+            System.out.println("TIMEOUT");
         }
         return instance;
     }
@@ -178,17 +182,6 @@ public class Communicator implements PipeMsgListener{
 
     
 
-    private void init(PipeService pipeService,PipeAdvertisement myPipe,PipeAdvertisement creatorPipe,PipeAdvertisement[] peerPipeAdvs) throws IOException{
-        
-        for(int i=0;i<peerPipeAdvs.length;i++){
-            PipeAdvertisement currentAdv=peerPipeAdvs[i];
-            if((!currentAdv.getName().equalsIgnoreCase(myPipe.getName()))&&(!currentAdv.getName().equalsIgnoreCase(creatorPipe.getName()))){
-                 InputPipe input=pipeService.createInputPipe(currentAdv, this);
-            }
-        }
-        
-        
-    }
 
 
     private boolean sendMessage(Message message,int msgID) throws IOException{
