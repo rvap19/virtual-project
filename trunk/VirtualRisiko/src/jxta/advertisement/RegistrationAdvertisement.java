@@ -221,7 +221,7 @@ public class RegistrationAdvertisement  extends Advertisement implements Compara
     }
 
     public int compareTo(RegistrationAdvertisement o) {
-        return (int) (this.time - o.time);
+        return (int) (this.getPeerID().compareTo(o.getPeerID()));
     }
     
     public static class Instantiator implements AdvertisementFactory.Instantiator {
