@@ -463,6 +463,8 @@ public class Communicator implements PipeMsgListener{
         
     }
 
+    private boolean free=true;
+
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
