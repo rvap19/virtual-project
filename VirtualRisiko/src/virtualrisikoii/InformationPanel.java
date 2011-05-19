@@ -38,6 +38,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         communicator.addPassListener(this);
         tavolo=Tavolo.getInstance();
         this.obiettivoTextArea.setText(tavolo.getMyGiocatore().getObiettivo().toString());
+        TitledBorder border= (TitledBorder) this.jPanel1.getBorder();
+        border.setTitle("Benvenuto "+tavolo.getMyGiocatore().getNome());
     }
 
     public void setTavolo(Tavolo tavolo){
@@ -360,7 +362,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
     private void inviaATuttiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaATuttiButtonActionPerformed
         // TODO add your handling code here:
-        String chatMessage=this.tavolo.getMyGiocatore().getNome()+" > "+this.chatMessageField.getText();
+        String chatMessage=this.tavolo.getMyGiocatore().getNome()+" > "+this.chatMessageField.getText()+"\n";
         try {
             Message msg = this.communicator.createChatMessage(Communicator.ChatAttributes.all, chatMessage);
             communicator.sendMessage(msg);
