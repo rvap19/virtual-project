@@ -32,6 +32,7 @@ import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Spostamento;
 import virtualrisikoii.risiko.Tavolo;
 import virtualrisikoii.risiko.Territorio;
+import virtualrisikoii.risiko.dadiGui;
 
 /**
  *
@@ -673,10 +674,16 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 String message="Il "+fromTerritorio.getOccupante().getNome()+" attacca da "+fromTerritorio.getNome()+"\n"+" a "+toTerritorio.getNome()+"\n"+" con "+troops_number+" unita"+
                         "attacco : ";
                 if(azione.isAttacco()){
+
+                    //variabili per i dati di Luigi
+                    int [] att={0,0,0};
+                    int [] dif={0,0,0};
+
                     int[] a=((Attacco)azione).getPunteggio();
                     String s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
+                        att[i]=a[i];
                     }
                     this.informationPanel.appendActionInHistory(s);
                     message=message+s+"\n"+"difesa : " ;
@@ -684,9 +691,13 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                      s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
+                        dif[i]=a[i];
                     }
                      message=message+s;
                     this.informationPanel.appendActionInHistory(s);
+
+
+                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],fromTerritorio.getOccupante().getID(),toTerritorio.getOccupante().getID()).setVisible(true);
                 
 
                 }
