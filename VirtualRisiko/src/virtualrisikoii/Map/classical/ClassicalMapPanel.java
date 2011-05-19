@@ -560,6 +560,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 azione=tavolo.preparaSpostamento(firstSelection, secondSelection, truppeSelezionate);
                 if(azione!=null){
                     tavolo.eseguiSpostamento((Spostamento) azione);
+                    tavolo.passaTurno();
                     try {
                         Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         comunicator.sendMessage(msg);
@@ -701,7 +702,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
 
             }else{
             System.out.println("errore comunicazione attacco");
-            System.exit(1);
+            
         }
 
     }
