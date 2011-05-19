@@ -563,6 +563,9 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     try {
                         Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         comunicator.sendMessage(msg);
+                        Thread.sleep(3000);
+                        msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+                        comunicator.sendMessage(msg);
                        
 
                     } catch (Exception ex) {
