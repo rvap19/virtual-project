@@ -406,6 +406,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             GameAdvertisement gameAdv = this.games.get(gamaName);
             this.manager.createRegistration(gameAdv.getGameID());
             if (this.myName.equals(gameAdv.getCreatorID())) {
+                this.registrations.put(manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement());
+                updateList(registrations, manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement(), currentPlayersInGameList);
                 return;
             }
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
