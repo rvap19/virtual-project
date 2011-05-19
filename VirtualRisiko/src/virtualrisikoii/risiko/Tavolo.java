@@ -100,7 +100,7 @@ public  class Tavolo {
         while(getGiocatoreCorrente().getStato()==Giocatore.FUORI_GIOCO){
             turno=(turno+1)%this.numeroGiocatori;
         }
-        if(!inizializzazione){
+        if(!this.isInizializzazione()){
             assegnaRinforziSuTerritori(this.getGiocatoreCorrente());
         }
     }

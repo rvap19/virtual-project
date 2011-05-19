@@ -14,6 +14,8 @@ package virtualrisikoii.Map.classical;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -467,7 +469,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 }
             }
 
-            if(truppeSelezionate==3||this.tavolo.getGiocatoreCorrente().getNumeroTruppe()==0){
+            if(truppeSelezionate==3){
                 try{
                     tavolo.passaTurno();
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
@@ -483,7 +485,14 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             }
             this.setLabel(t);
             if(!tavolo.isInizializzazione()){
-                tavolo.avviaGioco();
+                tavolo.passaTurno();
+                    Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+                try {
+                    //Thread.sleep(3000);
+                    comunicator.sendMessage(msg);
+                } catch (IOException ex) {
+                    Logger.getLogger(ClassicalMapPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
                 truppeSelezionate=0;
