@@ -101,7 +101,7 @@ public class Communicator implements PipeMsgListener,OutputPipeListener{
         while(iter.hasNext()){
             adv=iter.next();
             if(!adv.getName().equalsIgnoreCase(myNamePipe)){
-                service.createInputPipe(iter.next(), this);
+                service.createInputPipe(adv, this);
             }
         }
     }
