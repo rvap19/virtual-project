@@ -12,13 +12,10 @@
 package jxta.gui;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,8 +34,6 @@ import jxta.listener.RegistrationListener;
 import net.jxta.document.Advertisement;
 import net.jxta.endpoint.Message;
 import net.jxta.exception.PeerGroupException;
-import net.jxta.id.ID;
-import net.jxta.id.IDFactory;
 import net.jxta.protocol.PipeAdvertisement;
 import util.GameFactory;
 import util.ObiettiviException;
@@ -95,7 +90,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         manager.findGames();
         manager.findPlayers();
 
-        Communicator communicator=Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
         initComponents();
         userNameLabel.setText(name);
         
@@ -414,21 +408,15 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 return;
             }
             updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
-            PipeAdvertisement creatorPipe=pipes.get(gameAdv.getCreatorID()+" Pipe");
-            List<PipeAdvertisement> pipesList=new ArrayList<PipeAdvertisement>();
-            pipesList.add(creatorPipe);
-            Communicator communicator=Communicator.getInstance();
+            PipeAdvertisement creatorPipe = pipes.get(gameAdv.getCreatorID() + " Pipe");
+            Communicator communicator = Communicator.initPeerComunicator(manager.getPeerGroup(), creatorPipe);
             communicator.addInitListener(this);
-            while(!this.receivedInit){
-                communicator.createPeerPipes(this.manager.getMyPipeAdvertisement().getName(), manager.getPeerGroup().getPipeService(), pipesList);
-                Thread.sleep(2000);
-            }
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
-           ex.printStackTrace();
-
+            ex.printStackTrace();
         }
+
+            
+        
             
        
 
@@ -444,18 +432,16 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             RegistrationAdvertisement[] array = new RegistrationAdvertisement[reg.size()];
             array = reg.toArray(array);
             Arrays.sort(array);
-            
-            List<PipeAdvertisement> pipesList = findPipes();
-            Communicator communicator = Communicator.getInstance();
-            communicator.createPeerPipes(myName + " Pipe", manager.getPeerGroup().getPipeService(), pipesList);
-            int numeroGiocatori = this.registrations.keySet().size();
-            Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
 
-            for(int i=0;i<registrations.size();i++){
-                Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
-                communicator.sendMessage(msg);
-                communicator.waitForAck(msg, 0);
-            }
+            int numeroGiocatori = this.registrations.keySet().size();
+         
+            Communicator communicator =Communicator.initCentralCommunicator1(manager.getPeerGroup(), manager.getMyPipeAdvertisement(), numeroGiocatori);
+
+            
+            
+            Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
+            communicator.sendMessage(msg);
+           
 
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
@@ -468,15 +454,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             this.setVisible(false);
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
-        } catch (MappaException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ObiettiviException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
       
 
         
@@ -562,10 +542,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             receivedInit=true;
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-            List<PipeAdvertisement> pipesList=findPipes();
-            Communicator.initCommunicator(manager.getPeerGroup().getPipeService(), manager.getMyPipeAdvertisement());
-            Communicator communicator=Communicator.getInstance();
-            communicator.createPeerPipes(myName+" Pipe", manager.getPeerGroup().getPipeService(), pipesList);
+     
+           
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
             factory.loadGame(map_name);
@@ -593,25 +571,13 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             this.setVisible(false);
             VirtualRisikoIIApp app=new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
-        } catch (IOException ex) {
-            Logger.getLogger(PlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MappaException ex) {
-            System.out.println("impossibile avviare gioco");
-            System.exit(1);
-        } catch (ObiettiviException ex) {
-            System.out.println("impossbile avviare gioco");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
     }
 
-    private List<PipeAdvertisement> findPipes() {
-        ArrayList<PipeAdvertisement> result=new ArrayList<PipeAdvertisement>();
-        Iterator<RegistrationAdvertisement> iter=this.registrations.values().iterator();
-        while(iter.hasNext()){
-            result.add(pipes.get(iter.next().getPeerID()+" Pipe"));
-        }
-        return result;
-    }
+  
 
     
 
