@@ -434,6 +434,13 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             array = reg.toArray(array);
             Arrays.sort(array);
 
+            boolean trovato=false;
+            int counter=0;
+            while(!trovato){
+                trovato=array[counter].getPeerID().equals(myName);
+                counter++;
+            }
+            int myTurno=counter-1;
             int numeroGiocatori = this.registrations.keySet().size();
          
             
@@ -450,7 +457,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
-            int myTurno = 0;
+            
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, 0, 0, 0);
             this.setVisible(false);
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
