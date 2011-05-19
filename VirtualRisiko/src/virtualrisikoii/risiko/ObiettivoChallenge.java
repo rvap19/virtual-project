@@ -71,14 +71,16 @@ public class ObiettivoChallenge extends Obiettivo{
        return total;
     }
 
+
     @Override
     public String toString() {
-        String s="Obiettivo "+Integer.toString(super.getCodice())+"\n"+
-                "Territori da conquistare "+"\n";
+        String newline=System.getProperty("line.separator");
+        String s="Obiettivo "+Integer.toString(super.getCodice())+newline+
+                "Territori da conquistare "+newline;
         String t="";
         Iterator<Territorio> iter=this.territoriDaConquistare.iterator();
         while(iter.hasNext()){
-            t=t+iter.next().getNome()+" , "+"\n";
+            t=t+iter.next().getNome()+" , "+newline;
         }
         return s+t;
     }
