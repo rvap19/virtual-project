@@ -315,8 +315,9 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     }
 
     public void updatePass(int turno_successivo) {
-        
+
             this.tavolo.passaTurno();
+            this.tavolo.isInizializzazione();
             this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
             if(tavolo.isTurnoMyGiocatore()){
 
