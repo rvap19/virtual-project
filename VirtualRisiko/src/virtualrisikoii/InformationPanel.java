@@ -38,8 +38,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         communicator.addPassListener(this);
         tavolo=Tavolo.getInstance();
         this.obiettivoTextArea.setText(tavolo.getMyGiocatore().getObiettivo().toString());
-        TitledBorder border= (TitledBorder) this.jPanel1.getBorder();
+        TitledBorder border= (TitledBorder) this.getBorder();
         border.setTitle("Benvenuto "+tavolo.getMyGiocatore().getNome());
+        border= (TitledBorder) this.jPanel1.getBorder();
+        border.setTitle("Informazioni obiettivo "+tavolo.getMyGiocatore().getNome());
+
     }
 
     public void setTavolo(Tavolo tavolo){

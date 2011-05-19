@@ -22,6 +22,7 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import services.CardChangeController;
 import util.GameFactory;
 import virtualrisikoii.risiko.Mappa;
@@ -106,10 +107,13 @@ public class VirtualRisikoIIView extends FrameView {
         
          
          this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-
-         
+         showInfo("inizio partita", "E' il turno del "+tavolo.getGiocatoreCorrente().getNome());
     }
 
+    private void showInfo(String title,String message){
+        JOptionPane.showMessageDialog(null, message,title, JOptionPane.INFORMATION_MESSAGE);
+
+    }
     @Action
     public void showEndGameBox() {
         if (endGameBox == null) {
