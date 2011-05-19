@@ -12,6 +12,7 @@
 package virtualrisikoii;
 
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import jxta.communication.Communicator;
 import net.jxta.endpoint.Message;
@@ -37,6 +38,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         communicator.addChatListener(this);
         communicator.addPassListener(this);
         tavolo=Tavolo.getInstance();
+        obiettivoLabel.setIcon(new ImageIcon("/virtualrisikoii/resources/obiettivi/classical"+tavolo.getMyGiocatore().getObiettivo().getCodice()+".jpg"));
         this.obiettivoLabel.setToolTipText(tavolo.getMyGiocatore().getObiettivo().toString());
         TitledBorder border= (TitledBorder) this.getBorder();
         border.setTitle("Benvenuto "+tavolo.getMyGiocatore().getNome());
