@@ -248,7 +248,7 @@ public class Communicator implements PipeMsgListener{
     public boolean sendInitMessages(int players,int seed_dice,String map_name,int seed_card,int seed_region) throws IOException{
         Message msg;
         boolean gine=true;
-        int turn=0;
+        int turn=1;
         Iterator<JxtaBiDiPipe> iter=toPeersPipes.iterator();
         while(iter.hasNext()){
             msg=createInitMessage(players, seed_dice, map_name, seed_card, seed_region);

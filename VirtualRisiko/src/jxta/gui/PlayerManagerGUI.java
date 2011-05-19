@@ -420,22 +420,9 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     private void startGame(){
         try {
 
-            //   pipes.put(myName + " Pipe", manager.getMyPipeAdvertisement());
-            Collection<RegistrationAdvertisement> reg = this.registrations.values();
-            RegistrationAdvertisement[] array = new RegistrationAdvertisement[reg.size()];
-            array = reg.toArray(array);
-            Arrays.sort(array);
-
-            boolean trovato=false;
-            int counter=0;
-            while(!trovato){
-                trovato=array[counter].getPeerID().equals(myName);
-                counter++;
-            }
-            int myTurno=counter-1;
-            int numeroGiocatori = this.registrations.keySet().size();
-
-
+           
+        int numeroGiocatori=this.registrations.keySet().size();
+        int myTurno=0;
 
 
             Communicator communicator=Communicator.getInstance();
