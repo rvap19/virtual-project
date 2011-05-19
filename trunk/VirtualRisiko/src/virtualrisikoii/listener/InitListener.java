@@ -10,6 +10,6 @@ package virtualrisikoii.listener;
  * @author root
  */
 public interface InitListener {
-    public void init(int  players,int seed_dice,String map_name,int seed_card,int seed_region);
+    public void init(int myTurno,int  players,int seed_dice,String map_name,int seed_card,int seed_region);
 
 }

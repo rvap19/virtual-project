@@ -439,8 +439,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
 
             Communicator communicator=Communicator.getInstance();
-            Message msg = communicator.createInitMessage(numeroGiocatori, 0, "classicalMap", 0, 0);
-            communicator.sendMessage(msg);
+            communicator.sendInitMessages(numeroGiocatori, 0, "classicalMap", 0, 0);
+            
 
 
             GameFactory factory = new GameFactory();
@@ -528,7 +528,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         this.pipes.put(pipeInfo.getName(), pipeInfo);
     }
 
-    public void init(int players,int seed_dice, String map_name, int seed_card, int seed_region) {
+    public void init(int myTurno,int players,int seed_dice, String map_name, int seed_card, int seed_region) {
         try {/*
               *  per prima cosa continuare l'inizializzazione del communicator
               */
@@ -547,18 +547,8 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno=0;
             int numeroGiocatori=players;
-            int myTurno;
             
-            RegistrationAdvertisement[] array=new RegistrationAdvertisement[registrations.keySet().size()];
-            array=registrations.values().toArray(array);
-            Arrays.sort(array);
-            boolean trovato=false;
-            int counter=0;
-            while(!trovato){
-                trovato=array[counter].getPeerID().equals(myName);
-                counter++;
-            }
-            myTurno=counter-1;
+            
             
             System.out.println("REGISTRAZIONE "+myTurno);
 
