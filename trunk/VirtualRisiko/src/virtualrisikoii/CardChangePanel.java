@@ -15,6 +15,7 @@ import javax.swing.JList;
 import services.CardChangeController;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
@@ -28,7 +29,16 @@ public class CardChangePanel extends javax.swing.JPanel {
     /** Creates new form CardChangePanel */
     public CardChangePanel() {
         
-       
+       this.controller = new CardChangeController();
+       controller.setGiocatore(Tavolo.getInstance().getMyGiocatore());
+       controller.setMappa(Tavolo.getInstance().getMappa());
+        initComponents();
+        this.selectJolly.setEnabled(false);
+        this.fanteLittleIcon.setText("0");
+        this.cannoneLittleIcon.setText("0");
+        this.cavaliereLittleIcon.setText("0");
+        this.jollyLittleIcon.setText("non selezionato");
+        this.scambiaButton.setEnabled(false);
         
     }
 
@@ -37,14 +47,7 @@ public class CardChangePanel extends javax.swing.JPanel {
     }
 
     public void setController(CardChangeController controller) {
-        this.controller = controller;
-        initComponents();
-        this.selectJolly.setEnabled(false);
-        this.fanteLittleIcon.setText("0");
-        this.cannoneLittleIcon.setText("0");
-        this.cavaliereLittleIcon.setText("0");
-        this.jollyLittleIcon.setText("non selezionato");
-        this.scambiaButton.setEnabled(false);
+        this.controller=controller;
         
     }
 

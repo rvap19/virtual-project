@@ -258,10 +258,8 @@ public class VirtualRisikoIIView extends FrameView {
         CardChangeDialog dialog = new CardChangeDialog(new javax.swing.JFrame(), true);
         dialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                
-                CardChangeController controller=new CardChangeController();
-                controller.setGiocatore(this.tavolo.getGiocatoreCorrente());
-                controller.setMappa(tavolo.getMappa());
-                dialog.setController(controller);
+                
+                
                 dialog.setSize(800,300);
                 dialog.setVisible(true);
 
