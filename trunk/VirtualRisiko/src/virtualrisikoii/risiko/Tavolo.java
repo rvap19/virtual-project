@@ -93,7 +93,10 @@ public  class Tavolo {
     
     public void passaTurno(){
         if(lastAttacco!=null){
+
             this.recuperaCarta(this.getGiocatoreCorrente());
+            System.out.println("carte del "+getGiocatoreCorrente().getNome()+" "+
+                    this.getGiocatoreCorrente().getCarte().size());
             lastAttacco=null;
         }
         turno=(turno+1)%this.numeroGiocatori;
