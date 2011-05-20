@@ -108,13 +108,6 @@ public class Giocatore  implements Comparable<Giocatore>{
         this.obiettivo = obiettivo;
     }
 
-    public void addNazione(Territorio nazione){
-        this.nazioniOccupate.add(nazione);
-    }
-
-    public void removeNazione(Territorio nazione){
-        this.nazioniOccupate.remove(nazione);
-    }
 
     public Set<Territorio> getNazioni(){
         return this.nazioniOccupate;
