@@ -36,6 +36,9 @@ public class dadiGui extends javax.swing.JFrame {
         this.giocAtt=giocAtt;
         this.giocDif=giocDif;
         initComponents();
+        TuoThread tt = new TuoThread( this );
+        tt.start();
+
     }
 
     /** This method is called from within the constructor to
