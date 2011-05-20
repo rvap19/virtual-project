@@ -390,6 +390,10 @@ public class CardChangePanel extends javax.swing.JPanel {
             return;
         }
 
+        if(Tavolo.getInstance().existLastAttack()){
+            return;
+        }
+
         this.controller.ottieniRinforzi(carte[0], carte[1], carte[2]);
 
         this.jList1.clearSelection();

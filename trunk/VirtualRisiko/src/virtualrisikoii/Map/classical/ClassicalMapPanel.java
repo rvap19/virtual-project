@@ -14,6 +14,7 @@ package virtualrisikoii.Map.classical;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -27,10 +28,13 @@ import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIEndGameBox;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
+import virtualrisikoii.listener.ChangeCardListener;
 import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
+import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
 import virtualrisikoii.risiko.Tavolo;
 import virtualrisikoii.risiko.Territorio;
@@ -40,7 +44,7 @@ import virtualrisikoii.risiko.dadiGui;
  *
  * @author root
  */
-public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceListener,AttackListener,MovementListener {
+public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener {
 
     private JLabel[] territoriLabels;
     private Tavolo tavolo;
@@ -819,6 +823,24 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 }
 
             }
+
+    }
+
+    public void updateChangeCards(int card1, int card2, int card3) {
+
+        Tavolo tavolo=Tavolo.getInstance();
+        Giocatore g=tavolo.getGiocatoreCorrente();
+        Carta c1=g.getCarta(card1);
+        Carta c2=g.getCarta(card2);
+        Carta c3=g.getCarta(card3);
+        int rinforzi=Rinforzo.getRinfornzo(g, c1, c2, c3, tavolo.getMappa());
+        g.setNumeroTruppe(g.getNumeroTruppe()+rinforzi);
+        System.out.println("Ricevuta cambio dal "+g.getNome()+" con "+c1.getTerritorio().getNome()+" "+c2.getTerritorio().getNome()+" "+c3.getTerritorio().getNome());
+        this.informationPanel.updateDatiGiocatore(g);
+        List<Carta> carte=tavolo.getCarte();
+        carte.add(c1);
+        carte.add(c2);
+        carte.add(c3);
 
     }
 

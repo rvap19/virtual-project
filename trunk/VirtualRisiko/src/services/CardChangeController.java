@@ -5,17 +5,21 @@
 
 package services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jxta.communication.Communicator;
+import net.jxta.endpoint.Message;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Rinforzo;
+import virtualrisikoii.risiko.Tavolo;
 import virtualrisikoii.risiko.Territorio;
 
 /**
@@ -228,6 +232,18 @@ public class CardChangeController {
         carte.remove(c1);
         carte.remove(c2);
         carte.remove(c3);
+        List<Carta> list=Tavolo.getInstance().getCarte();
+        list.add(c1);
+        list.add(c2);
+        list.add(c3);
+
+        Communicator communicator=Communicator.getInstance();
+        Message msg=communicator.createChangeCardsMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
+        try {
+            communicator.sendMessage(msg);
+        } catch (IOException ex) {
+            System.out.println("Impossibile inviare messaggio di change card");
+        }
     }
 
     
