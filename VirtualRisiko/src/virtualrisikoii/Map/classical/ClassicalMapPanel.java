@@ -506,6 +506,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
 
         Giocatore attaccante=null;
         Giocatore difensore=null;
+
         if(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==this.tavolo.getGiocatoreCorrente()){
             if(tavolo.assegnaUnita(t)){
                 try {
@@ -520,12 +521,16 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             }
             return;
         }
+
         if(firstSelection==null){
             
             if(this.tavolo.getGiocatoreCorrente()!=this.getTerritorio(label).getOccupante()){
                 return;
             }
-            firstSelection=this.getTerritorio(label);
+            if(this.getTerritorio(label).getNumeroUnita()>1){
+                firstSelection=this.getTerritorio(label);
+            }
+            
             return;
         }
 
@@ -543,8 +548,6 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             }*/
             return ;
 
-        }else if(currentSelection.getOccupante()==this.tavolo.getGiocatoreCorrente()){
-            firstSelection=currentSelection;
         }else {
             this.secondSelection=currentSelection;
 
@@ -578,6 +581,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 
             }else{
                 azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
+
                 if(azione!=null){
                     truppeSelezionate=this.showActionDialog(false, firstSelection  , secondSelection);
                     if(truppeSelezionate<0){
