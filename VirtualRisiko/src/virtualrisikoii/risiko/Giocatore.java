@@ -132,6 +132,19 @@ public class Giocatore  implements Comparable<Giocatore>{
         }
     }
 
+    public Carta getCarta(int id){
+        Iterator<Carta> iter=this.getCarte().iterator();
+
+        Carta  carta;
+        while(iter.hasNext() ){
+            carta=iter.next();
+            if(carta.getTerritorio().getCodice()==id){
+                return carta;
+            }
+        }
+        return null;
+    }
+
     public int compareTo(Giocatore o) {
         if(this.colore==o.getColore()){
             return 0;

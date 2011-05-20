@@ -59,5 +59,13 @@ public class Carta {
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Carta c=(Carta)obj;
+        return c.getTerritorio().getCodice()==this.getTerritorio().getCodice();
+    }
+
+
+
 
 }

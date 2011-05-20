@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 
 
@@ -27,6 +28,7 @@ public  class Tavolo {
     private int maxGiocatori=6;
     private List<Obiettivo> obiettivi;
     private Random dado;
+    private Random nextCard;
 
     private boolean inizializzazione;
 
@@ -154,10 +156,10 @@ public  class Tavolo {
         attacco.setPunteggio(this.lanciaDadi(att));
         attacco.setPunteggioAvversario(this.lanciaDadi(avv));
 
-        
+        this.lastAttacco=attacco;
         attacco.eseguiAzione();
         if(attacco.isVittoria()){
-            this.lastAttacco=attacco;
+          //  this.lastAttacco=attacco;
             if(difensore.getNazioni().size()==0){
                 difensore.setStato(Giocatore.FUORI_GIOCO);
                 Iterator<Carta> iter=difensore.getCarte().iterator();
@@ -220,7 +222,7 @@ public  class Tavolo {
 
         if(lastAttacco.isVittoria()){
             if(this.carte.size()>0){
-                Carta carta=this.carte.remove(0);
+                Carta carta=this.carte.remove(nextCard.nextInt(carte.size()));
                  lastAttacco.getGiocatore().getCarte().add(carta);
             }
             lastAttacco=null;
@@ -356,13 +358,15 @@ public  class Tavolo {
     }
 
     private void initCarte(int seed){
+        this.nextCard=new Random(seed);
         this.carte=new ArrayList<Carta>();
         Territorio[] territori=mappa.getNazioni();
         int numTerritori=territori.length/3;
         int limit=numTerritori;
         int tipo=Carta.CANNONE;
 
-        for(int i=0;i<numTerritori;i++){
+        int i=0;
+        for(i=0;i<numTerritori;i++){
             Carta c=new Carta(tipo);
             c.setTerritorio(territori[i]);
             carte.add(c);
@@ -370,7 +374,7 @@ public  class Tavolo {
 
         tipo=Carta.CAVALIERE;
         limit=numTerritori*2;
-        for(int i=numTerritori;i<limit;i++){
+        for( i=numTerritori;i<limit;i++){
             Carta c=new Carta(tipo);
             c.setTerritorio(territori[i]);
             carte.add(c);
@@ -378,7 +382,7 @@ public  class Tavolo {
 
         tipo=Carta.FANTE;
         limit=numTerritori*3;
-        for(int i=numTerritori*2;i<limit;i++){
+        for( i=numTerritori*2;i<limit;i++){
             Carta c=new Carta(tipo);
             c.setTerritorio(territori[i]);
             carte.add(c);
@@ -438,6 +442,14 @@ public  class Tavolo {
 
     public int getTurno(){
         return turno;
+    }
+
+    public List<Carta> getCarte() {
+        return this.carte;
+    }
+
+    public boolean existLastAttack() {
+        return lastAttacco!=null;
     }
 
 
