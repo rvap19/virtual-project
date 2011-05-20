@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -426,7 +427,10 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
 
             Communicator communicator=Communicator.getInstance();
-            communicator.sendInitMessages(numeroGiocatori, 0, "classicalMap", 0, 0);
+            Random random=new Random();
+            int dadi=random.nextInt();
+            int regioni=random.nextInt();
+            communicator.sendInitMessages(numeroGiocatori, dadi, "classicalMap", 0, regioni);
             
 
 
@@ -437,7 +441,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
 
-            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, 0, 0, 0);
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, dadi, regioni, 0);
             this.setVisible(false);
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
