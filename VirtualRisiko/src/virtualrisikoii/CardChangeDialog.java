@@ -28,6 +28,7 @@ public class CardChangeDialog extends javax.swing.JDialog {
 
     public void setController(CardChangeController controller) {
         cardChangePanel1.setController(controller);
+        repaint();
     }
 
     public CardChangeController getController() {
