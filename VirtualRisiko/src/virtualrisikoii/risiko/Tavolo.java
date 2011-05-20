@@ -317,6 +317,10 @@ public  class Tavolo {
 
 
     private void initGiocatori(int numeroGiocatori,int seed){
+        if(numeroGiocatori<minGiocatori){
+            System.out.println("Impossibile avviare gioco ...numero giocatori minimo :"+minGiocatori);
+            System.exit(-1);
+        }
        giocatori=new ArrayList<Giocatore>();
        if(numeroGiocatori<this.minGiocatori){
            numeroGiocatori=minGiocatori;
