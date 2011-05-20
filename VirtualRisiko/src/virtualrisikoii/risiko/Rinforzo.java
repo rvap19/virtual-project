@@ -27,7 +27,7 @@ public class Rinforzo {
 
     public static int getRinforzo(Giocatore g){
         
-        return g.getNazioni().size()/3;
+        return g.getNazioni().size()/3+getRinforzoSuPossessoContinenti(g, Tavolo.getInstance().getMappa());
     }
 
     private static int getRinforzoSuPossesso(Carta c1,Carta c2,Carta c3,Giocatore g){
