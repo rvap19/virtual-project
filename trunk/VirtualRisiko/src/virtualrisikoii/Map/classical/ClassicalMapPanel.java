@@ -673,7 +673,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
    }
 
    private int showActionDialog(boolean isAttacco,Territorio daTerritorio,Territorio aTerritorio){
-       String title="Spostamento";
+       String title="Spostamento ";
        int maxTruppe=daTerritorio.getNumeroUnita()-1;
        if(isAttacco){
            title="Attacco";
@@ -686,7 +686,9 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
            return -1;
        }
 
+
        ActionDialog dialog=new ActionDialog(null, true);
+       dialog.setTitle(title);
        dialog.getDaTerritorioTextName().setText(daTerritorio.getNome());
        dialog.getaTerritorioTextName().setText(aTerritorio.getNome());
        dialog.setMaximum(maxTruppe);
