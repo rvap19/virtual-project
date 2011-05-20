@@ -92,6 +92,10 @@ public  class Tavolo {
     }
     
     public void passaTurno(){
+        if(lastAttacco!=null){
+            this.recuperaCarta(this.getGiocatoreCorrente());
+            lastAttacco=null;
+        }
         turno=(turno+1)%this.numeroGiocatori;
         while(getGiocatoreCorrente().getStato()==Giocatore.FUORI_GIOCO){
             turno=(turno+1)%this.numeroGiocatori;
@@ -106,7 +110,7 @@ public  class Tavolo {
         g.setNumeroTruppe(g.getNumeroTruppe()+Rinforzo.getRinforzo(g));
     }
     
-    public Attacco preparaAttacco(Territorio da,Territorio a,int numeroTruppe){
+    public Attacco preparaAttacco(Territorio da,Territorio a){
 
         if(this.giocatori.get(turno)!=da.getOccupante()){
             return null;
@@ -122,11 +126,9 @@ public  class Tavolo {
         }
        
             attacco.setTerritori(da, a);
-            int truppe=3;
-            if(numeroTruppe>truppe){
-                numeroTruppe=truppe;
-            }
-            attacco.setNumeroTruppe(numeroTruppe);
+
+            
+            
         
         return attacco;
 
@@ -172,7 +174,7 @@ public  class Tavolo {
     }
 
 
-    public Spostamento preparaSpostamento(Territorio da,Territorio a, int numeroTruppe){
+    public Spostamento preparaSpostamento(Territorio da,Territorio a){
         if(this.giocatori.get(turno)!=da.getOccupante()){
             return null;
         }
@@ -188,7 +190,7 @@ public  class Tavolo {
         }
        
             s.setTerritori(da, a);
-            s.setNumeroTruppe(numeroTruppe);
+        
         
         return s;
 
