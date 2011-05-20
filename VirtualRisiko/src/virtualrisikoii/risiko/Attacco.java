@@ -59,11 +59,19 @@ public class Attacco extends Azione{
         
         if(aTerritorio.getNumeroUnita()<=0){
             vittoria=true;
-            aTerritorio.setOccupante(daTerritorio.getOccupante());
             
+            Giocatore attaccante=daTerritorio.getOccupante();
+            Giocatore difensore=aTerritorio.getOccupante();
+            
+            difensore.getNazioni().remove(aTerritorio);
+           // aTerritorio.getOccupante().getNazioni().remove(aTerritorio);
+            aTerritorio.setOccupante(attaccante);
+           // aTerritorio.setOccupante(daTerritorio.getOccupante());
+
             aTerritorio.setNumeroUnita(numeroTruppe);
-            aTerritorio.getOccupante().addNazione(aTerritorio);
-            aTerritorio.getOccupante().removeNazione(aTerritorio);
+            
+            attaccante.getNazioni().add(aTerritorio);
+            
         }else{
             daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()+numeroTruppe);
         }

@@ -4,10 +4,6 @@
 
 package virtualrisikoii;
 
-import java.awt.Window;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import util.ObiettiviException;
 import virtualrisikoii.Map.classical.MicroMapDialog;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -16,18 +12,11 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.util.List;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import services.CardChangeController;
-import util.GameFactory;
-import virtualrisikoii.risiko.Mappa;
-import virtualrisikoii.risiko.MappaException;
-import virtualrisikoii.risiko.Obiettivo;
 import virtualrisikoii.risiko.Tavolo;
 
 /**

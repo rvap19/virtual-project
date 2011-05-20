@@ -306,7 +306,7 @@ public  class Tavolo {
             occupati[next]=true;
             territoriDisponibili--;
             giocatoreCorrente=(giocatoreCorrente+1)%numeroGiocatori;
-            giocatore.addNazione(territorioCorrente);
+            giocatore.getNazioni().add(territorioCorrente);
             territorioCorrente.setOccupante(giocatore);
             territorioCorrente.setNumeroUnita(1);
             giocatore.setNumeroTruppe(giocatore.getNumeroTruppe()-1);
