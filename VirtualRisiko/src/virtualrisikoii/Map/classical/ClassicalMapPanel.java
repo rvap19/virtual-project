@@ -502,6 +502,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             return;
         }
 
+        Giocatore attaccante=null;
+        Giocatore difensore=null;
         if(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==this.tavolo.getGiocatoreCorrente()){
             if(tavolo.assegnaUnita(t)){
                 try {
@@ -544,6 +546,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
             Azione azione=tavolo.preparaAttacco(firstSelection, secondSelection, truppeSelezionate);
 
             if(azione!=null){
+                 attaccante=firstSelection.getOccupante();
+                 difensore=secondSelection.getOccupante();
                 tavolo.eseguiAttacco((Attacco)azione);
                 try {
                         Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
@@ -610,7 +614,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     this.informationPanel.appendActionInHistory(s);
 
                     //lancia il panel di Luigi
-                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],azione.getDaTerritorio().getOccupante().getID(),azione.getaTerritorio().getOccupante().getID()).setVisible(true);
+                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
 
 
                 }
@@ -672,6 +676,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
     public void updateAttack(int troops_number, int from, int to) {
         Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
+        Giocatore  attaccante=fromTerritorio.getOccupante();
+        Giocatore difensore=toTerritorio.getOccupante();
         Azione azione=tavolo.preparaAttacco(fromTerritorio, toTerritorio, troops_number);
         VirtualRisikoIIEndGameBox endGameBox;
         System.out.println("ricevuto messaggio di attacco da territorio "+fromTerritorio.getNome()+"a territorio "+toTerritorio.getNome()+" con "+troops_number+" unita");
@@ -707,7 +713,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     this.informationPanel.appendActionInHistory(s);
 
                     //lancia il panel di Luigi
-                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],fromTerritorio.getOccupante().getID(),toTerritorio.getOccupante().getID()).setVisible(true);
+                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
                 
 
                 }
