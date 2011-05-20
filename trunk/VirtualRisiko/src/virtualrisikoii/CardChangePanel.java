@@ -13,6 +13,7 @@ package virtualrisikoii;
 
 import javax.swing.JList;
 import services.CardChangeController;
+import virtualrisikoii.InformationPanel;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Tavolo;
@@ -414,6 +415,8 @@ public class CardChangePanel extends javax.swing.JPanel {
         this.cannoneLittleIcon.setText("0");
         this.jollyLittleIcon.setText("non selezionato");
         this.stimarinforzi.setText("###");
+
+        
     }//GEN-LAST:event_scambiaButtonActionPerformed
 
 

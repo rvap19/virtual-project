@@ -113,6 +113,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         comunicator.addApplianceListener(this);
         comunicator.addAttackListener(this);
         comunicator.addMovementListener(this);
+        comunicator.addChangeCardsListener(this);
     }
 
    
