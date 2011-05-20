@@ -199,8 +199,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         gameInformationArea.setColumns(20);
+        gameInformationArea.setEditable(false);
         gameInformationArea.setFont(resourceMap.getFont("gameInformationArea.font")); // NOI18N
         gameInformationArea.setRows(5);
+        gameInformationArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        gameInformationArea.setDropMode(javax.swing.DropMode.INSERT);
         gameInformationArea.setName("gameInformationArea"); // NOI18N
         jScrollPane1.setViewportView(gameInformationArea);
 
@@ -283,7 +286,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
     public void updateDatiGiocatore(Giocatore giocatore){
         TitledBorder border=(TitledBorder) this.getBorder();
-        border.setTitle("Informazioni Giocatore "+giocatore.getNome());
+        border.setTitle("Informazioni "+giocatore.getNome());
         this.repaint();
     }
 
