@@ -4,7 +4,7 @@
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-        <TitledBorder title="Informazioni Giocatore XXX">
+        <TitledBorder title="Information Panel">
           <Property name="titleX" resourceKey="Form.border.title"/>
           <Property name="font" resourceKey="Form.border.titleFont"/>
         </TitledBorder>
@@ -29,16 +29,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel4" alignment="0" max="32767" attributes="1"/>
           <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
-          <Component id="jPanel1" alignment="0" pref="225" max="32767" attributes="1"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
+          <Component id="turnoPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <Component id="turnoPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -61,11 +64,16 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="obiettivoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="passaTurnoButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="obiettivoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="passaTurnoButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -143,7 +151,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane2" alignment="0" pref="199" max="32767" attributes="1"/>
+                      <Component id="jScrollPane2" alignment="0" pref="213" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -242,7 +250,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="199" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="213" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -250,7 +258,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="118" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="111" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -285,6 +293,75 @@
             </Component>
           </SubComponents>
         </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="turnoPanel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" resourceKey="turnoPanel.background"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="informazioni turno">
+              <Property name="titleX" resourceKey="turnoPanel.border.title"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+        <Property name="name" type="java.lang.String" value="turnoPanel" noResource="true"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="turnoLabel" alignment="0" pref="223" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="truppeLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="arnatedisposteLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                  <Component id="terrLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="turnoLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="truppeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="terrLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="arnatedisposteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="turnoLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="turnoLabel.text"/>
+            <Property name="name" type="java.lang.String" value="turnoLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="truppeLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="truppeLabel.text"/>
+            <Property name="name" type="java.lang.String" value="truppeLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="arnatedisposteLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="arnatedisposteLabel.text"/>
+            <Property name="name" type="java.lang.String" value="arnatedisposteLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="terrLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="terrLabel.text"/>
+            <Property name="name" type="java.lang.String" value="terrLabel" noResource="true"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
