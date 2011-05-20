@@ -386,6 +386,10 @@ public class CardChangePanel extends javax.swing.JPanel {
 
     private void scambiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scambiaButtonActionPerformed
         // TODO add your handling code here:
+        if(!Tavolo.getInstance().isTurnoMyGiocatore()){
+            return;
+        }
+
         this.controller.ottieniRinforzi(carte[0], carte[1], carte[2]);
 
         this.jList1.clearSelection();
@@ -462,7 +466,7 @@ public class CardChangePanel extends javax.swing.JPanel {
             this.stimarinforzi.setText(Integer.toString(rinforzo));
             if(rinforzo<=0){
                 this.scambiaButton.setEnabled(false);
-            }else{
+            }else if(Tavolo.getInstance().isTurnoMyGiocatore()){
                 this.scambiaButton.setEnabled(true);
             }
         }else{
