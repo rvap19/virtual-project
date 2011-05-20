@@ -588,10 +588,16 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 this.setLabel(azione.getaTerritorio());
                 firstSelection=null;
                 if(azione.isAttacco()){
+
+                    //variabili per i dati di Luigi
+                    int [] att={0,0,0};
+                    int [] dif={0,0,0};
+
                     int[] a=((Attacco)azione).getPunteggio();
                     String s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
+                        att[i]=a[i];
                     }
                     this.informationPanel.appendActionInHistory(s);
                     
@@ -599,8 +605,12 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                      s="";
                     for(int i=0;i<a.length;i++){
                         s=s+" - "+Integer.toString(a[i]);
+                        dif[i]=a[i];
                     }
                     this.informationPanel.appendActionInHistory(s);
+
+                    //lancia il panel di Luigi
+                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],azione.getDaTerritorio().getOccupante().getID(),azione.getaTerritorio().getOccupante().getID()).setVisible(true);
 
 
                 }
@@ -696,7 +706,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                      message=message+s;
                     this.informationPanel.appendActionInHistory(s);
 
-
+                    //lancia il panel di Luigi
                     new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],fromTerritorio.getOccupante().getID(),toTerritorio.getOccupante().getID()).setVisible(true);
                 
 
