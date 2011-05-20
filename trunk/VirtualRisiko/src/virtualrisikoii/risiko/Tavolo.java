@@ -221,7 +221,7 @@ public  class Tavolo {
                  lastAttacco.getGiocatore().getCarte().add(carta);
             }
             lastAttacco=null;
-            this.passaTurno();
+           
             return true;
         }
         return false;
