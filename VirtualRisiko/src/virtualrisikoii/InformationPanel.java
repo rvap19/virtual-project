@@ -83,10 +83,9 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(InformationPanel.class);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("Form.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, resourceMap.getFont("Form.border.titleFont"))); // NOI18N
-        setMaximumSize(new java.awt.Dimension(240, 727));
-        setMinimumSize(new java.awt.Dimension(240, 727));
+        setMaximumSize(new java.awt.Dimension(255, 727));
+        setMinimumSize(new java.awt.Dimension(255, 727));
         setName("Form"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(240, 727));
 
         jPanel1.setBackground(resourceMap.getColor("jPanel1.background")); // NOI18N
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel1.border.title"))); // NOI18N
@@ -205,15 +204,19 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         turnoPanel.setName("turnoPanel"); // NOI18N
         turnoPanel.setPreferredSize(new java.awt.Dimension(235, 75));
 
+        turnoLabel.setFont(resourceMap.getFont("turnoLabel.font")); // NOI18N
         turnoLabel.setText(resourceMap.getString("turnoLabel.text")); // NOI18N
         turnoLabel.setName("turnoLabel"); // NOI18N
 
+        truppeLabel.setFont(resourceMap.getFont("turnoLabel.font")); // NOI18N
         truppeLabel.setText(resourceMap.getString("truppeLabel.text")); // NOI18N
         truppeLabel.setName("truppeLabel"); // NOI18N
 
+        arnatedisposteLabel.setFont(resourceMap.getFont("turnoLabel.font")); // NOI18N
         arnatedisposteLabel.setText(resourceMap.getString("arnatedisposteLabel.text")); // NOI18N
         arnatedisposteLabel.setName("arnatedisposteLabel"); // NOI18N
 
+        terrLabel.setFont(resourceMap.getFont("turnoLabel.font")); // NOI18N
         terrLabel.setText(resourceMap.getString("terrLabel.text")); // NOI18N
         terrLabel.setName("terrLabel"); // NOI18N
 
@@ -221,7 +224,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         turnoPanel.setLayout(turnoPanelLayout);
         turnoPanelLayout.setHorizontalGroup(
             turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(turnoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+            .addComponent(turnoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
             .addGroup(turnoPanelLayout.createSequentialGroup()
                 .addComponent(truppeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -234,7 +237,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(turnoPanelLayout.createSequentialGroup()
                 .addComponent(turnoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(truppeLabel)
                     .addComponent(arnatedisposteLabel)

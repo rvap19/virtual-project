@@ -142,12 +142,13 @@ public class VirtualRisikoIIView extends FrameView {
         progressBar = new javax.swing.JProgressBar();
 
         mainPanel.setName("mainPanel"); // NOI18N
-        mainPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         mainPanel.setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(255);
         jSplitPane1.setDividerSize(1);
+        jSplitPane1.setLastDividerLocation(255);
         jSplitPane1.setName("jSplitPane1"); // NOI18N
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(1134, 729));
         jSplitPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jSplitPane1MouseMoved(evt);
