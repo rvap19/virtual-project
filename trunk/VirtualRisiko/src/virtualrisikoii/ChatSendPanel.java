@@ -42,6 +42,7 @@ public class ChatSendPanel extends javax.swing.JPanel {
             players.add(iter.next().getNome());
         }
         initComponents();
+        this.jComboBox1.setSelectedIndex(0);
     }
 
     public List<String> getPlayers() {
@@ -72,7 +73,6 @@ public class ChatSendPanel extends javax.swing.JPanel {
 
         jTextField1.setName("jTextField1"); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "tutti", "giocatore rosso", "Item 3", "Item 4" }));
         jComboBox1.setName("jComboBox1"); // NOI18N
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${players}");
