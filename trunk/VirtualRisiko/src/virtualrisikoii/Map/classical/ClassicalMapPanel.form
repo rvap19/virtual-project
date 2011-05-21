@@ -23,7 +23,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,4,0,0,0,5,-40"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-67,0,0,4,1"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -46,6 +46,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="scandinaviaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="scandinaviaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="scandinaviaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -53,7 +54,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="180" width="60" height="70"/>
+              <AbsoluteConstraints x="90" y="110" width="60" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -61,6 +62,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="ucrainaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="ucrainaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="ucrainaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -68,14 +70,16 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="240" y="230" width="100" height="100"/>
+              <AbsoluteConstraints x="170" y="160" width="60" height="60"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="granBretagnaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="granBretagnaLabel.font"/>
+            <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="granBretagnaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="granBretagnaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -83,7 +87,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="260" width="80" height="80"/>
+              <AbsoluteConstraints x="20" y="180" width="40" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -91,6 +95,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="uraliLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="uraliLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="uraliLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -98,7 +103,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="420" y="250" width="50" height="50"/>
+              <AbsoluteConstraints x="280" y="150" width="40" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -106,6 +111,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="siberiaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="siberiaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="siberiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -113,7 +119,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="480" y="110" width="80" height="170"/>
+              <AbsoluteConstraints x="330" y="70" width="60" height="110"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -121,6 +127,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="jacuziaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="jacuziaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="jacuziaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -128,7 +135,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="620" y="160" width="90" height="60"/>
+              <AbsoluteConstraints x="420" y="100" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -136,6 +143,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="kamchatkaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="kamchatkaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="kamchatkaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -143,7 +151,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="750" y="170" width="90" height="50"/>
+              <AbsoluteConstraints x="510" y="110" width="60" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -151,6 +159,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="alaskaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="alaskaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="alaskaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -158,7 +167,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="920" y="150" width="80" height="70"/>
+              <AbsoluteConstraints x="620" y="100" width="70" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -166,6 +175,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="ontarioLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="ontarioLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="ontarioLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -173,7 +183,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1190" y="240" width="80" height="70"/>
+              <AbsoluteConstraints x="810" y="160" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -181,6 +191,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="citaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="citaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="citaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -188,7 +199,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="580" y="250" width="80" height="50"/>
+              <AbsoluteConstraints x="400" y="180" width="40" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -196,6 +207,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="territorioNOLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="territorioNOLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="territorioNOLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -203,7 +215,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1040" y="166" width="140" height="40"/>
+              <AbsoluteConstraints x="700" y="110" width="110" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -211,6 +223,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="albertaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="albertaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="albertaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -218,7 +231,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1060" y="230" width="100" height="70"/>
+              <AbsoluteConstraints x="720" y="160" width="70" height="60"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -226,6 +239,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="statiUnitiOccLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="statiUnitiOccLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="statiUnitiOccLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -233,7 +247,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1080" y="360" width="70" height="40"/>
+              <AbsoluteConstraints x="730" y="240" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -241,6 +255,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="quebecLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="quebecLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="quebecLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -248,7 +263,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1300" y="240" width="70" height="40"/>
+              <AbsoluteConstraints x="880" y="180" width="70" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -256,6 +271,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="groenlandiaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="groenlandiaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="groenlandiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -263,7 +279,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1250" y="100" width="180" height="120"/>
+              <AbsoluteConstraints x="840" y="70" width="180" height="80"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -271,6 +287,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="statiUnitiOriLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="statiUnitiOriLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="statiUnitiOriLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -278,7 +295,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1200" y="360" width="80" height="30"/>
+              <AbsoluteConstraints x="820" y="250" width="80" height="60"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -286,6 +303,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="messicoLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="messicoLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="messicoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -293,7 +311,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1120" y="460" width="70" height="50"/>
+              <AbsoluteConstraints x="760" y="310" width="70" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -301,6 +319,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="venezuelaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="venezuelaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="venezuelaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -308,7 +327,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1210" y="570" width="60" height="30"/>
+              <AbsoluteConstraints x="820" y="380" width="60" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -316,6 +335,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="brasileLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="brasileLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="brasileLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -323,7 +343,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1280" y="630" width="120" height="80"/>
+              <AbsoluteConstraints x="860" y="410" width="120" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -331,6 +351,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="peruLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="peruLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="peruLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -338,7 +359,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1220" y="706" width="80" height="30"/>
+              <AbsoluteConstraints x="840" y="480" width="40" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -346,6 +367,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="argentinaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="argentinaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="argentinaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -353,7 +375,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1240" y="810" width="70" height="60"/>
+              <AbsoluteConstraints x="850" y="550" width="70" height="100"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -361,6 +383,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="australiaOrientaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="australiaOrientaleLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="australiaOrientaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -368,7 +391,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="780" y="880" width="90" height="60"/>
+              <AbsoluteConstraints x="530" y="550" width="60" height="100"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -376,6 +399,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="australiaOccidentaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="australiaOccidentaleLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="australiaOccidentaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -383,7 +407,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="850" width="70" height="60"/>
+              <AbsoluteConstraints x="420" y="580" width="70" height="60"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -391,6 +415,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="nuovaGuineaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="nuovaGuineaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="nuovaGuineaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -398,7 +423,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="750" y="720" width="60" height="40"/>
+              <AbsoluteConstraints x="520" y="480" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -406,6 +431,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="indonesiaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="indonesiaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="indonesiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -413,7 +439,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="630" y="690" width="70" height="50"/>
+              <AbsoluteConstraints x="430" y="470" width="70" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -421,6 +447,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="siamLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="siamLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="siamLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -428,7 +455,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="580" y="560" width="60" height="40"/>
+              <AbsoluteConstraints x="390" y="390" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -436,6 +463,8 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="indiaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="indiaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="indiaLabel.toolTipText"/>
+            <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -443,7 +472,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="440" y="500" width="100" height="80"/>
+              <AbsoluteConstraints x="320" y="350" width="50" height="80"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -451,6 +480,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="cinaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="cinaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="cinaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -458,7 +488,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="530" y="410" width="120" height="80"/>
+              <AbsoluteConstraints x="360" y="290" width="90" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -466,6 +496,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="mongoliaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="mongoliaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="mongoliaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -473,7 +504,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="580" y="340" width="120" height="50"/>
+              <AbsoluteConstraints x="400" y="240" width="80" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -481,6 +512,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="giapponeLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="giapponeLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="giapponeLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -488,7 +520,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="740" y="380" width="60" height="60"/>
+              <AbsoluteConstraints x="510" y="250" width="50" height="60"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -496,6 +528,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="kanakistanLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="kanakistanLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="kanakistanLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -503,7 +536,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="370" y="360" width="100" height="60"/>
+              <AbsoluteConstraints x="250" y="230" width="70" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -511,6 +544,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="medioOrienteLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="medioOrienteLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="medioOrienteLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -518,7 +552,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="290" y="470" width="90" height="80"/>
+              <AbsoluteConstraints x="200" y="310" width="70" height="80"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -526,6 +560,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="europaSettentrionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="europaSettentrionaleLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="europaSettentrionaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -533,7 +568,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="140" y="310" width="80" height="50"/>
+              <AbsoluteConstraints x="80" y="210" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -541,6 +576,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="europaMeridionaleLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="europaMeridionaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -548,7 +584,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="140" y="370" width="90" height="50"/>
+              <AbsoluteConstraints x="90" y="260" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -556,6 +592,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="europaOccidentaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="europaOccidentaleLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="europaOccidentaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -563,7 +600,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="370" width="50" height="70"/>
+              <AbsoluteConstraints x="30" y="260" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -571,6 +608,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="egittoLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="egittoLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="egittoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -578,7 +616,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="190" y="520" width="70" height="40"/>
+              <AbsoluteConstraints x="110" y="340" width="70" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -586,6 +624,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="africaOrientaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="africaOrientaleLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="africaOrientaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -593,7 +632,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="250" y="640" width="70" height="50"/>
+              <AbsoluteConstraints x="170" y="430" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -601,6 +640,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="africaNordLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="africaNordLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="africaNordLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -608,7 +648,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="570" width="130" height="90"/>
+              <AbsoluteConstraints x="30" y="370" width="70" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -616,6 +656,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="congoLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="congoLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="congoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -623,7 +664,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="180" y="710" width="80" height="60"/>
+              <AbsoluteConstraints x="120" y="480" width="50" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -631,6 +672,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="africaSudLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="africaSudLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="africaSudLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -638,7 +680,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="200" y="880" width="60" height="50"/>
+              <AbsoluteConstraints x="120" y="560" width="60" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -646,6 +688,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="madagascarLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="madagascarLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="madagascarLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -653,7 +696,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="320" y="820" width="60" height="70"/>
+              <AbsoluteConstraints x="210" y="580" width="40" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -661,6 +704,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="islandaLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="islandaLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="islandaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -671,7 +715,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="140" width="70" height="50"/>
+              <AbsoluteConstraints x="10" y="90" width="50" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

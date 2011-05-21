@@ -23,7 +23,7 @@ import virtualrisikoii.risiko.Tavolo;
  * The application's main frame.
  */
 public class VirtualRisikoIIView extends FrameView {
-    private final MicroMapDialog dialog;
+    private final MicroMapDialog dialog=null;
 
     private Tavolo tavolo;
 
@@ -85,7 +85,7 @@ public class VirtualRisikoIIView extends FrameView {
                 }
             }
         });
-         dialog=new MicroMapDialog(this.getFrame(), false);
+     /*    dialog=new MicroMapDialog(this.getFrame(), false);
 
             tavolo=Tavolo.getInstance();
             
@@ -95,7 +95,7 @@ public class VirtualRisikoIIView extends FrameView {
             informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
         
          
-         this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
+         this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());*/
          
     }
 
@@ -124,9 +124,8 @@ public class VirtualRisikoIIView extends FrameView {
 
         mainPanel = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        classicalMapPanel1 = new virtualrisikoii.Map.classical.ClassicalMapPanel();
         informationPanel1 = new virtualrisikoii.InformationPanel();
+        classicalMapPanel1 = new virtualrisikoii.Map.classical.ClassicalMapPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -150,17 +149,11 @@ public class VirtualRisikoIIView extends FrameView {
             }
         });
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        classicalMapPanel1.setName("classicalMapPanel1"); // NOI18N
-        jScrollPane1.setViewportView(classicalMapPanel1);
-
-        jSplitPane1.setRightComponent(jScrollPane1);
-
         informationPanel1.setName("informationPanel1"); // NOI18N
         jSplitPane1.setLeftComponent(informationPanel1);
+
+        classicalMapPanel1.setName("classicalMapPanel1"); // NOI18N
+        jSplitPane1.setRightComponent(classicalMapPanel1);
 
         mainPanel.add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
@@ -258,7 +251,6 @@ public class VirtualRisikoIIView extends FrameView {
     private virtualrisikoii.Map.classical.ClassicalMapPanel classicalMapPanel1;
     private virtualrisikoii.InformationPanel informationPanel1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;

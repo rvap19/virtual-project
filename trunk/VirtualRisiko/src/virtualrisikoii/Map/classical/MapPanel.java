@@ -34,6 +34,7 @@ public class MapPanel extends javax.swing.JPanel {
         setSize(size);
         initComponents();
         
+        
     }
 
     public void paintComponent(Graphics g) {
