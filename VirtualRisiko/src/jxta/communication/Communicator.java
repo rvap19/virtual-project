@@ -453,9 +453,10 @@ public class Communicator implements PipeMsgListener{
         
         String to=message.getMessageElement(namespace, ChatAttributes.DESTINATION).toString();
         String messageString=message.getMessageElement(namespace, ChatAttributes.MESSAGE).toString();
+        String from=message.getMessageElement(namespace, ChatAttributes.SENDER).toString();
         Iterator<ChatListener> listeners=this.chatListeners.iterator();
         while(listeners.hasNext()){
-            listeners.next().updateChat(to, messageString);
+            listeners.next().updateChat(from,to, messageString);
         }
         
     }
@@ -562,6 +563,7 @@ public class Communicator implements PipeMsgListener{
         public static final String MESSAGE="message";
         public static final String DESTINATION="destination";
         public static final String TO_ALL="tutti";
+        public static final String SENDER="sender";
     }
 
     

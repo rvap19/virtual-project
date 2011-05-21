@@ -145,6 +145,7 @@ public class VirtualRisikoIIView extends FrameView {
         mainPanel.setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(255);
+        jSplitPane1.setDividerSize(1);
         jSplitPane1.setName("jSplitPane1"); // NOI18N
         jSplitPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
