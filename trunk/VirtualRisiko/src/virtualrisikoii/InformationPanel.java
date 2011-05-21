@@ -34,7 +34,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     /** Creates new form InformationPanel */
     public InformationPanel() {
         initComponents();
-/*        communicator=Communicator.getInstance();
+        communicator=Communicator.getInstance();
         communicator.addChatListener(this);
         communicator.addPassListener(this);
         tavolo=Tavolo.getInstance();
@@ -45,7 +45,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         TitledBorder border= (TitledBorder) this.getBorder();
         border.setTitle("Benvenuto "+tavolo.getMyGiocatore().getNome());
         border= (TitledBorder) this.jPanel1.getBorder();
-        border.setTitle("Informazioni obiettivo "+tavolo.getMyGiocatore().getNome());*/
+        border.setTitle("Informazioni obiettivo "+tavolo.getMyGiocatore().getNome());
 
     }
 
@@ -72,10 +72,6 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         chatTextArea = new javax.swing.JTextArea();
-        chatMessageField = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        inviaATuttiButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         gameInformationArea = new javax.swing.JTextArea();
@@ -87,6 +83,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(InformationPanel.class);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("Form.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, resourceMap.getFont("Form.border.titleFont"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(255, 727));
+        setMinimumSize(new java.awt.Dimension(255, 727));
         setName("Form"); // NOI18N
 
         jPanel1.setBackground(resourceMap.getColor("jPanel1.background")); // NOI18N
@@ -143,62 +141,21 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
         chatTextArea.setColumns(20);
+        chatTextArea.setEditable(false);
         chatTextArea.setFont(resourceMap.getFont("chatTextArea.font")); // NOI18N
         chatTextArea.setRows(5);
         chatTextArea.setName("chatTextArea"); // NOI18N
         jScrollPane2.setViewportView(chatTextArea);
 
-        chatMessageField.setText(resourceMap.getString("chatMessageField.text")); // NOI18N
-        chatMessageField.setName("chatMessageField"); // NOI18N
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setName("jComboBox1"); // NOI18N
-
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setEnabled(false);
-        jButton1.setName("jButton1"); // NOI18N
-
-        inviaATuttiButton.setText(resourceMap.getString("inviaATuttiButton.text")); // NOI18N
-        inviaATuttiButton.setName("inviaATuttiButton"); // NOI18N
-        inviaATuttiButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inviaATuttiButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(inviaATuttiButton))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(chatMessageField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                .addGap(11, 11, 11)
-                .addComponent(chatMessageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inviaATuttiButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(resourceMap.getColor("jPanel2.background")); // NOI18N
@@ -228,7 +185,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -277,10 +234,10 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(turnoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,21 +251,6 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void inviaATuttiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaATuttiButtonActionPerformed
-        // TODO add your handling code here:
-        String chatMessage=this.tavolo.getMyGiocatore().getNome()+" > "+this.chatMessageField.getText()+"\n";
-        try {
-            Message msg = this.communicator.createChatMessage(Communicator.ChatAttributes.all, chatMessage);
-            communicator.sendMessage(msg);
-            
-            this.chatMessageField.setText("");
-            this.chatTextArea.append(chatMessage);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } 
-
-    }//GEN-LAST:event_inviaATuttiButtonActionPerformed
 
     private void passaTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passaTurnoButtonActionPerformed
         // TODO add your handling code here:
@@ -359,13 +301,9 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arnatedisposteLabel;
-    private javax.swing.JTextField chatMessageField;
     private javax.swing.JTextArea chatTextArea;
     private javax.swing.JTextArea gameInformationArea;
-    private javax.swing.JButton inviaATuttiButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -380,7 +318,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     // End of variables declaration//GEN-END:variables
 
     public void updateChat(String to, String messageString) {
-
+        if(to.equals(Communicator.ChatAttributes.TO_ALL)||to.equals(Tavolo.getInstance().getMyGiocatore().getNome()))
         this.chatTextArea.append(messageString);
     }
 
