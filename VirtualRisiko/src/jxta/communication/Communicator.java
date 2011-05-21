@@ -433,12 +433,14 @@ public class Communicator implements PipeMsgListener{
 
    
 
-    public Message createChatMessage(String to,String messageString){
+    public Message createChatMessage(String from,String to,String messageString){
         Message message=new Message();
         StringMessageElement mE=new StringMessageElement(type, CHAT, null);
         message.addMessageElement(namespace, mE);
 
          mE=new StringMessageElement(ChatAttributes.DESTINATION , to, null);
+        message.addMessageElement(namespace, mE);
+        mE=new StringMessageElement(ChatAttributes.SENDER , from, null);
         message.addMessageElement(namespace, mE);
 
          mE=new StringMessageElement(ChatAttributes.MESSAGE , messageString, null);

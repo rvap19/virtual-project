@@ -116,12 +116,14 @@ public class ChatSendPanel extends javax.swing.JPanel {
         String message=this.jTextField1.getText();
         this.jTextField1.setText("");
         Communicator communicator=Communicator.getInstance();
-        Message msg=communicator.createChatMessage(destination, message);
+        Message msg=communicator.createChatMessage(Tavolo.getInstance().getMyGiocatore().getNome(),destination, message);
         try {
             communicator.sendMessage(msg);
         } catch (IOException ex) {
-            Logger.getLogger(ChatSendPanel.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("impossibile inviare msg a "+destination+" msg --> "+message);
         }
+
+      
     }//GEN-LAST:event_allChatButtonActionPerformed
 
 
