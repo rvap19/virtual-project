@@ -23,7 +23,7 @@ import virtualrisikoii.risiko.Tavolo;
  * The application's main frame.
  */
 public class VirtualRisikoIIView extends FrameView {
-    private final MicroMapDialog dialog=null;
+    private  MicroMapDialog dialog=null;
 
     private Tavolo tavolo;
 
@@ -85,7 +85,7 @@ public class VirtualRisikoIIView extends FrameView {
                 }
             }
         });
-     /*    dialog=new MicroMapDialog(this.getFrame(), false);
+         dialog=new MicroMapDialog(this.getFrame(), false);
 
             tavolo=Tavolo.getInstance();
             
@@ -95,7 +95,8 @@ public class VirtualRisikoIIView extends FrameView {
             informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
         
          
-         this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());*/
+         this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
+
          
     }
 
@@ -125,7 +126,9 @@ public class VirtualRisikoIIView extends FrameView {
         mainPanel = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         informationPanel1 = new virtualrisikoii.InformationPanel();
+        jPanel1 = new javax.swing.JPanel();
         classicalMapPanel1 = new virtualrisikoii.Map.classical.ClassicalMapPanel();
+        chatSendPanel1 = new virtualrisikoii.ChatSendPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -152,8 +155,16 @@ public class VirtualRisikoIIView extends FrameView {
         informationPanel1.setName("informationPanel1"); // NOI18N
         jSplitPane1.setLeftComponent(informationPanel1);
 
+        jPanel1.setName("jPanel1"); // NOI18N
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
         classicalMapPanel1.setName("classicalMapPanel1"); // NOI18N
-        jSplitPane1.setRightComponent(classicalMapPanel1);
+        jPanel1.add(classicalMapPanel1, java.awt.BorderLayout.CENTER);
+
+        chatSendPanel1.setName("chatSendPanel1"); // NOI18N
+        jPanel1.add(chatSendPanel1, java.awt.BorderLayout.PAGE_END);
+
+        jSplitPane1.setRightComponent(jPanel1);
 
         mainPanel.add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
@@ -203,11 +214,11 @@ public class VirtualRisikoIIView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1000, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 968, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -248,9 +259,11 @@ public class VirtualRisikoIIView extends FrameView {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private virtualrisikoii.ChatSendPanel chatSendPanel1;
     private virtualrisikoii.Map.classical.ClassicalMapPanel classicalMapPanel1;
     private virtualrisikoii.InformationPanel informationPanel1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;

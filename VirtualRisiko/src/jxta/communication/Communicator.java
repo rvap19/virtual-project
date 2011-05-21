@@ -450,10 +450,7 @@ public class Communicator implements PipeMsgListener{
     }
 
     public void elaborateChatMessage(Message message){
-         String name=message.getMessageElement(namespace, GAMER).toString();
-        if(name.equals(playerName)){
-            return;
-        }
+        
         String to=message.getMessageElement(namespace, ChatAttributes.DESTINATION).toString();
         String messageString=message.getMessageElement(namespace, ChatAttributes.MESSAGE).toString();
         Iterator<ChatListener> listeners=this.chatListeners.iterator();
@@ -564,7 +561,7 @@ public class Communicator implements PipeMsgListener{
     public class ChatAttributes{
         public static final String MESSAGE="message";
         public static final String DESTINATION="destination";
-        public static final String all="all";
+        public static final String TO_ALL="tutti";
     }
 
     

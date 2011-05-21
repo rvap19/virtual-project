@@ -109,11 +109,11 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         for(int i=0;i<territoriLabels.length;i++){
             this.territoriLabels[i].addMouseListener(selector);
         }
-   /*     this.comunicator=Communicator.getInstance();
+        this.comunicator=Communicator.getInstance();
         comunicator.addApplianceListener(this);
         comunicator.addAttackListener(this);
         comunicator.addMovementListener(this);
-        comunicator.addChangeCardsListener(this);*/
+        comunicator.addChangeCardsListener(this);
     }
 
    
@@ -129,10 +129,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         icons[Giocatore.NERO]=new ImageIcon("src/virtualrisikoii/resources/tanks/nero.png");
         icons[Giocatore.VERDE]=new ImageIcon("src/virtualrisikoii/resources/tanks/verde.png");
         icons[Giocatore.VIOLA]=new ImageIcon("src/virtualrisikoii/resources/tanks/viola.png");
-/*        Territorio[] territori=tavolo.getMappa().getNazioni();
+       Territorio[] territori=tavolo.getMappa().getNazioni();
         for(int i=0;i<territori.length;i++){
             this.setLabel(territori[i]);
-        }*/
+        }
 
     }
 
