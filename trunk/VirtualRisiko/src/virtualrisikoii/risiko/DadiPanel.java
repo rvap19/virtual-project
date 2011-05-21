@@ -26,9 +26,9 @@ public class DadiPanel extends javax.swing.JPanel {
 
 
     
-    public DadiPanel(int numAtt1,int numAtt2,int numAtt3,int numDif1,int numDif2,int numDif3,int giocAtt, int giocDif) {
+    public DadiPanel(String descrizione,int numAtt1,int numAtt2,int numAtt3,int numDif1,int numDif2,int numDif3,int giocAtt, int giocDif) {
 
-
+         LogManager.getLogManager().reset();
 
         String coloreGiocatoreAtt=null;
         String coloreGiocatoreDif = null;
@@ -148,6 +148,7 @@ public class DadiPanel extends javax.swing.JPanel {
 
         
         initComponents();
+        this.descrizioneAttacco.setText(descrizione);
         attacco1.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathAtt1)));
         attacco2.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathAtt2)));
         attacco3.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathAtt3)));
@@ -157,7 +158,7 @@ public class DadiPanel extends javax.swing.JPanel {
         freccia1.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathfreccia1)));
         freccia2.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathfreccia2)));
         freccia3.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathfreccia3)));
-        LogManager.getLogManager().reset();
+       
     }
 
     /** This method is called from within the constructor to
@@ -169,9 +170,9 @@ public class DadiPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        descrizioneAttacco = new javax.swing.JLabel();
+        attaccoLabel = new javax.swing.JLabel();
+        difesaLabel = new javax.swing.JLabel();
         attacco1 = new javax.swing.JLabel();
         attacco2 = new javax.swing.JLabel();
         attacco3 = new javax.swing.JLabel();
@@ -182,14 +183,15 @@ public class DadiPanel extends javax.swing.JPanel {
         freccia2 = new javax.swing.JLabel();
         freccia3 = new javax.swing.JLabel();
 
-        jLabel1.setText("Risultato dei Dadi");
-        jLabel1.setName("jLabel1"); // NOI18N
+        descrizioneAttacco.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        descrizioneAttacco.setText("Risultato dei Dadi");
+        descrizioneAttacco.setName("descrizioneAttacco"); // NOI18N
 
-        jLabel2.setText("ATTACCO");
-        jLabel2.setName("jLabel2"); // NOI18N
+        attaccoLabel.setText("ATTACCO");
+        attaccoLabel.setName("attaccoLabel"); // NOI18N
 
-        jLabel3.setText("DIFESA");
-        jLabel3.setName("jLabel3"); // NOI18N
+        difesaLabel.setText("DIFESA");
+        difesaLabel.setName("difesaLabel"); // NOI18N
 
         attacco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/dadi/dadoVuoto.png"))); // NOI18N
         attacco1.setName("attacco1"); // NOI18N
@@ -235,28 +237,25 @@ public class DadiPanel extends javax.swing.JPanel {
                             .addComponent(freccia1)
                             .addComponent(freccia2)
                             .addComponent(freccia3)))
-                    .addComponent(jLabel2))
+                    .addComponent(attaccoLabel))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(difesa1)
                         .addComponent(difesa2)
                         .addComponent(difesa3))
-                    .addComponent(jLabel3))
+                    .addComponent(difesaLabel))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46))
+            .addComponent(descrizioneAttacco, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(descrizioneAttacco, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(attaccoLabel)
+                    .addComponent(difesaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -283,15 +282,15 @@ public class DadiPanel extends javax.swing.JPanel {
     private javax.swing.JLabel attacco1;
     private javax.swing.JLabel attacco2;
     private javax.swing.JLabel attacco3;
+    private javax.swing.JLabel attaccoLabel;
+    private javax.swing.JLabel descrizioneAttacco;
     private javax.swing.JLabel difesa1;
     private javax.swing.JLabel difesa2;
     private javax.swing.JLabel difesa3;
+    private javax.swing.JLabel difesaLabel;
     private javax.swing.JLabel freccia1;
     private javax.swing.JLabel freccia2;
     private javax.swing.JLabel freccia3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
     private String pathAtt1;
     private String pathAtt2;
