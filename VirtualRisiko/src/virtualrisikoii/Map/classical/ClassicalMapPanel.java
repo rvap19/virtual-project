@@ -730,7 +730,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     this.informationPanel.appendActionInHistory(s);
 
                     //lancia il panel di Luigi
-                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
+                    new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
 
 
                 }
@@ -858,7 +858,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     this.informationPanel.appendActionInHistory(s);
 
                     //lancia il panel di Luigi
-                    new dadiGui(att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
+                    new dadiGui("Attacco da "+azione.getDaTerritorio()+" a "+azione.getaTerritorio(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
                 
 
                 }
