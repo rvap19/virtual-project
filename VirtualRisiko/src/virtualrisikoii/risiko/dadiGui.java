@@ -24,9 +24,11 @@ public class dadiGui extends javax.swing.JFrame {
     private final int dif3;
     private final int giocAtt;
     private final int giocDif;
+    private String descrizione=null;
 
     /** Creates new form dadiGui */
-    public dadiGui(int att1,int att2,int att3,int dif1,int dif2,int dif3,int giocAtt,int giocDif) {
+    public dadiGui(String descriz,int att1,int att2,int att3,int dif1,int dif2,int dif3,int giocAtt,int giocDif) {
+        this.descrizione=descriz;
         this.att1=att1;
         this.att2=att2;
         this.att3=att3;
@@ -50,7 +52,7 @@ public class dadiGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dadiPanel1 = new virtualrisikoii.risiko.DadiPanel(att1, att2,att3 ,dif1 , dif2, dif3, giocAtt,giocDif);
+        dadiPanel1 = new virtualrisikoii.risiko.DadiPanel(descrizione,att1, att2,att3 ,dif1 , dif2, dif3, giocAtt,giocDif);
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,7 +100,7 @@ public class dadiGui extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new dadiGui(1,1,1,1,2,3,1,4).setVisible(true);
+                new dadiGui("attacco da frigento a gesualdo",1,1,1,1,2,3,1,4).setVisible(true);
             }
         });
     }
