@@ -370,11 +370,11 @@ public class Communicator implements PipeMsgListener{
         StringMessageElement mE=new StringMessageElement(type, CHANGE_CARD, null);
         message.addMessageElement(namespace, mE);
 
-        StringMessageElement mElement = new StringMessageElement(ChangeCardsAttributes.CARD_ID,Integer.toString(card1), null);
+        StringMessageElement mElement = new StringMessageElement(ChangeCardsAttributes.CARD1_ID,Integer.toString(card1), null);
         message.addMessageElement(namespace, mElement);
-        mElement = new StringMessageElement(ChangeCardsAttributes.CARD_ID,Integer.toString(card2), null);
+        mElement = new StringMessageElement(ChangeCardsAttributes.CARD2_ID,Integer.toString(card2), null);
         message.addMessageElement(namespace, mElement);
-        mElement = new StringMessageElement(ChangeCardsAttributes.CARD_ID,Integer.toString(card3), null);
+        mElement = new StringMessageElement(ChangeCardsAttributes.CARD3_ID,Integer.toString(card3), null);
         message.addMessageElement(namespace, mElement);
         return message;
 
@@ -385,12 +385,11 @@ public class Communicator implements PipeMsgListener{
         if(name.equals(playerName)){
             return;
         }
-        Message.ElementIterator iterator= message.getMessageElements(namespace, ChangeCardsAttributes.CARD_ID);
-        
-        MessageElement element=iterator.next();
-        int card1=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD_ID).toString()).intValue();
-        int card2=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD_ID).toString()).intValue();
-        int card3=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD_ID).toString()).intValue();
+
+
+        int card1=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD1_ID).toString()).intValue();
+        int card2=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD2_ID).toString()).intValue();
+        int card3=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD3_ID).toString()).intValue();
 
         Iterator<ChangeCardListener> listeners=this.changeCardsListeners.iterator();
         while(listeners.hasNext()){
@@ -548,7 +547,9 @@ public class Communicator implements PipeMsgListener{
     }
 
     public class ChangeCardsAttributes{
-        public static final String CARD_ID="card_id";
+        public static final String CARD1_ID="card1_id";
+        public static final String CARD2_ID="card2_id";
+        public static final String CARD3_ID="card3_id";
     }
 
     public class PassAttributes{
