@@ -90,9 +90,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         jPanel1.setBackground(resourceMap.getColor("jPanel1.background")); // NOI18N
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel1.border.title"))); // NOI18N
-        jPanel1.setMaximumSize(new java.awt.Dimension(220, 188));
-        jPanel1.setMinimumSize(new java.awt.Dimension(220, 188));
+        jPanel1.setMaximumSize(new java.awt.Dimension(235, 188));
+        jPanel1.setMinimumSize(new java.awt.Dimension(235, 188));
         jPanel1.setName("jPanel1"); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(235, 188));
+        jPanel1.setRequestFocusEnabled(false);
 
         obiettivoLabel.setIcon(resourceMap.getIcon("obiettivoLabel.icon")); // NOI18N
         obiettivoLabel.setText(resourceMap.getString("obiettivoLabel.text")); // NOI18N
@@ -125,7 +127,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                         .addComponent(passaTurnoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,8 +141,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         jPanel4.setBackground(resourceMap.getColor("jPanel4.background")); // NOI18N
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel4.border.title"))); // NOI18N
-        jPanel4.setMaximumSize(new java.awt.Dimension(220, 202));
-        jPanel4.setMinimumSize(new java.awt.Dimension(220, 202));
+        jPanel4.setMaximumSize(new java.awt.Dimension(235, 202));
+        jPanel4.setMinimumSize(new java.awt.Dimension(235, 202));
         jPanel4.setName("jPanel4"); // NOI18N
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
@@ -156,7 +158,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,8 +167,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         jPanel2.setBackground(resourceMap.getColor("jPanel2.background")); // NOI18N
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel2.border.title"))); // NOI18N
-        jPanel2.setMaximumSize(new java.awt.Dimension(220, 215));
-        jPanel2.setMinimumSize(new java.awt.Dimension(220, 215));
+        jPanel2.setMaximumSize(new java.awt.Dimension(235, 215));
+        jPanel2.setMinimumSize(new java.awt.Dimension(235, 215));
         jPanel2.setName("jPanel2"); // NOI18N
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -186,7 +188,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -198,10 +200,10 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         turnoPanel.setBackground(resourceMap.getColor("turnoPanel.background")); // NOI18N
         turnoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("turnoPanel.border.title"))); // NOI18N
-        turnoPanel.setMaximumSize(new java.awt.Dimension(220, 75));
-        turnoPanel.setMinimumSize(new java.awt.Dimension(220, 75));
+        turnoPanel.setMaximumSize(new java.awt.Dimension(235, 75));
+        turnoPanel.setMinimumSize(new java.awt.Dimension(235, 75));
         turnoPanel.setName("turnoPanel"); // NOI18N
-        turnoPanel.setPreferredSize(new java.awt.Dimension(220, 75));
+        turnoPanel.setPreferredSize(new java.awt.Dimension(235, 75));
 
         turnoLabel.setText(resourceMap.getString("turnoLabel.text")); // NOI18N
         turnoLabel.setName("turnoLabel"); // NOI18N
@@ -250,7 +252,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(turnoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(4, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
