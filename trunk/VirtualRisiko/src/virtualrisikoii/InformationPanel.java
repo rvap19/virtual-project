@@ -83,9 +83,10 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(InformationPanel.class);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("Form.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, resourceMap.getFont("Form.border.titleFont"))); // NOI18N
-        setMaximumSize(new java.awt.Dimension(255, 727));
-        setMinimumSize(new java.awt.Dimension(255, 727));
+        setMaximumSize(new java.awt.Dimension(240, 727));
+        setMinimumSize(new java.awt.Dimension(240, 727));
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(240, 727));
 
         jPanel1.setBackground(resourceMap.getColor("jPanel1.background")); // NOI18N
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel1.border.title"))); // NOI18N
@@ -122,7 +123,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                         .addComponent(passaTurnoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +152,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +180,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -212,11 +213,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             .addComponent(turnoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
             .addGroup(turnoPanelLayout.createSequentialGroup()
                 .addComponent(truppeLabel)
-                .addGap(39, 39, 39)
+                .addGap(26, 26, 26)
                 .addComponent(arnatedisposteLabel)
-                .addGap(53, 53, 53)
+                .addGap(27, 27, 27)
                 .addComponent(terrLabel)
-                .addContainerGap())
+                .addGap(68, 68, 68))
         );
         turnoPanelLayout.setVerticalGroup(
             turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,10 +235,13 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(turnoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(turnoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,9 +321,12 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     private javax.swing.JPanel turnoPanel;
     // End of variables declaration//GEN-END:variables
 
-    public void updateChat(String to, String messageString) {
-        if(to.equals(Communicator.ChatAttributes.TO_ALL)||to.equals(Tavolo.getInstance().getMyGiocatore().getNome()))
-        this.chatTextArea.append(messageString);
+    public void updateChat(String from,String to, String messageString) {
+        if(to.equals(Communicator.ChatAttributes.TO_ALL)){
+           this.chatTextArea.append(from +" > "+messageString);
+        }else if(to.equals(Tavolo.getInstance().getMyGiocatore().getNome())){
+            this.chatTextArea.append("(PRIVATO) "+from+" > "+messageString);
+        }
     }
 
     public void updatePass(int turno_successivo) {

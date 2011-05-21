@@ -10,5 +10,7 @@ package virtualrisikoii.listener;
  * @author root
  */
 public interface ChatListener {
-    public void updateChat(String to,String messageString);
+   
+
+    public void updateChat(String from, String to, String messageString);
 }
