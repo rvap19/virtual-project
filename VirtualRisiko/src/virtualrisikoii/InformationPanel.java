@@ -34,7 +34,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     /** Creates new form InformationPanel */
     public InformationPanel() {
         initComponents();
-        communicator=Communicator.getInstance();
+/*        communicator=Communicator.getInstance();
         communicator.addChatListener(this);
         communicator.addPassListener(this);
         tavolo=Tavolo.getInstance();
@@ -45,7 +45,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         TitledBorder border= (TitledBorder) this.getBorder();
         border.setTitle("Benvenuto "+tavolo.getMyGiocatore().getNome());
         border= (TitledBorder) this.jPanel1.getBorder();
-        border.setTitle("Informazioni obiettivo "+tavolo.getMyGiocatore().getNome());
+        border.setTitle("Informazioni obiettivo "+tavolo.getMyGiocatore().getNome());*/
 
     }
 
