@@ -24,6 +24,7 @@ import services.VictoryListener;
 import virtualrisikoii.ActionDialog;
 import virtualrisikoii.EndGameFrame;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.JFrameDadi;
 import virtualrisikoii.risiko.dadiGui;
 
 /**
@@ -550,8 +551,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
 
        ActionDialog dialog=new ActionDialog(null, true);
        dialog.setTitle(title);
-       dialog.getDaTerritorioTextName().setText(this.territoriLabels[daTerritorio].getText());
-       dialog.getaTerritorioTextName().setText(this.territoriLabels[aTerritorio].getText());
+       dialog.getDaTerritorioTextName().setText(this.territoriLabels[daTerritorio].getToolTipText());
+       dialog.getaTerritorioTextName().setText(this.territoriLabels[aTerritorio].getToolTipText());
        dialog.setMaximum(maxTruppe);
        dialog.setMinimum(1);
        dialog.setValue(maxTruppe/2);
@@ -692,7 +693,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
     }
 
     public void notifyAttacco(String string, int i, int i0, int i1, int i2, int i3, int i4, int iD, int iD0) {
-        new dadiGui(string,i,i0,i1,i2,i3,i4,iD,iD0).setVisible(true);
+        new JFrameDadi(string,i,i0,i1,i2,i3,i4,iD,iD0).setVisible(true);
     }
 
    /* public void updateChangeCards(int card1, int card2, int card3) {
