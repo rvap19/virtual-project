@@ -147,10 +147,10 @@ public  class Tavolo {
         Giocatore attaccante=daTerritorio.getOccupante();
         Giocatore difensore=aTerritorio.getOccupante();
 
-        int att=attacco.getNumeroTruppe();
+        int att=attacco.getNumeroTruppeInAttacco();
         int avv=attacco.getNumeroTruppeAvversario();
 
-        daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()-att);
+        daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()-attacco.getNumeroTruppe());
         aTerritorio.setNumeroUnita(aTerritorio.getNumeroUnita()-avv);
 
         attacco.setPunteggio(this.lanciaDadi(att));
@@ -334,7 +334,7 @@ public  class Tavolo {
        Giocatore g;
        int truppe=0;
        if(numeroGiocatori==3){
-           truppe=35;
+           truppe=17;
        }else if(numeroGiocatori==4){
            truppe=30;
        }else if(numeroGiocatori==5){
