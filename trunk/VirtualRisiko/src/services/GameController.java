@@ -20,6 +20,7 @@ import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.JFrameTurno;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
 import virtualrisikoii.risiko.Tavolo;
@@ -297,7 +298,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
 
                     comunicator.sendMessage(msg);
-
+                    new JFrameTurno(prossimo.getID()).setVisible(true);
 
                 }catch (Exception ex) {
                     ex.printStackTrace();
@@ -400,6 +401,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
                     tavolo.passaTurno();
                     corrente=tavolo.getGiocatoreCorrente();
+                    new JFrameTurno(corrente.getID()).setVisible(true);
                     this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                     try {
                         Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
@@ -493,6 +495,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             this.tavolo.passaTurno();
 
             Giocatore giocatore=tavolo.getGiocatoreCorrente();
+            new JFrameTurno(giocatore.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(giocatore.getNome(), giocatore.getNumeroTruppe(), giocatore.getArmateDisposte(), giocatore.getNazioni().size());
             if(tavolo.isTurnoMyGiocatore()){
 
