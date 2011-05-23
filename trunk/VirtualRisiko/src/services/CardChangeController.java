@@ -10,17 +10,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxta.communication.Communicator;
 import net.jxta.endpoint.Message;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Mappa;
-import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Tavolo;
-import virtualrisikoii.risiko.Territorio;
 
 /**
  *
