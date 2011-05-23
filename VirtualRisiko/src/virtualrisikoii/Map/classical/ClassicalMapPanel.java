@@ -13,6 +13,7 @@ package virtualrisikoii.Map.classical;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import jxta.communication.Communicator;
 import net.jxta.endpoint.Message;
 import virtualrisikoii.ActionDialog;
+import virtualrisikoii.EndGameFrame;
 import virtualrisikoii.InformationPanel;
 import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIEndGameBox;
@@ -730,12 +732,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 //azione diversa da null::controllare stato obiettivi
                 if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
 
-                    JFrame mainFrame = VirtualRisikoIIApp.getApplication().getMainFrame();
-                    endGameBox = new VirtualRisikoIIEndGameBox(mainFrame);
-                    endGameBox.setLocationRelativeTo(mainFrame);
-
-                     VirtualRisikoIIApp.getApplication().show(endGameBox);
-                     System.exit(0);
+                    this.showEndFrame(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
                 }
                 
             }else{
@@ -859,12 +856,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 //azione diversa da null::controllare stato obiettivi
                 if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
 
-                    JFrame mainFrame = VirtualRisikoIIApp.getApplication().getMainFrame();
-                    endGameBox = new VirtualRisikoIIEndGameBox(mainFrame);
-                    endGameBox.setLocationRelativeTo(mainFrame);
-
-                     VirtualRisikoIIApp.getApplication().show(endGameBox);
-                     System.exit(0);
+                   this.showEndFrame(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
                 }
 
             }else{
@@ -893,18 +885,22 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 //azione diversa da null::controllare stato obiettivi
                 if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
 
-                    JFrame mainFrame = VirtualRisikoIIApp.getApplication().getMainFrame();
-                    endGameBox = new VirtualRisikoIIEndGameBox(mainFrame);
-                    endGameBox.setLocationRelativeTo(mainFrame);
-
-                     VirtualRisikoIIApp.getApplication().show(endGameBox);
-                     System.exit(0);
+                    this.showEndFrame(tavolo.getGiocatori(), this.tavolo.getGiocatoreCorrente());
                 }
 
             }
 
     }
 
+    public void showEndFrame(List<Giocatore> giocatori,Giocatore vincitore){
+        EndGameFrame frame=new EndGameFrame();
+        frame.setVincitore(vincitore);
+        Iterator<Giocatore> iter=giocatori.iterator();
+        while(iter.hasNext())
+            frame.setPunteggio(iter.next());
+        frame.setVisible(true);
+        this.setVisible(false);
+    }
     public void updateChangeCards(int card1, int card2, int card3) {
 
         Tavolo tavolo=Tavolo.getInstance();

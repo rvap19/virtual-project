@@ -11,18 +11,19 @@
 
 package virtualrisikoii;
 
+import javax.swing.JFrame;
 import services.CardChangeController;
 
 /**
  *
  * @author root
  */
-public class CardChangeDialog extends javax.swing.JDialog {
+public class CardChangeDialog extends JFrame {
 
 
     /** Creates new form CardChangeDialog */
-    public CardChangeDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public CardChangeDialog() {
+        
         initComponents();
     }
 
