@@ -36,7 +36,7 @@ public class Attacco extends Azione{
 
         if(super.aTerritorio.getNumeroUnita()<numeroTruppeAttacco){
             numeroTruppeAvversario=aTerritorio.getNumeroUnita();
-        }else if(super.aTerritorio.getNumeroUnita()>=n){
+        }else if(super.aTerritorio.getNumeroUnita()>=numeroTruppeAttacco){
             if(super.aTerritorio.getNumeroUnita()>3)
                 numeroTruppeAvversario=3;
             else
