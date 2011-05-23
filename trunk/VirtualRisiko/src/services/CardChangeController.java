@@ -59,70 +59,7 @@ public class CardChangeController {
        jolly=new ArrayList<Carta>();
        cannoni=new ArrayList<Carta>();
        selezionate=new ArrayList<Carta>();
-        /*
-        Carta c1=new Carta(Carta.CANNONE);
-        c1.setTerritorio(new Territorio(1, "Territori del nord ovest"));
-        Carta c2=new Carta(Carta.CAVALIERE);
-        c2.setTerritorio(new Territorio(1, "Giappone"));
-        Carta c3=new Carta(Carta.FANTE);
-        c3.setTerritorio(new Territorio(1, "Madagascar"));
-        Carta c4=new Carta(Carta.JOLLY);
-        c4.setTerritorio(new Territorio(1, ""));
-        giocatore.addCarta(c1);
-        giocatore.addCarta(c2);
-        giocatore.addCarta(c3);
-        giocatore.addCarta(c4);
-
-
-         c1=new Carta(Carta.CANNONE);
-         c1.setTerritorio(new Territorio(1, "Territori del sud est"));
-         c2=new Carta(Carta.CAVALIERE);
-         c2.setTerritorio(new Territorio(1, "cina"));
-         c3=new Carta(Carta.FANTE);
-         c3.setTerritorio(new Territorio(1, "Europa Meridionale"));
-         c4=new Carta(Carta.JOLLY);
-         c4.setTerritorio(new Territorio(1, ""));
-        giocatore.addCarta(c1);
-        giocatore.addCarta(c2);
-        giocatore.addCarta(c3);
-        giocatore.addCarta(c4);
-
-        c1=new Carta(Carta.CANNONE);
-         c1.setTerritorio(new Territorio(1, "Territori del sud sud est"));
-         c2=new Carta(Carta.CAVALIERE);
-         c2.setTerritorio(new Territorio(1, "cina express"));
-         c3=new Carta(Carta.FANTE);
-         c3.setTerritorio(new Territorio(1, "Europa Settentrionale"));
-         giocatore.addCarta(c1);
-        giocatore.addCarta(c2);
-        giocatore.addCarta(c3);
-
-         
-
-        c1=new Carta(Carta.CANNONE);
-         c1.setTerritorio(new Territorio(1, "Territori del nord est"));
-         c2=new Carta(Carta.CAVALIERE);
-         c2.setTerritorio(new Territorio(1, "mongolia"));
-         c3=new Carta(Carta.FANTE);
-         c3.setTerritorio(new Territorio(1, "oceania orientale"));
-         giocatore.addCarta(c1);
-        giocatore.addCarta(c2);
-        giocatore.addCarta(c3);
-
-         
-
-        c1=new Carta(Carta.CANNONE);
-         c1.setTerritorio(new Territorio(1, "africa del nord"));
-         c2=new Carta(Carta.CAVALIERE);
-         c2.setTerritorio(new Territorio(1, "afirce del sud"));
-         c3=new Carta(Carta.FANTE);
-         c3.setTerritorio(new Territorio(1, "ucraina"));
-         cavalieri.add(c2);
-        fanti.add(c3);
-        
-        cannoni.add(c1);
-
-       */
+      
 
        Iterator<Carta> iter=this.giocatore.getCarte().iterator();
        while(iter.hasNext()){
