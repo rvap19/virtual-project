@@ -12,9 +12,6 @@
 package jxta.gui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,16 +30,14 @@ import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
 import jxta.listener.RegistrationListener;
 import net.jxta.document.Advertisement;
-import net.jxta.endpoint.Message;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.protocol.PipeAdvertisement;
+import services.GameController;
 import util.GameFactory;
-import util.ObiettiviException;
 import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIView;
 import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.risiko.Mappa;
-import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Obiettivo;
 import virtualrisikoii.risiko.Tavolo;
 
@@ -442,6 +437,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             int turno = 0;
 
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, dadi, regioni, 0);
+            GameController controller=GameController.createGameController();
             this.setVisible(false);
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
@@ -545,9 +541,11 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
 
             
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_card);
+            GameController controller=GameController.createGameController();
             this.setVisible(false);
             VirtualRisikoIIApp app=new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
