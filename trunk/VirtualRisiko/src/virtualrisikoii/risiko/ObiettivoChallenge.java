@@ -74,15 +74,15 @@ public class ObiettivoChallenge extends Obiettivo{
 
     @Override
     public String toString() {
-        String newline=System.getProperty("line.separator");
-        String s="Obiettivo "+Integer.toString(super.getCodice())+newline+
+        String newline="<br>";
+        String s="<html>"+"Obiettivo "+Integer.toString(super.getCodice())+newline+
                 "Territori da conquistare "+newline;
         String t="";
         Iterator<Territorio> iter=this.territoriDaConquistare.iterator();
         while(iter.hasNext()){
             t=t+iter.next().getNome()+" , "+newline;
         }
-        return s+t;
+        return s+t+"</html>";
     }
 
 }
