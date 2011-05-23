@@ -28,6 +28,7 @@ public class dadiGui extends javax.swing.JFrame {
 
     /** Creates new form dadiGui */
     public dadiGui(String descriz,int att1,int att2,int att3,int dif1,int dif2,int dif3,int giocAtt,int giocDif) {
+        setTitle("Lancio dadi ...");
         this.descrizione=descriz;
         this.att1=att1;
         this.att2=att2;

@@ -183,7 +183,7 @@ public class DadiPanel extends javax.swing.JPanel {
         freccia2 = new javax.swing.JLabel();
         freccia3 = new javax.swing.JLabel();
 
-        descrizioneAttacco.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        descrizioneAttacco.setFont(new java.awt.Font("Tahoma", 0, 10));
         descrizioneAttacco.setText("Risultato dei Dadi");
         descrizioneAttacco.setName("descrizioneAttacco"); // NOI18N
 

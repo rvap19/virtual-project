@@ -25,6 +25,7 @@ public class CardChangeDialog extends JFrame {
     public CardChangeDialog() {
         
         initComponents();
+        setTitle("Cambio Carte ");
     }
 
     public void setController(CardChangeController controller) {
