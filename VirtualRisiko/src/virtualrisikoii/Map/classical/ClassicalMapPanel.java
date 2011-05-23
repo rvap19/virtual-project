@@ -560,11 +560,8 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                         ex.printStackTrace();
                     } 
                 }
-            }
-
-            this.setLabel(t);
-
-            if((truppeSelezionate==3)||(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
+                this.setLabel(t);
+            }else if((truppeSelezionate==3)||(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
                 try{
 
                     System.out.println(tavolo.getTurno()+" sono dentrooooooooooooooooooooooooooooooooooooooooooooooooo"+tavolo.getGiocatori().size());
@@ -586,12 +583,6 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                 truppeSelezionate=0;
             }
             
-           /* if(!tavolo.isInizializzazione()){
-                tavolo.avviaGioco();
-                
-                this.informationPanel.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-                truppeSelezionate=0;
-            }*/
             return;
         }
 
