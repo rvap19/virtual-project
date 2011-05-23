@@ -195,6 +195,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         jLabel2.setName("jLabel2"); // NOI18N
 
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.BorderLayout());
 
         mapPanel1.setName("mapPanel1"); // NOI18N
@@ -537,7 +538,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
         islandaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         islandaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         islandaLabel.setName("islandaLabel"); // NOI18N
-        mapPanel1.add(islandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 40));
+                mapPanel1.add(islandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 40));
 
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -756,9 +757,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
        int maxTruppe=daTerritorio.getNumeroUnita()-1;
        if(isAttacco){
            title="Attacco";
-           if(maxTruppe>3){
-               maxTruppe=3;
-           }
+           
        }
 
        if(!daTerritorio.confina(aTerritorio)){
