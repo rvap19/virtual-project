@@ -48,7 +48,7 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
        this.numDif3=numDif3;
        setCenterScreen(this);
        initComponents();
-       TuoThread tt = new TuoThread( this );
+       TuoThread tt = new TuoThread( this, 15000);
        tt.start();
 
          //String coloreGiocatoreAtt=null;
@@ -582,8 +582,7 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
             }
    
        }
-        System.out.println(contVittorie);
-        System.out.println(contSconfitte);
+
         if(contVittorie>contSconfitte){
             Suono.playSound("/virtualrisikoii/resources/dadi/vittoria.wav");
         }
