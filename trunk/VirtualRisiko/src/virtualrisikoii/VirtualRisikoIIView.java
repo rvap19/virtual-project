@@ -16,8 +16,6 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import virtualrisikoii.risiko.Tavolo;
 
 /**
  * The application's main frame.
@@ -25,7 +23,7 @@ import virtualrisikoii.risiko.Tavolo;
 public class VirtualRisikoIIView extends FrameView {
     
 
-    private Tavolo tavolo;
+    
 
     public VirtualRisikoIIView(SingleFrameApplication app) {
         super(app);
@@ -85,25 +83,9 @@ public class VirtualRisikoIIView extends FrameView {
                 }
             }
         });
-         
-
-            tavolo=Tavolo.getInstance();
-            
-            classicalMapPanel1.initMap(tavolo);
-            classicalMapPanel1.setInformationPanel(informationPanel1);
-            informationPanel1.setTavolo(tavolo);
-            informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-        
-         
-         this.informationPanel1.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-
-         
+     
     }
 
-    private void showInfo(String title,String message){
-        JOptionPane.showMessageDialog(null, message,title, JOptionPane.INFORMATION_MESSAGE);
-
-    }
     @Action
     public void showEndGameBox() {
         if (endGameBox == null) {

@@ -11,48 +11,46 @@
 
 package virtualrisikoii;
 
-import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import jxta.communication.Communicator;
-import net.jxta.endpoint.Message;
+import services.GameController;
+import services.HistoryListener;
+import services.PlayerDataListener;
 import virtualrisikoii.listener.ChatListener;
-import virtualrisikoii.listener.PassListener;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Tavolo;
-import virtualrisikoii.risiko.Territorio;
 
 /**
  *
  * @author root
  */
-public class InformationPanel extends javax.swing.JPanel implements ChatListener,PassListener{
+public class InformationPanel extends javax.swing.JPanel implements ChatListener,HistoryListener,PlayerDataListener{
 
-    private Tavolo tavolo;
-    private Communicator communicator;
+   private GameController controller;
+
 
     /** Creates new form InformationPanel */
     public InformationPanel() {
         initComponents();
-        communicator=Communicator.getInstance();
-        communicator.addChatListener(this);
-        communicator.addPassListener(this);
-        tavolo=Tavolo.getInstance();
-        int idObiettivo=tavolo.getMyGiocatore().getObiettivo().getCodice()+1;
+        controller=GameController.getInstance();
+        int idObiettivo=controller.getIDObiettivo()+1;
         obiettivoLabel.setIcon(new ImageIcon("src/virtualrisikoii/resources/obiettivi/classical/"+idObiettivo+".jpg"));
-       System.out.println("/src/virtualrisikoii/resources/obiettivi/classical/"+tavolo.getMyGiocatore().getObiettivo().getCodice()+".jpg");
-        this.obiettivoLabel.setToolTipText(tavolo.getMyGiocatore().getObiettivo().toString());
+    //   System.out.println("/src/virtualrisikoii/resources/obiettivi/classical/"+tavolo.getMyGiocatore().getObiettivo().getCodice()+".jpg");
+        this.obiettivoLabel.setToolTipText(controller.getDescrizioneObiettivo());
         
         TitledBorder border= (TitledBorder) this.getBorder();
-        border.setTitle("Benvenuto "+tavolo.getMyGiocatore().getNome());
+        border.setTitle("Benvenuto "+controller.getNomeMyGiocatore());
         border= (TitledBorder) this.jPanel1.getBorder();
-        border.setTitle("Obiettivo "+tavolo.getMyGiocatore().getNome());
+        border.setTitle("Obiettivo "+controller.getNomeMyGiocatore());
+        controller.setChatListener(this);
+        controller.setPlayerDataListener(this);
+        controller.setHistoryListener(this);
+        controller.initCurrentPlayerData();
 
     }
 
-    public void setTavolo(Tavolo tavolo){
-        this.tavolo=tavolo;
-    }
+   
 
 
     
@@ -259,28 +257,18 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
     private void passaTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passaTurnoButtonActionPerformed
         // TODO add your handling code here:
-        if((!tavolo.isInizializzazione())&&tavolo.isTurnoMyGiocatore()){
-            this.tavolo.passaTurno();
-            Message msg=this.communicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-            try {
-                        //Thread.sleep(3000);
-                        this.communicator.sendMessage(msg);
-                       
-
-                    } catch (Exception  ex) {
-                        ex.printStackTrace();
-                    } 
-            this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-        }
+        controller.passaTurno();
+        
         
     }//GEN-LAST:event_passaTurnoButtonActionPerformed
 
 
-    public void updateDatiGiocatore(Giocatore giocatore){
-        this.turnoLabel.setText("Turno : "+giocatore.getNome());
-        this.truppeLabel.setText("truppe : "+giocatore.getNumeroTruppe());
-        this.arnatedisposteLabel.setText("armate : "+giocatore.getArmateDisposte());
-        this.terrLabel.setText("territori : "+giocatore.getNazioni().size());
+
+    public void updateDatiGiocatore(String nomeGiocatoreDiTurno, int numeroTruppeDisponibili, int numeroTruppeDisposte, int numeroTerritori) {
+        this.turnoLabel.setText("Turno : "+nomeGiocatoreDiTurno);
+        this.truppeLabel.setText("truppe : "+numeroTruppeDisponibili);
+        this.arnatedisposteLabel.setText("armate : "+numeroTruppeDisposte);
+        this.terrLabel.setText("territori : "+numeroTerritori);
 
 
 
@@ -323,26 +311,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         }
     }
 
-    public void updatePass(int turno_successivo) {
 
 
-            int turnoSucc=tavolo.getTurnoSuccessivo();
-            if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
-                tavolo.setInizializzazione(false);
-            }
 
-            this.tavolo.passaTurno();
-            
-            
-            this.updateDatiGiocatore(tavolo.getGiocatoreCorrente());
-            if(tavolo.isTurnoMyGiocatore()){
 
-                this.appendActionInHistory(tavolo.getGiocatoreCorrente().getNome()+" ancora "+tavolo.getGiocatoreCorrente().getNumeroTruppe());
-                System.out.println("ancora in inizializzazione "+tavolo.isInizializzazione());
-            }
-        
-
-    }
+    
 
     
 }
