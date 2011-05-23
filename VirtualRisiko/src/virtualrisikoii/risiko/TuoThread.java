@@ -17,7 +17,7 @@ public class TuoThread extends Thread {
     @Override
    public void run() {
       try {
-         sleep(7000);   // Attendo 30 secondi
+         sleep(15000);   // Attendo 30 secondi
          if (finestra != null) {
                 finestra.dispose();
             }   // Chiudo la finestra
