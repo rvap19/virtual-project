@@ -156,10 +156,10 @@ public  class Tavolo {
         attacco.setPunteggio(this.lanciaDadi(att));
         attacco.setPunteggioAvversario(this.lanciaDadi(avv));
 
-        this.lastAttacco=attacco;
+        
         attacco.eseguiAzione();
         if(attacco.isVittoria()){
-          //  this.lastAttacco=attacco;
+            this.lastAttacco=attacco;
             if(difensore.getNazioni().size()==0){
                 difensore.setStato(Giocatore.FUORI_GIOCO);
                 Iterator<Carta> iter=difensore.getCarte().iterator();
