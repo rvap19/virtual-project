@@ -563,10 +563,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements ApplianceLi
                     } 
                 }
                 this.setLabel(t);
-            }else if((truppeSelezionate==3)||(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
+            }
+            if((truppeSelezionate==3)||(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
                 try{
 
-                    System.out.println(tavolo.getTurno()+" sono dentrooooooooooooooooooooooooooooooooooooooooooooooooo"+tavolo.getGiocatori().size());
                     Thread.sleep(2000);
                     if((tavolo.getTurno()==(tavolo.getGiocatori().size()-1))&&(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()==0)){
                         tavolo.setInizializzazione(false);
