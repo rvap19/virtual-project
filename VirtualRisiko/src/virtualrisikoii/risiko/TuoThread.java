@@ -13,14 +13,19 @@ import javax.swing.JFrame;
  */
 public class TuoThread extends Thread {
    private JFrame finestra;
-   public TuoThread(JFrame finestra) { this.finestra = finestra; }
+   public TuoThread(JFrame finestra, long time) {
+   this.finestra = finestra;
+   this.time=time;
+   }
     @Override
    public void run() {
+
       try {
-         sleep(15000);   // Attendo 30 secondi
+         sleep(time);
          if (finestra != null) {
                 finestra.dispose();
             }   // Chiudo la finestra
       } catch (Exception e) {}
    }
+    private long time;
 }
