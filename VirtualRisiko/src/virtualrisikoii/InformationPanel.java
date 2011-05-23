@@ -68,7 +68,6 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel1 = new javax.swing.JPanel();
         obiettivoLabel = new javax.swing.JLabel();
         passaTurnoButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         chatTextArea = new javax.swing.JTextArea();
@@ -107,14 +106,6 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             }
         });
 
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -122,10 +113,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(obiettivoLabel)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(passaTurnoButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                    .addComponent(passaTurnoButton))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,9 +121,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(obiettivoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passaTurnoButton)
-                    .addComponent(jButton3)))
+                .addComponent(passaTurnoButton))
         );
 
         jPanel4.setBackground(resourceMap.getColor("jPanel4.background")); // NOI18N
@@ -288,15 +274,6 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         
     }//GEN-LAST:event_passaTurnoButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        if(!tavolo.isInizializzazione()){
-            if(this.tavolo.recuperaCarta(tavolo.getGiocatoreCorrente()))
-                this.updateDatiGiocatore(this.tavolo.getGiocatoreCorrente());
-        }
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
 
     public void updateDatiGiocatore(Giocatore giocatore){
         this.turnoLabel.setText("Turno : "+giocatore.getNome());
@@ -322,7 +299,6 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     private javax.swing.JLabel arnatedisposteLabel;
     private javax.swing.JTextArea chatTextArea;
     private javax.swing.JTextArea gameInformationArea;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
