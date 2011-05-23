@@ -4,7 +4,7 @@
 
 package virtualrisikoii;
 
-import virtualrisikoii.Map.classical.MicroMapDialog;
+
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
