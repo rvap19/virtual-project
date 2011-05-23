@@ -11,14 +11,12 @@
 
 package virtualrisikoii;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxta.communication.Communicator;
-import net.jxta.endpoint.Message;
+import services.ChatSender;
+import services.GameController;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Tavolo;
 
@@ -30,9 +28,11 @@ public class ChatSendPanel extends javax.swing.JPanel {
 
     /** Creates new form ChatSendPanel */
     private List<String> players;
+    private ChatSender sender;
 
     public ChatSendPanel() {
         Tavolo tavolo=Tavolo.getInstance();
+        sender=GameController.getInstance();
         players=new ArrayList<String>();
         players.add(Communicator.ChatAttributes.TO_ALL);
 
@@ -115,13 +115,7 @@ public class ChatSendPanel extends javax.swing.JPanel {
         String destination=this.jComboBox1.getSelectedItem().toString();
         String message=this.jTextField1.getText();
         this.jTextField1.setText("");
-        Communicator communicator=Communicator.getInstance();
-        Message msg=communicator.createChatMessage(Tavolo.getInstance().getMyGiocatore().getNome(),destination, message);
-        try {
-            communicator.sendMessage(msg);
-        } catch (IOException ex) {
-            System.out.println("impossibile inviare msg a "+destination+" msg --> "+message);
-        }
+        sender.sendMessage(null, destination, message);
 
       
     }//GEN-LAST:event_allChatButtonActionPerformed
