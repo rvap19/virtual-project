@@ -16,6 +16,8 @@ public class Attacco extends Azione{
     private int[] punteggio=null;
     private int[] punteggioAvversario=null;
     private int numeroTruppeAvversario;
+    private int numeroTruppeAttacco;
+
     private boolean vittoria=false;
 
     public Attacco(){
@@ -24,7 +26,15 @@ public class Attacco extends Azione{
     @Override
     public void setNumeroTruppe(int n){
         this.numeroTruppe=n;
-        if(super.aTerritorio.getNumeroUnita()<n){
+        if(numeroTruppe>3){
+            numeroTruppeAttacco=3;
+
+        }else{
+            numeroTruppeAttacco=numeroTruppe;
+        }
+        numeroTruppe=numeroTruppe-numeroTruppeAttacco;
+
+        if(super.aTerritorio.getNumeroUnita()<numeroTruppeAttacco){
             numeroTruppeAvversario=aTerritorio.getNumeroUnita();
         }else if(super.aTerritorio.getNumeroUnita()>=n){
             if(super.aTerritorio.getNumeroUnita()>3)
@@ -38,8 +48,8 @@ public class Attacco extends Azione{
     public void eseguiAzione() {
 
         int dadi;
-        if(this.numeroTruppe<this.numeroTruppeAvversario){
-            dadi=numeroTruppe;
+        if(this.numeroTruppeAttacco<this.numeroTruppeAvversario){
+            dadi=numeroTruppeAttacco;
         }else{
             dadi=numeroTruppeAvversario;
         }
@@ -50,7 +60,7 @@ public class Attacco extends Azione{
             if(punteggio[i]>punteggioAvversario[i]){
                 this.numeroTruppeAvversario--;
             }else{
-                this.numeroTruppe--;
+                this.numeroTruppeAttacco--;
                 
             }
         }
@@ -68,12 +78,12 @@ public class Attacco extends Azione{
             aTerritorio.setOccupante(attaccante);
            // aTerritorio.setOccupante(daTerritorio.getOccupante());
 
-            aTerritorio.setNumeroUnita(numeroTruppe);
+            aTerritorio.setNumeroUnita(numeroTruppe+numeroTruppeAttacco);
             
             attaccante.getNazioni().add(aTerritorio);
             
         }else{
-            daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()+numeroTruppe);
+            daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()+numeroTruppe+numeroTruppeAttacco);
         }
         
     }
