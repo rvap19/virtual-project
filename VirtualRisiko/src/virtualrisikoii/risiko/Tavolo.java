@@ -24,7 +24,7 @@ public  class Tavolo {
     private Giocatore myGiocatore;
     private int numeroGiocatori;
     private int turno;
-    private int minGiocatori=3;
+    private int minGiocatori=2;
     private int maxGiocatori=6;
     private List<Obiettivo> obiettivi;
     private Random dado;
@@ -323,12 +323,13 @@ public  class Tavolo {
             System.out.println("Impossibile avviare gioco ...numero giocatori minimo :"+minGiocatori);
             System.exit(-1);
         }
+
+        if(numeroGiocatori>maxGiocatori){
+            System.out.println("Impossibile avviare gioco ...numero giocatori massimo :"+maxGiocatori);
+            System.exit(-1);
+        }
        giocatori=new ArrayList<Giocatore>();
-       if(numeroGiocatori<this.minGiocatori){
-           numeroGiocatori=minGiocatori;
-       }else if(numeroGiocatori>maxGiocatori){
-           numeroGiocatori=maxGiocatori;
-       }
+      
 
        Giocatore g;
        int truppe=0;

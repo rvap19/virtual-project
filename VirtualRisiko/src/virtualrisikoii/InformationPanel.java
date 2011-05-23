@@ -302,7 +302,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         this.turnoLabel.setText("Turno : "+giocatore.getNome());
         this.truppeLabel.setText("truppe : "+giocatore.getNumeroTruppe());
         this.arnatedisposteLabel.setText("armate : "+giocatore.getArmateDisposte());
-        this.terrLabel.setText("terr : "+giocatore.getNazioni().size());
+        this.terrLabel.setText("territori : "+giocatore.getNazioni().size());
 
 
 
@@ -312,7 +312,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
 
     public void appendActionInHistory(String action){
-        this.gameInformationArea.append("\n"+action);
+        this.gameInformationArea.append(action+"\n");
+        this.gameInformationArea.setCaretPosition(this.gameInformationArea.getDocument().getLength());
     }
 
 
@@ -337,9 +338,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
 
     public void updateChat(String from,String to, String messageString) {
         if(to.equals(Communicator.ChatAttributes.TO_ALL)){
-           this.chatTextArea.append(from +" > "+messageString);
+           this.chatTextArea.append(from +" > "+messageString+"\n");
+           this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }else if(to.equals(Tavolo.getInstance().getMyGiocatore().getNome())){
-            this.chatTextArea.append("(PRIVATO) "+from+" > "+messageString);
+            this.chatTextArea.append("(PRIVATO) "+from+" > "+messageString+"\n");
+            this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }
     }
 
