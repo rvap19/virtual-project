@@ -20,13 +20,13 @@ public class Spostamento extends Azione{
 
     @Override
     public void eseguiAzione() {
-        super.aTerritorio.setNumeroUnita(numeroTruppe+aTerritorio.getNumeroUnita());
-        super.daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()-numeroTruppe);
+        super.aTerritorio.setNumeroUnita(numeroTruppeTotali+aTerritorio.getNumeroUnita());
+        super.daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()-numeroTruppeTotali);
     }
 
     @Override
     public String toString() {
-        return "Spostamento da "+super.daTerritorio.getNome()+" a "+super.aTerritorio.getNome()+" con "+super.numeroTruppe+" truppe" ;
+        return "Spostamento da "+super.daTerritorio.getNome()+" a "+super.aTerritorio.getNome()+" con "+super.numeroTruppeTotali+" truppe" ;
     }
 
 }

@@ -25,14 +25,14 @@ public class Attacco extends Azione{
     }
     @Override
     public void setNumeroTruppe(int n){
-        this.numeroTruppe=n;
-        if(numeroTruppe>3){
+        this.numeroTruppeTotali=n;
+        if(numeroTruppeTotali>3){
             numeroTruppeAttacco=3;
 
         }else{
-            numeroTruppeAttacco=numeroTruppe;
+            numeroTruppeAttacco=numeroTruppeTotali;
         }
-        numeroTruppe=numeroTruppe-numeroTruppeAttacco;
+     
 
         if(super.aTerritorio.getNumeroUnita()<numeroTruppeAttacco){
             numeroTruppeAvversario=aTerritorio.getNumeroUnita();
@@ -54,8 +54,7 @@ public class Attacco extends Azione{
             dadi=numeroTruppeAvversario;
         }
 
-
-
+        numeroTruppeTotali=numeroTruppeTotali-numeroTruppeAttacco;
         for(int i=0;i<dadi;i++){
             if(punteggio[i]>punteggioAvversario[i]){
                 this.numeroTruppeAvversario--;
@@ -78,12 +77,12 @@ public class Attacco extends Azione{
             aTerritorio.setOccupante(attaccante);
            // aTerritorio.setOccupante(daTerritorio.getOccupante());
 
-            aTerritorio.setNumeroUnita(numeroTruppe+numeroTruppeAttacco);
+            aTerritorio.setNumeroUnita(numeroTruppeTotali+numeroTruppeAttacco);
             
             attaccante.getNazioni().add(aTerritorio);
             
         }else{
-            daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()+numeroTruppe+numeroTruppeAttacco);
+            daTerritorio.setNumeroUnita(daTerritorio.getNumeroUnita()+numeroTruppeTotali+numeroTruppeAttacco);
         }
         
     }
@@ -132,6 +131,10 @@ public class Attacco extends Azione{
     @Override
     public String toString() {
         return "Attacco da "+super.daTerritorio.getNome()+" a "+super.aTerritorio.getNome()+" con "+this.punteggio.length+" truppe ";
+    }
+
+    int getNumeroTruppeInAttacco() {
+        return this.numeroTruppeAttacco;
     }
 
     
