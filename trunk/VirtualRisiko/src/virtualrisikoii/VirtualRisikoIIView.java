@@ -23,7 +23,7 @@ import virtualrisikoii.risiko.Tavolo;
  * The application's main frame.
  */
 public class VirtualRisikoIIView extends FrameView {
-    private  MicroMapDialog dialog=null;
+    
 
     private Tavolo tavolo;
 
@@ -85,7 +85,7 @@ public class VirtualRisikoIIView extends FrameView {
                 }
             }
         });
-         dialog=new MicroMapDialog(this.getFrame(), false);
+         
 
             tavolo=Tavolo.getInstance();
             
@@ -251,7 +251,7 @@ public class VirtualRisikoIIView extends FrameView {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        CardChangeDialog dialog = new CardChangeDialog(new javax.swing.JFrame(), true);
+        CardChangeDialog dialog = new CardChangeDialog();
         dialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                
                 

@@ -24,7 +24,7 @@ public  class Tavolo {
     private Giocatore myGiocatore;
     private int numeroGiocatori;
     private int turno;
-    private int minGiocatori=2;
+    private int minGiocatori=3;
     private int maxGiocatori=6;
     private List<Obiettivo> obiettivi;
     private Random dado;
