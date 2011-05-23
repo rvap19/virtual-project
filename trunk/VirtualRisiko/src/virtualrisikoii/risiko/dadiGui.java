@@ -39,7 +39,7 @@ public class dadiGui extends javax.swing.JFrame {
         this.giocAtt=giocAtt;
         this.giocDif=giocDif;
         initComponents();
-        TuoThread tt = new TuoThread( this );
+        TuoThread tt = new TuoThread( this, 15000 );
         tt.start();
 
     }
