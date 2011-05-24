@@ -616,7 +616,12 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
     // End of variables declaration//GEN-END:variables
 
     
-
+public void avviaDadi(){
+    init();
+    setVisible(true);
+    Thread t= new Thread(this);
+    t.start();
+}
    public static void main(String[] args) throws Exception{
        JFrameDadi frame=new JFrameDadi("ciao",1,2,3,4,6,0,4,3);
        frame.init();
