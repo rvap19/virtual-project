@@ -48,7 +48,7 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
        this.numDif3=numDif3;
        setCenterScreen(this);
        initComponents();
-       TuoThread tt = new TuoThread( this, 15000);
+       TuoThread tt = new TuoThread( this, 10000);
        tt.start();
 
          //String coloreGiocatoreAtt=null;
@@ -87,33 +87,39 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
          if(numAtt1 > numDif1) {
             versofreccia1 = "attacco";
             colorefreccia1=coloreGiocatoreAtt;
+            if(numAtt1!=0 && numDif1!=0)
             contVittorie++;
            // Suono.playSound("/virtualrisikoii/resources/dadi/vittoria.wav");
         }
                else {
             versofreccia1 = "difesa";
             colorefreccia1=coloreGiocatoreDif;
+            if(numAtt1!=0 && numDif1!=0)
             contSconfitte++;
              // Suono.playSound("/virtualrisikoii/resources/dadi/sconfitta.wav");
         }
                        if(numAtt2 > numDif2) {
             versofreccia2 = "attacco";
             colorefreccia2=coloreGiocatoreAtt;
+            if(numAtt2!=0 && numDif2!=0)
             contVittorie++;
         }
                else {
             versofreccia2 = "difesa";
             colorefreccia2=coloreGiocatoreDif;
+            if(numAtt2!=0 && numDif2!=0)
             contSconfitte++;
         }
                        if(numAtt3 > numDif3) {
             versofreccia3 = "attacco";
             colorefreccia3=coloreGiocatoreAtt;
+            if(numAtt3!=0 && numDif3!=0)
             contVittorie++;
         }
                else {
             versofreccia3 = "difesa";
             colorefreccia3=coloreGiocatoreDif;
+            if(numAtt3!=0 && numDif3!=0)
             contSconfitte++;
         }
 
@@ -450,7 +456,7 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
    // Prima fila di dadi
 
    
-   if(numAtt1!=0||numDif1!=0){
+   if(numAtt1!=0||numAtt2!=0 || numAtt3!=0){
        while(i<5) {
         if(i==0){
             Suono.playSound("/virtualrisikoii/resources/dadi/lanciodadi.wav");
@@ -460,11 +466,19 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
         dadoAtt1.setImage(img);
         dadoAtt1.repaint();
            }
-        if(numDif1!=0){
-        img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreDif+"/"+(random.nextInt(6)+1)+".png");
-        dadoDif1.setImage(img);
-        dadoDif1.repaint();
-           }
+
+        if(numAtt2!=0){
+        img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreAtt+"/"+(random.nextInt(6)+1)+".png");
+        dadoAtt2.setImage(img);
+        dadoAtt2.repaint();
+              }
+        if(numAtt3!=0){
+        img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreAtt+"/"+(random.nextInt(6)+1)+".png");
+        dadoAtt3.setImage(img);
+        dadoAtt3.repaint();
+
+                }
+        
 
         try { Thread.sleep(time);}
        catch (InterruptedException e) {
@@ -477,11 +491,15 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
                     dadoAtt1.setImage(img);
                     dadoAtt1.repaint();
 
-                    img=Toolkit.getDefaultToolkit().createImage(pathDif1);
-                    dadoDif1.setImage(img);
-                    dadoDif1.repaint();
-                    System.out.println(freccia1);
-                    freccia1.setIcon(new javax.swing.ImageIcon(pathfreccia1));
+                    img=Toolkit.getDefaultToolkit().createImage(pathAtt2);
+                    dadoAtt2.setImage(img);
+                    dadoAtt2.repaint();
+
+                    img=Toolkit.getDefaultToolkit().createImage(pathAtt3);
+                    dadoAtt3.setImage(img);
+                    dadoAtt3.repaint();
+
+                    
              }
       
 
@@ -496,22 +514,27 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
         i=0;
         time=300;
 
-     if(numAtt2!=0||numDif2!=0){
+     if(numDif1!=0||numDif2!=0 || numDif3!=0){
           while(i<5) {
         if(i==0){
             Suono.playSound("/virtualrisikoii/resources/dadi/lanciodadi.wav");
         }
 
-        if(numAtt2!=0){
-        img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreAtt+"/"+(random.nextInt(6)+1)+".png");
-        dadoAtt2.setImage(img);
-        dadoAtt2.repaint();
-              }
+        if(numDif1!=0){
+        img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreDif+"/"+(random.nextInt(6)+1)+".png");
+        dadoDif1.setImage(img);
+        dadoDif1.repaint();
+           }
         if(numDif2!=0){
         img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreDif+"/"+(random.nextInt(6)+1)+".png");
         dadoDif2.setImage(img);
         dadoDif2.repaint();
               }
+        if(numDif3!=0){
+        img=Toolkit.getDefaultToolkit().createImage("src/virtualrisikoii/resources/dadi/"+coloreGiocatoreDif+"/"+(random.nextInt(6)+1)+".png");
+        dadoDif3.setImage(img);
+        dadoDif3.repaint();
+         }
 
         try { Thread.sleep(time);}
        catch (InterruptedException e) {
@@ -520,27 +543,33 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
             time *= 1.2;
 
             if(i==5){
-                img=Toolkit.getDefaultToolkit().createImage(pathAtt2);
-                dadoAtt2.setImage(img);
-                dadoAtt2.repaint();
+
+                img=Toolkit.getDefaultToolkit().createImage(pathDif1);
+                dadoDif1.setImage(img);
+                dadoDif1.repaint();
+                System.out.println(freccia1);
+                freccia1.setIcon(new javax.swing.ImageIcon(pathfreccia1));
 
                 img=Toolkit.getDefaultToolkit().createImage(pathDif2);
                 dadoDif2.setImage(img);
                 dadoDif2.repaint();
-
                 freccia2.setIcon(new javax.swing.ImageIcon((pathfreccia2)));
+
+                img=Toolkit.getDefaultToolkit().createImage(pathDif3);
+                dadoDif3.setImage(img);
+                dadoDif3.repaint();
+                freccia3.setIcon(new javax.swing.ImageIcon((pathfreccia3)));
+
              }
          
 
        }
 
-                   try { Thread.sleep(1000);}
-                   catch (InterruptedException e) {
-                   e.printStackTrace();}
+                 
 
        }
         //terza fila di dadi
-        i=0;
+      /* i=0;
         time=300;
 
         if(numAtt3!=0 || numDif3!=0) {
@@ -569,9 +598,7 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
             
             if(i==5){
 
-                img=Toolkit.getDefaultToolkit().createImage(pathAtt3);
-                dadoAtt3.setImage(img);
-                dadoAtt3.repaint();
+                
 
                 img=Toolkit.getDefaultToolkit().createImage(pathDif3);
                 dadoDif3.setImage(img);
@@ -581,9 +608,10 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
               }
             }
    
-       }
+       }*/
 
-        if(contVittorie>contSconfitte){
+
+        if(contVittorie>=contSconfitte){
             Suono.playSound("/virtualrisikoii/resources/dadi/vittoria.wav");
         }
         else{
@@ -623,7 +651,7 @@ public void avviaDadi(){
     t.start();
 }
    public static void main(String[] args) throws Exception{
-       JFrameDadi frame=new JFrameDadi("ciao",1,2,3,4,6,0,4,3);
+       JFrameDadi frame=new JFrameDadi("ciao",1,1,1,4,5,2,4,3);
        frame.init();
        frame.setVisible(true);
        Thread t=new Thread(frame);
