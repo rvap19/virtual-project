@@ -74,7 +74,7 @@ public class JFrameTurno extends javax.swing.JFrame {
         System.out.println(pathColore);
         
         Suono.playSound("/virtualrisikoii/resources/dadi/DingLing.wav");
-       TuoThread tt = new TuoThread( this, 7000 );
+       TuoThread tt = new TuoThread( this, 5000 );
        tt.start();
     }
 
