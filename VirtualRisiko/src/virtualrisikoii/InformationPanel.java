@@ -134,7 +134,9 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         chatTextArea.setColumns(20);
         chatTextArea.setEditable(false);
         chatTextArea.setFont(resourceMap.getFont("chatTextArea.font")); // NOI18N
+        chatTextArea.setLineWrap(true);
         chatTextArea.setRows(5);
+        chatTextArea.setWrapStyleWord(true);
         chatTextArea.setName("chatTextArea"); // NOI18N
         jScrollPane2.setViewportView(chatTextArea);
 
@@ -155,13 +157,14 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel2.setMinimumSize(new java.awt.Dimension(235, 215));
         jPanel2.setName("jPanel2"); // NOI18N
 
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         gameInformationArea.setColumns(20);
         gameInformationArea.setEditable(false);
         gameInformationArea.setFont(resourceMap.getFont("gameInformationArea.font")); // NOI18N
+        gameInformationArea.setLineWrap(true);
         gameInformationArea.setRows(5);
+        gameInformationArea.setWrapStyleWord(true);
         gameInformationArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         gameInformationArea.setDropMode(javax.swing.DropMode.INSERT);
         gameInformationArea.setName("gameInformationArea"); // NOI18N
@@ -171,9 +174,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

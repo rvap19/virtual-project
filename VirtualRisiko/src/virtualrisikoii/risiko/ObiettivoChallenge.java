@@ -75,7 +75,7 @@ public class ObiettivoChallenge extends Obiettivo{
     @Override
     public String toString() {
         String newline="<br>";
-        String s="<html>"+"Obiettivo "+Integer.toString(super.getCodice())+newline+
+        String s="<html>"+"Obiettivo "+Integer.toString(super.getCodice()+1)+newline+
                 "Territori da conquistare "+newline;
         String t="";
         Iterator<Territorio> iter=this.territoriDaConquistare.iterator();

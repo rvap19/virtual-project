@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import services.CardListener;
 import services.GameController;
 import services.MapListener;
 import services.TroopsSelector;
@@ -31,7 +32,7 @@ import virtualrisikoii.risiko.dadiGui;
  *
  * @author root
  */
-public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener,TroopsSelector,VictoryListener {
+public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener,TroopsSelector,VictoryListener,CardListener {
 
     private JLabel[] territoriLabels;
     private ImageIcon[] icons;
@@ -46,6 +47,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
         gameController.setMapListener(this);
         gameController.setTroopsSelector(this);
         gameController.setVictoryListener(this);
+        gameController.setCardListener(this);
         initComponents();
         territoriLabels=new JLabel[42];
         territoriLabels[0]=alaskaLabel;
@@ -728,6 +730,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
         jfd.avviaDadi();
         jfd.setVisible(true);
 
+    }
+
+    public void notifyCard(int tipo, String territorio) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
    /* public void updateChangeCards(int card1, int card2, int card3) {

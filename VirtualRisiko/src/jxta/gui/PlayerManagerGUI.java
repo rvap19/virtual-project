@@ -120,7 +120,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         currentPlayersInGameList = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
         allPlayersList = new javax.swing.JList();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
@@ -198,9 +197,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
         jScrollPane3.setViewportView(allPlayersList);
         allPlayersList.getAccessibleContext().setAccessibleParent(this);
 
-        jButton3.setText("unregister");
-        jButton3.setName("jButton3"); // NOI18N
-
         jButton4.setText("new game");
         jButton4.setName("jButton4"); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -237,15 +233,13 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton3))))
+                                .addComponent(jButton1)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -265,15 +259,13 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
+                        .addGap(4, 4, 4)
+                        .addComponent(jButton1))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addGap(16, 16, 16))
         );
 
         bindingGroup.bind();
@@ -399,6 +391,7 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
             PipeAdvertisement creatorPipe = pipes.get(gameAdv.getCreatorID() + " Pipe");
             Communicator communicator = Communicator.initPeerComunicator(myName,manager.getPeerGroup(), creatorPipe);
             communicator.addInitListener(this);
+            this.jButton1.setEnabled(false);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -470,7 +463,6 @@ public class PlayerManagerGUI extends javax.swing.JFrame implements GameListener
     private javax.swing.JList gamesList;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

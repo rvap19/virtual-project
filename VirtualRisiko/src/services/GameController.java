@@ -10,6 +10,7 @@ import java.util.List;
 import jxta.communication.Communicator;
 import net.jxta.endpoint.Message;
 import virtualrisikoii.InformationPanel;
+import virtualrisikoii.Map.classical.ClassicalMapPanel;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
@@ -36,7 +37,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private PlayerDataListener playerDataListener;
     private VictoryListener victoryListener;
     private TroopsSelector troopsSelector;
-
+    private CardListener cardListener;
     
 
     private Tavolo tavolo;
@@ -58,6 +59,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     public static GameController getInstance(){
         return instance;
     }
+
     
 
     public GameController(){
@@ -266,7 +268,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         return tavolo.isTurnoMyGiocatore();
     }
 
-    public void makeAction(int territorioID){
+ /*   public void makeAction(int territorioID){
         Territorio t=this.tavolo.getMappa().getTerritorio(territorioID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
         if(this.tavolo.isInizializzazione()){
@@ -464,7 +466,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 this.truppeSelezionate=0;
             }
         }
-    }
+    }*/
 
     public void makeFirstSelection(int terrID){
         Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
@@ -579,9 +581,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     }
                     azione.setNumeroTruppe(truppeSelezionate);
                     tavolo.eseguiSpostamento((Spostamento) azione);
-
+                    //codice per il recupero carta
+                    Carta carta=tavolo.recuperaCarta(corrente);
+                    if(carta!=null){
+                        this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
+                    }
                     tavolo.passaTurno();
-                    
+                    corrente=tavolo.getGiocatoreCorrente();
                     new JFrameTurno(corrente.getID()).setVisible(true);
                     this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                     try {
@@ -743,6 +749,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void passaTurno(){
         if((!tavolo.isInizializzazione())&&tavolo.isTurnoMyGiocatore()){
+            //codice per il recupero carta
+            Carta carta=tavolo.recuperaCarta(tavolo.getMyGiocatore());
+            if(carta!=null){
+                this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
+            }
             this.tavolo.passaTurno();
             Message msg=this.comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
             try {
@@ -754,12 +765,18 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         ex.printStackTrace();
                     }
             Giocatore g=tavolo.getGiocatoreCorrente();
+
+            new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
     }
 
     public void setChatListener(ChatListener aThis) {
         this.comunicator.addChatListener(aThis);
+    }
+
+    public void setCardListener(CardListener aThis) {
+       this.cardListener=aThis;
     }
 
 }
