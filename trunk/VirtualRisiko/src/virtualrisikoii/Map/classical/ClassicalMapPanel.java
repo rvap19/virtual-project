@@ -693,7 +693,10 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
     }
 
     public void notifyAttacco(String string, int i, int i0, int i1, int i2, int i3, int i4, int iD, int iD0) {
-        new JFrameDadi(string,i,i0,i1,i2,i3,i4,iD,iD0).setVisible(true);
+        JFrameDadi jfd= new JFrameDadi(string,i,i0,i1,i2,i3,i4,iD,iD0);
+        jfd.avviaDadi();
+        jfd.setVisible(true);
+
     }
 
    /* public void updateChangeCards(int card1, int card2, int card3) {
