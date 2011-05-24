@@ -538,7 +538,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
         int idTerritorio=this.getLabelID(label);
 
         if(gameController.isInInizializzazione()){
-            gameController.assegnaUnita(idTerritorio);
+            gameController.assegnaUnitaInInizializzazione(idTerritorio);
             return;
         }
 
