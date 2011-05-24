@@ -524,7 +524,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void makeAction(JLabel label,java.awt.event.MouseEvent event){
+    private void makeAction(JLabel label,java.awt.event.MouseEvent event){ 
        /* if(!gameController.canMove()){
             return;
         }
