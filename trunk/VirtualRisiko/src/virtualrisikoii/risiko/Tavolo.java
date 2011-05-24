@@ -94,13 +94,7 @@ public  class Tavolo {
     }
     
     public void passaTurno(){
-        if(lastAttacco!=null){
-
-            this.recuperaCarta(this.getGiocatoreCorrente());
-            System.out.println("carte del "+getGiocatoreCorrente().getNome()+" "+
-                    this.getGiocatoreCorrente().getCarte().size());
-            lastAttacco=null;
-        }
+        
         turno=(turno+1)%this.numeroGiocatori;
         while(getGiocatoreCorrente().getStato()==Giocatore.FUORI_GIOCO){
             turno=(turno+1)%this.numeroGiocatori;
@@ -108,7 +102,10 @@ public  class Tavolo {
         if(!this.isInizializzazione()){
             assegnaRinforziSuTerritori(this.getGiocatoreCorrente());
         }
+        lastAttacco=null;
     }
+
+
 
     private void assegnaRinforziSuTerritori(Giocatore g){
         
@@ -208,28 +205,28 @@ public  class Tavolo {
         
     }
 
-    public boolean recuperaCarta(Giocatore giocatore){
+    public Carta recuperaCarta(Giocatore giocatore){
         if(this.getGiocatoreCorrente()!=giocatore){
-            return false;
+            return null;
         }
         if(this.lastAttacco==null){
-            return false;
+            return null;
         }
         if(this.lastAttacco.getGiocatore()!=giocatore){
-            return false;
+            return null;
         }
 
-
+        Carta carta=null;
         if(lastAttacco.isVittoria()){
             if(this.carte.size()>0){
-                Carta carta=this.carte.remove(nextCard.nextInt(carte.size()));
+                 carta=this.carte.remove(nextCard.nextInt(carte.size()));
                  lastAttacco.getGiocatore().getCarte().add(carta);
             }
             lastAttacco=null;
            
-            return true;
+            return carta;
         }
-        return false;
+        return null;
     }
 
     public boolean assegnaRinforzi(Giocatore g,Carta c1,Carta c2,Carta c3){
