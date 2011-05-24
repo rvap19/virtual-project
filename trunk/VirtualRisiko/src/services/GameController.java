@@ -385,7 +385,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
             }else{
                 azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
-
                 if(azione!=null){
                     truppeSelezionate=-1;
                     if(firstSelection.confina(secondSelection)){
@@ -420,13 +419,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
             //this.firstSelection.setNumeroUnita(firstSelection.getNumeroUnita()+truppeSelezionate);
             truppeSelezionate=0;
-
             if(azione!=null){
                 this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
-
                 this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
-                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());
-                
+                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());                
                 firstSelection=null;
                 if(azione.isAttacco()){
 
@@ -454,11 +450,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     System.out.println();
                     this.mapListener.notifyAttacco("Attacco da"+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(), att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID());
 //                    new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
-
-
                 }
-
-                //azione diversa da null::controllare stato obiettivi
                 if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
 
                     this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
@@ -471,6 +463,249 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 secondSelection=null;
                 this.truppeSelezionate=0;
             }
+        }
+    }
+
+    public void makeFirstSelection(int terrID){
+        Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
+        Giocatore corrente=tavolo.getGiocatoreCorrente();
+        if(firstSelection==null){
+
+            if(corrente!=t.getOccupante()){
+                return;
+            }
+            if(t.getNumeroUnita()>1){
+                firstSelection=t;
+            }
+
+        }
+    }
+
+    public void resetActionData(){
+        firstSelection=null;
+        secondSelection=null;
+        truppeSelezionate=0;
+    }
+
+    public boolean makeAttack(int fromTerritorioID,int toTerritorioID){
+        firstSelection=tavolo.getMappa().getTerritorio(fromTerritorioID);
+        secondSelection=tavolo.getMappa().getTerritorio(toTerritorioID);
+
+        Azione azione=tavolo.preparaAttacco(firstSelection, secondSelection);
+
+        Giocatore attaccante=null;
+        Giocatore difensore=null;
+
+            if(azione!=null){
+                 attaccante=firstSelection.getOccupante();
+                 difensore=secondSelection.getOccupante();
+
+                  truppeSelezionate=-1;
+                  if(firstSelection.confina(secondSelection)){
+                        truppeSelezionate=this.troopsSelector.selectTroops(true, firstSelection.getNumeroUnita()-1,firstSelection.getCodice(), secondSelection.getCodice());
+                  }
+
+                  if(truppeSelezionate<=0){
+                      firstSelection=null;
+                      secondSelection=null;
+                      return false;
+                  }
+                  azione.setNumeroTruppe(truppeSelezionate);
+                tavolo.eseguiAttacco((Attacco)azione);
+                try {
+                        Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
+                        comunicator.sendMessage(msg);
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
+
+                this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
+                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());
+
+
+               
+
+                    //variabili per i dati di Luigi
+                    int [] att={0,0,0};
+                    int [] dif={0,0,0};
+
+                    int[] a=((Attacco)azione).getPunteggio();
+                    String s="";
+                    for(int i=0;i<a.length;i++){
+                        s=s+" - "+Integer.toString(a[i]);
+                        att[i]=a[i];
+                    }
+                    this.historyListener.appendActionInHistory(s);
+
+                    a=((Attacco)azione).getPunteggioAvversario();
+                     s="";
+                    for(int i=0;i<a.length;i++){
+                        s=s+" - "+Integer.toString(a[i]);
+                        dif[i]=a[i];
+                    }
+                    this.historyListener.appendActionInHistory(s);
+
+                    //lancia il panel di Luigi
+                    System.out.println();
+                    this.mapListener.notifyAttacco("Attacco da"+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(), att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID());
+//                    new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
+
+                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
+
+                    this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
+                }
+                return true;
+            }
+        return false;
+    }
+
+    public boolean makeSpostamento(int fromterritorioID,int toTerritorioID){
+         firstSelection=tavolo.getMappa().getTerritorio(fromterritorioID);
+        secondSelection=tavolo.getMappa().getTerritorio(toTerritorioID);
+        Giocatore corrente=tavolo.getGiocatoreCorrente();
+       Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
+                if(azione!=null){
+                    truppeSelezionate=-1;
+                    if(firstSelection.confina(secondSelection)){
+                        truppeSelezionate=this.troopsSelector.selectTroops(false,firstSelection.getNumeroUnita()-1, firstSelection.getCodice()  , secondSelection.getCodice());
+                    }
+                    if(truppeSelezionate<=0){
+                        firstSelection=null;
+                        secondSelection=null;
+                        return false;
+                    }
+                    azione.setNumeroTruppe(truppeSelezionate);
+                    tavolo.eseguiSpostamento((Spostamento) azione);
+
+                    tavolo.passaTurno();
+                    
+                    new JFrameTurno(corrente.getID()).setVisible(true);
+                    this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
+                    try {
+                        Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
+                        comunicator.sendMessage(msg);
+                        Thread.sleep(3000);
+                        msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+                        comunicator.sendMessage(msg);
+
+
+                    } catch (Exception ex) {
+                       ex.printStackTrace();
+                    }
+                    
+                    this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
+                this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
+                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());                
+                
+
+                    return true;
+
+                }
+       return false;
+
+    }
+
+    public void makeSecondSelection(int terrID){
+        Territorio currentSelection=this.tavolo.getMappa().getTerritorio(terrID);
+
+
+        if(currentSelection==firstSelection){
+
+            secondSelection=null;
+
+        }else {
+            this.secondSelection=currentSelection;
+        }
+    }
+
+    public int getFirstSelectionID(){
+        if(firstSelection==null){
+            return -1;
+        }
+        return firstSelection.getCodice();
+    }
+
+    public int getSecondSelectionID(){
+        if(secondSelection==null){
+            return -1;
+        }
+        return secondSelection.getCodice();
+    }
+
+    public void assegnaUnita(int terrID){
+        Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
+        Giocatore corrente=tavolo.getGiocatoreCorrente();
+
+        if(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==corrente){
+            if(tavolo.assegnaUnita(t)){
+                try {
+                        Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
+                        comunicator.sendMessage(msg);
+                        this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                this.mapListener.setLabelAttributes(t.getCodice(), t.getNumeroUnita(), t.getOccupante().getID());
+
+            }
+            return;
+        }
+    }
+
+    public boolean haTruppe(){
+        return this.tavolo.getMyGiocatore().getNumeroTruppe()>0;
+    }
+
+    public boolean isInInizializzazione(){
+        return tavolo.isInizializzazione();
+    }
+
+    public void assegnaUnitaInInizializzazione(int terrID){
+        Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
+        Giocatore corrente=tavolo.getGiocatoreCorrente();
+        if(this.tavolo.isInizializzazione()){
+            if(truppeSelezionate<3&&this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
+
+                if(tavolo.assegnaUnita(t)){
+                    try {
+                        Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
+                        comunicator.sendMessage(msg);
+
+                        truppeSelezionate++;
+                        this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                this.mapListener.setLabelAttributes(terrID, t.getNumeroUnita(), t.getOccupante().getID());
+            }
+            if((truppeSelezionate==3)||(corrente.getNumeroTruppe()==0)){
+                try{
+
+                    Thread.sleep(2000);
+                    if((tavolo.getTurno()==(tavolo.getGiocatori().size()-1))&&(corrente.getNumeroTruppe()==0)){
+                        tavolo.setInizializzazione(false);
+                    }
+                    tavolo.passaTurno();
+                    Giocatore prossimo=tavolo.getGiocatoreCorrente();
+                    this.playerDataListener.updateDatiGiocatore(prossimo.getNome(), prossimo.getNumeroTruppe(), prossimo.getArmateDisposte(), prossimo.getNazioni().size());
+                    Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+
+                    comunicator.sendMessage(msg);
+                    new JFrameTurno(prossimo.getID()).setVisible(true);
+
+                }catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
+                truppeSelezionate=0;
+            }
+
+            
         }
     }
 

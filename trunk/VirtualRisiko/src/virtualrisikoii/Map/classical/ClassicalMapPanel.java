@@ -525,13 +525,44 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
     }// </editor-fold>//GEN-END:initComponents
 
     private void makeAction(JLabel label,java.awt.event.MouseEvent event){
-        if(!gameController.canMove()){
+       /* if(!gameController.canMove()){
             return;
         }
 
         int id=this.getLabelID(label);
-        this.gameController.makeAction(id);
-        
+        this.gameController.makeAction(id);*/
+
+        if(!gameController.canMove()){
+            return;
+        }
+        int idTerritorio=this.getLabelID(label);
+
+        if(gameController.isInInizializzazione()){
+            gameController.assegnaUnita(idTerritorio);
+            return;
+        }
+
+        if(gameController.haTruppe()){
+            gameController.assegnaUnita(idTerritorio);
+            return;
+        }
+
+        if(gameController.getFirstSelectionID()==-1){
+            gameController.makeFirstSelection(idTerritorio);
+            return;
+        }
+
+        gameController.makeSecondSelection(idTerritorio);
+        int firstSelection=gameController.getFirstSelectionID();
+        int secondSelection=gameController.getSecondSelectionID();
+
+        if(firstSelection!=-1 && secondSelection!=-1){
+            if(!gameController.makeAttack(firstSelection, secondSelection)){
+                gameController.makeSpostamento(firstSelection, secondSelection);
+            }
+        }
+
+        gameController.resetActionData();
         
     }
 
