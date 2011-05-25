@@ -386,13 +386,14 @@ public class Communicator implements PipeMsgListener{
             return;
         }
 
-
+        System.out.println("inizio notifica change listener");
         int card1=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD1_ID).toString()).intValue();
         int card2=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD2_ID).toString()).intValue();
         int card3=new Integer(message.getMessageElement(namespace, ChangeCardsAttributes.CARD3_ID).toString()).intValue();
 
         Iterator<ChangeCardListener> listeners=this.changeCardsListeners.iterator();
         while(listeners.hasNext()){
+            System.out.println("notifica change listener");
             listeners.next().updateChangeCards(card1, card2, card3);
         }
         

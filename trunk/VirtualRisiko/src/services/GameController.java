@@ -248,7 +248,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void updateChangeCards(int card1, int card2, int card3) {
 
-        tavolo=Tavolo.getInstance();
+        
         Giocatore g=tavolo.getGiocatoreCorrente();
         Carta c1=g.getCarta(card1);
         Carta c2=g.getCarta(card2);
@@ -588,7 +588,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     }
                     tavolo.passaTurno();
                     corrente=tavolo.getGiocatoreCorrente();
-                    new JFrameTurno(corrente.getID()).setVisible(true);
+                //    new JFrameTurno(corrente.getID()).setVisible(true);
                     this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                     try {
                         Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
@@ -733,10 +733,16 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 tavolo.setInizializzazione(false);
             }
 
+            Giocatore precedente=tavolo.getGiocatoreCorrente();
+            tavolo.recuperaCarta(precedente);
+
             this.tavolo.passaTurno();
 
             Giocatore giocatore=tavolo.getGiocatoreCorrente();
-            new JFrameTurno(giocatore.getID()).setVisible(true);
+            if(tavolo.isTurnoMyGiocatore()){
+                new JFrameTurno(giocatore.getID()).setVisible(true);
+            }
+            
             this.playerDataListener.updateDatiGiocatore(giocatore.getNome(), giocatore.getNumeroTruppe(), giocatore.getArmateDisposte(), giocatore.getNazioni().size());
             if(tavolo.isTurnoMyGiocatore()){
 
@@ -766,7 +772,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     }
             Giocatore g=tavolo.getGiocatoreCorrente();
 
-            new JFrameTurno(g.getID()).setVisible(true);
+    //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
     }
