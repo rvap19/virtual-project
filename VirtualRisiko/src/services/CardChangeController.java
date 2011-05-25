@@ -33,6 +33,10 @@ public class CardChangeController {
 
     private Mappa mappa;
 
+    public CardChangeController (){
+
+    }
+
     public Mappa getMappa() {
         return mappa;
     }
