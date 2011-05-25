@@ -3,6 +3,7 @@ package virtualrisikoii.risiko;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import javax.swing.JPanel;
 
@@ -48,6 +49,14 @@ public class JPanelDadi extends JPanel {
         // Se ti serve, il 'g' è realmente un Graphics2D, quindi puoi fare un cast
         // e usare i metodi più avanzati di Graphics2D.
     }
+
+
+    @Override
+        public void update(Graphics g) {
+
+           paint(g);
+         }
+
 
 }
 
