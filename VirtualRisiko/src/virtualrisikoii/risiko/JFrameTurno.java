@@ -71,7 +71,7 @@ public class JFrameTurno extends javax.swing.JFrame {
         }
 
         iconaTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore)));
-        System.out.println(pathColore);
+     
         
         Suono.playSound("/virtualrisikoii/resources/dadi/DingLing.wav");
        TuoThread tt = new TuoThread( this, 5000 );
