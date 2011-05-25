@@ -73,7 +73,7 @@ public class JFrameCarte extends javax.swing.JFrame implements Runnable {
         labelCarta = new virtualrisikoii.risiko.JPanelDadi();
         labelNomeCarta = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18));
         jLabel1.setText("Hai ottenuto una carta");
@@ -155,6 +155,7 @@ public class JFrameCarte extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         dispose();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
