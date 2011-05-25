@@ -331,7 +331,7 @@ public  class Tavolo {
        Giocatore g;
        int truppe=0;
        if(numeroGiocatori==3){
-           truppe=17;
+           truppe=35;
        }else if(numeroGiocatori==4){
            truppe=30;
        }else if(numeroGiocatori==5){
