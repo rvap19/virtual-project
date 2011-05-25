@@ -92,7 +92,7 @@ public class JFrameTurno extends javax.swing.JFrame {
         iconaTurno = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         coloreTurno.setFont(new java.awt.Font("Times New Roman", 1, 18));
         coloreTurno.setName("coloreTurno"); // NOI18N
@@ -150,7 +150,7 @@ public class JFrameTurno extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
