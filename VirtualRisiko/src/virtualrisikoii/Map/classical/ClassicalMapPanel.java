@@ -717,7 +717,7 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
         while(iter.hasNext())
             frame.setPunteggio(iter.next());
         frame.setVisible(true);
-        this.setVisible(false);
+        //this.setVisible(false);
     }
 
     public void setLabelAttributes(int idLabel, int troopNumber, int idIcon) {
