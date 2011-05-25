@@ -6,6 +6,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import jxta.gui.PlayerManagerGUI;
 import net.jxta.exception.PeerGroupException;
+import virtualrisikoii.risiko.Suono;
 
 /*
  * To change this template, choose Tools | Templates
@@ -29,6 +30,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
+        Suono.playSound("/virtualrisikoii/resources/dadi/intro2.wav");
         LogManager.getLogManager().reset();
     }
 
