@@ -25,6 +25,7 @@ import services.VictoryListener;
 import virtualrisikoii.ActionDialog;
 import virtualrisikoii.EndGameFrame;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.JFrameCarte;
 import virtualrisikoii.risiko.JFrameDadi;
 import virtualrisikoii.risiko.dadiGui;
 
@@ -733,8 +734,11 @@ public class ClassicalMapPanel extends javax.swing.JPanel implements MapListener
     }
 
     public void notifyCard(int tipo, String territorio) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+        JFrameCarte jfc = new JFrameCarte(tipo, territorio);
+        jfc.avviaCarta();
+        jfc.setVisible(true);
+
+          }
 
    /* public void updateChangeCards(int card1, int card2, int card3) {
 
