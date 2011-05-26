@@ -30,7 +30,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        Suono.playSound("/virtualrisikoii/resources/dadi/intro1.wav");
+        Suono.playSound("/virtualrisikoii/resources/dadi/intro2.wav");
         LogManager.getLogManager().reset();
     }
 
