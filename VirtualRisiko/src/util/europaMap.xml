@@ -259,7 +259,7 @@
             <confina>37</confina>
             <confina>39</confina>
         </Territorio>
-        <Territorio id="39" nome="Yogoslavia" punti="3">
+        <Territorio id="39" nome="Yugoslavia" punti="3">
             <confina>38</confina>
             <confina>37</confina>
             <confina>42</confina>
@@ -304,8 +304,6 @@
             <territorio>18</territorio>
             <territorio>19</territorio>
             <territorio>20</territorio>
-
-
         </continente>
         <continente id="3" nome="Europa Sud-Ovest" rinforzi="5">
             <territorio>21</territorio>
