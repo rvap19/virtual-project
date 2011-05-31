@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import jxta.gui.FullPlayerManagerGUI;
-import jxta.gui.PlayerManagerGUI;
+
 import net.jxta.exception.PeerGroupException;
 import virtualrisikoii.risiko.Suono;
 
@@ -27,7 +27,7 @@ import virtualrisikoii.risiko.Suono;
 public class Login extends javax.swing.JFrame {
 
     /** Creates new form Login */
-    private PlayerManagerGUI gui;
+    
     private FullPlayerManagerGUI fullGUI;
 
     public Login() {
