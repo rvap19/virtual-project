@@ -325,7 +325,7 @@ public class EuropeMapPanel extends javax.swing.JPanel implements MapListener,Tr
         lituaniaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lituaniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lituaniaLabel.setName("lituaniaLabel"); // NOI18N
-        mapPanel1.add(lituaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 90, 30));
+        mapPanel1.add(lituaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 80, 40));
 
         russiaBiancaLabel.setFont(resourceMap.getFont("iranLabel.font")); // NOI18N
         russiaBiancaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -441,10 +441,10 @@ public class EuropeMapPanel extends javax.swing.JPanel implements MapListener,Tr
         mapPanel1.add(danimarcaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 50, 60));
 
         repubblicaCecaLabel.setFont(resourceMap.getFont("iranLabel.font")); // NOI18N
-        repubblicaCecaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        repubblicaCecaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         repubblicaCecaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         repubblicaCecaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
-        repubblicaCecaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        repubblicaCecaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         repubblicaCecaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         repubblicaCecaLabel.setName("repubblicaCecaLabel"); // NOI18N
         mapPanel1.add(repubblicaCecaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 90, 30));

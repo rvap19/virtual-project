@@ -336,7 +336,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="510" y="250" width="90" height="30"/>
+              <AbsoluteConstraints x="520" y="250" width="80" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -573,10 +573,10 @@
         <Component class="javax.swing.JLabel" name="repubblicaCecaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
