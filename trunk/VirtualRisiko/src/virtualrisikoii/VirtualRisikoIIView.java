@@ -27,8 +27,13 @@ public class VirtualRisikoIIView extends FrameView {
 
     public VirtualRisikoIIView(SingleFrameApplication app,XMapPanel panel) {
         super(app);
-        this.classicalMapPanel1=panel;
+        
+        
         initComponents();
+        
+        this.jScrollPane1.setViewportView(panel);
+        
+        this.mainPanel.repaint();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -109,7 +114,7 @@ public class VirtualRisikoIIView extends FrameView {
         jSplitPane1 = new javax.swing.JSplitPane();
         informationPanel1 = new virtualrisikoii.InformationPanel();
         jPanel1 = new javax.swing.JPanel();
-      //  classicalMapPanel1 = new virtualrisikoii.Map.classical.ClassicalMapPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         chatSendPanel1 = new virtualrisikoii.ChatSendPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -126,16 +131,7 @@ public class VirtualRisikoIIView extends FrameView {
         mainPanel.setName("mainPanel"); // NOI18N
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jSplitPane1.setDividerLocation(255);
-        jSplitPane1.setDividerSize(1);
-        jSplitPane1.setLastDividerLocation(255);
         jSplitPane1.setName("jSplitPane1"); // NOI18N
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(1134, 729));
-        jSplitPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jSplitPane1MouseMoved(evt);
-            }
-        });
 
         informationPanel1.setName("informationPanel1"); // NOI18N
         jSplitPane1.setLeftComponent(informationPanel1);
@@ -143,8 +139,8 @@ public class VirtualRisikoIIView extends FrameView {
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        classicalMapPanel1.setName("classicalMapPanel1"); // NOI18N
-        jPanel1.add(classicalMapPanel1, java.awt.BorderLayout.CENTER);
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         chatSendPanel1.setName("chatSendPanel1"); // NOI18N
         jPanel1.add(chatSendPanel1, java.awt.BorderLayout.PAGE_END);
@@ -199,11 +195,11 @@ public class VirtualRisikoIIView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 1142, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 968, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 972, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -226,11 +222,6 @@ public class VirtualRisikoIIView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jSplitPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSplitPane1MouseMoved
-      
-        
-    }//GEN-LAST:event_jSplitPane1MouseMoved
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         CardChangeDialog dialog = new CardChangeDialog();
@@ -245,10 +236,10 @@ public class VirtualRisikoIIView extends FrameView {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private virtualrisikoii.ChatSendPanel chatSendPanel1;
-    private virtualrisikoii.XMapPanel classicalMapPanel1;
     private virtualrisikoii.InformationPanel informationPanel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;

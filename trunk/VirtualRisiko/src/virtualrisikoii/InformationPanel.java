@@ -25,7 +25,7 @@ import virtualrisikoii.risiko.Tavolo;
  *
  * @author root
  */
-public class InformationPanel extends javax.swing.JPanel implements ChatListener,HistoryListener,PlayerDataListener{
+public class InformationPanel extends javax.swing.JPanel {//implements ChatListener,HistoryListener,PlayerDataListener{
 
    private GameController controller;
 
@@ -33,11 +33,10 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     /** Creates new form InformationPanel */
     public InformationPanel() {
         initComponents();
-        controller=GameController.getInstance();
+    /*   controller=GameController.getInstance();
         int idObiettivo=controller.getIDObiettivo()+1;
         obiettivoLabel.setIcon(new ImageIcon("src/virtualrisikoii/resources/obiettivi/"+Tavolo.getInstance().getNameMap()+"/"+idObiettivo+".jpg"));
-    //   System.out.println("/src/virtualrisikoii/resources/obiettivi/classical/"+tavolo.getMyGiocatore().getObiettivo().getCodice()+".jpg");
-        this.obiettivoLabel.setToolTipText(controller.getDescrizioneObiettivo());
+      this.obiettivoLabel.setToolTipText(controller.getDescrizioneObiettivo());
         
         TitledBorder border= (TitledBorder) this.getBorder();
         border.setTitle("Benvenuto "+controller.getNomeMyGiocatore());
@@ -46,8 +45,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         controller.setChatListener(this);
         controller.setPlayerDataListener(this);
         controller.setHistoryListener(this);
-        controller.initCurrentPlayerData();
-
+        controller.initCurrentPlayerData();*/
     }
 
    
