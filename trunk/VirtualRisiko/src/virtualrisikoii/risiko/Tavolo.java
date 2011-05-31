@@ -30,6 +30,8 @@ public  class Tavolo {
     private Random dado;
     private Random nextCard;
 
+    private String nameMap;
+
     private boolean inizializzazione;
 
     private Attacco lastAttacco;
@@ -64,6 +66,15 @@ public  class Tavolo {
         inizializzazione=true;
     }
 
+    public String getNameMap() {
+        return nameMap;
+    }
+
+    public void setNameMap(String nameMap) {
+        this.nameMap = nameMap;
+    }
+
+    
     public boolean isInizializzazione(){
        
         return inizializzazione;

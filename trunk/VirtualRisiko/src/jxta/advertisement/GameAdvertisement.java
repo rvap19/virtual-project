@@ -43,6 +43,9 @@ public class GameAdvertisement extends Advertisement {
     private static final String tagIdGame="IDGameID";
     private String gameID;
 
+    private static final String tagMapName="MapNameTag";
+    private String mapName;
+
     private static final String tagPlayer="PlayerTag";
     private List<String> playerIds= new ArrayList<String>();
     
@@ -110,6 +113,13 @@ public class GameAdvertisement extends Advertisement {
             return;
             
         }
+
+        if (TheElementName.compareTo(tagMapName)==0) {
+
+            mapName = TheTextValue;
+            return;
+
+        }
         
         if (TheElementName.compareTo(tagMaxPlayers)==0) {
             
@@ -160,6 +170,9 @@ public class GameAdvertisement extends Advertisement {
         MyTempElement = TheResult.createElement(tagIdGame, gameID);
         TheResult.appendChild(MyTempElement);
 
+        MyTempElement = TheResult.createElement(tagMapName, mapName);
+        TheResult.appendChild(MyTempElement);
+
         Iterator<String> iter=this.playerIds.iterator();
         while(iter.hasNext()){
             MyTempElement = TheResult.createElement(tagPlayer, iter.next());
@@ -200,6 +213,15 @@ public class GameAdvertisement extends Advertisement {
         this.gameName = gameName;
     }
 
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
+    }
+
+    
     public int getMaxPlayer() {
         return maxPlayer;
     }

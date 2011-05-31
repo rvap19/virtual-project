@@ -6,6 +6,9 @@
 package util;
 
 import java.util.List;
+import virtualrisikoii.Map.classical.ClassicalMapPanel;
+import virtualrisikoii.Map.europe.EuropeMapPanel;
+import virtualrisikoii.XMapPanel;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Obiettivo;
@@ -17,6 +20,7 @@ import virtualrisikoii.risiko.Territorio;
  */
 public class GameFactory {
     private List<Obiettivo> obiettivi;
+    private XMapPanel panel;
     private Mappa mappa;
     private String name;
     public GameFactory(){
@@ -27,6 +31,7 @@ public class GameFactory {
         this.name=name;
         this.loadMappa();
         this.loadObiettivi();
+        this.loadMapPanel();
     }
 
     public Mappa getMappa(){
@@ -35,6 +40,10 @@ public class GameFactory {
 
     public List<Obiettivo> getObiettivi(){
         return obiettivi;
+    }
+
+    public XMapPanel getMapPanel(){
+        return this.panel;
     }
 
     private void loadMappa() throws MappaException{
@@ -77,6 +86,14 @@ public class GameFactory {
 
         }catch(Exception  ex){
             return null;
+        }
+    }
+
+    private void loadMapPanel() {
+        if(name.equals("classicalMap")){
+            this.panel=new ClassicalMapPanel();
+        }else{
+            this.panel=new EuropeMapPanel();
         }
     }
 
