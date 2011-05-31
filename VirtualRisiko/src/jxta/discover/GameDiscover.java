@@ -127,7 +127,7 @@ public class GameDiscover implements DiscoveryListener {
 
     }
 
-    public GameAdvertisement announceGame(String creatorName,int maxgame,String name)
+    public GameAdvertisement announceGame(String creatorName,int maxgame,String name,String mapName)
     {
         System.out.println("game presence announcing");
         if (discovery != null)
@@ -144,7 +144,7 @@ public class GameDiscover implements DiscoveryListener {
             gameInfo.setGameName(name);
             gameInfo.setCreatorID(creatorName);
             gameInfo.setGameID(name+Long.toString(System.currentTimeMillis()));
-            
+            gameInfo.setMapName(mapName);
 
             try
             {

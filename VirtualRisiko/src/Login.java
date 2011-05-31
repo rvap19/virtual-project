@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import jxta.gui.FullPlayerManagerGUI;
 import jxta.gui.PlayerManagerGUI;
 import net.jxta.exception.PeerGroupException;
 import virtualrisikoii.risiko.Suono;
@@ -27,10 +28,13 @@ public class Login extends javax.swing.JFrame {
 
     /** Creates new form Login */
     private PlayerManagerGUI gui;
+    private FullPlayerManagerGUI fullGUI;
 
     public Login() {
         initComponents();
-        Suono.playSound("/virtualrisikoii/resources/dadi/intro.wav");
+
+   //     Suono.playSound("/virtualrisikoii/resources/dadi/intro2.wav");
+
         LogManager.getLogManager().reset();
     }
 
@@ -126,9 +130,13 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random random=new Random();
         try {
-            gui = new PlayerManagerGUI(this.usernameField.getText(), 9700);
+         /*   gui = new PlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
             this.setVisible(false);
-            gui.setVisible(true);
+            gui.setVisible(true);*/
+              fullGUI = new FullPlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
+            this.setVisible(false);
+            fullGUI.setVisible(true);
+
         } catch (IOException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PeerGroupException ex) {

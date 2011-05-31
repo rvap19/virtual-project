@@ -90,7 +90,7 @@
                       <Component id="obiettivoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="passaTurnoButton" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="158" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -98,7 +98,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="obiettivoLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="135" max="32767" attributes="0"/>
                   <Component id="passaTurnoButton" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>

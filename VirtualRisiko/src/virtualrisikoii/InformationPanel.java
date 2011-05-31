@@ -35,7 +35,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         initComponents();
         controller=GameController.getInstance();
         int idObiettivo=controller.getIDObiettivo()+1;
-        obiettivoLabel.setIcon(new ImageIcon("src/virtualrisikoii/resources/obiettivi/classical/"+idObiettivo+".jpg"));
+        obiettivoLabel.setIcon(new ImageIcon("src/virtualrisikoii/resources/obiettivi/"+Tavolo.getInstance().getNameMap()+"/"+idObiettivo+".jpg"));
     //   System.out.println("/src/virtualrisikoii/resources/obiettivi/classical/"+tavolo.getMyGiocatore().getObiettivo().getCodice()+".jpg");
         this.obiettivoLabel.setToolTipText(controller.getDescrizioneObiettivo());
         

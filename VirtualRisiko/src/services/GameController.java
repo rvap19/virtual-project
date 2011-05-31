@@ -7,10 +7,9 @@ package services;
 
 import java.io.IOException;
 import java.util.List;
-import jxta.communication.Communicator;
+//import jxta.communication.Communicator;
+import jxta.communication.FullCommunicator;
 import net.jxta.endpoint.Message;
-import virtualrisikoii.InformationPanel;
-import virtualrisikoii.Map.classical.ClassicalMapPanel;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
@@ -41,8 +40,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     
 
     private Tavolo tavolo;
-    private Communicator comunicator;
-
+//    private Communicator comunicator;
+    private FullCommunicator comunicator;
     private Territorio firstSelection;
     private Territorio secondSelection;
     private int truppeSelezionate;
@@ -63,7 +62,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     
 
     public GameController(){
-        this.comunicator=Communicator.getInstance();
+        //this.comunicator=Communicator.getInstance();
+        this.comunicator=FullCommunicator.getInstance();
+
         comunicator.addPassListener(this);
         comunicator.addApplianceListener(this);
         comunicator.addAttackListener(this);

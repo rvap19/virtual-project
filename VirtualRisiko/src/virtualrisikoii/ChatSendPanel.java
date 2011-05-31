@@ -14,7 +14,8 @@ package virtualrisikoii;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import jxta.communication.Communicator;
+//import jxta.communication.Communicator;
+import jxta.communication.FullCommunicator;
 import services.ChatSender;
 import services.GameController;
 import virtualrisikoii.risiko.Giocatore;
@@ -34,7 +35,7 @@ public class ChatSendPanel extends javax.swing.JPanel {
         Tavolo tavolo=Tavolo.getInstance();
         sender=GameController.getInstance();
         players=new ArrayList<String>();
-        players.add(Communicator.ChatAttributes.TO_ALL);
+        players.add(FullCommunicator.ChatAttributes.TO_ALL);
 
         Iterator<Giocatore> iter=tavolo.getGiocatori().iterator();
 

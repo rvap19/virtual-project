@@ -159,11 +159,11 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
     }
 
-    public void createGame(String name,int max) throws IOException{
+    public void createGame(String name,String mapName,int max) throws IOException{
         if(myGameAdvertisement!=null){
             this.NetPeerGroup.getDiscoveryService().flushAdvertisement(myGameAdvertisement);
         }
-        this.myGameAdvertisement=this.gameDiscover.announceGame(Name,max, name);
+        this.myGameAdvertisement=this.gameDiscover.announceGame(Name,max, name,mapName);
     }
 
     public void createRegistration(String gameId) throws IOException{

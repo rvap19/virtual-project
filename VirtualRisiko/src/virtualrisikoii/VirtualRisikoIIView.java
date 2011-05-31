@@ -25,9 +25,9 @@ public class VirtualRisikoIIView extends FrameView {
 
     
 
-    public VirtualRisikoIIView(SingleFrameApplication app) {
+    public VirtualRisikoIIView(SingleFrameApplication app,XMapPanel panel) {
         super(app);
-
+        this.classicalMapPanel1=panel;
         initComponents();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
@@ -109,7 +109,7 @@ public class VirtualRisikoIIView extends FrameView {
         jSplitPane1 = new javax.swing.JSplitPane();
         informationPanel1 = new virtualrisikoii.InformationPanel();
         jPanel1 = new javax.swing.JPanel();
-        classicalMapPanel1 = new virtualrisikoii.Map.classical.ClassicalMapPanel();
+      //  classicalMapPanel1 = new virtualrisikoii.Map.classical.ClassicalMapPanel();
         chatSendPanel1 = new virtualrisikoii.ChatSendPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -245,7 +245,7 @@ public class VirtualRisikoIIView extends FrameView {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private virtualrisikoii.ChatSendPanel chatSendPanel1;
-    private virtualrisikoii.Map.classical.ClassicalMapPanel classicalMapPanel1;
+    private virtualrisikoii.XMapPanel classicalMapPanel1;
     private virtualrisikoii.InformationPanel informationPanel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
