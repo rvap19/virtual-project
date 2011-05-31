@@ -14,7 +14,6 @@ package virtualrisikoii.risiko;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.LogManager;
-import jxta.gui.PlayerManagerGUI;
 
 /**
  *
