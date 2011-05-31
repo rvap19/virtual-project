@@ -31,7 +31,7 @@ public class GameFactory {
         this.name=name;
         this.loadMappa();
         this.loadObiettivi();
-        this.loadMapPanel();
+        
     }
 
     public Mappa getMappa(){
@@ -89,7 +89,7 @@ public class GameFactory {
         }
     }
 
-    private void loadMapPanel() {
+    public void loadMapPanel() {
         if(name.equals("classicalMap")){
             this.panel=new ClassicalMapPanel();
         }else{

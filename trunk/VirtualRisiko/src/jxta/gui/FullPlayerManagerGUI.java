@@ -434,7 +434,7 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
 
 
             GameFactory factory = new GameFactory();
-            XMapPanel panel=factory.getMapPanel();
+            
             //factory.loadGame("classicalMap");
             factory.loadGame(mapName);
             Mappa mappa = factory.getMappa();
@@ -444,6 +444,8 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, numeroGiocatori, myTurno, dadi, regioni, 0);
             tavolo.setNameMap(mapName);
             GameController controller=GameController.createGameController();
+            factory.loadMapPanel();
+            XMapPanel panel=factory.getMapPanel();
             this.setVisible(false);
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app,panel));
@@ -557,7 +559,7 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
             factory.loadGame(map_name);
-            XMapPanel panel=factory.getMapPanel();
+            
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno=0;
@@ -572,6 +574,8 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
             tavolo.setNameMap(map_name);
             GameController controller=GameController.createGameController();
             this.setVisible(false);
+            factory.loadMapPanel();
+            XMapPanel panel=factory.getMapPanel();
             VirtualRisikoIIApp app=new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app,panel));
 
