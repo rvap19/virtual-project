@@ -47,7 +47,7 @@
             <confina>7</confina>
             <confina>9</confina>
         </Territorio>
-        <Territorio id="7" nome="Russia" punti="4">
+        <Territorio id="7" nome="Russia" punti="6">
             <confina>6</confina>
             <confina>4</confina>
             <confina>8</confina>
@@ -127,7 +127,7 @@
             <confina>19</confina>
 
         </Territorio>
-        <Territorio id="19" nome="Giordania" punti="6">
+        <Territorio id="19" nome="Giordania" punti="4">
             <confina>18</confina>
             <confina>16</confina>
             <confina>17</confina>
@@ -163,7 +163,7 @@
             <confina>2</confina>
             <confina>26</confina>
         </Territorio>
-        <Territorio id="26" nome="Spagna" punti="2">
+        <Territorio id="26" nome="Spagna" punti="6">
             <confina>24</confina>
             <confina>25</confina>
             <confina>27</confina>
@@ -229,7 +229,7 @@
             <confina>36</confina>
             <confina>33</confina>
         </Territorio>
-        <Territorio id="35" nome="Austria" punti="6">
+        <Territorio id="35" nome="Austria" punti="2">
             <confina>31</confina>
             <confina>29</confina>
             <confina>28</confina>
