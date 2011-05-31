@@ -125,7 +125,6 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
         jScrollPane3 = new javax.swing.JScrollPane();
         allPlayersList = new javax.swing.JList();
         jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -209,10 +208,6 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14));
-        jLabel1.setText("Bentornato a Virtual Risiko , ");
-        jLabel1.setName("jLabel1"); // NOI18N
-
         userNameLabel.setFont(new java.awt.Font("Georgia", 2, 14));
         userNameLabel.setText("####");
         userNameLabel.setName("userNameLabel"); // NOI18N
@@ -228,8 +223,7 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(220, 220, 220)
                         .addComponent(userNameLabel))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,9 +244,7 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(userNameLabel))
+                .addComponent(userNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
@@ -479,7 +471,6 @@ public class FullPlayerManagerGUI extends javax.swing.JFrame implements GameList
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

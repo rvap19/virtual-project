@@ -33,6 +33,9 @@
       <Properties>
         <Property name="name" type="java.lang.String" value="mapPanel1" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new virtualrisikoii.Map.europe.MapPanel()"/>
+      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>
@@ -49,6 +52,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="iranLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -63,9 +67,10 @@
         <Component class="javax.swing.JLabel" name="egittoLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="egittoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -83,7 +88,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="iraqLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -101,7 +106,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="franciaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -116,9 +121,10 @@
         <Component class="javax.swing.JLabel" name="italiaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="italiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -133,10 +139,10 @@
         <Component class="javax.swing.JLabel" name="svizzeraLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="svizzeraLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -151,10 +157,10 @@
         <Component class="javax.swing.JLabel" name="germaniaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="germaniaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -172,6 +178,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="islandaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -179,7 +186,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="-10" y="90" width="100" height="70"/>
+              <AbsoluteConstraints x="-10" y="80" width="100" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -189,6 +196,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="sveziaLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
@@ -197,16 +205,17 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="430" y="100" width="70" height="160"/>
+              <AbsoluteConstraints x="430" y="90" width="70" height="170"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="paesiBassiLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="paesiBassiLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -224,6 +233,7 @@
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="irlandaLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="3"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
@@ -232,7 +242,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="130" y="270" width="50" height="50"/>
+              <AbsoluteConstraints x="130" y="260" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -242,6 +252,7 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="norvegiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -249,7 +260,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="320" y="140" width="80" height="80"/>
+              <AbsoluteConstraints x="320" y="140" width="80" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -259,6 +270,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="russiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -276,6 +288,7 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="finlandiaLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
@@ -284,7 +297,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="110" width="80" height="80"/>
+              <AbsoluteConstraints x="520" y="100" width="80" height="80"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -294,6 +307,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="regnoUnitoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -301,7 +315,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="190" y="200" width="80" height="150"/>
+              <AbsoluteConstraints x="190" y="190" width="80" height="150"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -311,6 +325,7 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="estoniaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -318,7 +333,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="200" width="80" height="50"/>
+              <AbsoluteConstraints x="530" y="190" width="70" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -328,6 +343,7 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="lituaniaLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="3"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
@@ -336,7 +352,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="250" width="80" height="40"/>
+              <AbsoluteConstraints x="510" y="240" width="90" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -346,7 +362,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="russiaBiancaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -361,10 +377,10 @@
         <Component class="javax.swing.JLabel" name="kazakistanLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="kazakistanLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -382,7 +398,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="ucrainaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -400,6 +416,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="georgiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -414,10 +431,10 @@
         <Component class="javax.swing.JLabel" name="bulgariaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="bulgariaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -435,7 +452,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="romaniaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -450,10 +467,10 @@
         <Component class="javax.swing.JLabel" name="greciaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="greciaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -471,6 +488,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="yugoslaviaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -488,6 +506,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="croaziaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -505,7 +524,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="slovacchiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -520,10 +539,10 @@
         <Component class="javax.swing.JLabel" name="ungheriaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="ungheriaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -541,7 +560,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="poloniaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -556,9 +575,10 @@
         <Component class="javax.swing.JLabel" name="danimarcaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="danimarcaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -573,10 +593,10 @@
         <Component class="javax.swing.JLabel" name="repubblicaCecaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="repubblicaCecaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -594,7 +614,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="austriaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -612,6 +632,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="siriaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -629,7 +650,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="giordaniaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -644,10 +665,10 @@
         <Component class="javax.swing.JLabel" name="arabiaSauditaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="arabiaSauditaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -662,9 +683,10 @@
         <Component class="javax.swing.JLabel" name="tunisiaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="tunisiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -682,7 +704,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="maroccoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -700,7 +722,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="libiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -718,6 +740,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="algeriaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -732,9 +755,10 @@
         <Component class="javax.swing.JLabel" name="portogalloLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="portogalloLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -752,7 +776,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="spagnaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -770,7 +794,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="turchiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
@@ -779,20 +803,6 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="640" y="500" width="230" height="70"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="icon" type="javax.swing.Icon" resourceKey="jLabel1.icon"/>
-            <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
-            <Property name="verticalAlignment" type="int" value="3"/>
-            <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
