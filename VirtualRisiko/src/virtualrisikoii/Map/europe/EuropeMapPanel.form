@@ -48,7 +48,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="iranLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -66,7 +66,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="egittoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -84,7 +84,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="iraqLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -102,7 +102,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="franciaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -120,7 +120,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="italiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -138,7 +138,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="svizzeraLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -156,7 +156,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="germaniaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -174,7 +174,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="islandaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -192,7 +192,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="sveziaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -211,7 +211,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="paesiBassiLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -229,7 +229,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="irlandaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -248,7 +248,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="norvegiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -266,7 +266,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="russiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -284,7 +284,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="finlandiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -303,7 +303,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="regnoUnitoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -321,7 +321,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="estoniaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -339,7 +339,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lituaniaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -358,7 +358,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="russiaBiancaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -376,7 +376,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="kazakistanLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -394,7 +394,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="ucrainaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -412,7 +412,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="georgiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -430,7 +430,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="bulgariaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -448,7 +448,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="romaniaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -466,7 +466,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="greciaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -484,7 +484,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="yugoslaviaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -502,7 +502,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="croaziaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -520,7 +520,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="slovacchiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -538,7 +538,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="ungheriaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -556,7 +556,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="poloniaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -574,7 +574,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="danimarcaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -592,7 +592,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="repubblicaCecaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -610,7 +610,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="austriaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -628,7 +628,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="siriaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -646,7 +646,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="giordaniaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -664,7 +664,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="arabiaSauditaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -682,7 +682,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="tunisiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -700,7 +700,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="maroccoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -718,7 +718,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="libiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -736,7 +736,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="algeriaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -754,7 +754,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="portogalloLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -772,7 +772,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="spagnaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>
@@ -790,7 +790,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="turchiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="poloniaLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" resourceKey="iranLabel.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="iranLabel.text"/>

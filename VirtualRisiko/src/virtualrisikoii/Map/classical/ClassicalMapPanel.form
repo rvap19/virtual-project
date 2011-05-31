@@ -47,7 +47,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="scandinaviaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="scandinaviaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="scandinaviaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="scandinaviaLabel.toolTipText"/>
@@ -65,7 +65,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="ucrainaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="ucrainaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="ucrainaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="ucrainaLabel.toolTipText"/>
@@ -82,7 +82,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="granBretagnaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="granBretagnaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="granBretagnaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="granBretagnaLabel.toolTipText"/>
@@ -99,7 +99,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="uraliLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="uraliLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="uraliLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="uraliLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="3"/>
@@ -116,7 +116,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="siberiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="siberiaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="siberiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="siberiaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -132,7 +132,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jacuziaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="jacuziaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="jacuziaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="jacuziaLabel.toolTipText"/>
@@ -149,7 +149,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="kamchatkaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="kamchatkaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="kamchatkaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="kamchatkaLabel.toolTipText"/>
@@ -166,7 +166,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="alaskaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="alaskaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="alaskaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="alaskaLabel.toolTipText"/>
@@ -183,7 +183,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="ontarioLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="ontarioLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="ontarioLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="ontarioLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="1"/>
@@ -200,7 +200,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="citaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="citaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="citaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="citaLabel.toolTipText"/>
@@ -217,7 +217,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="territorioNOLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="territorioNOLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="territorioNOLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="territorioNOLabel.toolTipText"/>
@@ -234,7 +234,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="albertaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="albertaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="albertaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="albertaLabel.toolTipText"/>
@@ -252,7 +252,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="statiUnitiOccLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="statiUnitiOccLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="statiUnitiOccLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="statiUnitiOccLabel.toolTipText"/>
@@ -270,7 +270,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="quebecLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="quebecLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="quebecLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="quebecLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="3"/>
@@ -287,7 +287,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="groenlandiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="groenlandiaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="groenlandiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="groenlandiaLabel.toolTipText"/>
@@ -305,7 +305,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="statiUnitiOriLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="statiUnitiOriLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="statiUnitiOriLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="statiUnitiOriLabel.toolTipText"/>
@@ -323,7 +323,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="messicoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="messicoLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="messicoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="messicoLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -339,7 +339,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="venezuelaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="venezuelaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="venezuelaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="venezuelaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -355,7 +355,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="brasileLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="brasileLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="brasileLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="brasileLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -371,7 +371,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="peruLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="peruLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="peruLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="peruLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -387,7 +387,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="argentinaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="argentinaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="argentinaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="argentinaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -403,7 +403,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="australiaOrientaleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="australiaOrientaleLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="australiaOrientaleLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="australiaOrientaleLabel.toolTipText"/>
@@ -420,7 +420,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="australiaOccidentaleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="australiaOccidentaleLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="australiaOccidentaleLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="australiaOccidentaleLabel.toolTipText"/>
@@ -438,7 +438,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="nuovaGuineaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="nuovaGuineaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="nuovaGuineaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="nuovaGuineaLabel.toolTipText"/>
@@ -455,7 +455,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="indonesiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="indonesiaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="indonesiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="indonesiaLabel.toolTipText"/>
@@ -473,7 +473,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="siamLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="siamLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="siamLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="siamLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="1"/>
@@ -490,7 +490,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="indiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="indiaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="indiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="indiaLabel.toolTipText"/>
@@ -508,7 +508,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="cinaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="cinaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="cinaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="cinaLabel.toolTipText"/>
@@ -525,7 +525,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="mongoliaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="mongoliaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="mongoliaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="mongoliaLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -541,7 +541,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="giapponeLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="giapponeLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="giapponeLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="giapponeLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -557,7 +557,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="kanakistanLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="kanakistanLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="kanakistanLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="kanakistanLabel.toolTipText"/>
@@ -575,7 +575,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="medioOrienteLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="medioOrienteLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="medioOrienteLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="medioOrienteLabel.toolTipText"/>
@@ -593,7 +593,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="europaSettentrionaleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="europaSettentrionaleLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="europaSettentrionaleLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="europaSettentrionaleLabel.toolTipText"/>
@@ -628,7 +628,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="europaOccidentaleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="europaOccidentaleLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="europaOccidentaleLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="europaOccidentaleLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -644,7 +644,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="egittoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="egittoLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="egittoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="egittoLabel.toolTipText"/>
@@ -662,7 +662,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="africaOrientaleLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="africaOrientaleLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="africaOrientaleLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="africaOrientaleLabel.toolTipText"/>
@@ -680,7 +680,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="africaNordLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="africaNordLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="africaNordLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="africaNordLabel.toolTipText"/>
@@ -697,7 +697,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="congoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="congoLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="congoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="congoLabel.toolTipText"/>
@@ -714,7 +714,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="africaSudLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="africaSudLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="africaSudLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="africaSudLabel.toolTipText"/>
@@ -731,7 +731,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="madagascarLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="madagascarLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="madagascarLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="madagascarLabel.toolTipText"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -747,7 +747,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="islandaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="islandaLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="islandaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="islandaLabel.toolTipText"/>
@@ -757,9 +757,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="islandaLabel" noResource="true"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="islandaLabelMouseClicked"/>
-          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="10" y="90" width="50" height="40"/>
