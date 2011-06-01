@@ -45,6 +45,12 @@
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                   <Properties>
+                    <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
+                    <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+                    <Property name="autoscrolls" type="boolean" value="true"/>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[1024, 692]"/>
+                    </Property>
                     <Property name="name" type="java.lang.String" value="jScrollPane1" noResource="true"/>
                   </Properties>
                   <Constraints>

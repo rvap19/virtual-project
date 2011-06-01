@@ -32,7 +32,7 @@ public class ChatSendPanel extends javax.swing.JPanel {
     private ChatSender sender;
 
     public ChatSendPanel() {
-      /*  Tavolo tavolo=Tavolo.getInstance();
+        Tavolo tavolo=Tavolo.getInstance();
         sender=GameController.getInstance();
         players=new ArrayList<String>();
         players.add(FullCommunicator.ChatAttributes.TO_ALL);
@@ -41,9 +41,9 @@ public class ChatSendPanel extends javax.swing.JPanel {
 
         while(iter.hasNext()){
             players.add(iter.next().getNome());
-        }*/
+        }
         initComponents();
-      //  this.jComboBox1.setSelectedIndex(0);
+        this.jComboBox1.setSelectedIndex(0);
     }
 
     public List<String> getPlayers() {
