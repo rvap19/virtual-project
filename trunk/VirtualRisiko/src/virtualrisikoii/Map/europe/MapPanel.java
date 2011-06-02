@@ -49,7 +49,10 @@ public class MapPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setMaximumSize(new java.awt.Dimension(1024, 680));
+        setMinimumSize(new java.awt.Dimension(1024, 680));
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1024, 680));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
     }// </editor-fold>//GEN-END:initComponents
 
