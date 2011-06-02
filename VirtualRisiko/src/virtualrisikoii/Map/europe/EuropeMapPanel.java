@@ -173,72 +173,78 @@ public class EuropeMapPanel extends XMapPanel {
         iranLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         iranLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         iranLabel.setToolTipText(resourceMap.getString("iranLabel.toolTipText")); // NOI18N
+        iranLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         iranLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iranLabel.setName("iranLabel"); // NOI18N
-        mapPanel1.add(iranLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 570, 80, 80));
+        mapPanel1.add(iranLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 530, 80, 70));
 
         egittoLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        egittoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        egittoLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         egittoLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         egittoLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         egittoLabel.setToolTipText(resourceMap.getString("egittoLabel.toolTipText")); // NOI18N
         egittoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         egittoLabel.setName("egittoLabel"); // NOI18N
-        mapPanel1.add(egittoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 680, 130, 20));
+        mapPanel1.add(egittoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 650, 130, 30));
 
         iraqLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         iraqLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iraqLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         iraqLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         iraqLabel.setToolTipText(resourceMap.getString("iraqLabel.toolTipText")); // NOI18N
+        iraqLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         iraqLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iraqLabel.setName("iraqLabel"); // NOI18N
-        mapPanel1.add(iraqLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 600, 70, 70));
+        mapPanel1.add(iraqLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 570, 60, 60));
 
         franciaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         franciaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         franciaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         franciaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         franciaLabel.setToolTipText(resourceMap.getString("franciaLabel.toolTipText")); // NOI18N
+        franciaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         franciaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         franciaLabel.setName("franciaLabel"); // NOI18N
-        mapPanel1.add(franciaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 120, 100));
+        mapPanel1.add(franciaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 90, 90));
 
         italiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        italiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        italiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         italiaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         italiaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         italiaLabel.setToolTipText(resourceMap.getString("italiaLabel.toolTipText")); // NOI18N
         italiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         italiaLabel.setName("italiaLabel"); // NOI18N
-        mapPanel1.add(italiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, 130, 80));
+        mapPanel1.add(italiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 430, 130, 100));
 
         svizzeraLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        svizzeraLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        svizzeraLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         svizzeraLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         svizzeraLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         svizzeraLabel.setToolTipText(resourceMap.getString("svizzeraLabel.toolTipText")); // NOI18N
+        svizzeraLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         svizzeraLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         svizzeraLabel.setName("svizzeraLabel"); // NOI18N
-        mapPanel1.add(svizzeraLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 60, 40));
+        mapPanel1.add(svizzeraLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 70, 40));
 
         germaniaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        germaniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        germaniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         germaniaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         germaniaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         germaniaLabel.setToolTipText(resourceMap.getString("germaniaLabel.toolTipText")); // NOI18N
+        germaniaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         germaniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         germaniaLabel.setName("germaniaLabel"); // NOI18N
-        mapPanel1.add(germaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 70, 90));
+        mapPanel1.add(germaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 60, 90));
 
         islandaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         islandaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         islandaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         islandaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         islandaLabel.setToolTipText(resourceMap.getString("islandaLabel.toolTipText")); // NOI18N
+        islandaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         islandaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         islandaLabel.setName("islandaLabel"); // NOI18N
-        mapPanel1.add(islandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 80, 100, 70));
+        mapPanel1.add(islandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 90, 50));
 
         sveziaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         sveziaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -248,7 +254,7 @@ public class EuropeMapPanel extends XMapPanel {
         sveziaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         sveziaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sveziaLabel.setName("sveziaLabel"); // NOI18N
-        mapPanel1.add(sveziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 70, 170));
+        mapPanel1.add(sveziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 80, 160));
 
         paesiBassiLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         paesiBassiLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -257,7 +263,7 @@ public class EuropeMapPanel extends XMapPanel {
         paesiBassiLabel.setToolTipText(resourceMap.getString("paesiBassiLabel.toolTipText")); // NOI18N
         paesiBassiLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paesiBassiLabel.setName("paesiBassiLabel"); // NOI18N
-        mapPanel1.add(paesiBassiLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 50, 60));
+        mapPanel1.add(paesiBassiLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 50, 60));
 
         irlandaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         irlandaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -267,7 +273,7 @@ public class EuropeMapPanel extends XMapPanel {
         irlandaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         irlandaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         irlandaLabel.setName("irlandaLabel"); // NOI18N
-        mapPanel1.add(irlandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 50, 50));
+        mapPanel1.add(irlandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 50, 50));
 
         norvegiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         norvegiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -276,7 +282,7 @@ public class EuropeMapPanel extends XMapPanel {
         norvegiaLabel.setToolTipText(resourceMap.getString("norvegiaLabel.toolTipText")); // NOI18N
         norvegiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         norvegiaLabel.setName("norvegiaLabel"); // NOI18N
-        mapPanel1.add(norvegiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 80, 70));
+        mapPanel1.add(norvegiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 80, 80));
 
         russiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         russiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -285,17 +291,17 @@ public class EuropeMapPanel extends XMapPanel {
         russiaLabel.setToolTipText(resourceMap.getString("russiaLabel.toolTipText")); // NOI18N
         russiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         russiaLabel.setName("russiaLabel"); // NOI18N
-        mapPanel1.add(russiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 340, 310));
+        mapPanel1.add(russiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 330, 280));
 
         finlandiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         finlandiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         finlandiaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         finlandiaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         finlandiaLabel.setToolTipText(resourceMap.getString("finlandiaLabel.toolTipText")); // NOI18N
-        finlandiaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        finlandiaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         finlandiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         finlandiaLabel.setName("finlandiaLabel"); // NOI18N
-        mapPanel1.add(finlandiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 80, 80));
+        mapPanel1.add(finlandiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 80, 100));
 
         regnoUnitoLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         regnoUnitoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -304,89 +310,96 @@ public class EuropeMapPanel extends XMapPanel {
         regnoUnitoLabel.setToolTipText(resourceMap.getString("regnoUnitoLabel.toolTipText")); // NOI18N
         regnoUnitoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regnoUnitoLabel.setName("regnoUnitoLabel"); // NOI18N
-        mapPanel1.add(regnoUnitoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 80, 150));
+        mapPanel1.add(regnoUnitoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 80, 150));
 
         estoniaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        estoniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        estoniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         estoniaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         estoniaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         estoniaLabel.setToolTipText(resourceMap.getString("estoniaLabel.toolTipText")); // NOI18N
         estoniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         estoniaLabel.setName("estoniaLabel"); // NOI18N
-        mapPanel1.add(estoniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 70, 50));
+        mapPanel1.add(estoniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 70, 40));
 
         lituaniaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        lituaniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lituaniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lituaniaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         lituaniaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         lituaniaLabel.setToolTipText(resourceMap.getString("lituaniaLabel.toolTipText")); // NOI18N
-        lituaniaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lituaniaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lituaniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lituaniaLabel.setName("lituaniaLabel"); // NOI18N
-        mapPanel1.add(lituaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 90, 40));
+        mapPanel1.add(lituaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 90, 30));
 
         russiaBiancaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        russiaBiancaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        russiaBiancaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         russiaBiancaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         russiaBiancaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         russiaBiancaLabel.setToolTipText(resourceMap.getString("russiaBiancaLabel.toolTipText")); // NOI18N
+        russiaBiancaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         russiaBiancaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         russiaBiancaLabel.setName("russiaBiancaLabel"); // NOI18N
-        mapPanel1.add(russiaBiancaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 70, 50));
+        mapPanel1.add(russiaBiancaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, 70, 50));
 
         kazakistanLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        kazakistanLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        kazakistanLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         kazakistanLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         kazakistanLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         kazakistanLabel.setToolTipText(resourceMap.getString("kazakistanLabel.toolTipText")); // NOI18N
+        kazakistanLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         kazakistanLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         kazakistanLabel.setName("kazakistanLabel"); // NOI18N
-        mapPanel1.add(kazakistanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 340, 90, 140));
+        mapPanel1.add(kazakistanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 300, 90, 140));
 
         ucrainaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         ucrainaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ucrainaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         ucrainaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         ucrainaLabel.setToolTipText(resourceMap.getString("ucrainaLabel.toolTipText")); // NOI18N
+        ucrainaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         ucrainaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ucrainaLabel.setName("ucrainaLabel"); // NOI18N
-        mapPanel1.add(ucrainaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 330, 220, 60));
+        mapPanel1.add(ucrainaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 150, 60));
 
         georgiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        georgiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        georgiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         georgiaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         georgiaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         georgiaLabel.setToolTipText(resourceMap.getString("georgiaLabel.toolTipText")); // NOI18N
+        georgiaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         georgiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         georgiaLabel.setName("georgiaLabel"); // NOI18N
-        mapPanel1.add(georgiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 490, 90, 50));
+        mapPanel1.add(georgiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 450, 100, 50));
 
         bulgariaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        bulgariaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bulgariaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         bulgariaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         bulgariaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         bulgariaLabel.setToolTipText(resourceMap.getString("bulgariaLabel.toolTipText")); // NOI18N
+        bulgariaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         bulgariaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bulgariaLabel.setName("bulgariaLabel"); // NOI18N
-        mapPanel1.add(bulgariaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 460, 70, 40));
+        mapPanel1.add(bulgariaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 80, 40));
 
         romaniaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         romaniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         romaniaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         romaniaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         romaniaLabel.setToolTipText(resourceMap.getString("romaniaLabel.toolTipText")); // NOI18N
+        romaniaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         romaniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romaniaLabel.setName("romaniaLabel"); // NOI18N
-        mapPanel1.add(romaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 400, 80, 60));
+        mapPanel1.add(romaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 360, 60, 60));
 
         greciaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         greciaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         greciaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         greciaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         greciaLabel.setToolTipText(resourceMap.getString("greciaLabel.toolTipText")); // NOI18N
+        greciaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         greciaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         greciaLabel.setName("greciaLabel"); // NOI18N
-        mapPanel1.add(greciaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, 80, 120));
+        mapPanel1.add(greciaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 470, 70, 90));
 
         yugoslaviaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         yugoslaviaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -395,7 +408,7 @@ public class EuropeMapPanel extends XMapPanel {
         yugoslaviaLabel.setToolTipText(resourceMap.getString("yugoslaviaLabel.toolTipText")); // NOI18N
         yugoslaviaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         yugoslaviaLabel.setName("yugoslaviaLabel"); // NOI18N
-        mapPanel1.add(yugoslaviaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 60, 70));
+        mapPanel1.add(yugoslaviaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 50, 60));
 
         croaziaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         croaziaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -404,70 +417,76 @@ public class EuropeMapPanel extends XMapPanel {
         croaziaLabel.setToolTipText(resourceMap.getString("croaziaLabel.toolTipText")); // NOI18N
         croaziaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         croaziaLabel.setName("croaziaLabel"); // NOI18N
-        mapPanel1.add(croaziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 420, 80, 50));
+        mapPanel1.add(croaziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 50, 50));
 
         slovacchiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        slovacchiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slovacchiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         slovacchiaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         slovacchiaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         slovacchiaLabel.setToolTipText(resourceMap.getString("slovacchiaLabel.toolTipText")); // NOI18N
         slovacchiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         slovacchiaLabel.setName("slovacchiaLabel"); // NOI18N
-        mapPanel1.add(slovacchiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 60, 40));
+        mapPanel1.add(slovacchiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 100, 30));
 
         ungheriaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        ungheriaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ungheriaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ungheriaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         ungheriaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         ungheriaLabel.setToolTipText(resourceMap.getString("ungheriaLabel.toolTipText")); // NOI18N
+        ungheriaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         ungheriaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ungheriaLabel.setName("ungheriaLabel"); // NOI18N
-        mapPanel1.add(ungheriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 80, 40));
+        mapPanel1.add(ungheriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, 60, 30));
 
         poloniaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        poloniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        poloniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         poloniaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         poloniaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         poloniaLabel.setToolTipText(resourceMap.getString("poloniaLabel.toolTipText")); // NOI18N
+        poloniaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         poloniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         poloniaLabel.setName("poloniaLabel"); // NOI18N
-        mapPanel1.add(poloniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 90, 50));
+        mapPanel1.add(poloniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 100, 40));
 
         danimarcaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         danimarcaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         danimarcaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         danimarcaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         danimarcaLabel.setToolTipText(resourceMap.getString("danimarcaLabel.toolTipText")); // NOI18N
+        danimarcaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         danimarcaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         danimarcaLabel.setName("danimarcaLabel"); // NOI18N
-        mapPanel1.add(danimarcaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 50, 60));
+        mapPanel1.add(danimarcaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 50, 50));
 
         repubblicaCecaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        repubblicaCecaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        repubblicaCecaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         repubblicaCecaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         repubblicaCecaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         repubblicaCecaLabel.setToolTipText(resourceMap.getString("repubblicaCecaLabel.toolTipText")); // NOI18N
+        repubblicaCecaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         repubblicaCecaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         repubblicaCecaLabel.setName("repubblicaCecaLabel"); // NOI18N
-        mapPanel1.add(repubblicaCecaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 90, 30));
+        mapPanel1.add(repubblicaCecaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 310, 80, 30));
 
         austriaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        austriaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        austriaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         austriaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         austriaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         austriaLabel.setToolTipText(resourceMap.getString("austriaLabel.toolTipText")); // NOI18N
+        austriaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         austriaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         austriaLabel.setName("austriaLabel"); // NOI18N
-        mapPanel1.add(austriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 60, 40));
+        mapPanel1.add(austriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 70, 30));
 
         siriaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         siriaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         siriaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         siriaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         siriaLabel.setToolTipText(resourceMap.getString("siriaLabel.toolTipText")); // NOI18N
+        siriaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         siriaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         siriaLabel.setName("siriaLabel"); // NOI18N
-        mapPanel1.add(siriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 590, 80, 60));
+        mapPanel1.add(siriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 550, 80, 60));
 
         giordaniaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         giordaniaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -476,34 +495,37 @@ public class EuropeMapPanel extends XMapPanel {
         giordaniaLabel.setToolTipText(resourceMap.getString("giordaniaLabel.toolTipText")); // NOI18N
         giordaniaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         giordaniaLabel.setName("giordaniaLabel"); // NOI18N
-        mapPanel1.add(giordaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 660, 60, 40));
+        mapPanel1.add(giordaniaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 620, 50, 60));
 
         arabiaSauditaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        arabiaSauditaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        arabiaSauditaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         arabiaSauditaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         arabiaSauditaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         arabiaSauditaLabel.setToolTipText(resourceMap.getString("arabiaSauditaLabel.toolTipText")); // NOI18N
+        arabiaSauditaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         arabiaSauditaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         arabiaSauditaLabel.setName("arabiaSauditaLabel"); // NOI18N
-        mapPanel1.add(arabiaSauditaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 660, 70, 40));
+        mapPanel1.add(arabiaSauditaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 640, 70, 30));
 
         tunisiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         tunisiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tunisiaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         tunisiaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         tunisiaLabel.setToolTipText(resourceMap.getString("tunisiaLabel.toolTipText")); // NOI18N
+        tunisiaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         tunisiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tunisiaLabel.setName("tunisiaLabel"); // NOI18N
-        mapPanel1.add(tunisiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 590, 50, 70));
+        mapPanel1.add(tunisiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 560, 60, 80));
 
         maroccoLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        maroccoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maroccoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         maroccoLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         maroccoLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         maroccoLabel.setToolTipText(resourceMap.getString("maroccoLabel.toolTipText")); // NOI18N
+        maroccoLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         maroccoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         maroccoLabel.setName("maroccoLabel"); // NOI18N
-        mapPanel1.add(maroccoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 600, 100, 100));
+        mapPanel1.add(maroccoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 590, 80, 90));
 
         libiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         libiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -512,13 +534,14 @@ public class EuropeMapPanel extends XMapPanel {
         libiaLabel.setToolTipText(resourceMap.getString("libiaLabel.toolTipText")); // NOI18N
         libiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         libiaLabel.setName("libiaLabel"); // NOI18N
-        mapPanel1.add(libiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 650, 140, 50));
+        mapPanel1.add(libiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 630, 170, 50));
 
         algeriaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         algeriaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         algeriaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         algeriaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         algeriaLabel.setToolTipText(resourceMap.getString("algeriaLabel.toolTipText")); // NOI18N
+        algeriaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         algeriaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         algeriaLabel.setName("algeriaLabel"); // NOI18N
         mapPanel1.add(algeriaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 120, 120));
@@ -530,25 +553,26 @@ public class EuropeMapPanel extends XMapPanel {
         portogalloLabel.setToolTipText(resourceMap.getString("portogalloLabel.toolTipText")); // NOI18N
         portogalloLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         portogalloLabel.setName("portogalloLabel"); // NOI18N
-        mapPanel1.add(portogalloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, 50, 80));
+        mapPanel1.add(portogalloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 50, 80));
 
         spagnaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
-        spagnaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        spagnaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         spagnaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         spagnaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         spagnaLabel.setToolTipText(resourceMap.getString("spagnaLabel.toolTipText")); // NOI18N
         spagnaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         spagnaLabel.setName("spagnaLabel"); // NOI18N
-        mapPanel1.add(spagnaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 490, 130, 90));
+        mapPanel1.add(spagnaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 100, 90));
 
         turchiaLabel.setFont(resourceMap.getFont("poloniaLabel.font")); // NOI18N
         turchiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         turchiaLabel.setIcon(resourceMap.getIcon("iranLabel.icon")); // NOI18N
         turchiaLabel.setText(resourceMap.getString("iranLabel.text")); // NOI18N
         turchiaLabel.setToolTipText(resourceMap.getString("turchiaLabel.toolTipText")); // NOI18N
+        turchiaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         turchiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         turchiaLabel.setName("turchiaLabel"); // NOI18N
-        mapPanel1.add(turchiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 500, 230, 70));
+        mapPanel1.add(turchiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 190, 60));
 
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -623,7 +647,7 @@ public class EuropeMapPanel extends XMapPanel {
                     new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
                 
 
-                }
+                } 
 
                 //azione diversa da null::controllare stato obiettivi
                 if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
