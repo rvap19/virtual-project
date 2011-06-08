@@ -5,6 +5,8 @@
 package virtualrisikoii;
 
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -16,6 +18,8 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 
 /**
  * The application's main frame.
@@ -33,7 +37,7 @@ public class VirtualRisikoIIView extends FrameView {
         
         this.jScrollPane1.setViewportView(panel);
 
-        
+        this.jScrollPane1.getViewport().scrollRectToVisible(new Rectangle(1024,680));
         this.mainPanel.repaint();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
@@ -113,10 +117,8 @@ public class VirtualRisikoIIView extends FrameView {
 
         mainPanel = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        informationPanel1 = new virtualrisikoii.InformationPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        chatSendPanel1 = new virtualrisikoii.ChatSendPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -134,9 +136,6 @@ public class VirtualRisikoIIView extends FrameView {
 
         jSplitPane1.setName("jSplitPane1"); // NOI18N
 
-        informationPanel1.setName("informationPanel1"); // NOI18N
-        jSplitPane1.setLeftComponent(informationPanel1);
-
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -146,9 +145,6 @@ public class VirtualRisikoIIView extends FrameView {
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1024, 692));
         jScrollPane1.setName("jScrollPane1"); // NOI18N
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        chatSendPanel1.setName("chatSendPanel1"); // NOI18N
-        jPanel1.add(chatSendPanel1, java.awt.BorderLayout.PAGE_END);
 
         jSplitPane1.setRightComponent(jPanel1);
 
@@ -240,8 +236,6 @@ public class VirtualRisikoIIView extends FrameView {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private virtualrisikoii.ChatSendPanel chatSendPanel1;
-    private virtualrisikoii.InformationPanel informationPanel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

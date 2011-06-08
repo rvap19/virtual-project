@@ -104,6 +104,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             MyNetworkConfigurator.setTcpIncoming(true);
             MyNetworkConfigurator.setTcpOutgoing(true);
             MyNetworkConfigurator.setUseMulticast(true);
+            
 
             MyNetworkConfigurator.setPeerID(PID);
             this.players=new HashMap<String, PlayerAdvertisement>();
