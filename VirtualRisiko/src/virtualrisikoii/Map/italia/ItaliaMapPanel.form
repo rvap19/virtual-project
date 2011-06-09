@@ -29,12 +29,12 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="virtualrisikoii.Map.europe.MapPanel" name="mapPanel1">
+    <Container class="virtualrisikoii.Map.italia.MapPanel" name="mapPanel1">
       <Properties>
         <Property name="name" type="java.lang.String" value="mapPanel1" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new virtualrisikoii.Map.europe.MapPanel()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new virtualrisikoii.Map.italia.MapPanel()"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -49,6 +49,7 @@
         <Component class="javax.swing.JLabel" name="bolognaLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="bolognaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="bolognaLabel.toolTipText"/>
@@ -66,7 +67,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="perugiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="perugiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="perugiaLabel.toolTipText"/>
@@ -84,7 +86,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="riminiLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="riminiLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="riminiLabel.toolTipText"/>
@@ -102,7 +105,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="campobassoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="campobassoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="campobassoLabel.toolTipText"/>
@@ -120,7 +124,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="napoliLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="napoliLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="napoliLabel.toolTipText"/>
@@ -138,7 +143,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="foggiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="foggiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="foggiaLabel.toolTipText"/>
@@ -156,7 +162,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="potenzaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="potenzaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="potenzaLabel.toolTipText"/>
@@ -174,7 +181,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="aostaaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="aostaaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="aostaaLabel.toolTipText"/>
@@ -192,7 +200,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="imperiaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="imperiaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="imperiaLabel.toolTipText"/>
@@ -210,7 +219,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="salernoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="salernoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="salernoLabel.toolTipText"/>
@@ -227,7 +237,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="torinoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="torinoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="torinoLabel.toolTipText"/>
@@ -244,7 +255,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="cuneoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="cuneoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="cuneoLabel.toolTipText"/>
@@ -262,7 +274,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="parmaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="parmaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="parmaLabel.toolTipText"/>
@@ -280,7 +293,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="genovaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="genovaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="genovaLabel.toolTipText"/>
@@ -298,7 +312,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="alessandriaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="alessandriaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="alessandriaLabel.toolTipText"/>
@@ -316,7 +331,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="milanoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="milanoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="milanoLabel.toolTipText"/>
@@ -333,7 +349,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="bergamoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="bergamoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="bergamoLabel.toolTipText"/>
@@ -351,7 +368,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="bresciaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="bresciaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="bresciaLabel.toolTipText"/>
@@ -369,7 +387,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="veronaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="veronaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="veronaLabel.toolTipText"/>
@@ -387,7 +406,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="trentoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="trentoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="trentoLabel.toolTipText"/>
@@ -405,7 +425,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="veneziaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="veneziaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="veneziaLabel.toolTipText"/>
@@ -422,7 +443,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="nuoroLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="nuoroLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="nuoroLabel.toolTipText"/>
@@ -440,7 +462,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="sassariLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="sassariLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="sassariLabel.toolTipText"/>
@@ -457,7 +480,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="cagliariLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="cagliariLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="cagliariLabel.toolTipText"/>
@@ -475,7 +499,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="trapaniLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="trapaniLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="trapaniLabel.toolTipText"/>
@@ -492,7 +517,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="palermoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="palermoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="palermoLabel.toolTipText"/>
@@ -510,7 +536,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="messinaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="messinaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="messinaLabel.toolTipText"/>
@@ -528,7 +555,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="agrigentoLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="agrigentoLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="agrigentoLabel.toolTipText"/>
@@ -546,7 +574,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lecceLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="lecceLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="lecceLabel.toolTipText"/>
@@ -563,7 +592,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="bariLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="bariLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="bariLabel.toolTipText"/>
@@ -581,7 +611,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="catanzaroLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="catanzaroLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="catanzaroLabel.toolTipText"/>
@@ -599,7 +630,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="reggioCalabriaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="reggioCalabriaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="reggioCalabriaLabel.toolTipText"/>
@@ -617,7 +649,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="firenzeLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="firenzeLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="firenzeLabel.toolTipText"/>
@@ -635,7 +668,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="sienaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="sienaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="sienaLabel.toolTipText"/>
@@ -652,7 +686,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="pisaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="pisaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="pisaLabel.toolTipText"/>
@@ -664,13 +699,14 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="330" y="190" width="40" height="50"/>
+              <AbsoluteConstraints x="320" y="190" width="50" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="anconaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="anconaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="anconaLabel.toolTipText"/>
@@ -688,7 +724,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="romaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="romaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="romaLabel.toolTipText"/>
@@ -706,7 +743,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="pesaroLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="pesaroLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="pesaroLabel.toolTipText"/>
@@ -724,7 +762,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="viterboLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="viterboLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="viterboLabel.toolTipText"/>
@@ -742,7 +781,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lAquilaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="lAquilaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="lAquilaLabel.toolTipText"/>
@@ -759,7 +799,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="latinaLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" resourceKey="latinaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="latinaLabel.toolTipText"/>
@@ -777,7 +818,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="triesteLabel">
           <Properties>
-            <Property name="font" type="java.awt.Font" resourceKey="iranLabel.font"/>
+            <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
+            <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" resourceKey="triesteLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="triesteLabel.toolTipText"/>

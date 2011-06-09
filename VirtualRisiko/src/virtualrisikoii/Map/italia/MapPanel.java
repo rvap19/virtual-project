@@ -26,7 +26,7 @@ public class MapPanel extends javax.swing.JPanel {
 
     /** Creates new form MapPanel */
     public MapPanel() {
-        img=new ImageIcon("src/virtualrisikoii/resources/maps/europa/mappa.jpg").getImage();
+        img=new ImageIcon("src/virtualrisikoii/resources/maps/italia/mappa.jpg").getImage();
         Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
         setPreferredSize(size);
         setMinimumSize(size);
