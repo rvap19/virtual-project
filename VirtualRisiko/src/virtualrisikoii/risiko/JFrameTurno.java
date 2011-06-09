@@ -101,7 +101,7 @@ public class JFrameTurno extends javax.swing.JFrame {
         jLabel2.setText("E' il TURNO del giocatore :");
         jLabel2.setName("jLabel2"); // NOI18N
 
-        iconaTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/carro/black.png"))); // NOI18N
+        iconaTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/carro/green.png"))); // NOI18N
         iconaTurno.setName("iconaTurno"); // NOI18N
 
         jButton1.setText("OK");
@@ -124,12 +124,13 @@ public class JFrameTurno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(coloreTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(iconaTurno)))
                 .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(124, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,10 +140,10 @@ public class JFrameTurno extends javax.swing.JFrame {
                     .addComponent(coloreTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(36, 36, 36)
-                .addComponent(iconaTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addComponent(iconaTurno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -160,7 +161,7 @@ public class JFrameTurno extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrameTurno(5).setVisible(true);
+                new JFrameTurno(4).setVisible(true);
             }
         });
     }
