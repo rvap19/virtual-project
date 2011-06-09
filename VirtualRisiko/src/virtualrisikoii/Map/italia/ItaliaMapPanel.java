@@ -186,7 +186,7 @@ public class ItaliaMapPanel extends XMapPanel {
         perugiaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         perugiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         perugiaLabel.setName("perugiaLabel"); // NOI18N
-        mapPanel1.add(perugiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 60, 40));
+        mapPanel1.add(perugiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 70, 40));
 
         riminiLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         riminiLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -216,7 +216,7 @@ public class ItaliaMapPanel extends XMapPanel {
         napoliLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         napoliLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         napoliLabel.setName("napoliLabel"); // NOI18N
-        mapPanel1.add(napoliLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, 70, 70));
+        mapPanel1.add(napoliLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, 80, 70));
 
         foggiaLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         foggiaLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -265,7 +265,7 @@ public class ItaliaMapPanel extends XMapPanel {
         salernoLabel.setToolTipText(resourceMap.getString("salernoLabel.toolTipText")); // NOI18N
         salernoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         salernoLabel.setName("salernoLabel"); // NOI18N
-        mapPanel1.add(salernoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 60, 70));
+        mapPanel1.add(salernoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 70, 70));
 
         torinoLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         torinoLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -337,13 +337,13 @@ public class ItaliaMapPanel extends XMapPanel {
 
         bresciaLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         bresciaLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
-        bresciaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        bresciaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bresciaLabel.setText(resourceMap.getString("bresciaLabel.text")); // NOI18N
         bresciaLabel.setToolTipText(resourceMap.getString("bresciaLabel.toolTipText")); // NOI18N
         bresciaLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         bresciaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bresciaLabel.setName("bresciaLabel"); // NOI18N
-        mapPanel1.add(bresciaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 60, 60));
+        mapPanel1.add(bresciaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 70, 60));
 
         veronaLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         veronaLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -372,7 +372,7 @@ public class ItaliaMapPanel extends XMapPanel {
         veneziaLabel.setToolTipText(resourceMap.getString("veneziaLabel.toolTipText")); // NOI18N
         veneziaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         veneziaLabel.setName("veneziaLabel"); // NOI18N
-        mapPanel1.add(veneziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 50, 110));
+        mapPanel1.add(veneziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 60, 90));
 
         nuoroLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         nuoroLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -401,7 +401,7 @@ public class ItaliaMapPanel extends XMapPanel {
         cagliariLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         cagliariLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cagliariLabel.setName("cagliariLabel"); // NOI18N
-        mapPanel1.add(cagliariLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 70, 110));
+        mapPanel1.add(cagliariLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 80, 110));
 
         trapaniLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         trapaniLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -420,7 +420,7 @@ public class ItaliaMapPanel extends XMapPanel {
         palermoLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         palermoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         palermoLabel.setName("palermoLabel"); // NOI18N
-        mapPanel1.add(palermoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, 70, 70));
+        mapPanel1.add(palermoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 500, 80, 70));
 
         messinaLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         messinaLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -508,7 +508,7 @@ public class ItaliaMapPanel extends XMapPanel {
         pisaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         pisaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pisaLabel.setName("pisaLabel"); // NOI18N
-        mapPanel1.add(pisaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 50, 50));
+        mapPanel1.add(pisaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 70, 50));
 
         anconaLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         anconaLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
@@ -528,7 +528,7 @@ public class ItaliaMapPanel extends XMapPanel {
         romaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         romaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romaLabel.setName("romaLabel"); // NOI18N
-        mapPanel1.add(romaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 50, 40));
+        mapPanel1.add(romaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 60, 40));
 
         pesaroLabel.setFont(resourceMap.getFont("bolognaLabel.font")); // NOI18N
         pesaroLabel.setForeground(resourceMap.getColor("bolognaLabel.foreground")); // NOI18N
