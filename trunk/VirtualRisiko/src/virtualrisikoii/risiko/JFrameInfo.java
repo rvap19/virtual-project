@@ -11,7 +11,9 @@
 
 package virtualrisikoii.risiko;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import javax.swing.JFrame;
 
 /**
  *
@@ -21,6 +23,7 @@ public class JFrameInfo extends javax.swing.JFrame {
 
     /** Creates new form JFrameInfo */
     public JFrameInfo(String mappa) {
+         setCenterScreen(this);
         initComponents();
         String path=null;
         if(mappa.equals("classicalMap")) {
@@ -39,10 +42,7 @@ public class JFrameInfo extends javax.swing.JFrame {
     
      
     
-    @Override
-    public void setIconImage(Image image) {
-        super.setIconImage(image);
-    }
+  
 
 
     /** This method is called from within the constructor to
@@ -83,6 +83,21 @@ public class JFrameInfo extends javax.swing.JFrame {
                 new JFrameInfo("italiaMap").setVisible(true);
             }
         });
+    }
+
+     public static void setCenterScreen(JFrame frame) {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        java.awt.Point center = ge.getCenterPoint();
+        java.awt.Rectangle bounds = ge.getMaximumWindowBounds();
+        int w = Math.max(bounds.width/2, Math.min(frame.getWidth(), bounds.width));
+        int h = Math.max(bounds.height/2, Math.min(frame.getHeight(), bounds.height));
+        int x = center.x - w/2, y = center.y - h/2;
+        frame.setBounds(x, y, w, h);
+        if (w == bounds.width && h == bounds.height)
+            frame.setExtendedState(frame.MAXIMIZED_BOTH);
+        frame.validate();
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
