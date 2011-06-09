@@ -8,6 +8,7 @@ package util;
 import java.util.List;
 import virtualrisikoii.Map.classical.ClassicalMapPanel;
 import virtualrisikoii.Map.europe.EuropeMapPanel;
+import virtualrisikoii.Map.italia.ItaliaMapPanel;
 import virtualrisikoii.XMapPanel;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
@@ -92,8 +93,10 @@ public class GameFactory {
     public void loadMapPanel() {
         if(name.equals("classicalMap")){
             this.panel=new ClassicalMapPanel();
-        }else{
+        }else if(name.equals("europaMap")){
             this.panel=new EuropeMapPanel();
+        }else{
+            this.panel=new ItaliaMapPanel();
         }
     }
 
