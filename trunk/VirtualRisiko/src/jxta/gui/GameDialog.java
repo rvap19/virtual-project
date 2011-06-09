@@ -46,7 +46,7 @@ public class GameDialog extends javax.swing.JDialog {
         jLabel1.setText("game name");
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Georgia", 0, 12));
         jLabel2.setText("max player");
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -69,11 +69,11 @@ public class GameDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Georgia", 0, 12));
         jLabel3.setText("map type");
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "classicalMap", "europaMap" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "classicalMap", "europaMap", "italiaMap" }));
         jComboBox1.setName("jComboBox1"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
