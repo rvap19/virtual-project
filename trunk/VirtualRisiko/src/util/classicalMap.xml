@@ -58,7 +58,7 @@
             <confina>6</confina>
             <confina>9</confina>
         </Territorio>
-        <Territorio id="9" nome="America Centrale" punti="3">
+        <Territorio id="9" nome="Messico" punti="3">
             <confina>7</confina>
             <confina>8</confina>
             <confina>10</confina>
@@ -205,7 +205,7 @@
             <confina>37</confina>
             <confina>28</confina>
         </Territorio>
-        <Territorio id="34" nome="Afganistan" punti="4">
+        <Territorio id="34" nome="Kazakistan" punti="4">
             <confina>27</confina>
             <confina>37</confina>
             <confina>36</confina>

@@ -287,7 +287,7 @@
             <confina>11</confina>
             <confina>13</confina>
         </Territorio>
-        <continente id="1" nome="Europa Est" rinforzi="5">
+        <continente id="1" nome="Europa dell'Est" rinforzi="5">
             <territorio>7</territorio>
             <territorio>8</territorio>
             <territorio>9</territorio>
@@ -295,7 +295,7 @@
             <territorio>11</territorio>
             <territorio>12</territorio>
         </continente>
-        <continente id="2" nome="Europa Sud-Est" rinforzi="2">
+        <continente id="2" nome="Medio Oriente" rinforzi="2">
             <territorio>13</territorio>
             <territorio>14</territorio>
             <territorio>15</territorio>
@@ -305,7 +305,7 @@
             <territorio>19</territorio>
             <territorio>20</territorio>
         </continente>
-        <continente id="3" nome="Europa Sud-Ovest" rinforzi="5">
+        <continente id="3" nome="Africa del Nord" rinforzi="5">
             <territorio>21</territorio>
             <territorio>22</territorio>
             <territorio>23</territorio>
@@ -313,7 +313,7 @@
             <territorio>25</territorio>
             <territorio>26</territorio>
         </continente>
-        <continente id="4" nome="Europa Nord" rinforzi="3">
+        <continente id="4" nome="Europa del Nord" rinforzi="3">
             <territorio>1</territorio>
             <territorio>2</territorio>
             <territorio>3</territorio>
@@ -322,7 +322,7 @@
             <territorio>6</territorio>
             <territorio>32</territorio>
         </continente>
-        <continente id="5" nome="Europa Centro-Ovest" rinforzi="7">
+        <continente id="5" nome="Europa dell'Ovest" rinforzi="7">
             <territorio>27</territorio>
             <territorio>28</territorio>
             <territorio>29</territorio>
@@ -331,7 +331,7 @@
             <territorio>35</territorio>
             <territorio>38</territorio>
         </continente>
-        <continente id="6" nome="Europa Centro-Est" rinforzi="2">
+        <continente id="6" nome="Europa Centro" rinforzi="2">
             <territorio>33</territorio>
             <territorio>34</territorio>
             <territorio>36</territorio>
