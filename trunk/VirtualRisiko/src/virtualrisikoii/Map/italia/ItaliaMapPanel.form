@@ -80,7 +80,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="460" y="240" width="60" height="40"/>
+              <AbsoluteConstraints x="460" y="240" width="70" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -137,7 +137,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="590" y="360" width="70" height="70"/>
+              <AbsoluteConstraints x="590" y="360" width="80" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -231,7 +231,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="670" y="390" width="60" height="70"/>
+              <AbsoluteConstraints x="670" y="390" width="70" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -370,7 +370,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="bolognaLabel.font"/>
             <Property name="foreground" type="java.awt.Color" resourceKey="bolognaLabel.foreground"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" resourceKey="bresciaLabel.text"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="bresciaLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="3"/>
@@ -381,7 +381,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="340" y="80" width="60" height="60"/>
+              <AbsoluteConstraints x="340" y="80" width="70" height="60"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -437,7 +437,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="50" width="50" height="110"/>
+              <AbsoluteConstraints x="510" y="70" width="60" height="90"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -493,7 +493,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="420" width="70" height="110"/>
+              <AbsoluteConstraints x="110" y="420" width="80" height="110"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -530,7 +530,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="540" y="500" width="70" height="70"/>
+              <AbsoluteConstraints x="540" y="500" width="80" height="70"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -699,7 +699,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="320" y="190" width="50" height="50"/>
+              <AbsoluteConstraints x="320" y="190" width="70" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -737,7 +737,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="480" y="300" width="50" height="40"/>
+              <AbsoluteConstraints x="470" y="300" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
