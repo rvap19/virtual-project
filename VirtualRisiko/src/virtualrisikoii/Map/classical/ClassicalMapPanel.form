@@ -41,8 +41,317 @@
         </Constraint>
       </Constraints>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="false"/>
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="islandaLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                  <Component id="scandinaviaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                  <Component id="granBretagnaLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                  <Component id="europaSettentrionaleLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                  <Component id="europaOccidentaleLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                  <Component id="europaMeridionaleLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="africaNordLabel" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="ucrainaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                          <Component id="uraliLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="kazakistanLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="siberiaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                          <Component id="jacuziaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="citaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="mongoliaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                          <Component id="medioOrienteLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="africaOrientaleLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="50" pref="50" max="50" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="50" pref="50" max="50" attributes="0"/>
+                                          <Component id="cinaLabel" min="-2" pref="130" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="indiaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                          <Component id="siamLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="100" pref="100" max="100" attributes="0"/>
+                          <Component id="egittoLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="110" pref="110" max="110" attributes="0"/>
+                          <Component id="congoLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="410" pref="410" max="410" attributes="0"/>
+                          <Component id="indonesiaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Component id="kamchatkaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="giapponeLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Component id="nuovaGuineaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                  <Component id="alaskaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="territorioNOLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="groenlandiaLabel" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="albertaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="ontarioLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Component id="quebecLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="statiUnitiOccLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="statiUnitiOriLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="60" pref="60" max="60" attributes="0"/>
+                          <Component id="messicoLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="120" pref="120" max="120" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="40" pref="40" max="40" attributes="0"/>
+                                  <Component id="brasileLabel" min="-2" pref="120" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="venezuelaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="140" pref="140" max="140" attributes="0"/>
+                          <Component id="peruLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="130" pref="130" max="130" attributes="0"/>
+                  <Component id="africaSudLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                  <Component id="madagascarLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace min="180" pref="180" max="180" attributes="0"/>
+                  <Component id="australiaOccidentaleLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace min="40" pref="40" max="40" attributes="0"/>
+                  <Component id="australiaOrientaleLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace min="270" pref="270" max="270" attributes="0"/>
+                  <Component id="argentinaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="40" pref="40" max="40" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="islandaLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                                  <Component id="scandinaviaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="granBretagnaLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                                  <Component id="europaSettentrionaleLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="europaOccidentaleLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <Component id="europaMeridionaleLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="40" pref="40" max="40" attributes="0"/>
+                                          <Component id="africaNordLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="70" pref="70" max="70" attributes="0"/>
+                                                  <Component id="ucrainaLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="80" pref="80" max="80" attributes="0"/>
+                                                  <Component id="uraliLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                                  <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                                  <Component id="kazakistanLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="siberiaLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                                  <Component id="jacuziaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                                  <Component id="citaLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                                                  <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                                  <Component id="mongoliaLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                                  <Component id="medioOrienteLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  <EmptySpace min="50" pref="50" max="50" attributes="0"/>
+                                                  <Component id="africaOrientaleLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="cinaLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="indiaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                                                          <Component id="siamLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="270" pref="270" max="270" attributes="0"/>
+                                          <Component id="egittoLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                  <Component id="congoLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="390" pref="390" max="390" attributes="0"/>
+                                  <Component id="indonesiaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="60" pref="60" max="60" attributes="0"/>
+                          <Component id="kamchatkaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                          <EmptySpace min="70" pref="70" max="70" attributes="0"/>
+                          <Component id="giapponeLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                          <EmptySpace min="190" pref="190" max="190" attributes="0"/>
+                          <Component id="nuovaGuineaLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="alaskaLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="70" pref="70" max="70" attributes="0"/>
+                                  <Component id="territorioNOLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="groenlandiaLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="albertaLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="ontarioLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="quebecLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="statiUnitiOccLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                  <Component id="statiUnitiOriLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="messicoLabel" min="-2" pref="50" max="-2" attributes="0"/>
+                          <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                                  <Component id="brasileLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="venezuelaLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="peruLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="africaSudLabel" min="-2" pref="90" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="madagascarLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                          <Component id="australiaOccidentaleLabel" min="-2" pref="90" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+                          <Component id="australiaOrientaleLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="argentinaLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="scandinaviaLabel">
@@ -57,11 +366,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="scandinaviaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="90" y="110" width="60" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="ucrainaLabel">
           <Properties>
@@ -74,11 +378,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="ucrainaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="140" width="60" height="110"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="granBretagnaLabel">
           <Properties>
@@ -91,11 +390,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="granBretagnaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="180" width="50" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="uraliLabel">
           <Properties>
@@ -108,11 +402,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="uraliLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="280" y="150" width="50" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="siberiaLabel">
           <Properties>
@@ -124,11 +413,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="siberiaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="330" y="70" width="60" height="110"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jacuziaLabel">
           <Properties>
@@ -141,11 +425,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="jacuziaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="410" y="90" width="80" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="kamchatkaLabel">
           <Properties>
@@ -158,11 +437,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="kamchatkaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="510" y="100" width="70" height="80"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="alaskaLabel">
           <Properties>
@@ -175,11 +449,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="alaskaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="610" y="70" width="80" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="ontarioLabel">
           <Properties>
@@ -192,11 +461,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="ontarioLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="800" y="160" width="70" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="citaLabel">
           <Properties>
@@ -209,11 +473,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="citaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="400" y="170" width="60" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="territorioNOLabel">
           <Properties>
@@ -226,11 +485,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="territorioNOLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="700" y="110" width="110" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="albertaLabel">
           <Properties>
@@ -244,11 +498,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="albertaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="730" y="160" width="70" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="statiUnitiOccLabel">
           <Properties>
@@ -262,11 +511,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="statiUnitiOccLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="730" y="230" width="60" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="quebecLabel">
           <Properties>
@@ -279,11 +523,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="quebecLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="880" y="160" width="60" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="groenlandiaLabel">
           <Properties>
@@ -297,11 +536,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="groenlandiaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="840" y="40" width="140" height="110"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="statiUnitiOriLabel">
           <Properties>
@@ -315,11 +549,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="statiUnitiOriLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="820" y="250" width="80" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="messicoLabel">
           <Properties>
@@ -331,11 +560,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="messicoLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="760" y="310" width="70" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="venezuelaLabel">
           <Properties>
@@ -347,11 +571,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="venezuelaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="820" y="380" width="60" height="30"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="brasileLabel">
           <Properties>
@@ -363,11 +582,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="brasileLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="860" y="400" width="120" height="60"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="peruLabel">
           <Properties>
@@ -379,11 +593,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="peruLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="840" y="490" width="60" height="30"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="argentinaLabel">
           <Properties>
@@ -395,11 +604,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="argentinaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="850" y="550" width="70" height="80"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="australiaOrientaleLabel">
           <Properties>
@@ -412,11 +616,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="australiaOrientaleLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="530" y="580" width="50" height="110"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="australiaOccidentaleLabel">
           <Properties>
@@ -430,11 +629,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="australiaOccidentaleLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="440" y="570" width="50" height="90"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="nuovaGuineaLabel">
           <Properties>
@@ -447,11 +641,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="nuovaGuineaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="510" y="490" width="70" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="indonesiaLabel">
           <Properties>
@@ -465,11 +654,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="indonesiaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="420" y="460" width="80" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="siamLabel">
           <Properties>
@@ -482,11 +666,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="siamLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="390" y="380" width="70" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="indiaLabel">
           <Properties>
@@ -500,11 +679,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="indiaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="310" y="350" width="70" height="80"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="cinaLabel">
           <Properties>
@@ -517,11 +691,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="cinaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="360" y="290" width="130" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="mongoliaLabel">
           <Properties>
@@ -533,11 +702,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="mongoliaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="400" y="240" width="80" height="30"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="giapponeLabel">
           <Properties>
@@ -549,29 +713,19 @@
             </Property>
             <Property name="name" type="java.lang.String" value="giapponeLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="500" y="250" width="50" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="kanakistanLabel">
+        <Component class="javax.swing.JLabel" name="kazakistanLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" resourceKey="europaMeridionaleLabel.font"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" resourceKey="kanakistanLabel.text"/>
-            <Property name="toolTipText" type="java.lang.String" resourceKey="kanakistanLabel.toolTipText"/>
+            <Property name="text" type="java.lang.String" resourceKey="kazakistanLabel.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="kazakistanLabel.toolTipText"/>
             <Property name="verticalAlignment" type="int" value="3"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursore mano"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="kanakistanLabel" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="kazakistanLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="250" y="230" width="70" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="medioOrienteLabel">
           <Properties>
@@ -585,11 +739,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="medioOrienteLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="190" y="300" width="70" height="80"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="europaSettentrionaleLabel">
           <Properties>
@@ -603,11 +752,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="europaSettentrionaleLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="210" width="70" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="europaMeridionaleLabel">
           <Properties>
@@ -620,11 +764,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="europaMeridionaleLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="90" y="260" width="60" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="europaOccidentaleLabel">
           <Properties>
@@ -636,11 +775,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="europaOccidentaleLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="260" width="50" height="50"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="egittoLabel">
           <Properties>
@@ -654,11 +788,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="egittoLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="340" width="70" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="africaOrientaleLabel">
           <Properties>
@@ -672,11 +801,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="africaOrientaleLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="430" width="80" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="africaNordLabel">
           <Properties>
@@ -689,11 +813,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="africaNordLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="350" width="90" height="110"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="congoLabel">
           <Properties>
@@ -706,11 +825,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="congoLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="490" width="50" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="africaSudLabel">
           <Properties>
@@ -723,11 +837,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="africaSudLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="130" y="580" width="60" height="90"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="madagascarLabel">
           <Properties>
@@ -739,11 +848,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="madagascarLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="210" y="550" width="50" height="70"/>
-            </Constraint>
-          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="islandaLabel">
           <Properties>
@@ -757,11 +861,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="islandaLabel" noResource="true"/>
           </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="90" width="50" height="40"/>
-            </Constraint>
-          </Constraints>
         </Component>
       </SubComponents>
     </Container>
