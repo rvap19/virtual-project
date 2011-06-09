@@ -90,7 +90,7 @@
             <confina>15</confina>
             <confina>16</confina>
         </Territorio>
-        <Territorio id="13" nome="Veneziaa" punti="2">
+        <Territorio id="13" nome="Venezia" punti="2">
             <confina>11</confina>
             <confina>12</confina>
             <confina>14</confina>
@@ -265,7 +265,7 @@
             <confina>40</confina>
             <confina>41</confina>
         </Territorio>
-        <continente id="1" nome="Italia Nord-Ovest" rinforzi="5">
+        <continente id="1" nome="Ducato di Savoia" rinforzi="5">
             <territorio>1</territorio>
             <territorio>2</territorio>
             <territorio>3</territorio>
@@ -276,7 +276,7 @@
             <territorio>8</territorio>
             <territorio>9</territorio>
         </continente>
-        <continente id="2" nome="Italia Nord-Est" rinforzi="2">
+        <continente id="2" nome="Repubblica di Venezia" rinforzi="2">
             <territorio>10</territorio>
             <territorio>11</territorio>
             <territorio>12</territorio>
@@ -285,7 +285,7 @@
             <territorio>15</territorio>
             <territorio>16</territorio>
         </continente>
-        <continente id="3" nome="Italia Centro-Nord" rinforzi="5">
+        <continente id="3" nome="Granducato di Toscana" rinforzi="5">
             <territorio>17</territorio>
             <territorio>18</territorio>
             <territorio>19</territorio>
@@ -294,7 +294,7 @@
             <territorio>22</territorio>
             <territorio>23</territorio>
         </continente>
-        <continente id="4" nome="Italia Centro" rinforzi="3">
+        <continente id="4" nome="Regno di Napoli" rinforzi="3">
             <territorio>24</territorio>
             <territorio>25</territorio>
             <territorio>26</territorio>
@@ -302,7 +302,7 @@
             <territorio>28</territorio>
             <territorio>30</territorio>
         </continente>
-        <continente id="5" nome="Italia Sud-Est" rinforzi="7">
+        <continente id="5" nome="Regno del Salento" rinforzi="7">
             <territorio>29</territorio>
             <territorio>31</territorio>
             <territorio>32</territorio>
@@ -310,7 +310,7 @@
             <territorio>34</territorio>
             <territorio>35</territorio>
         </continente>
-        <continente id="6" nome="Italia Sud-Ovest" rinforzi="2">
+        <continente id="6" nome="Isole Maggiori" rinforzi="2">
             <territorio>36</territorio>
             <territorio>37</territorio>
             <territorio>38</territorio>
