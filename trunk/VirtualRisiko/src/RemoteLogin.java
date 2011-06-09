@@ -2,18 +2,12 @@
 import corba.RisikoServer;
 import corba.RisikoServerHelper;
 import corba.UserInfo;
-import java.io.IOException;
-import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import jxta.gui.FullPlayerManagerGUI;
 
-import net.jxta.exception.PeerGroupException;
+
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
-import virtualrisikoii.risiko.Suono;
 
 /*
  * To change this template, choose Tools | Templates

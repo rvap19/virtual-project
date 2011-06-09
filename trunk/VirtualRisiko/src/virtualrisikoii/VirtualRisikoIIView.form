@@ -53,6 +53,16 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="virtualrisikoii.InformationPanel" name="informationPanel1">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="informationPanel1" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                  <JSplitPaneConstraints position="left"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

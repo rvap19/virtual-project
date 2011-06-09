@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import jxta.gui.FullPlayerManagerGUI;
+
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 import net.jxta.peergroup.PeerGroup;
