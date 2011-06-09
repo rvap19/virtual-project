@@ -7,16 +7,13 @@ package jxta.communication;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import jxta.listener.ConnectionListener;
 import net.jxta.endpoint.Message;
-import net.jxta.endpoint.Message.ElementIterator;
 import net.jxta.endpoint.StringMessageElement;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.pipe.PipeMsgEvent;
@@ -24,11 +21,12 @@ import net.jxta.pipe.PipeMsgListener;
 import net.jxta.protocol.PipeAdvertisement;
 import net.jxta.util.JxtaBiDiPipe;
 import net.jxta.util.JxtaServerPipe;
+import virtualrisikoii.GameParameter;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
 import virtualrisikoii.listener.ChatListener;
-import virtualrisikoii.listener.FullInitListener;
+import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.listener.PassListener;
 
@@ -36,9 +34,9 @@ import virtualrisikoii.listener.PassListener;
  *
  * @author root
  */
-public class FullCommunicator implements PipeMsgListener,ConnectionListener{
+public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
-    public static FullCommunicator instance;
+    public static VirtualCommunicator instance;
     
     public final String namespace="VRNameSpace";
     public final String type="type";
@@ -52,7 +50,8 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
     public final String PASSES="passes";
     public final String ACK="ack";
     public final String CHAT="chat";
-    public final String PRESENCE="presence";
+    public final String WELCOME="welcome";
+
 
 
 
@@ -60,104 +59,93 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
     private List<AttackListener> attackListeners;
     private List<ChangeCardListener> changeCardsListeners;
     private List<ChatListener> chatListeners;
-    private List<FullInitListener> initListeners;
+    private List<InitListener> initListeners;
     private List<MovementListener> movementListeners;
     private List<PassListener> passListeners;
     
     private final  String GAMER="gamer";
 
-    private HashMap<String,JxtaBiDiPipe> pipes;
-    private HashMap<String,PipeAdvertisement> advertisement;
-
-    
-    private int current_message_id=0;
-    private String playerName;
-    
+    private List<JxtaBiDiPipe> toPeersPipes;
+    private JxtaBiDiPipe toCentralPeer;
 
     private ConnectionHandler connectionHandler;
-    private PeerGroup peerGroup;
+    private int maxPlayers;
 
-    
+    private boolean isCentral;
+    private int current_message_id=0;
+    private String playerName;
 
-    private FullCommunicator(){
+    private List<String> playerNames;
+    private boolean isClose;
+    private int currentPlayerNumber;
+    private boolean gameInProgress;
+
+    private GameParameter gameParameter;
+
+    private final long GAME_TIMEOUT= 2 * 60 *1000;
+
+    private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
         attackListeners=new ArrayList<AttackListener>();
         changeCardsListeners=new ArrayList<ChangeCardListener>();
         chatListeners=new ArrayList<ChatListener>();
-        initListeners=new ArrayList<FullInitListener>();
+        initListeners=new ArrayList<InitListener>();
         movementListeners=new ArrayList<MovementListener>();
         passListeners=new ArrayList<PassListener>();
-        pipes=new HashMap<String,JxtaBiDiPipe>();
+
+
 
     }
 
     /*
-     * inizializza il comunicatore...nessuna comunicazione è avviata
+     * l'inizializzazione del comunicatore deve prevedere la pubblicazione di una propagate pipe verso tutti i peer
+     *
      */
-    private boolean run;
 
-    public static FullCommunicator initPeerFullCommunicator(String peerName,PipeAdvertisement myPipe,PeerGroup peerGroup) throws IOException{
-        instance=new FullCommunicator();
 
+    public static VirtualCommunicator initCentralCommunicator1(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
+        instance=new VirtualCommunicator();
+        instance.gameInProgress=false;
         instance.playerName=peerName;
-        instance.peerGroup=peerGroup;
-        instance.connectionHandler=new ConnectionHandler(peerGroup, myPipe, 10, 120000);
+        instance.isCentral=true;
+        instance.currentPlayerNumber=1;
+        instance.toPeersPipes=new ArrayList<JxtaBiDiPipe>();
+        instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 120000);
         instance.connectionHandler.setConnectionListener(instance);
         instance.connectionHandler.start();
-     //   thread.start();
-        
+        return instance;
+    }
+
+    public static VirtualCommunicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
+        instance=new VirtualCommunicator();
+        instance.playerName=peerName;
+        instance.isCentral=false;
+        instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,30*1000, instance, true);
+        int counter=0;
+        int limit=4;
+        while((!instance.toCentralPeer.isBound())&&counter<limit){
+            instance.toCentralPeer=new JxtaBiDiPipe(group,pipe,30*1000, instance, true);
+            counter++;
+        }
+
+        if(instance.toCentralPeer.isBound()){
+            instance.toCentralPeer.setMessageListener(instance);
+            Message msg=instance.createWelcomeMessage();
+            instance.sendMessage(msg);
+            return instance;
+        }
+        instance=null;
         return instance;
     }
 
 
 
-   
-
-    public void connectoToPeer(PipeAdvertisement pipe) throws IOException{
-        JxtaBiDiPipe x=new JxtaBiDiPipe(instance.peerGroup,pipe,12*1000, instance, true);
-
-        int counter=0;
-        System.out.println("tentativo connessione :: "+counter+" :: connessione stabilita --> "+x.isBound());
-        int limit=5;
-        while((!x.isBound())&&counter<limit){
-            x=new JxtaBiDiPipe(instance.peerGroup,pipe,12*1000, instance, true);
-
-            counter++;
-            System.out.println("tentativo connessione :: "+counter+" :: connessione stabilita --> "+x.isBound());
-        }
-        x.setMessageListener(instance);
-
-        pipes.put(pipe.getName(), x);
-        Message msg=createPresenceMessage(this.playerName+" Pipe");
-        x.sendMessage(msg);
-
-        
-    }
-
-    public boolean waitForInitAck(long timeout) {
-        Iterator<JxtaBiDiPipe> x=this.pipes.values().iterator();
-        while(x.hasNext()){
-            try {
-                JxtaBiDiPipe bdp = x.next();
-                Message msg = bdp.getMessage(timeout);
-                
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FullCommunicator.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-
-
 
 
 
    
 
-    public static FullCommunicator getInstance(){
+    public static VirtualCommunicator getInstance(){
         return instance;
     }
 
@@ -165,16 +153,6 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
     public void setPlayerName(String player){
         this.playerName=player;
     }
-
-    public HashMap<String, PipeAdvertisement> getAdvertisement() {
-        return advertisement;
-    }
-
-    public void setAdvertisement(HashMap<String, PipeAdvertisement> advertisement) {
-        this.advertisement = advertisement;
-    }
-
-
    
 
     public void addApplianceListener(ApplianceListener listener){
@@ -205,10 +183,10 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         this.chatListeners.remove(listener);
     }
 
-    public void addFullInitListener(FullInitListener listener){
+    public void addInitListener(InitListener listener){
         this.initListeners.add(listener);
     }
-    public void removeFullInitListener(FullInitListener listener){
+    public void removeInitListener(InitListener listener){
         this.initListeners.remove(listener);
     }
 
@@ -226,23 +204,42 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         this.passListeners.remove(listener);
     }
 
+    public int getCurrentPlayerNumber() {
+        return currentPlayerNumber;
+    }
+
+
 
 
     
 
 
 
-    private boolean sendMessage(Message message,int msgID) throws IOException{
+    private boolean sendMessage(Message message,int msgID) {
         StringMessageElement mElement=new StringMessageElement(ID_MSG, Integer.toString(msgID), null);
         message.addMessageElement(namespace, mElement);
        
 
-        
+        if(!this.isCentral){
+            try {
+                return this.toCentralPeer.sendMessage(message);
+            } catch (Exception ex) {
+                Logger.getLogger(VirtualCommunicator.class.getName()).log(Level.SEVERE, null, ex);
+                this.toCentralPeer=null;
+                this.reconnect();
+                return false;
+            }
+        }
         boolean result=true;
-
-        Iterator<JxtaBiDiPipe> x=pipes.values().iterator();
-        while(x.hasNext()){
-            result=result&&x.next().sendMessage(message);
+        
+        for(int i=0;i<this.toPeersPipes.size();i++){
+            try {
+                result = result && toPeersPipes.get(i).sendMessage(message);
+            } catch (Exception ex) {
+                Logger.getLogger(VirtualCommunicator.class.getName()).log(Level.SEVERE, null, ex);
+                toPeersPipes.remove(i);
+                i--;
+            }
         }
         return result;
     }
@@ -258,7 +255,7 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
 
     
 
-    private Message createInitMessage(int players,List<String> names,int seed_dice,String map_name,int seed_card,int seed_region){
+    public Message createInitMessage(int players,int seed_dice,String map_name,int seed_card,int seed_region){
         Message message=new Message();
         StringMessageElement mE=new StringMessageElement(type, INIT, null);
         message.addMessageElement(namespace, mE);
@@ -273,53 +270,43 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         message.addMessageElement(namespace, mElement);
         mElement = new StringMessageElement(InitMessageAttributes.PLAYERS,Integer.toString(players), null);
         message.addMessageElement(namespace, mElement);
-        mElement=new StringMessageElement(ID_MSG, Integer.toString(0), null);
-        message.addMessageElement(namespace, mElement);
-        mElement=new StringMessageElement(GAMER, playerName, null);
-        message.addMessageElement(namespace, mElement);
-         mElement=new StringMessageElement(InitMessageAttributes.CREATOR_PIPENAME, playerName+" Pipe", null);
-        message.addMessageElement(namespace, mElement);
-
-        Iterator<String> iter=names.iterator();
-        while(iter.hasNext()){
-            mElement=new StringMessageElement(InitMessageAttributes.PIPESNAMES, iter.next(), null);
+         mElement=new StringMessageElement(ID_MSG, Integer.toString(0), null);
             message.addMessageElement(namespace, mElement);
-        }
+             mElement=new StringMessageElement(GAMER, playerName, null);
+            message.addMessageElement(namespace, mElement);
         return message;
 
     }
 
-    /*
-     * invocato dal master
-     */
 
-    public boolean sendInitMessages(int players,int seed_dice,String map_name,int seed_card,int seed_region) throws IOException{
+
+    public boolean sendInitMessages() throws IOException{
         Message msg;
         boolean gine=true;
+        if(this.gameInProgress){
+            return true;
+        }
         int turn=1;
-        Iterator<String> keys=pipes.keySet().iterator();
-        List<String> names=elaboratePipesName();
-        while(keys.hasNext()){
-            msg=createInitMessage(players, names,seed_dice, map_name, seed_card, seed_region);
+        Iterator<JxtaBiDiPipe> iter=toPeersPipes.iterator();
+        while(iter.hasNext()){
+            msg=createInitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region());
             StringMessageElement mE=new StringMessageElement(InitMessageAttributes.TURN, Integer.toString(turn), null);
              
             msg.addMessageElement(namespace, mE);
-            gine=gine&&pipes.get(keys.next()).sendMessage(msg);
+            gine=gine&&iter.next().sendMessage(msg);
             turn++;
         }
         return gine;
 
     }
 
-    public List<String> elaboratePipesName(){
-        ArrayList<String> result=new ArrayList<String>();
-        Iterator<String> iter=this.pipes.keySet().iterator();
-        while(iter.hasNext()){
-            result.add(iter.next());
-        }
-        return result;
-
+    public void setGameParameter(GameParameter par,boolean isClosed,List<String> playerNames,int maxPlayers){
+        this.gameParameter=par;
+        this.isClose=isClosed;
+        this.playerNames=playerNames;
+        this.maxPlayers=maxPlayers;
     }
+
     public void elaborateInitMessage(Message message){
         String name=message.getMessageElement(namespace, GAMER).toString();
         if(name.equals(playerName)){
@@ -331,15 +318,9 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         int seed_region=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.SEED_REGION).toString());
         int players=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.PLAYERS).toString());
         int myTurno=Integer.parseInt(message.getMessageElement(namespace, InitMessageAttributes.TURN).toString());
-        String creator=message.getMessageElement(namespace, InitMessageAttributes.CREATOR_PIPENAME).toString();
-        ElementIterator elements=message.getMessageElements(namespace, InitMessageAttributes.PIPESNAMES);
-        ArrayList<String> names=new ArrayList<String>();
-        while(elements.hasNext()){
-            names.add(elements.next().toString());
-        }
-        Iterator<FullInitListener> listeners=this.initListeners.iterator();
+        Iterator<InitListener> listeners=this.initListeners.iterator();
         while(listeners.hasNext()){
-            listeners.next().init(myTurno,players,names,creator,seed_dice, map_name, seed_card, seed_region);
+            listeners.next().init(myTurno,players,seed_dice, map_name, seed_card, seed_region);
         }
     }
 
@@ -469,21 +450,6 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         return message;
     }
 
-    public Message createPresenceMessage(String x){
-        Message message=new Message();
-        StringMessageElement mE=new StringMessageElement(type, PRESENCE, null);
-        message.addMessageElement(namespace, mE);
-
-        StringMessageElement mElement = new StringMessageElement(PresenceAttributes.PIPE_NAME,x, null);
-        message.addMessageElement(namespace, mElement);
-        return message;
-    }
-
-    public String elaboratePresenceMessage(Message msg){
-        return msg.getMessageElement(namespace, PresenceAttributes.PIPE_NAME).toString();
-    }
-
-
     public void elaboratePassesMessage(Message message){
          String name=message.getMessageElement(namespace, GAMER).toString();
         if(name.equals(playerName)){
@@ -496,6 +462,31 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         }
     }
 
+    private Message createWelcomeMessage(){
+       Message message=new Message();
+        StringMessageElement mE=new StringMessageElement(type, WELCOME, null);
+        message.addMessageElement(namespace, mE);
+
+        StringMessageElement mElement = new StringMessageElement(WelcolmeAttributes.PEER_NAME,this.playerName, null);
+        message.addMessageElement(namespace, mElement);
+        return message;
+    }
+
+    private void elaborateWelcomeMessage(JxtaBiDiPipe pipe,Message msg) throws IOException{
+        String name=msg.getMessageElement(namespace, WelcolmeAttributes.PEER_NAME).toString();
+        if((!isClose)||(this.playerNames.contains(name))){
+            this.currentPlayerNumber++;
+            this.toPeersPipes.add(pipe);
+            pipe.setMessageListener(instance);
+            if(this.currentPlayerNumber==this.maxPlayers){
+                this.sendInitMessages();
+                this.gameInProgress=true;
+            }
+        }
+        
+    }
+
+
 
     public Message createACKMessage(int ack_message_id){
         Message message=new Message();
@@ -506,7 +497,6 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         message.addMessageElement(namespace, mElement);
         return message;
     }
-
 
    
 
@@ -560,7 +550,9 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
 
 
 
-     
+     if(this.isCentral){
+            this.sendMessage(msg,msgID);
+     }
       
 
        if(messageType.equals(INIT)){
@@ -588,22 +580,24 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
 
     }
 
-   
+    public void notifyConnection(JxtaBiDiPipe pipe) {
+        try {
+            Message msg=pipe.getMessage(12 * 1000);
+            this.elaborateWelcomeMessage(pipe, msg);
 
-    public void notifyConnection(JxtaBiDiPipe pipe,Message msg) {
-        String pipeName=this.elaboratePresenceMessage(msg);
-            pipes.put(pipeName, pipe);
+        } catch (IOException ex) {
+            System.err.println("ECCEzione su messaggio welcome ricevuto");
+        } catch (InterruptedException ex) {
+            System.err.println("TIMEOUT su nuova connessione ricevuta");
 
-            pipe.setMessageListener(instance);
-        System.out.println("accettata connessione da "+pipeName);
-        
+        }
     }
 
-    public void sendMessageTo(Message ack, String creatorPipe) throws IOException {
-        this.pipes.get(creatorPipe).sendMessage(ack);
+    private void reconnect() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    
+ 
 
     
 
@@ -616,8 +610,6 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         public static final String SEED_REGION="seed_region";
         public static final String PLAYERS="players_number";
         public static final String TURN="myTurn";
-        public static final String PIPESNAMES="pipe_name";
-        public static final String CREATOR_PIPENAME="creator_pipe_name";
     }
 
     public class ApplianceAttributes{
@@ -659,8 +651,8 @@ public class FullCommunicator implements PipeMsgListener,ConnectionListener{
         public static final String SENDER="sender";
     }
 
-    public class PresenceAttributes{
-        public static final String PIPE_NAME="pipe_name";
+    public class WelcolmeAttributes{
+        public static final String PEER_NAME="peer_name";
     }
 
     

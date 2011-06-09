@@ -4,7 +4,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import jxta.gui.FullPlayerManagerGUI;
+import jxta.gui.VirtualPlayerManagerGUI;
+
 
 import net.jxta.exception.PeerGroupException;
 import virtualrisikoii.risiko.Suono;
@@ -28,7 +29,7 @@ public class Login extends javax.swing.JFrame {
 
     /** Creates new form Login */
     
-    private FullPlayerManagerGUI fullGUI;
+    private VirtualPlayerManagerGUI fullGUI;
 
     public Login() {
         initComponents();
@@ -133,7 +134,7 @@ public class Login extends javax.swing.JFrame {
          /*   gui = new PlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
             this.setVisible(false);
             gui.setVisible(true);*/
-              fullGUI = new FullPlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
+              fullGUI = new VirtualPlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
             this.setVisible(false);
             fullGUI.setVisible(true);
 

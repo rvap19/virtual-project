@@ -54,8 +54,8 @@ public class ConnectionHandler extends Thread{
             while(true){
                 JxtaBiDiPipe pipe=server.accept();
                 System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
-                Message msg=pipe.getMessage(12000);
-                connectionListener.notifyConnection(pipe, msg);
+                
+                connectionListener.notifyConnection(pipe);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

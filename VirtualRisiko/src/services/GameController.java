@@ -8,7 +8,8 @@ package services;
 import java.io.IOException;
 import java.util.List;
 //import jxta.communication.Communicator;
-import jxta.communication.FullCommunicator;
+import jxta.communication.VirtualCommunicator;
+
 import net.jxta.endpoint.Message;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
@@ -41,7 +42,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     private Tavolo tavolo;
 //    private Communicator comunicator;
-    private FullCommunicator comunicator;
+    private VirtualCommunicator comunicator;
     private Territorio firstSelection;
     private Territorio secondSelection;
     private int truppeSelezionate;
@@ -63,7 +64,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public GameController(){
         //this.comunicator=Communicator.getInstance();
-        this.comunicator=FullCommunicator.getInstance();
+        this.comunicator=VirtualCommunicator.getInstance();
 
         comunicator.addPassListener(this);
         comunicator.addApplianceListener(this);
