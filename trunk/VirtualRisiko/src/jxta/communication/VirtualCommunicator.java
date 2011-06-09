@@ -51,6 +51,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     public final String ACK="ack";
     public final String CHAT="chat";
     public final String WELCOME="welcome";
+    public final String RECOVERY="recovery";
 
 
 
@@ -597,10 +598,168 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
- 
+    public Message createRecoveryMessage(int[] idOccupante,int[] numeroTruppe,int[] objectives,int[] num_armate,int turno,int numeroGiocatori,int seed_card,int seed_dice,int dice_lanch,int card_lanch){
+        Message message=new Message();
+        StringMessageElement mE=new StringMessageElement(type, RECOVERY, null);
+        message.addMessageElement(namespace, mE);
+
+        //appendo i dati sul territorio
+        message=addTerritoriElement(message, idOccupante, numeroTruppe);
+
+        //appendo i dati sugli obiettivi
+        message=addObjectiveElement(message, objectives);
+        //appendo i dati sul turno
+        message=addTurnElement(message, turno);
+        //appendo i dati sul num giocatori
+        message=addPlayersNumberElement(message, numeroGiocatori);
+        //appendo i dati sulseed dadi
+        message=addSeedDiceElement(message, seed_dice);
+        //appendo i dati sul seed cards
+        message=addSeedCardsElement(message, seed_card);
+
+        //appendo i dati sul numero di volte che i dadi sono stati lanciati
+
+        message=addDiceLanchElement(message, dice_lanch);
+
+        //appendo dati lancio carte
+        message=addCardLanchElement(message, card_lanch);
+
+        //appendoi dati sulle armate
+        message=addArmateElement(message, num_armate);
+
+        return message;
+    }
+
+    private Message addTerritoriElement(Message message,int[] idOccupante,int[] numeroTruppe){
+        int size=idOccupante.length;
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=Integer.toString(idOccupante[i])+" - "+Integer.toString(numeroTruppe[i]);
+            mE=new StringMessageElement(RecoveryMessageAttributes.REGION_INFO,info , null);
+            message.addMessageElement(namespace, mE);     
+        }
+        return message;
+    }
+
+    private Message addObjectiveElement(Message message,int[] objective){
+        int size=objective.length;
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=Integer.toString(objective[i]);
+            mE=new StringMessageElement(RecoveryMessageAttributes.OBJECTIVE_INFO,info , null);
+            message.addMessageElement(namespace, mE);
+        }
+        return message;
+
+    }
+
+    private Message addTurnElement(Message message,int turno){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(turno);
+            mE=new StringMessageElement(RecoveryMessageAttributes.TURN_INFO,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private Message addPlayersNumberElement(Message message,int numeroGiocatori){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(numeroGiocatori);
+            mE=new StringMessageElement(RecoveryMessageAttributes.PLAYERS_INFO,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private Message addSeedDiceElement(Message message,int seed_dice){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(seed_dice);
+            mE=new StringMessageElement(RecoveryMessageAttributes.SEED_DICE,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private Message addSeedCardsElement(Message message,int seed_cards){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(seed_cards);
+            mE=new StringMessageElement(RecoveryMessageAttributes.SEED_CARDS,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private Message addDiceLanchElement(Message message,int dice_lanches){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(dice_lanches);
+            mE=new StringMessageElement(RecoveryMessageAttributes.DICE_LANCH,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private Message addCardLanchElement(Message message,int card_lanches){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(card_lanches);
+            mE=new StringMessageElement(RecoveryMessageAttributes.CARDS_LANCH,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private Message addArmateElement(Message message,int[] num_armate){
+        int size=num_armate.length;
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=Integer.toString(num_armate[i]);
+            mE=new StringMessageElement(RecoveryMessageAttributes.ARMATE,info , null);
+            message.addMessageElement(namespace, mE);
+        }
+        return message;
+
+    }
 
     
+    
 
+    public class RecoveryMessageAttributes{
+        public static final String REGION_INFO="region_info";
+        public static final String OBJECTIVE_INFO="objective_info";
+        public static final String TURN_INFO="turn_info";
+        public static final String PLAYERS_INFO="players_info";
+        public static final String SEED_DICE="seed_dice";
+        public static final String SEED_CARDS="seed_card";
+        public static final String DICE_LANCH="dice_lanch";
+        public static final String CARDS_LANCH="cards_lanch";
+        public static final String ARMATE="armate_lanch";
+    }
    
 
     public class InitMessageAttributes{
@@ -654,6 +813,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     public class WelcolmeAttributes{
         public static final String PEER_NAME="peer_name";
     }
+
 
     
     

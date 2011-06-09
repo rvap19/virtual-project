@@ -56,7 +56,7 @@ public class JFrameInfo extends javax.swing.JFrame {
 
         infoLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         infoLabel.setName("infoLabel"); // NOI18N
 
