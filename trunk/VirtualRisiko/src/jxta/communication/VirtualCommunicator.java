@@ -279,16 +279,18 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             }
         }
         boolean result=true;
-        
-        for(int i=0;i<this.toPeersPipes.size();i++){
+
+        Iterator<JxtaBiDiPipe> iterPipe=this.toPeersPipes.values().iterator();
+        while(iterPipe.hasNext()){
+            JxtaBiDiPipe pipe=iterPipe.next();
             try {
-                result = result && toPeersPipes.get(i).sendMessage(message);
+                result = result && pipe.sendMessage(message);
             } catch (Exception ex) {
-                Logger.getLogger(VirtualCommunicator.class.getName()).log(Level.SEVERE, null, ex);
-                toPeersPipes.remove(i);
-                i--;
+                System.err.println("pipe malfunzionante");
             }
         }
+        
+        
         return result;
     }
 
