@@ -150,6 +150,10 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
     }
 
+    public List<PipeAdvertisement> findPipes() throws PeerGroupException,IOException{
+        return playerDiscover.searchPipes(true);
+    }
+
     public void addPipeListener(PipeListener listener){
         this.playerDiscover.addPlayerPipeListener(listener);
     }
