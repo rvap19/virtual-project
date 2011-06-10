@@ -34,6 +34,7 @@ import virtualrisikoii.listener.ChatListener;
 import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.listener.PassListener;
+import virtualrisikoii.listener.ReconnectionRequestListener;
 import virtualrisikoii.risiko.Tavolo;
 
 /**
@@ -69,7 +70,8 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private List<InitListener> initListeners;
     private List<MovementListener> movementListeners;
     private List<PassListener> passListeners;
-    private List<RecoveryListener> recoveryListeners;
+    private RecoveryListener recoveryListeners;
+    private ReconnectionRequestListener recoveryRequestListener;
     
     private final  String GAMER="gamer";
 
@@ -104,8 +106,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         initListeners=new ArrayList<InitListener>();
         movementListeners=new ArrayList<MovementListener>();
         passListeners=new ArrayList<PassListener>();
-        recoveryListeners=new ArrayList<RecoveryListener>();
-
+        
 
     }
 
@@ -144,6 +145,24 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
         
     }
+
+    public RecoveryListener getRecoveryListeners() {
+        return recoveryListeners;
+    }
+
+    public void setRecoveryListeners(RecoveryListener recoveryListeners) {
+        this.recoveryListeners = recoveryListeners;
+    }
+
+    public ReconnectionRequestListener getRecoveryRequestListener() {
+        return recoveryRequestListener;
+    }
+
+    public void setRecoveryRequestListener(ReconnectionRequestListener recoveryRequestListener) {
+        this.recoveryRequestListener = recoveryRequestListener;
+    }
+
+
 
     public boolean connect() throws IOException{
         int counter=0;
@@ -523,6 +542,13 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         
     }
 
+    private void elaborateReconnectRequest(JxtaBiDiPipe pipe,Message msg){
+        String name=msg.getMessageElement(namespace, WelcolmeAttributes.PEER_NAME).toString();
+        int turn=this.findTurno(name);
+        this.recoveryRequestListener.notifyReconnectionRequest(turn);
+
+    }
+
 
 
     public Message createACKMessage(int ack_message_id){
@@ -625,7 +651,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             if(!this.gameInProgress){
                 this.elaborateWelcomeMessage(pipe, msg);
             }else{
-                sendRecoveryMessage(pipe);
+                this.elaborateReconnectRequest(pipe,msg);
             }
 
 
@@ -639,11 +665,20 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     
 
-    public void sendRecoveryMessage(JxtaBiDiPipe pipe) throws IOException{
+    public void sendRecoveryMessage(int player) throws IOException{
         RecoveryUtil util=new RecoveryUtil();
         RecoveryParameter parameter=util.createBackup();
+        parameter.setTurnoMyGiocatore(player);
         Message msg=createRecoveryMessage(parameter);
-        pipe.sendMessage(msg);
+        Iterator<String> iter=toPeersPipes.keySet().iterator();
+        int index=0;
+        String name=null;
+        while(index<player && iter.hasNext()){
+            name=iter.next();
+            index++;
+        }
+        toPeersPipes.get(name).sendMessage(msg);
+        
        
 
 
@@ -682,7 +717,6 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         //appendoi dati sulle armate
         message=addArmateElement(message, parameter.getArmateDisponibili());
 
-        message=addTurnoMyGiocatoreElement(message, findTurno());
 
         return message;
     }
@@ -741,10 +775,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
         RecoveryParameter parameter=new RecoveryParameter(mapName, inizializzazione, idOccupante, troopsNumber, objectives, num_armate, turno, numeroGiocatori, seed_card, seed_dice, dice_lanch, card_lanch);
         parameter.setTurnoMyGiocatore(turnoMyGiocatore);
-        Iterator<RecoveryListener> listeners=this.recoveryListeners.iterator();
-        while(listeners.hasNext()){
-            listeners.next().notifyReconnect(parameter);
-        }
+        
+            recoveryListeners.notifyReconnect(parameter);
+        
     }
 
     private Message addInitElement(Message message,boolean inizializzazione){
