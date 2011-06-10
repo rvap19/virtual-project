@@ -36,12 +36,18 @@ public  class Tavolo {
 
     private Attacco lastAttacco;
 
+    private int diceLanch;
+    private int cardLanch;
+
+    private int cardSeed;
+    private int diceSeed;
 
 
     private static Tavolo instance=null;
     private  Tavolo(){
 
     }
+
 
     public static Tavolo getInstance(){
         return instance;
@@ -53,7 +59,18 @@ public  class Tavolo {
         return instance;
     }
 
+    public int getCardSeed() {
+        return cardSeed;
+    }
+
+    public int getDiceSeed() {
+        return diceSeed;
+    }
+
+    
     private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards) throws MappaException{
+        this.diceSeed=seed_dice;
+        this.cardSeed=seed_cards;
         dado=new Random(seed_dice);
         this.mappa=mappa;
         this.obiettivi=obiettivi;
@@ -64,6 +81,8 @@ public  class Tavolo {
         this.initCarte(seed_cards);
         this.myGiocatore=giocatori.get(myTurno);
         inizializzazione=true;
+        this.diceLanch=0;
+        this.cardLanch=0;
     }
 
     public String getNameMap() {
@@ -230,7 +249,8 @@ public  class Tavolo {
         Carta carta=null;
         if(lastAttacco.isVittoria()){
             if(this.carte.size()>0){
-                 carta=this.carte.remove(nextCard.nextInt(carte.size()));
+                 carta=this.carte.remove(this.getNuovaCartaID());
+                 
                  lastAttacco.getGiocatore().getCarte().add(carta);
             }
             lastAttacco=null;
@@ -425,9 +445,31 @@ public  class Tavolo {
     public int[] lanciaDadi(int numeroDadi){
         int[] risultato=new int[numeroDadi];
         for(int i=0;i<numeroDadi;i++){
-            risultato[i]=dado.nextInt(6)+1;
+            risultato[i]=lanciaDado();
         }
         return risultato;
+    }
+
+    public int lanciaDado(){
+        int result=dado.nextInt(6)+1;
+        this.diceLanch++;
+        return result;
+    }
+
+    public int getCardLanch() {
+        return cardLanch;
+    }
+
+    public int getDiceLanch() {
+        return diceLanch;
+    }
+
+    
+
+    public int getNuovaCartaID(){
+        int id=nextCard.nextInt(carte.size());
+        this.cardLanch++;
+        return id;
     }
 
   /*  public void avviaGioco() {
@@ -460,7 +502,6 @@ public  class Tavolo {
     public boolean existLastAttack() {
         return lastAttacco!=null;
     }
-
 
 
    
