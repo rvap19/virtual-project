@@ -11,6 +11,9 @@
 
 package virtualrisikoii;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import jxta.communication.Communicator;
@@ -255,8 +258,12 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     }// </editor-fold>//GEN-END:initComponents
 
     private void passaTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passaTurnoButtonActionPerformed
-        // TODO add your handling code here:
-        controller.passaTurno();
+        try {
+            // TODO add your handling code here:
+            controller.passaTurno();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
         
     }//GEN-LAST:event_passaTurnoButtonActionPerformed
