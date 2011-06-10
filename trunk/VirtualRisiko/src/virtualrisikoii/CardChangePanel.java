@@ -30,9 +30,9 @@ public class CardChangePanel extends javax.swing.JPanel {
     /** Creates new form CardChangePanel */
     public CardChangePanel() {
         
-       this.controller = new CardChangeController();
-       controller.setGiocatore(Tavolo.getInstance().getMyGiocatore());
-       controller.setMappa(Tavolo.getInstance().getMappa());
+        this.controller = new CardChangeController();
+        controller.setGiocatore(Tavolo.getInstance().getMyGiocatore());
+        controller.setMappa(Tavolo.getInstance().getMappa());
         initComponents();
         this.selectJolly.setEnabled(false);
         this.fanteLittleIcon.setText("0");

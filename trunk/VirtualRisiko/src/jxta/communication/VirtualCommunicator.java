@@ -645,22 +645,21 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     }
 
-    public void notifyConnection(JxtaBiDiPipe pipe) {
-        try {
-            Message msg=pipe.getMessage(30 * 1000);
+    public void notifyConnection(JxtaBiDiPipe pipe,Message msg) {
+       
+            
             if(!this.gameInProgress){
+            try {
                 this.elaborateWelcomeMessage(pipe, msg);
+            } catch (IOException ex) {
+                System.err.println("impossibile usre msg di registrazione");
+            }
             }else{
                 this.elaborateReconnectRequest(pipe,msg);
             }
 
 
-        } catch (IOException ex) {
-            System.err.println("ECCEzione su messaggio welcome/recovery ricevuto");
-        } catch (InterruptedException ex) {
-            System.err.println("TIMEOUT su nuova connessione ricevuta");
-
-        }
+       
     }
 
     
