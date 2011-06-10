@@ -13,6 +13,8 @@ import net.jxta.util.JxtaBiDiPipe;
  * @author root
  */
 public interface ConnectionListener {
-    public void notifyConnection( JxtaBiDiPipe pipe);
+    
+
+    public void notifyConnection(JxtaBiDiPipe pipe, Message msg);
 
 }

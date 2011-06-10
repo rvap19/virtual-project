@@ -57,13 +57,16 @@ public class ConnectionHandler extends Thread{
             System.err.println("server pipe avviato");
             while(true){
                 JxtaBiDiPipe pipe;
-            try {
-                pipe = server.accept();
-                connectionListener.notifyConnection(pipe);
-                System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
-            } catch (IOException ex) {
-                Logger.getLogger(ConnectionHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                try {
+                    pipe = server.accept();
+                    Message msg=pipe.getMessage(30 * 1000);
+                    connectionListener.notifyConnection(pipe,msg);
+                    System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
+                } catch (InterruptedException ex) {
+                     System.err.println("timeout su ricezione msg registrazione");
+                } catch (IOException ex) {
+                    System.err.println("impossibile regstrare utente");
+                }
                 
                 
                 
