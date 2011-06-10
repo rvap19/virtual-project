@@ -33,13 +33,17 @@ import net.jxta.document.Advertisement;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.protocol.PipeAdvertisement;
 import services.GameController;
+import services.RecoveryListener;
 import util.GameFactory;
+import util.ObiettiviException;
 import virtualrisikoii.GameParameter;
+import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIView;
 import virtualrisikoii.XMapPanel;
 import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.risiko.Mappa;
+import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Obiettivo;
 import virtualrisikoii.risiko.Tavolo;
 
@@ -47,7 +51,7 @@ import virtualrisikoii.risiko.Tavolo;
  *
  * @author root
  */
-public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener , InitListener{
+public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener , InitListener,RecoveryListener{
 
     private PlayerManager manager;
     private GameDialog gameDialog;
@@ -344,6 +348,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             gameParameter.setSeed_region(random.nextInt());
             communicator.setGameParameter(gameParameter, false, null, maxPlayers);
             communicator.addInitListener(this);
+            communicator.setRecoveryListeners(this);
         } catch (IOException ex) {
            System.out.println("impossbile creare gioco "+name);
         }
@@ -561,6 +566,30 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         } 
 
 
+    }
+
+    public void notifyReconnect(RecoveryParameter parameter) {
+        try {
+            System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            GameFactory factory = new GameFactory();
+            //factory.loadGame("classicalMap");
+            factory.loadGame(parameter.getMapName());
+            Mappa mappa = factory.getMappa();
+            List<Obiettivo> obiettivi = factory.getObiettivi();
+            int turno = 0;
+            System.out.println("riconnessione con turno " + parameter.getTurnoMyGiocatore());
+            Tavolo tavolo = Tavolo.getInstance();
+            GameController controller = GameController.createGameController();
+            this.setVisible(false);
+            factory.loadMapPanel();
+            XMapPanel panel = factory.getMapPanel();
+            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
+            app.show(new VirtualRisikoIIView(app, panel));
+        } catch (MappaException ex) {
+            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ObiettiviException ex) {
+            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

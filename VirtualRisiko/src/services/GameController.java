@@ -8,6 +8,8 @@ package services;
 import java.io.IOException;
 import java.util.List;
 //import jxta.communication.Communicator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jxta.communication.VirtualCommunicator;
 
 import net.jxta.endpoint.Message;
@@ -19,6 +21,7 @@ import virtualrisikoii.listener.ChangeCardListener;
 import virtualrisikoii.listener.ChatListener;
 import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.listener.PassListener;
+import virtualrisikoii.listener.ReconnectionRequestListener;
 import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Carta;
@@ -34,7 +37,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener{
+public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,ReconnectionRequestListener{
     private MapListener mapListener;
     private HistoryListener historyListener;
     private PlayerDataListener playerDataListener;
@@ -53,6 +56,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     private static GameController instance=null;
 
+    private boolean[] reconnectionNeeds;
+
     public static GameController createGameController(){
         if(instance==null){
             instance=new GameController();
@@ -66,7 +71,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     
 
-    public GameController(){
+    private GameController(){
         //this.comunicator=Communicator.getInstance();
         this.comunicator=VirtualCommunicator.getInstance();
 
@@ -75,8 +80,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         comunicator.addAttackListener(this);
         comunicator.addMovementListener(this);
         comunicator.addChangeCardsListener(this);
-
+        comunicator.setRecoveryRequestListener(this);
         this.tavolo=Tavolo.getInstance();
+
+        this.reconnectionNeeds=new boolean[tavolo.getGiocatori().size()];
+        for(int i=0;i<reconnectionNeeds.length;i++){
+            reconnectionNeeds[i]=false;
+        }
 
     }
 
@@ -757,10 +767,19 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.out.println("ancora in inizializzazione "+tavolo.isInizializzazione());
             }
 
+            if(this.reconnectionNeeds[turnoSucc]){
+                try {
+                    this.comunicator.sendRecoveryMessage(turnoSucc);
+                    this.reconnectionNeeds[turnoSucc] = false;
+                } catch (IOException ex) {
+                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
 
     }
 
-    public void passaTurno(){
+    public void passaTurno() throws IOException{
         if((!tavolo.isInizializzazione())&&tavolo.isTurnoMyGiocatore()){
             //codice per il recupero carta
             Carta carta=tavolo.recuperaCarta(tavolo.getMyGiocatore());
@@ -782,6 +801,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
+        int turno=tavolo.getTurno();
+        if(this.reconnectionNeeds[turno]){
+            this.comunicator.sendRecoveryMessage(turno);
+            this.reconnectionNeeds[turno]=false;
+        }
     }
 
     public void setChatListener(ChatListener aThis) {
@@ -793,6 +817,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
     public void setCardChangeListener(CardChangeListener aThis) {
        this.cardChangeListener=aThis;
+    }
+
+    public void notifyReconnectionRequest(int player) {
+        reconnectionNeeds[player]=true;
     }
 
   
