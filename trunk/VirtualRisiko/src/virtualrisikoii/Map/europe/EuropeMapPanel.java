@@ -46,6 +46,9 @@ public class EuropeMapPanel extends XMapPanel {
         gameController.setTroopsSelector(this);
         gameController.setVictoryListener(this);
         gameController.setCardListener(this);
+        gameController.setCardChangeListener(this);
+
+
         initComponents();
         territoriLabels=new JLabel[42];
         territoriLabels[0]=islandaLabel;
