@@ -38,6 +38,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private VictoryListener victoryListener;
     private TroopsSelector troopsSelector;
     private CardListener cardListener;
+    private CardChangeListener cardChangeListener;
     
 
     private Tavolo tavolo;
@@ -263,6 +264,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         carte.add(c1);
         carte.add(c2);
         carte.add(c3);
+        this.cardChangeListener.notifyChangeCard(g, c1, c2, c3, rinforzi);
 
     }
 
@@ -785,6 +787,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void setCardListener(CardListener aThis) {
        this.cardListener=aThis;
+    }
+    public void setCardChangeListener(CardChangeListener aThis) {
+       this.cardChangeListener=aThis;
     }
 
 }
