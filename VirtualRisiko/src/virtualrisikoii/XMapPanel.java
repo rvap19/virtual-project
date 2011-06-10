@@ -12,20 +12,23 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import services.CardChangeListener;
 import services.CardListener;
 import services.GameController;
 import services.MapListener;
 import services.TroopsSelector;
 import services.VictoryListener;
+import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.JFrameCarte;
 import virtualrisikoii.risiko.JFrameDadi;
+import virtualrisikoii.risiko.JFrameScambioCarte;
 
 /**
  *
  * @author root
  */
-public abstract class XMapPanel extends JPanel implements MapListener,TroopsSelector,VictoryListener,CardListener{
+public abstract class XMapPanel extends JPanel implements MapListener,TroopsSelector,VictoryListener,CardListener, CardChangeListener{
     protected JLabel[] territoriLabels;
     protected ImageIcon[] icons;
 
@@ -152,6 +155,11 @@ public abstract class XMapPanel extends JPanel implements MapListener,TroopsSele
         jfc.setVisible(true);
 
           }
+
+    public void notifyChangeCard(Giocatore giocatore, Carta carta1, Carta carta2, Carta carta3, int rinforzi){
+        JFrameScambioCarte jfsc= new JFrameScambioCarte(giocatore, carta1, carta2, carta3, rinforzi);
+        jfsc.setVisible(true);
+    }
 
     public class LabelSelector extends MouseAdapter{
        public void mouseClicked(MouseEvent e){
