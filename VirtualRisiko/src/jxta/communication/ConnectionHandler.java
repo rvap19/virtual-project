@@ -48,18 +48,27 @@ public class ConnectionHandler extends Thread{
 
 
     public void run() {
-       try {
-            server=new JxtaServerPipe(group, pipeadv, backlog, timeout);
+        try {
+            server = new JxtaServerPipe(group, pipeadv, backlog, timeout);
+        } catch (IOException ex) {
+            System.err.println("impossibile avviare server");
+            System.exit(-1);
+        }
             System.err.println("server pipe avviato");
             while(true){
-                JxtaBiDiPipe pipe=server.accept();
-                System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
-                
+                JxtaBiDiPipe pipe;
+            try {
+                pipe = server.accept();
                 connectionListener.notifyConnection(pipe);
+                System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectionHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+                
+                
+                
+            }
+        
     }
 
    

@@ -7,6 +7,7 @@ package jxta.communication;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 
 import jxta.listener.ConnectionListener;
 import net.jxta.endpoint.Message;
+import net.jxta.endpoint.MessageElement;
 import net.jxta.endpoint.StringMessageElement;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.pipe.PipeMsgEvent;
@@ -21,7 +23,10 @@ import net.jxta.pipe.PipeMsgListener;
 import net.jxta.protocol.PipeAdvertisement;
 import net.jxta.util.JxtaBiDiPipe;
 import net.jxta.util.JxtaServerPipe;
+import services.RecoveryListener;
+import util.RecoveryUtil;
 import virtualrisikoii.GameParameter;
+import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
@@ -29,6 +34,7 @@ import virtualrisikoii.listener.ChatListener;
 import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.listener.PassListener;
+import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
@@ -63,11 +69,14 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private List<InitListener> initListeners;
     private List<MovementListener> movementListeners;
     private List<PassListener> passListeners;
+    private List<RecoveryListener> recoveryListeners;
     
     private final  String GAMER="gamer";
 
-    private List<JxtaBiDiPipe> toPeersPipes;
+   // private List<JxtaBiDiPipe> toPeersPipes;
     private JxtaBiDiPipe toCentralPeer;
+    //HashMap<nomegiocatore,pipe>
+    private HashMap<String,JxtaBiDiPipe> toPeersPipes;
 
     private ConnectionHandler connectionHandler;
     private int maxPlayers;
@@ -76,14 +85,16 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private int current_message_id=0;
     private String playerName;
 
-    private List<String> playerNames;
+   // private List<String> playerNames;
     private boolean isClose;
     private int currentPlayerNumber;
     private boolean gameInProgress;
 
     private GameParameter gameParameter;
+    private PipeAdvertisement centralPeerPipeAdv;
 
     private final long GAME_TIMEOUT= 2 * 60 *1000;
+    private PeerGroup peerGroup;
 
     private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -93,7 +104,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         initListeners=new ArrayList<InitListener>();
         movementListeners=new ArrayList<MovementListener>();
         passListeners=new ArrayList<PassListener>();
-
+        recoveryListeners=new ArrayList<RecoveryListener>();
 
 
     }
@@ -110,7 +121,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         instance.playerName=peerName;
         instance.isCentral=true;
         instance.currentPlayerNumber=1;
-        instance.toPeersPipes=new ArrayList<JxtaBiDiPipe>();
+        instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
         instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 120000);
         instance.connectionHandler.setConnectionListener(instance);
         instance.connectionHandler.start();
@@ -122,23 +133,35 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         instance.playerName=peerName;
         instance.isCentral=false;
         instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,30*1000, instance, true);
+        instance.centralPeerPipeAdv=pipe;
+        instance.peerGroup=group;
+
+        if(!instance.connect()){
+            instance=null;
+        }
+
+        return instance;
+
+        
+    }
+
+    public boolean connect() throws IOException{
         int counter=0;
         int limit=4;
-        while((!instance.toCentralPeer.isBound())&&counter<limit){
-            instance.toCentralPeer=new JxtaBiDiPipe(group,pipe,30*1000, instance, true);
+        while((!toCentralPeer.isBound())&&counter<limit){
+            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,30*1000, this, true);
             counter++;
         }
 
-        if(instance.toCentralPeer.isBound()){
-            instance.toCentralPeer.setMessageListener(instance);
-            Message msg=instance.createWelcomeMessage();
-            instance.sendMessage(msg);
-            return instance;
+        if(toCentralPeer.isBound()){
+            toCentralPeer.setMessageListener(instance);
+            Message msg=createWelcomeMessage();
+            sendMessage(msg);
+            return true;
         }
-        instance=null;
-        return instance;
-    }
 
+        return false;
+    }
 
 
 
@@ -227,7 +250,12 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             } catch (Exception ex) {
                 Logger.getLogger(VirtualCommunicator.class.getName()).log(Level.SEVERE, null, ex);
                 this.toCentralPeer=null;
-                this.reconnect();
+                try {
+                    this.connect();
+                } catch (IOException ex1) {
+                    System.err.println("impossibile accedere al nodo centrale");
+                    System.exit(-1);
+                }
                 return false;
             }
         }
@@ -285,18 +313,20 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         Message msg;
         boolean gine=true;
         if(this.gameInProgress){
-            return true;
+            return false;
         }
         int turn=1;
-        Iterator<JxtaBiDiPipe> iter=toPeersPipes.iterator();
+
+        Iterator<String> iter=toPeersPipes.keySet().iterator();
         while(iter.hasNext()){
             msg=createInitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region());
             StringMessageElement mE=new StringMessageElement(InitMessageAttributes.TURN, Integer.toString(turn), null);
              
             msg.addMessageElement(namespace, mE);
-            gine=gine&&iter.next().sendMessage(msg);
+            gine=gine&&toPeersPipes.get(iter.next()).sendMessage(msg);
             turn++;
         }
+        this.gameInProgress=true;
         return gine;
 
     }
@@ -304,7 +334,13 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     public void setGameParameter(GameParameter par,boolean isClosed,List<String> playerNames,int maxPlayers){
         this.gameParameter=par;
         this.isClose=isClosed;
-        this.playerNames=playerNames;
+        if(isClosed){
+           Iterator<String> iter=playerNames.iterator();
+            while(iter.hasNext()){
+                toPeersPipes.put(iter.next(), null);
+            }
+        }
+        
         this.maxPlayers=maxPlayers;
     }
 
@@ -475,9 +511,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private void elaborateWelcomeMessage(JxtaBiDiPipe pipe,Message msg) throws IOException{
         String name=msg.getMessageElement(namespace, WelcolmeAttributes.PEER_NAME).toString();
-        if((!isClose)||(this.playerNames.contains(name))){
+        if((!isClose)||(this.toPeersPipes.containsKey(name))){
             this.currentPlayerNumber++;
-            this.toPeersPipes.add(pipe);
+            this.toPeersPipes.put(name, pipe);
             pipe.setMessageListener(instance);
             if(this.currentPlayerNumber==this.maxPlayers){
                 this.sendInitMessages();
@@ -569,6 +605,8 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
            this.elaborateChangeCardsMessage(msg);
        }else if(messageType.equals(PASSES)){
            this.elaboratePassesMessage(msg);
+       }else if(messageType.equals(RECOVERY)){
+           this.elaborateRecoveryMessage(msg);
        }else if(messageType.equals(CHAT)){
            this.elaborateChatMessage(msg);
            return;
@@ -583,63 +621,234 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     public void notifyConnection(JxtaBiDiPipe pipe) {
         try {
-            Message msg=pipe.getMessage(12 * 1000);
-            this.elaborateWelcomeMessage(pipe, msg);
+            Message msg=pipe.getMessage(30 * 1000);
+            if(!this.gameInProgress){
+                this.elaborateWelcomeMessage(pipe, msg);
+            }else{
+                sendRecoveryMessage(pipe);
+            }
+
 
         } catch (IOException ex) {
-            System.err.println("ECCEzione su messaggio welcome ricevuto");
+            System.err.println("ECCEzione su messaggio welcome/recovery ricevuto");
         } catch (InterruptedException ex) {
             System.err.println("TIMEOUT su nuova connessione ricevuta");
 
         }
     }
 
-    private void reconnect() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    
+
+    public void sendRecoveryMessage(JxtaBiDiPipe pipe) throws IOException{
+        RecoveryUtil util=new RecoveryUtil();
+        RecoveryParameter parameter=util.createBackup();
+        Message msg=createRecoveryMessage(parameter);
+        pipe.sendMessage(msg);
+       
+
+
     }
 
-    public Message createRecoveryMessage(int[] idOccupante,int[] numeroTruppe,int[] objectives,int[] num_armate,int turno,int numeroGiocatori,int seed_card,int seed_dice,int dice_lanch,int card_lanch){
+    private Message createRecoveryMessage(RecoveryParameter parameter){
         Message message=new Message();
         StringMessageElement mE=new StringMessageElement(type, RECOVERY, null);
         message.addMessageElement(namespace, mE);
+        message=addMapNameElement(message, parameter.getMapName());
 
+        //appendo i dati sull inizializzaione
+        message=addInitElement(message, parameter.isInizializzazione());
         //appendo i dati sul territorio
-        message=addTerritoriElement(message, idOccupante, numeroTruppe);
-
+        message=addTerritoriOccupanteElement(message, parameter.getIdOccupante());
+        message=addTerritoriNumeroTruppeElement(message, parameter.getNumeroTruppe());
+        message=addRegionsNumberElement(message, parameter.getIdOccupante().length);
         //appendo i dati sugli obiettivi
-        message=addObjectiveElement(message, objectives);
+        message=addObjectiveElement(message, parameter.getObjectives());
         //appendo i dati sul turno
-        message=addTurnElement(message, turno);
+        message=addTurnElement(message, parameter.getTurno());
         //appendo i dati sul num giocatori
-        message=addPlayersNumberElement(message, numeroGiocatori);
+        message=addPlayersNumberElement(message, parameter.getNumeroGiocatori());
         //appendo i dati sulseed dadi
-        message=addSeedDiceElement(message, seed_dice);
+        message=addSeedDiceElement(message, parameter.getSeed_dice());
         //appendo i dati sul seed cards
-        message=addSeedCardsElement(message, seed_card);
+        message=addSeedCardsElement(message, parameter.getSeed_card());
 
         //appendo i dati sul numero di volte che i dadi sono stati lanciati
 
-        message=addDiceLanchElement(message, dice_lanch);
+        message=addDiceLanchElement(message, parameter.getDice_lanch());
 
         //appendo dati lancio carte
-        message=addCardLanchElement(message, card_lanch);
+        message=addCardLanchElement(message, parameter.getCards_lanch());
 
         //appendoi dati sulle armate
-        message=addArmateElement(message, num_armate);
+        message=addArmateElement(message, parameter.getArmateDisponibili());
+
+        message=addTurnoMyGiocatoreElement(message, findTurno());
 
         return message;
     }
 
-    private Message addTerritoriElement(Message message,int[] idOccupante,int[] numeroTruppe){
+    private int findTurno(String name){
+        Iterator<String> iter=this.toPeersPipes.keySet().iterator();
+        int index=0;
+        boolean found=false;
+        while(iter.hasNext()&&!found){
+            found=iter.next().equals(name);
+            if(!found){
+                index++;
+            }
+        }
+        return index;
+    }
+    public void elaborateRecoveryMessage(Message message){
+
+
+        //ricevo i dati sull inizializzaione
+        boolean inizializzazione=elaborateInitElement(message);
+
+        //ricevo i dati sul territorio
+        int regions=elaborateRegionsNumberElement(message);
+        int[] idOccupante=elaborateTerritoriOccupanteElements(message, regions);
+        int[] troopsNumber=elaborateTerritoriNumeroTruppeElements(message, regions);
+
+         //ricevo i dati sul num giocatori
+        int numeroGiocatori=elaboratePlayerNumberElement(message);
+
+        //ricevo i dati sugli obiettivi
+        int[] objectives=elaborateObjectiveElements(message, numeroGiocatori);
+        
+        
+        //ricevo i dati sul turno
+        int turno=elaborateTurnElement(message);
+       
+        //ricevo i dati sulseed dadi
+        int seed_dice=elaborateSeedDiceElement(message);
+        
+        //ricevo i dati sul seed cards
+        int seed_card=elaborateSeedCardElement(message);
+
+        //ricevo i dati sul numero di volte che i dadi sono stati lanciati
+        int dice_lanch=elaborateDiceLanchElement(message);
+
+        //appendo dati lancio carte
+        int card_lanch=elaborateCardLanchElement(message);
+
+        //appendoi dati sulle armate
+        int[] num_armate=elaborateArmateElements(message, numeroGiocatori);
+
+        int turnoMyGiocatore=elaborateTurnoMyGiocatoreElement(message);
+
+        String mapName=elaborateMapNameElement(message);
+
+        RecoveryParameter parameter=new RecoveryParameter(mapName, inizializzazione, idOccupante, troopsNumber, objectives, num_armate, turno, numeroGiocatori, seed_card, seed_dice, dice_lanch, card_lanch);
+        parameter.setTurnoMyGiocatore(turnoMyGiocatore);
+        Iterator<RecoveryListener> listeners=this.recoveryListeners.iterator();
+        while(listeners.hasNext()){
+            listeners.next().notifyReconnect(parameter);
+        }
+    }
+
+    private Message addInitElement(Message message,boolean inizializzazione){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Boolean.toString(inizializzazione);
+            mE=new StringMessageElement(RecoveryMessageAttributes.INIT_INFO,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private boolean elaborateInitElement(Message message){
+
+        boolean  inizializzazione=Boolean.parseBoolean(message.getMessageElement(namespace, RecoveryMessageAttributes.INIT_INFO).toString());
+        return inizializzazione;
+    }
+
+    private Message addMapNameElement(Message message,String mapName){
+
+        String info=mapName;
+        StringMessageElement mE;
+
+            
+            mE=new StringMessageElement(RecoveryMessageAttributes.MAP_NAME,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private String elaborateMapNameElement(Message message){
+
+        String  mapName=message.getMessageElement(namespace, RecoveryMessageAttributes.INIT_INFO).toString();
+        return mapName;
+    }
+
+    private Message addRegionsNumberElement(Message message,int regions){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(regions);
+            mE=new StringMessageElement(RecoveryMessageAttributes.REGION_NUMBER,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+
+    }
+
+    private int elaborateRegionsNumberElement(Message message){
+
+        int  regionsNumber=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.REGION_NUMBER).toString());
+        return regionsNumber;
+    }
+
+
+    private Message addTerritoriOccupanteElement(Message message,int[] idOccupante){
         int size=idOccupante.length;
         String info;
         StringMessageElement mE;
         for(int i=0;i<size;i++){
-            info=Integer.toString(idOccupante[i])+" - "+Integer.toString(numeroTruppe[i]);
-            mE=new StringMessageElement(RecoveryMessageAttributes.REGION_INFO,info , null);
+            info=Integer.toString(idOccupante[i]);
+            mE=new StringMessageElement(RecoveryMessageAttributes.REGION_OCCUPANTE_INFO,info , null);
             message.addMessageElement(namespace, mE);     
         }
         return message;
+    }
+
+    private int[] elaborateTerritoriOccupanteElements(Message message,int regions){
+        int[] occupante=new int[regions];
+        Message.ElementIterator iter=message.getMessageElements(RecoveryMessageAttributes.REGION_OCCUPANTE_INFO);
+        int counter=0;
+        while(iter.hasNext()){
+            occupante[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return occupante;
+    }
+
+    private Message addTerritoriNumeroTruppeElement(Message message,int[] numeroTruppe){
+        int size=numeroTruppe.length;
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=Integer.toString(numeroTruppe[i]);
+            mE=new StringMessageElement(RecoveryMessageAttributes.REGION_TROOPS_NUMBER_INFO,info , null);
+            message.addMessageElement(namespace, mE);
+        }
+        return message;
+    }
+
+    private int[] elaborateTerritoriNumeroTruppeElements(Message message,int regions){
+        int[] troopsNumber=new int[regions];
+        Message.ElementIterator iter=message.getMessageElements(RecoveryMessageAttributes.REGION_TROOPS_NUMBER_INFO);
+        int counter=0;
+        while(iter.hasNext()){
+            troopsNumber[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return troopsNumber;
     }
 
     private Message addObjectiveElement(Message message,int[] objective){
@@ -655,6 +864,17 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     }
 
+    private int[] elaborateObjectiveElements(Message message,int players){
+        int[] objectives=new int[players];
+        Message.ElementIterator iter=message.getMessageElements(RecoveryMessageAttributes.OBJECTIVE_INFO);
+        int counter=0;
+        while(iter.hasNext()){
+            objectives[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return objectives;
+    }
+
     private Message addTurnElement(Message message,int turno){
 
         String info;
@@ -666,6 +886,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
         return message;
 
+    }
+
+    public int elaborateTurnElement(Message message){
+        int turn=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.TURN_INFO).toString());
+        return turn;
     }
 
     private Message addPlayersNumberElement(Message message,int numeroGiocatori){
@@ -681,6 +906,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     }
 
+    public int elaboratePlayerNumberElement(Message message){
+        int players=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.PLAYERS_INFO).toString());
+        return players;
+    }
+
     private Message addSeedDiceElement(Message message,int seed_dice){
 
         String info;
@@ -692,6 +922,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
         return message;
 
+    }
+
+    public int elaborateSeedDiceElement(Message message){
+        int seed_dice=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.SEED_DICE).toString());
+        return seed_dice;
     }
 
     private Message addSeedCardsElement(Message message,int seed_cards){
@@ -707,6 +942,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     }
 
+    public int elaborateSeedCardElement(Message message){
+        int seed_cards=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.SEED_CARDS).toString());
+        return seed_cards;
+    }
+
     private Message addDiceLanchElement(Message message,int dice_lanches){
 
         String info;
@@ -718,6 +958,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
         return message;
 
+    }
+
+    public int elaborateDiceLanchElement(Message message){
+        int dice_lanch=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.DICE_LANCH).toString());
+        return dice_lanch;
     }
 
     private Message addCardLanchElement(Message message,int card_lanches){
@@ -733,6 +978,27 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     }
 
+    public int elaborateCardLanchElement(Message message){
+        int card_lanch=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.CARDS_LANCH).toString());
+        return card_lanch;
+    }
+
+    public Message addTurnoMyGiocatoreElement(Message message,int myTurno){
+         String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(myTurno);
+            mE=new StringMessageElement(RecoveryMessageAttributes.MY_TURNO,info , null);
+            message.addMessageElement(namespace, mE);
+
+        return message;
+    }
+
+    public int elaborateTurnoMyGiocatoreElement(Message message){
+        int turno=Integer.parseInt(message.getMessageElement(namespace, RecoveryMessageAttributes.MY_TURNO).toString());
+        return turno;
+    }
+
     private Message addArmateElement(Message message,int[] num_armate){
         int size=num_armate.length;
         String info;
@@ -745,12 +1011,24 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         return message;
 
     }
+    
+    private int[] elaborateArmateElements(Message message,int players){
+        int[] armate=new int[players];
+        Message.ElementIterator iter=message.getMessageElements(RecoveryMessageAttributes.ARMATE);
+        int counter=0;
+        while(iter.hasNext()){
+            armate[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return armate;
+    }
+
+
 
     
     
 
     public class RecoveryMessageAttributes{
-        public static final String REGION_INFO="region_info";
         public static final String OBJECTIVE_INFO="objective_info";
         public static final String TURN_INFO="turn_info";
         public static final String PLAYERS_INFO="players_info";
@@ -759,6 +1037,12 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         public static final String DICE_LANCH="dice_lanch";
         public static final String CARDS_LANCH="cards_lanch";
         public static final String ARMATE="armate_lanch";
+        public static final String INIT_INFO="inizializzazione";
+        public static final String REGION_OCCUPANTE_INFO="occupante";
+        public static final String REGION_TROOPS_NUMBER_INFO="troops_number";
+        public static final String REGION_NUMBER="regions";
+        public static final String MAP_NAME="map_name";
+        public static final String MY_TURNO="my_turno";
     }
    
 

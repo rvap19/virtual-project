@@ -11,6 +11,8 @@ import java.util.List;
 import jxta.communication.VirtualCommunicator;
 
 import net.jxta.endpoint.Message;
+import virtualrisikoii.GameParameter;
+import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
@@ -22,6 +24,7 @@ import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.JFrameTurno;
+import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
 import virtualrisikoii.risiko.Tavolo;
@@ -791,5 +794,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     public void setCardChangeListener(CardChangeListener aThis) {
        this.cardChangeListener=aThis;
     }
+
+  
 
 }
