@@ -265,6 +265,27 @@ discovery.addDiscoveryListener(this);
         return advs;
     }
 
+    public List<PipeAdvertisement> searchPipes(boolean includeRemoteSearch) throws IOException{
+        System.out.println("searching players...");
+        // Add ourselves as a listener.
+
+
+        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
+        ArrayList<PipeAdvertisement> advs=new ArrayList<PipeAdvertisement>();
+        while(e.hasMoreElements()){
+            Advertisement a=e.nextElement();
+            if(a.getAdvType().equals(PipeAdvertisement.getAdvertisementType())){
+                advs.add((PipeAdvertisement) a);
+            }
+        }
+
+        if(includeRemoteSearch)
+            discovery.getRemoteAdvertisements(null, DiscoveryService.ADV,
+            null, null, 10, this);
+
+        return advs;
+    }
+
     
 
     /**
@@ -302,8 +323,8 @@ discovery.addDiscoveryListener(this);
             MyPipeAdvertisement.setDescription("Created by " + name);
         }
 
-        this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION*60, DEFAULT_LIFETIME*60);
-        this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME*60);
+        this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
+        this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME);
 
         System.out.println("pipe adv published");
 

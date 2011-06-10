@@ -93,6 +93,8 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         manager.findGames();
         manager.findPlayers();
 
+
+
         initComponents();
         userNameLabel.setText(name);
         
@@ -311,6 +313,12 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
                 updateList(games, gA.getGameName(), gA, gamesList);
             }
 
+
+            Iterator<PipeAdvertisement> pipeIter=this.manager.findPipes().iterator();
+            while(pipeIter.hasNext()){
+                PipeAdvertisement pipeAdv=pipeIter.next();
+                this.pipes.put(pipeAdv.getName(), pipeAdv);
+            }
             
 
 
