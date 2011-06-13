@@ -340,10 +340,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             if(azione!=null){
                
                  
-                 timer.setInterval(GameTimer.ACTION);
+                 
                    
-                
-
+                if(timer.getInterval()==0){
+                    timer.setInterval(GameTimer.ACTION);
+                    timer.start();
+                }
                  attaccante=firstSelection.getOccupante();
                  difensore=secondSelection.getOccupante();
 
@@ -359,6 +361,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                   }
                   azione.setNumeroTruppe(truppeSelezionate);
                 tavolo.eseguiAttacco((Attacco)azione);
+                
                 try {
                         Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
                         comunicator.sendMessage(msg);
@@ -415,7 +418,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Giocatore corrente=tavolo.getGiocatoreCorrente();
        Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
                 if(azione!=null){
-                   timer.setInterval(0);
+                   
                         
                    
                     
@@ -432,6 +435,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     }
                     azione.setNumeroTruppe(truppeSelezionate);
                     tavolo.eseguiSpostamento((Spostamento) azione);
+                    timer.stopTimer();
 
 
                     //codice per il recupero carta
