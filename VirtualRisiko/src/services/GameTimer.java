@@ -50,7 +50,9 @@ public class GameTimer extends Thread {
 
     
     public void stopTimer(){
-        
+        if(interval.intValue()==0){
+            return;
+        }
         
         notify.set(false);
         interval.set(0);
