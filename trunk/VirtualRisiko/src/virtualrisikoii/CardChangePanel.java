@@ -252,6 +252,7 @@ public class CardChangePanel extends javax.swing.JPanel {
         jPanel11.setName("jPanel11"); // NOI18N
         jPanel11.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel7.setIcon(resourceMap.getIcon("jLabel7.icon")); // NOI18N
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
         jPanel11.add(jLabel7);
@@ -331,9 +332,9 @@ public class CardChangePanel extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(stimarinforzi)
                     .addComponent(jLabel1))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addContainerGap(107, Short.MAX_VALUE)
                 .addComponent(scambiaButton)
                 .addContainerGap())
         );
@@ -344,7 +345,7 @@ public class CardChangePanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(stimarinforzi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(scambiaButton)
                 .addContainerGap())
         );
