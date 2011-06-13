@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import jxta.communication.Communicator;
+import jxta.communication.VirtualCommunicator;
 import net.jxta.endpoint.Message;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
@@ -174,7 +174,7 @@ public class CardChangeController {
         list.add(c2);
         list.add(c3);
 
-        Communicator communicator=Communicator.getInstance();
+        VirtualCommunicator communicator=VirtualCommunicator.getInstance();
         Message msg=communicator.createChangeCardsMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
         try {
             communicator.sendMessage(msg);
