@@ -681,6 +681,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void timeoutNotify() {
+        if(!tavolo.isTurnoMyGiocatore()){
+            return;
+        }
         int troops=tavolo.getMyGiocatore().getNumeroTruppe();
         if(troops>0){
             
