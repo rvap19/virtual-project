@@ -341,6 +341,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public boolean makeAttack(int fromTerritorioID,int toTerritorioID){
         Tavolo tavolo=locker.acquireTavolo();
+        if(!tavolo.isTurnoMyGiocatore()){
+            locker.releaseTavolo();
+            return false;
+        }
         firstSelection=tavolo.getMappa().getTerritorio(fromTerritorioID);
         secondSelection=tavolo.getMappa().getTerritorio(toTerritorioID);
 
@@ -428,6 +432,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public boolean makeSpostamento(int fromterritorioID,int toTerritorioID){
         Tavolo tavolo=locker.acquireTavolo();
+        if(!tavolo.isTurnoMyGiocatore()){
+            locker.releaseTavolo();
+            return false;
+        }
          firstSelection=tavolo.getMappa().getTerritorio(fromterritorioID);
         secondSelection=tavolo.getMappa().getTerritorio(toTerritorioID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
@@ -530,6 +538,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void assegnaUnita(int terrID){
         Tavolo tavolo=locker.acquireTavolo();
+        if(!tavolo.isTurnoMyGiocatore()){
+            locker.releaseTavolo();
+            return;
+        }
         Territorio t=tavolo.getMappa().getTerritorio(terrID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
 
@@ -566,6 +578,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void assegnaUnitaInInizializzazione(int terrID){
         Tavolo tavolo=locker.acquireTavolo();
+        if(!tavolo.isTurnoMyGiocatore()){
+            locker.releaseTavolo();
+            return;
+        }
         Territorio t=tavolo.getMappa().getTerritorio(terrID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
         if(tavolo.isInizializzazione()){
