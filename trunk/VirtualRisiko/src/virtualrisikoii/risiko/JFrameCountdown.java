@@ -29,6 +29,7 @@ public class JFrameCountdown extends javax.swing.JFrame implements Runnable {
     public JFrameCountdown() {
         this.setBounds(65, 395, 100, 100);
         initComponents();
+        setVisible(true);
         TuoThread tt = new TuoThread( this, 12000);
         tt.start();
         
@@ -139,7 +140,7 @@ public class JFrameCountdown extends javax.swing.JFrame implements Runnable {
             public void run() {
                JFrameCountdown frame= new JFrameCountdown();
                   
-                    frame.setVisible(true);
+                  //  frame.setVisible(true);
                      Thread t=new Thread(frame);
                      t.start() ;
 

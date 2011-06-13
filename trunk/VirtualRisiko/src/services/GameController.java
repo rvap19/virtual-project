@@ -8,6 +8,10 @@ package services;
 import java.io.IOException;
 import java.util.List;
 //import jxta.communication.Communicator;
+import java.util.Random;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jxta.communication.VirtualCommunicator;
 
 import net.jxta.endpoint.Message;
@@ -32,7 +36,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,TimeoutListener,ReconnectionRequestListener{
+public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,TimeoutNotifier,ReconnectionRequestListener{
     private MapListener mapListener;
     private HistoryListener historyListener;
     private PlayerDataListener playerDataListener;
@@ -41,7 +45,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private CardListener cardListener;
     private CardChangeListener cardChangeListener;
     private VirtualCommunicator comunicator;
-    private GameTurnController turnController;
+    private TimeoutNotifier timeoutNotifier;
+    private GameTimer timer;
 
     private Tavolo tavolo;
 
@@ -70,13 +75,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private GameController(){
         //this.comunicator=Communicator.getInstance();
         this.comunicator=VirtualCommunicator.getInstance();
-
+        
         comunicator.addPassListener(this);
         comunicator.addApplianceListener(this);
         comunicator.addAttackListener(this);
         comunicator.addMovementListener(this);
         comunicator.addChangeCardsListener(this);
         comunicator.setRecoveryRequestListener(this);
+
         this.tavolo=Tavolo.getInstance();
 
         this.reconnectionNeeds=new boolean[tavolo.getGiocatori().size()];
@@ -84,10 +90,26 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             reconnectionNeeds[i]=false;
         }
 
-        turnController=new GameTurnController(this,0);
+        if(comunicator.isManager()){
+            this.timer=new GameTimer(this, GameTimer.ACTION);
+            timer.start();
+        }
+
+        
+       
         
 
     }
+
+    public TimeoutNotifier getTimeoutNotifier() {
+        return timeoutNotifier;
+    }
+
+    public void setTimeoutNotifier(TimeoutNotifier timeoutNotifier) {
+        this.timeoutNotifier = timeoutNotifier;
+    }
+
+    
 
     public int getIDObiettivo(){
         return tavolo.getMyGiocatore().getObiettivo().getCodice();
@@ -316,6 +338,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Giocatore difensore=null;
 
             if(azione!=null){
+               
+                    
+                 timer.setInterval(GameTimer.ACTION);
+                   
+                
+
                  attaccante=firstSelection.getOccupante();
                  difensore=secondSelection.getOccupante();
 
@@ -387,6 +415,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Giocatore corrente=tavolo.getGiocatoreCorrente();
        Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
                 if(azione!=null){
+                   timer.setInterval(GameTimer.ACTION);
+                        
+                   
+                    
+
+
                     truppeSelezionate=-1;
                     if(firstSelection.confina(secondSelection)){
                         truppeSelezionate=this.troopsSelector.selectTroops(false,firstSelection.getNumeroUnita()-1, firstSelection.getCodice()  , secondSelection.getCodice());
@@ -485,7 +519,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
                         comunicator.sendMessage(msg);
                         this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-
+                        if(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0){
+                            
+                            timer.setInterval(GameTimer.ACTION);
+                            
+                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -525,7 +563,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             }
             if((truppeSelezionate==3)||(corrente.getNumeroTruppe()==0)){
                 try{
-
+                    
+                    timer.stopTimer();
+                   
                     Thread.sleep(2000);
                     if((tavolo.getTurno()==(tavolo.getGiocatori().size()-1))&&(corrente.getNumeroTruppe()==0)){
                         tavolo.setInizializzazione(false);
@@ -576,6 +616,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             Giocatore giocatore=tavolo.getGiocatoreCorrente();
             if(tavolo.isTurnoMyGiocatore()){
                 new JFrameTurno(giocatore.getID()).setVisible(true);
+                timer=new GameTimer(this, GameTimer.ACTION);
+                
+
+                timer.start();
             }
             
             this.playerDataListener.updateDatiGiocatore(giocatore.getNome(), giocatore.getNumeroTruppe(), giocatore.getArmateDisposte(), giocatore.getNazioni().size());
@@ -591,6 +635,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void passaTurno() throws IOException{
+        this.timer.stopTimer();
+        int troops=tavolo.getMyGiocatore().getNumeroTruppe();
+        if(troops>0){
+            this.autoDispose(troops);
+        }
         if((!tavolo.isInizializzazione())&&tavolo.isTurnoMyGiocatore()){
             //codice per il recupero carta
             Carta carta=tavolo.recuperaCarta(tavolo.getMyGiocatore());
@@ -630,24 +679,50 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         reconnectionNeeds[player]=true;
     }
 
-    public void notifyTimeoutForTurn(int currentTurn) {
-        if(this.tavolo.getTurno()==currentTurn){
-            Carta carta=tavolo.recuperaCarta(tavolo.getMyGiocatore());
-            if(carta!=null){
-                this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
-            }
-            this.tavolo.passaTurno();
-            Message msg=this.comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-            try {
-                this.comunicator.sendMessage(msg);
-            } catch (Exception  ex) {
-                ex.printStackTrace();
-            }
-            Giocatore g=tavolo.getGiocatoreCorrente();
-            this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());   
-            sendRecoveryMessage();
+    public void timeoutNotify() {
+        int troops=tavolo.getMyGiocatore().getNumeroTruppe();
+        if(troops>0){
+            
+            this.autoDispose(troops);
+            
         }
+
+        try {
+            passaTurno();
+        } catch (IOException ex) {
+           System.err.println("impossibile passare turno");
+        }
+        
     }
+
+    private void autoDispose(int troops){
+        Set<Territorio> set=tavolo.getMyGiocatore().getNazioni();
+            int size=set.size();
+            Territorio[] territori=new Territorio[size];
+            territori=set.toArray(territori);
+
+            if(tavolo.isInizializzazione()){
+                if(troops>3){
+                    troops=3;
+                }
+            }
+
+            Random random=new Random();
+            for(int i=0;i<troops;i++){
+                int nextNationID=territori[random.nextInt(size)].getCodice();
+                if(tavolo.isInizializzazione()){
+                    this.assegnaUnitaInInizializzazione(nextNationID);
+                }else{
+                    this.assegnaUnita(nextNationID);
+                }
+            }
+    }
+
+    public void remaingTimeNotify(int remaing) {
+        this.timeoutNotifier.remaingTimeNotify(remaing);
+    }
+
+    
 
     
     

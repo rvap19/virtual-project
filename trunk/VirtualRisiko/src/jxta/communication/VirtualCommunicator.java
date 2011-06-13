@@ -1070,6 +1070,10 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         return armate;
     }
 
+    public boolean isManager() {
+        return this.isCentral;
+    }
+
 
 
     
