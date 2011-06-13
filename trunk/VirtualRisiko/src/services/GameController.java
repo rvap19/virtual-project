@@ -339,7 +339,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
             if(azione!=null){
                
-                    
+                 
                  timer.setInterval(GameTimer.ACTION);
                    
                 
@@ -415,7 +415,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Giocatore corrente=tavolo.getGiocatoreCorrente();
        Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
                 if(azione!=null){
-                   timer.setInterval(GameTimer.ACTION);
+                   timer.setInterval(0);
                         
                    
                     

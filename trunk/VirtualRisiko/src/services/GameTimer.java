@@ -43,6 +43,9 @@ public class GameTimer extends Thread {
 
     }
 
+    public int getInterval(){
+        return this.interval.intValue();
+    }
 
 
     
@@ -70,8 +73,9 @@ public class GameTimer extends Thread {
                 } catch (InterruptedException ex) {
                     System.err.println("interrutp exception");
                 }
-                interval.decrementAndGet();
+                
                 this.notifier.remaingTimeNotify(interval.intValue());
+                interval.decrementAndGet();
             }
 
             if(notify.get()){
