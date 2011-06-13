@@ -36,6 +36,7 @@ import services.GameController;
 import services.RecoveryListener;
 import util.GameFactory;
 import util.ObiettiviException;
+import util.RecoveryUtil;
 import virtualrisikoii.GameParameter;
 import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.VirtualRisikoIIApp;
@@ -421,6 +422,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             VirtualCommunicator communicator=VirtualCommunicator.initPeerComunicator(this.myName, this.manager.getPeerGroup(), creatorPipe);
             if(communicator!=null){
                 communicator.addInitListener(this);
+                communicator.setRecoveryListeners(this);
                 updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
 
                 this.jButton1.setEnabled(false);
@@ -586,6 +588,8 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
             System.out.println("riconnessione con turno " + parameter.getTurnoMyGiocatore());
+            RecoveryUtil util=new RecoveryUtil();
+            util.recoveryTable(parameter);
             Tavolo tavolo = Tavolo.getInstance();
             GameController controller = GameController.createGameController();
             this.setVisible(false);
@@ -593,11 +597,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             XMapPanel panel = factory.getMapPanel();
             VirtualRisikoIIApp app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app, panel));
-        } catch (MappaException ex) {
-            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ObiettiviException ex) {
-            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
     }
 
     

@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
-import jxta.communication.Communicator;
+import jxta.communication.VirtualCommunicator;
 import services.GameController;
 import services.HistoryListener;
 import services.PlayerDataListener;
@@ -308,7 +308,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     // End of variables declaration//GEN-END:variables
 
     public void updateChat(String from,String to, String messageString) {
-        if(to.equals(Communicator.ChatAttributes.TO_ALL)){
+        if(to.equals(VirtualCommunicator.ChatAttributes.TO_ALL)){
            this.chatTextArea.append(from +" > "+messageString+"\n");
            this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }else if(to.equals(Tavolo.getInstance().getMyGiocatore().getNome())||from.equals(Tavolo.getInstance().getMyGiocatore())){

@@ -8,13 +8,9 @@ package services;
 import java.io.IOException;
 import java.util.List;
 //import jxta.communication.Communicator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxta.communication.VirtualCommunicator;
 
 import net.jxta.endpoint.Message;
-import virtualrisikoii.GameParameter;
-import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.listener.ApplianceListener;
 import virtualrisikoii.listener.AttackListener;
 import virtualrisikoii.listener.ChangeCardListener;
@@ -27,7 +23,6 @@ import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.JFrameTurno;
-import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
 import virtualrisikoii.risiko.Tavolo;
@@ -37,7 +32,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,ReconnectionRequestListener{
+public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,TimeoutListener,ReconnectionRequestListener{
     private MapListener mapListener;
     private HistoryListener historyListener;
     private PlayerDataListener playerDataListener;
@@ -45,18 +40,19 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private TroopsSelector troopsSelector;
     private CardListener cardListener;
     private CardChangeListener cardChangeListener;
-    
+    private VirtualCommunicator comunicator;
+    private GameTurnController turnController;
 
     private Tavolo tavolo;
-//    private Communicator comunicator;
-    private VirtualCommunicator comunicator;
+
     private Territorio firstSelection;
     private Territorio secondSelection;
     private int truppeSelezionate;
+    private boolean[] reconnectionNeeds;
 
     private static GameController instance=null;
 
-    private boolean[] reconnectionNeeds;
+    
 
     public static GameController createGameController(){
         if(instance==null){
@@ -87,6 +83,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         for(int i=0;i<reconnectionNeeds.length;i++){
             reconnectionNeeds[i]=false;
         }
+
+        turnController=new GameTurnController(this,0);
+        
 
     }
 
@@ -285,205 +284,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         return tavolo.isTurnoMyGiocatore();
     }
 
- /*   public void makeAction(int territorioID){
-        Territorio t=this.tavolo.getMappa().getTerritorio(territorioID);
-        Giocatore corrente=tavolo.getGiocatoreCorrente();
-        if(this.tavolo.isInizializzazione()){
-            if(truppeSelezionate<3&&this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
-
-                if(tavolo.assegnaUnita(t)){
-                    try {
-                        Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
-                        comunicator.sendMessage(msg);
-
-                        truppeSelezionate++;
-                        this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                this.mapListener.setLabelAttributes(territorioID, t.getNumeroUnita(), t.getOccupante().getID());
-            }
-            if((truppeSelezionate==3)||(corrente.getNumeroTruppe()==0)){
-                try{
-
-                    Thread.sleep(2000);
-                    if((tavolo.getTurno()==(tavolo.getGiocatori().size()-1))&&(corrente.getNumeroTruppe()==0)){
-                        tavolo.setInizializzazione(false);
-                    }
-                    tavolo.passaTurno();
-                    Giocatore prossimo=tavolo.getGiocatoreCorrente();
-                    this.playerDataListener.updateDatiGiocatore(prossimo.getNome(), prossimo.getNumeroTruppe(), prossimo.getArmateDisposte(), prossimo.getNazioni().size());
-                    Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-
-                    comunicator.sendMessage(msg);
-                    new JFrameTurno(prossimo.getID()).setVisible(true);
-
-                }catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-                truppeSelezionate=0;
-            }
-
-            return;
-        }
-
-        Giocatore attaccante=null;
-        Giocatore difensore=null;
-
-        if(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==corrente){
-            if(tavolo.assegnaUnita(t)){
-                try {
-                        Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
-                        comunicator.sendMessage(msg);
-                        this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                this.mapListener.setLabelAttributes(t.getCodice(), t.getNumeroUnita(), t.getOccupante().getID());
-                
-            }
-            return;
-        }
-
-        if(firstSelection==null){
-
-            if(corrente!=t.getOccupante()){
-                return;
-            }
-            if(t.getNumeroUnita()>1){
-                firstSelection=t;
-            }
-
-            return;
-        }
-
-        Territorio currentSelection=t;
-
-        
-        if(currentSelection==firstSelection){
-        
-            return ;
-
-        }else {
-            this.secondSelection=currentSelection;
-
-
-
-            Azione azione=tavolo.preparaAttacco(firstSelection, secondSelection);
-
-            if(azione!=null){
-                 attaccante=firstSelection.getOccupante();
-                 difensore=secondSelection.getOccupante();
-
-                  truppeSelezionate=-1;
-                  if(firstSelection.confina(secondSelection)){
-                        truppeSelezionate=this.troopsSelector.selectTroops(true, firstSelection.getNumeroUnita()-1,firstSelection.getCodice(), secondSelection.getCodice());
-                  }
-
-                  if(truppeSelezionate<=0){
-                      firstSelection=null;
-                      secondSelection=null;
-                      return;
-                  }
-                  azione.setNumeroTruppe(truppeSelezionate);
-                tavolo.eseguiAttacco((Attacco)azione);
-                try {
-                        Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
-                        comunicator.sendMessage(msg);
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-
-
-
-
-            }else{
-                azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
-                if(azione!=null){
-                    truppeSelezionate=-1;
-                    if(firstSelection.confina(secondSelection)){
-                        truppeSelezionate=this.troopsSelector.selectTroops(false,firstSelection.getNumeroUnita()-1, firstSelection.getCodice()  , secondSelection.getCodice());
-                    }
-                    if(truppeSelezionate<=0){
-                        firstSelection=null;
-                        secondSelection=null;
-                        return;
-                    }
-                    azione.setNumeroTruppe(truppeSelezionate);
-                    tavolo.eseguiSpostamento((Spostamento) azione);
-
-                    tavolo.passaTurno();
-                    corrente=tavolo.getGiocatoreCorrente();
-                    new JFrameTurno(corrente.getID()).setVisible(true);
-                    this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-                    try {
-                        Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
-                        comunicator.sendMessage(msg);
-                        Thread.sleep(3000);
-                        msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-                        comunicator.sendMessage(msg);
-
-
-                    } catch (Exception ex) {
-                       ex.printStackTrace();
-                    }
-
-                }
-            }
-
-            //this.firstSelection.setNumeroUnita(firstSelection.getNumeroUnita()+truppeSelezionate);
-            truppeSelezionate=0;
-            if(azione!=null){
-                this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
-                this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
-                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());                
-                firstSelection=null;
-                if(azione.isAttacco()){
-
-                    //variabili per i dati di Luigi
-                    int [] att={0,0,0};
-                    int [] dif={0,0,0};
-
-                    int[] a=((Attacco)azione).getPunteggio();
-                    String s="";
-                    for(int i=0;i<a.length;i++){
-                        s=s+" - "+Integer.toString(a[i]);
-                        att[i]=a[i];
-                    }
-                    this.historyListener.appendActionInHistory(s);
-
-                    a=((Attacco)azione).getPunteggioAvversario();
-                     s="";
-                    for(int i=0;i<a.length;i++){
-                        s=s+" - "+Integer.toString(a[i]);
-                        dif[i]=a[i];
-                    }
-                    this.historyListener.appendActionInHistory(s);
-
-                    //lancia il panel di Luigi
-                    System.out.println();
-                    this.mapListener.notifyAttacco("Attacco da"+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(), att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID());
-//                    new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
-                }
-                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
-
-                    this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
-                }
-
-            }else{
-                this.mapListener.setLabelAttributes(firstSelection.getCodice(), firstSelection.getNumeroUnita(), firstSelection.getOccupante().getID());
-                
-                firstSelection=null;
-                secondSelection=null;
-                this.truppeSelezionate=0;
-            }
-        }
-    }*/
 
     public void makeFirstSelection(int terrID){
         Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
@@ -598,6 +398,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     }
                     azione.setNumeroTruppe(truppeSelezionate);
                     tavolo.eseguiSpostamento((Spostamento) azione);
+
+
                     //codice per il recupero carta
                     Carta carta=tavolo.recuperaCarta(corrente);
                     if(carta!=null){
@@ -618,6 +420,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     } catch (Exception ex) {
                        ex.printStackTrace();
                     }
+
+                    sendRecoveryMessage();
+
                     
                     this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
                 this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
@@ -629,6 +434,18 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 }
        return false;
 
+    }
+
+    private void sendRecoveryMessage(){
+        int turno=tavolo.getTurno();
+        if(this.reconnectionNeeds[turno]){
+            try {
+                this.comunicator.sendRecoveryMessage(turno);
+                this.reconnectionNeeds[turno] = false;
+            } catch (IOException ex) {
+                System.err.println("Impossibile inviare messaggio di recupero");
+            }
+        }
     }
 
     public void makeSecondSelection(int terrID){
@@ -720,6 +537,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
                     comunicator.sendMessage(msg);
                     new JFrameTurno(prossimo.getID()).setVisible(true);
+                    sendRecoveryMessage();
 
                 }catch (Exception ex) {
                     ex.printStackTrace();
@@ -767,14 +585,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.out.println("ancora in inizializzazione "+tavolo.isInizializzazione());
             }
 
-            if(this.reconnectionNeeds[turnoSucc]){
-                try {
-                    this.comunicator.sendRecoveryMessage(turnoSucc);
-                    this.reconnectionNeeds[turnoSucc] = false;
-                } catch (IOException ex) {
-                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            sendRecoveryMessage();
 
 
     }
@@ -801,11 +612,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
-        int turno=tavolo.getTurno();
-        if(this.reconnectionNeeds[turno]){
-            this.comunicator.sendRecoveryMessage(turno);
-            this.reconnectionNeeds[turno]=false;
-        }
+        sendRecoveryMessage();
     }
 
     public void setChatListener(ChatListener aThis) {
@@ -822,6 +629,28 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     public void notifyReconnectionRequest(int player) {
         reconnectionNeeds[player]=true;
     }
+
+    public void notifyTimeoutForTurn(int currentTurn) {
+        if(this.tavolo.getTurno()==currentTurn){
+            Carta carta=tavolo.recuperaCarta(tavolo.getMyGiocatore());
+            if(carta!=null){
+                this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
+            }
+            this.tavolo.passaTurno();
+            Message msg=this.comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
+            try {
+                this.comunicator.sendMessage(msg);
+            } catch (Exception  ex) {
+                ex.printStackTrace();
+            }
+            Giocatore g=tavolo.getGiocatoreCorrente();
+            this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());   
+            sendRecoveryMessage();
+        }
+    }
+
+    
+    
 
   
 

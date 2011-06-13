@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 import jxta.listener.ConnectionListener;
 import net.jxta.endpoint.Message;
@@ -164,21 +166,22 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
 
 
-    public boolean connect() throws IOException{
+    public synchronized  boolean connect() throws IOException{
         int counter=0;
         int limit=4;
         while((!toCentralPeer.isBound())&&counter<limit){
-            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,30*1000, this, true);
+            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,12*1000, this, true);
             counter++;
         }
 
         if(toCentralPeer.isBound()){
+            System.err.println("server contattato");
             toCentralPeer.setMessageListener(instance);
             Message msg=createWelcomeMessage();
             sendMessage(msg);
             return true;
         }
-
+        System.err.println("impossibile contattare server");
         return false;
     }
 
@@ -267,7 +270,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             try {
                 return this.toCentralPeer.sendMessage(message);
             } catch (Exception ex) {
-                Logger.getLogger(VirtualCommunicator.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
                 this.toCentralPeer=null;
                 try {
                     this.connect();
@@ -547,6 +550,8 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private void elaborateReconnectRequest(JxtaBiDiPipe pipe,Message msg){
         String name=msg.getMessageElement(namespace, WelcolmeAttributes.PEER_NAME).toString();
         int turn=this.findTurno(name);
+        this.toPeersPipes.put(name, pipe);
+        pipe.setMessageListener(this);
         this.recoveryRequestListener.notifyReconnectionRequest(turn);
 
     }
@@ -609,7 +614,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
        try{
            msgID=new Integer(msg.getMessageElement(namespace, ID_MSG).toString()).intValue();
        }catch(NumberFormatException ex){
-
+            System.err.println("id msg non riconisciuto");
        }
 
 
@@ -678,7 +683,14 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             name=iter.next();
             index++;
         }
+        StringMessageElement mElement=new StringMessageElement(GAMER,playerName , null);
+        msg.addMessageElement(namespace, mElement);
+
+         mElement=new StringMessageElement(ID_MSG,"0" , null);
+        msg.addMessageElement(namespace, mElement);
+
         toPeersPipes.get(name).sendMessage(msg);
+
         
        
 
@@ -718,6 +730,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         //appendoi dati sulle armate
         message=addArmateElement(message, parameter.getArmateDisponibili());
 
+        message=addTurnoMyGiocatoreElement(message, parameter.getTurnoMyGiocatore());
 
         return message;
     }
@@ -732,7 +745,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                 index++;
             }
         }
-        return index;
+        return index+1;
     }
     public void elaborateRecoveryMessage(Message message){
 
@@ -815,7 +828,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private String elaborateMapNameElement(Message message){
 
-        String  mapName=message.getMessageElement(namespace, RecoveryMessageAttributes.INIT_INFO).toString();
+        String  mapName=message.getMessageElement(namespace, RecoveryMessageAttributes.MAP_NAME).toString();
         return mapName;
     }
 
@@ -1133,6 +1146,23 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     }
 
 
+
+    private class TimeOutToCentralPeerTask extends TimerTask{
+
+        public TimeOutToCentralPeerTask(){
+            super();
+        }
+        
+        @Override
+        public void run() {
+            try {
+                instance.connect();
+            } catch (IOException ex) {
+                System.err.println("io exception in connection to central peer ");
+            }
+        }
+
+    }
     
     
    
