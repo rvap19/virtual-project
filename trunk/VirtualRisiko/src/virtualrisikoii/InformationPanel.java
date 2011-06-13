@@ -355,6 +355,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
              
         }else if(remaing>11&&countdown!=null){
             countdown.setVisible(false);
+            countdown.dispose();
             t.interrupt();
             countdown=null;
         }
