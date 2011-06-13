@@ -47,8 +47,10 @@ public class GameTimer extends Thread {
 
     
     public void stopTimer(){
+        
+        
         notify.set(false);
-        setInterval(0);
+        interval.set(0);
     }
 
     
