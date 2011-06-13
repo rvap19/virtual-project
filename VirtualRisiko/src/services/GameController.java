@@ -616,6 +616,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             Giocatore giocatore=tavolo.getGiocatoreCorrente();
             if(tavolo.isTurnoMyGiocatore()){
                 new JFrameTurno(giocatore.getID()).setVisible(true);
+                timer.stopTimer();
                 timer=new GameTimer(this, GameTimer.ACTION);
                 
 

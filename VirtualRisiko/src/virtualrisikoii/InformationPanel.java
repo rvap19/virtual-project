@@ -350,6 +350,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         this.setRemaingTime(remaing);
         if(remaing==9){
              countdown=new JFrameCountdown();
+             Thread t=new Thread(countdown);
+             t.start() ;
              
         }else if(remaing>9&&countdown!=null){
             countdown.setVisible(false);
