@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class GameTimer extends Thread {
 
 
-       public static final int ACTION=10;
+       public static final int ACTION=30;
 
    
     private TimeoutNotifier notifier;
