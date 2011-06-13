@@ -20,15 +20,17 @@ import jxta.communication.VirtualCommunicator;
 import services.GameController;
 import services.HistoryListener;
 import services.PlayerDataListener;
+import services.TimeoutNotifier;
 import virtualrisikoii.listener.ChatListener;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.JFrameCountdown;
 import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
  * @author root
  */
-public class InformationPanel extends javax.swing.JPanel implements ChatListener,HistoryListener,PlayerDataListener{
+public class InformationPanel extends javax.swing.JPanel implements ChatListener,HistoryListener,PlayerDataListener,TimeoutNotifier{
 
    private GameController controller;
 
@@ -49,6 +51,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         controller.setPlayerDataListener(this);
         controller.setHistoryListener(this);
         controller.initCurrentPlayerData();
+        controller.setTimeoutNotifier(this);
     }
 
    
@@ -68,6 +71,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel1 = new javax.swing.JPanel();
         obiettivoLabel = new javax.swing.JLabel();
         passaTurnoButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        timeLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         chatTextArea = new javax.swing.JTextArea();
@@ -106,6 +111,12 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             }
         });
 
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        timeLabel.setText(resourceMap.getString("timeLabel.text")); // NOI18N
+        timeLabel.setName("timeLabel"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,15 +124,23 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(obiettivoLabel)
-                    .addComponent(passaTurnoButton))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(passaTurnoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(obiettivoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(passaTurnoButton))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passaTurnoButton)
+                    .addComponent(jLabel1)
+                    .addComponent(timeLabel)))
         );
 
         jPanel4.setBackground(resourceMap.getColor("jPanel4.background")); // NOI18N
@@ -145,11 +164,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(resourceMap.getColor("jPanel2.background")); // NOI18N
@@ -175,12 +194,12 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -240,8 +259,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(turnoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                    .addComponent(turnoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -253,7 +272,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -288,12 +307,17 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         this.gameInformationArea.setCaretPosition(this.gameInformationArea.getDocument().getLength());
     }
 
+    public void setRemaingTime(int time) {
+        timeLabel.setText(Integer.toString(time));
+    }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arnatedisposteLabel;
     private javax.swing.JTextArea chatTextArea;
     private javax.swing.JTextArea gameInformationArea;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -302,6 +326,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     private javax.swing.JLabel obiettivoLabel;
     private javax.swing.JButton passaTurnoButton;
     private javax.swing.JLabel terrLabel;
+    private javax.swing.JLabel timeLabel;
     private javax.swing.JLabel truppeLabel;
     private javax.swing.JLabel turnoLabel;
     private javax.swing.JPanel turnoPanel;
@@ -316,6 +341,23 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }
     }
+
+    public void timeoutNotify() {
+       
+    }
+
+    public void remaingTimeNotify(int remaing) {
+        this.setRemaingTime(remaing);
+        if(remaing==9){
+             countdown=new JFrameCountdown();
+             
+        }else if(remaing>9&&countdown!=null){
+            countdown.setVisible(false);
+            countdown=null;
+        }
+    }
+
+    private JFrameCountdown countdown=null;
 
 
 

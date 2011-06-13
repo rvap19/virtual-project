@@ -9,8 +9,7 @@ package services;
  *
  * @author root
  */
-public interface TimeoutListener {
-
-    public void notifyTimeoutForTurn(int currentTurn);
-
+public interface TimeoutNotifier {
+    public void timeoutNotify();
+    public void remaingTimeNotify(int remaing);
 }
