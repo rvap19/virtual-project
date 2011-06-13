@@ -48,7 +48,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private TimeoutNotifier timeoutNotifier;
     private GameTimer timer;
 
-    private Tavolo tavolo;
+    //private Tavolo tavolo;
+    private TableLocker locker;
 
     private Territorio firstSelection;
     private Territorio secondSelection;
@@ -82,10 +83,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         comunicator.addMovementListener(this);
         comunicator.addChangeCardsListener(this);
         comunicator.setRecoveryRequestListener(this);
-
-        this.tavolo=Tavolo.getInstance();
+        Tavolo tavolo=Tavolo.getInstance();
+        
 
         this.reconnectionNeeds=new boolean[tavolo.getGiocatori().size()];
+        this.locker=new TableLocker(tavolo);
         for(int i=0;i<reconnectionNeeds.length;i++){
             reconnectionNeeds[i]=false;
         }
@@ -112,18 +114,18 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     
 
     public int getIDObiettivo(){
-        return tavolo.getMyGiocatore().getObiettivo().getCodice();
+        return Tavolo.getInstance().getMyGiocatore().getObiettivo().getCodice();
     }
 
     public String getDescrizioneObiettivo(){
-        return tavolo.getMyGiocatore().getObiettivo().toString();
+        return Tavolo.getInstance().getMyGiocatore().getObiettivo().toString();
     }
     public HistoryListener getHistoryListener() {
         return historyListener;
     }
 
     public String getNomeMyGiocatore(){
-        return tavolo.getMyGiocatore().getNome();
+        return Tavolo.getInstance().getMyGiocatore().getNome();
     }
     public void setHistoryListener(HistoryListener historyListener) {
         this.historyListener = historyListener;
@@ -164,7 +166,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
 
     public void initMap(){
-        Territorio[] territori=this.tavolo.getMappa().getNazioni();
+        Territorio[] territori=Tavolo.getInstance().getMappa().getNazioni();
         for(int i=0;i<territori.length;i++){
             this.mapListener.setLabelAttributes(territori[i].getCodice(), territori[i].getNumeroUnita(), territori[i].getOccupante().getID());
         }
@@ -172,13 +174,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void initCurrentPlayerData(){
-        Giocatore g=this.tavolo.getGiocatoreCorrente();
+        Giocatore g=Tavolo.getInstance().getGiocatoreCorrente();
         this.playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
     }
 
     public void updateAppliance(int troops_number, int region) {
 
-        Territorio territorio=this.tavolo.getMappa().getTerritorio(region);
+        Tavolo tavolo=Tavolo.getInstance();
+        Territorio territorio=tavolo.getMappa().getTerritorio(region);
         String message="Il "+territorio.getOccupante().getNome()+" posiziona "+troops_number+" in "+territorio.getNome();
         historyListener.appendActionInHistory(message);
         System.out.println("ricevuto messaggio di appliance per territorio "+territorio.getNome()+" di "+troops_number+" unita");
@@ -195,8 +198,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updateAttack(int troops_number, int from, int to) {
-        Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
-        Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
+        Tavolo tavolo=Tavolo.getInstance();
+        Territorio fromTerritorio=tavolo.getMappa().getTerritorio(from);
+        Territorio toTerritorio=tavolo.getMappa().getTerritorio(to);
         Giocatore  attaccante=fromTerritorio.getOccupante();
         Giocatore difensore=toTerritorio.getOccupante();
 
@@ -245,7 +249,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 }
 
                 //azione diversa da null::controllare stato obiettivi
-                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
+                if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
 
                    this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
                 }
@@ -258,8 +262,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updateMovement(int troops_number, int from, int to) {
-        Territorio fromTerritorio=this.tavolo.getMappa().getTerritorio(from);
-        Territorio toTerritorio=this.tavolo.getMappa().getTerritorio(to);
+        Tavolo tavolo=Tavolo.getInstance();
+        Territorio fromTerritorio=tavolo.getMappa().getTerritorio(from);
+        Territorio toTerritorio=tavolo.getMappa().getTerritorio(to);
         System.out.println("Spostamento :Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
         Azione azione=tavolo.preparaSpostamento(fromTerritorio, toTerritorio);
         
@@ -274,7 +279,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
 
                 //azione diversa da null::controllare stato obiettivi
-                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
+                if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
 
                      this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
                 }
@@ -285,7 +290,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void updateChangeCards(int card1, int card2, int card3) {
 
-        
+        Tavolo tavolo=Tavolo.getInstance();
         Giocatore g=tavolo.getGiocatoreCorrente();
         Carta c1=g.getCarta(card1);
         Carta c2=g.getCarta(card2);
@@ -303,16 +308,22 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public boolean canMove(){
-        return tavolo.isTurnoMyGiocatore();
+        Tavolo tavolo=locker.acquireTavolo();
+        boolean result=tavolo.isTurnoMyGiocatore();
+        locker.releaseTavolo();
+        return result;
     }
 
 
     public void makeFirstSelection(int terrID){
-        Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
+        Tavolo tavolo=locker.acquireTavolo();
+        Territorio t=tavolo.getMappa().getTerritorio(terrID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
+        locker.releaseTavolo();
         if(firstSelection==null){
 
             if(corrente!=t.getOccupante()){
+
                 return;
             }
             if(t.getNumeroUnita()>1){
@@ -329,6 +340,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public boolean makeAttack(int fromTerritorioID,int toTerritorioID){
+        Tavolo tavolo=locker.acquireTavolo();
         firstSelection=tavolo.getMappa().getTerritorio(fromTerritorioID);
         secondSelection=tavolo.getMappa().getTerritorio(toTerritorioID);
 
@@ -338,13 +350,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Giocatore difensore=null;
 
             if(azione!=null){
-               
-                 
-                 
-                   
+           
                 if(timer.getInterval()==0){
                     timer.setInterval(GameTimer.ACTION);
                     timer.start();
+                }else{
+                    timer.setInterval(GameTimer.ACTION);
                 }
                  attaccante=firstSelection.getOccupante();
                  difensore=secondSelection.getOccupante();
@@ -357,6 +368,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                   if(truppeSelezionate<=0){
                       firstSelection=null;
                       secondSelection=null;
+                      locker.releaseTavolo();
                       return false;
                   }
                   azione.setNumeroTruppe(truppeSelezionate);
@@ -403,27 +415,25 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     this.mapListener.notifyAttacco("Attacco da"+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(), att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID());
 //                    new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
 
-                if(this.tavolo.controllaObiettivoGiocatore(this.tavolo.getGiocatoreCorrente())){
+                if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
 
                     this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
                 }
+                locker.releaseTavolo();
                 return true;
             }
+        locker.releaseTavolo();
         return false;
     }
 
     public boolean makeSpostamento(int fromterritorioID,int toTerritorioID){
+        Tavolo tavolo=locker.acquireTavolo();
          firstSelection=tavolo.getMappa().getTerritorio(fromterritorioID);
         secondSelection=tavolo.getMappa().getTerritorio(toTerritorioID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
        Azione azione=tavolo.preparaSpostamento(firstSelection, secondSelection);
                 if(azione!=null){
-                   
-                        
-                   
-                    
-
-
+             
                     truppeSelezionate=-1;
                     if(firstSelection.confina(secondSelection)){
                         truppeSelezionate=this.troopsSelector.selectTroops(false,firstSelection.getNumeroUnita()-1, firstSelection.getCodice()  , secondSelection.getCodice());
@@ -431,6 +441,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     if(truppeSelezionate<=0){
                         firstSelection=null;
                         secondSelection=null;
+                        locker.releaseTavolo();
                         return false;
                     }
                     azione.setNumeroTruppe(truppeSelezionate);
@@ -466,28 +477,32 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
                 this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());                
                 
-
+                    locker.releaseTavolo();
                     return true;
 
                 }
+       locker.releaseTavolo();
        return false;
 
     }
 
     private void sendRecoveryMessage(){
+        Tavolo tavolo=locker.acquireTavolo();
         int turno=tavolo.getTurno();
+
         if(this.reconnectionNeeds[turno]){
             try {
                 this.comunicator.sendRecoveryMessage(turno);
                 this.reconnectionNeeds[turno] = false;
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 System.err.println("Impossibile inviare messaggio di recupero");
             }
         }
+        locker.releaseTavolo();
     }
 
     public void makeSecondSelection(int terrID){
-        Territorio currentSelection=this.tavolo.getMappa().getTerritorio(terrID);
+        Territorio currentSelection=Tavolo.getInstance().getMappa().getTerritorio(terrID);
 
 
         if(currentSelection==firstSelection){
@@ -514,10 +529,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void assegnaUnita(int terrID){
-        Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
+        Tavolo tavolo=locker.acquireTavolo();
+        Territorio t=tavolo.getMappa().getTerritorio(terrID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
 
-        if(this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==corrente){
+        if(tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==corrente){
             if(tavolo.assegnaUnita(t)){
                 try {
                         Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
@@ -534,23 +550,26 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 this.mapListener.setLabelAttributes(t.getCodice(), t.getNumeroUnita(), t.getOccupante().getID());
 
             }
+            locker.releaseTavolo();
             return;
         }
     }
 
     public boolean haTruppe(){
-        return this.tavolo.getMyGiocatore().getNumeroTruppe()>0;
+
+        return Tavolo.getInstance().getMyGiocatore().getNumeroTruppe()>0;
     }
 
     public boolean isInInizializzazione(){
-        return tavolo.isInizializzazione();
+        return Tavolo.getInstance().isInizializzazione();
     }
 
     public void assegnaUnitaInInizializzazione(int terrID){
-        Territorio t=this.tavolo.getMappa().getTerritorio(terrID);
+        Tavolo tavolo=locker.acquireTavolo();
+        Territorio t=tavolo.getMappa().getTerritorio(terrID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
-        if(this.tavolo.isInizializzazione()){
-            if(truppeSelezionate<3&&this.tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
+        if(tavolo.isInizializzazione()){
+            if(truppeSelezionate<3&&tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
 
                 if(tavolo.assegnaUnita(t)){
                     try {
@@ -592,6 +611,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
             
         }
+        locker.releaseTavolo();
     }
 
     public void sendMessage(String from, String to, String message) {
@@ -605,7 +625,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updatePass(int turno_successivo) {
-
+            Tavolo tavolo=Tavolo.getInstance();
 
             int turnoSucc=tavolo.getTurnoSuccessivo();
             if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
@@ -615,7 +635,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             Giocatore precedente=tavolo.getGiocatoreCorrente();
             tavolo.recuperaCarta(precedente);
 
-            this.tavolo.passaTurno();
+            tavolo.passaTurno();
 
             Giocatore giocatore=tavolo.getGiocatoreCorrente();
             if(tavolo.isTurnoMyGiocatore()){
@@ -639,7 +659,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
-    public void passaTurno() throws IOException{
+    public   void  passaTurno() throws IOException{
+        Tavolo tavolo=locker.acquireTavolo();
+        if(!tavolo.isTurnoMyGiocatore()){
+            locker.releaseTavolo();
+            return;
+        }
+        
         this.timer.stopTimer();
         int troops=tavolo.getMyGiocatore().getNumeroTruppe();
         if(troops>0){
@@ -651,7 +677,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             if(carta!=null){
                 this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
             }
-            this.tavolo.passaTurno();
+            tavolo.passaTurno();
             Message msg=this.comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
             try {
                         //Thread.sleep(3000);
@@ -667,6 +693,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
         sendRecoveryMessage();
+        locker.releaseTavolo();
     }
 
     public void setChatListener(ChatListener aThis) {
@@ -685,8 +712,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void timeoutNotify() {
+        Tavolo tavolo=locker.acquireTavolo();
         if(!tavolo.isTurnoMyGiocatore()){
             System.err.println("o nooo il timer è sopravvisuuto e nun vole schatta");
+            locker.releaseTavolo();;
             return;
         }
         int troops=tavolo.getMyGiocatore().getNumeroTruppe();
@@ -701,10 +730,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         } catch (IOException ex) {
            System.err.println("impossibile passare turno");
         }
+        locker.releaseTavolo();
         
     }
 
     private void autoDispose(int troops){
+        Tavolo tavolo=Tavolo.getInstance();
         Set<Territorio> set=tavolo.getMyGiocatore().getNazioni();
             int size=set.size();
             Territorio[] territori=new Territorio[size];
