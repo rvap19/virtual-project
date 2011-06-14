@@ -167,7 +167,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         int counter=0;
         int limit=4;
         while((!toCentralPeer.isBound())&&counter<limit){
-            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,12*1000, this, true);
+           // toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,12*1000, this, true);
+            toCentralPeer=new JxtaBiDiPipe();
+            toCentralPeer.connect(peerGroup, centralPeerPipeAdv, 2*60*1000);
             counter++;
         }
 
