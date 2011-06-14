@@ -165,6 +165,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     public synchronized  boolean connect() throws IOException{
         int counter=0;
         int limit=4;
+        toCentralPeer=new JxtaBiDiPipe();
         while((!toCentralPeer.isBound())&&counter<limit){
            // toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,12*1000, this, true);
             toCentralPeer=new JxtaBiDiPipe();
