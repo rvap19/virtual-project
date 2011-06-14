@@ -1176,7 +1176,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private static class PeerTimerThread extends Thread{
 
-        private int sleepTime=60 * 1000 ;
+        private int sleepTime=20 * 1000 ;
         private int interval=5;
         @Override
         public void run() {
@@ -1195,7 +1195,12 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                 if(!instance.newMessageReceivedForPeer){
 
                     try {
-                        instance.connect();
+                        boolean connectde=instance.connect();
+                        if(connectde){
+                            System.err.println("riconnesso al server");
+                        }else{
+                            System.err.println("impossibile riconnessione server");
+                        }
                     } catch (IOException ex) {
                         System.err.println("impossibile riconettersi al server...riavviare applicazione");
                         System.exit(-1);
@@ -1229,6 +1234,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                    Message msg=instance.createPassesMessage(666);
                     try {
                         instance.sendMessage(msg);
+                        instance.elaboratePassesMessage(msg);
                     } catch (IOException ex) {
                         System.err.println("invio messaggio passa turno automatico non inviato");
                     }
