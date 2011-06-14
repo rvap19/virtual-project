@@ -1177,23 +1177,23 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private static class PeerTimerThread extends Thread{
 
         private int sleepTime=60 * 1000 ;
-        private int interval=2;
+        private int interval=5;
         @Override
         public void run() {
             while(instance.gameInProgress){
                 try {
+                    instance.newMessageReceivedForPeer=false;
                     for(int i=0;i<interval;i++){
                         Thread.sleep(sleepTime);
-                        System.err.println("peer timer :: elapsed time "+i+" minutes");
+                        System.err.println("peer timer :: elapsed time "+(i+1)+" minutes");
                     }
                     
                 } catch (InterruptedException ex) {
                     System.err.println("timeout error");
                 }
 
-                if(instance.newMessageReceivedForPeer){
-                   instance.newMessageReceivedForPeer=false;
-                }else{
+                if(!instance.newMessageReceivedForPeer){
+
                     try {
                         instance.connect();
                     } catch (IOException ex) {
@@ -1215,17 +1215,17 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         public void run() {
             while(instance.gameInProgress){
                 try {
+                    instance.newMessageReceivedForManager=false;
                     for(int i=0;i<interval;i++){
                         Thread.sleep(sleepTime);
-                         System.err.println("manager timer :: elapsed time "+i+" seconds");
+                         System.err.println("manager timer :: elapsed time "+(i+1)+" minutes");
                     }
                 } catch (InterruptedException ex) {
                     System.err.println("timeout error");
                 }
 
-                if(instance.newMessageReceivedForManager){
-                   instance.newMessageReceivedForManager=false;
-                }else{
+                if(!instance.newMessageReceivedForManager){
+                   
                    Message msg=instance.createPassesMessage(666);
                     try {
                         instance.sendMessage(msg);
