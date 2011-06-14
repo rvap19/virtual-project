@@ -26,6 +26,7 @@ public class VirtualRisikoIIApp extends SingleFrameApplication {
      * builder, so this additional configuration is not needed.
      */
     @Override protected void configureWindow(java.awt.Window root) {
+       
     }
 
     /**
@@ -35,6 +36,7 @@ public class VirtualRisikoIIApp extends SingleFrameApplication {
     public static VirtualRisikoIIApp getApplication() {
         return Application.getInstance(VirtualRisikoIIApp.class);
     }
+
 
     /**
      * Main method launching the application.

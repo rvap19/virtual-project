@@ -569,7 +569,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             this.setVisible(false);
             factory.loadMapPanel();
             XMapPanel panel = factory.getMapPanel();
-            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
+             app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app, panel));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -580,6 +580,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
 
     public void notifyReconnect(RecoveryParameter parameter) {
         try {
+            if(app!=null){
+                app.exit();
+            }
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
@@ -595,8 +598,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             this.setVisible(false);
             factory.loadMapPanel();
             XMapPanel panel = factory.getMapPanel();
-            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
+             app = new VirtualRisikoIIApp();
             app.show(new VirtualRisikoIIView(app, panel));
+            app.exit();
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
@@ -604,7 +608,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
 
     
 
-  
+  private VirtualRisikoIIApp app;
 
     
 
