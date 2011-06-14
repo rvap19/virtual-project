@@ -95,7 +95,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     
     private PeerGroup peerGroup;
 
+    private boolean newMessageReceivedForPeer;
+    private PeerTimerThread timer;
 
+    private boolean newMessageReceivedForManager;
+    private ManagerTimerThread timerManager;
     private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
         attackListeners=new ArrayList<AttackListener>();
@@ -272,13 +276,8 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                 return this.toCentralPeer.sendMessage(message);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                this.toCentralPeer=null;
-                try {
-                    this.connect();
-                } catch (IOException ex1) {
-                    System.err.println("impossibile accedere al nodo centrale");
-                    System.exit(-1);
-                }
+                
+               
                 return false;
             }
         }
@@ -289,6 +288,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             JxtaBiDiPipe pipe=iterPipe.next();
             try {
                 result = result && pipe.sendMessage(message);
+                
             } catch (Exception ex) {
                 System.err.println("pipe malfunzionante");
             }
@@ -352,6 +352,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
             turn++;
         }
         this.gameInProgress=true;
+        this.newMessageReceivedForManager=true;
+        this.timerManager=new ManagerTimerThread();
+        timerManager.start();
         return gine;
 
     }
@@ -384,6 +387,12 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         while(listeners.hasNext()){
             listeners.next().init(myTurno,players,seed_dice, map_name, seed_card, seed_region);
         }
+
+        newMessageReceivedForPeer=true;
+        gameInProgress=true;
+        this.timer=new PeerTimerThread();
+        timer.start();
+
     }
 
     public Message createApplicanceMessage(int troops_number,int region){
@@ -610,6 +619,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     }
 
     private synchronized void elaborateMessage(Message msg){
+        this.newMessageReceivedForPeer=true;
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
        System.out.println(msg.getMessageElement(type).toString()+" FROM "+msg.getMessageElement(GAMER)+" ID "+msg.getMessageElement(ID_MSG));
@@ -628,6 +638,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
      if(this.isCentral){
             this.sendMessage(msg,msgID);
+
      }
 
 
@@ -635,18 +646,28 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
            this.elaborateInitMessage(msg);
 
        }else if(messageType.equals(APPLIANCE)){
+           this.newMessageReceivedForManager=true;
            this.elaborateApplianceMessage(msg);
+
        }else if(messageType.equals(ATTACK)){
+           this.newMessageReceivedForManager=true;
            this.elaborateAttackMessage(msg);
+
        }else if(messageType.equals(MOVEMENT)){
+           this.newMessageReceivedForManager=true;
            this.elaborateMovementMessage(msg);
+
        }else if(messageType.equals(CHANGE_CARD)){
+           this.newMessageReceivedForManager=true;
            this.elaborateChangeCardsMessage(msg);
        }else if(messageType.equals(PASSES)){
+           this.newMessageReceivedForManager=true;
            this.elaboratePassesMessage(msg);
        }else if(messageType.equals(RECOVERY)){
+           this.newMessageReceivedForManager=true;
            this.elaborateRecoveryMessage(msg);
        }else if(messageType.equals(CHAT)){
+
            this.elaborateChatMessage(msg);
            return;
        }else{
@@ -1151,6 +1172,62 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         public static final String PEER_NAME="peer_name";
     }
 
+  
+
+    private static class PeerTimerThread extends Thread{
+
+        private int timeout=5 * 60 * 1000;
+        @Override
+        public void run() {
+            while(instance.gameInProgress){
+                try {
+                    Thread.sleep(timeout);
+                } catch (InterruptedException ex) {
+                    System.err.println("timeout error");
+                }
+
+                if(instance.newMessageReceivedForPeer){
+                   instance.newMessageReceivedForPeer=false;
+                }else{
+                    try {
+                        instance.connect();
+                    } catch (IOException ex) {
+                        System.err.println("impossibile riconettersi al server...riavviare applicazione");
+                        System.exit(-1);
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    private static class  ManagerTimerThread extends Thread{
+
+        private int timeout=5 * 60 * 1000;
+        @Override
+        public void run() {
+            while(instance.gameInProgress){
+                try {
+                    Thread.sleep(timeout);
+                } catch (InterruptedException ex) {
+                    System.err.println("timeout error");
+                }
+
+                if(instance.newMessageReceivedForManager){
+                   instance.newMessageReceivedForManager=false;
+                }else{
+                   Message msg=instance.createPassesMessage(666);
+                    try {
+                        instance.sendMessage(msg);
+                    } catch (IOException ex) {
+                        System.err.println("invio messaggio passa turno automatico non inviato");
+                    }
+                }
+            }
+        }
+
+    }
     
 
 }
