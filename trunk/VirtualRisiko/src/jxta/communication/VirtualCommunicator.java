@@ -1176,12 +1176,17 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private static class PeerTimerThread extends Thread{
 
-        private int timeout=5 * 60 * 1000;
+        private int sleepTime=60 * 1000 ;
+        private int interval=2;
         @Override
         public void run() {
             while(instance.gameInProgress){
                 try {
-                    Thread.sleep(timeout);
+                    for(int i=0;i<interval;i++){
+                        Thread.sleep(sleepTime);
+                        System.err.println("peer timer :: elapsed time "+i+" minutes");
+                    }
+                    
                 } catch (InterruptedException ex) {
                     System.err.println("timeout error");
                 }
@@ -1204,12 +1209,16 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private static class  ManagerTimerThread extends Thread{
 
-        private int timeout=5 * 60 * 1000;
+        private int sleepTime=60 * 1000 ;
+        private int interval=2;
         @Override
         public void run() {
             while(instance.gameInProgress){
                 try {
-                    Thread.sleep(timeout);
+                    for(int i=0;i<interval;i++){
+                        Thread.sleep(sleepTime);
+                         System.err.println("manager timer :: elapsed time "+i+" seconds");
+                    }
                 } catch (InterruptedException ex) {
                     System.err.println("timeout error");
                 }
