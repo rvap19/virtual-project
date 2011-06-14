@@ -1233,8 +1233,12 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                    
                    Message msg=instance.createPassesMessage(666);
                     try {
+                        Iterator<PassListener> listeners=instance.passListeners.iterator();
+                        while(listeners.hasNext()){
+                            listeners.next().updatePass(666);
+                        }
                         instance.sendMessage(msg);
-                        instance.elaboratePassesMessage(msg);
+                        
                     } catch (IOException ex) {
                         System.err.println("invio messaggio passa turno automatico non inviato");
                     }
