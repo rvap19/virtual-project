@@ -68,7 +68,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
         this.Name=name;
         this.TcpPort=tcpPort;
         PID=IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
-        ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
+        ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + "config_file"+ System.getProperty("file.separator") + Name);
     }
 
     public PipeAdvertisement getOutputPipe(){
