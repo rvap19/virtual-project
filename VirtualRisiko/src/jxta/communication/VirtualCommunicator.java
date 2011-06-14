@@ -1171,14 +1171,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                         msg=null;
                         System.err.println("tentativo 1 :: impossibile ricevere messaggi");
                     }
-                    if(msg==null){
-                        try {
-                            msg = instance.toCentralPeer.getMessage(GAME_TIME_OUT);
-                        } catch (InterruptedException ex) {
-                            msg=null;
-                            System.err.println("tentativo 2 :: impossibile ricevere messaggi");
-                        }
-                    }
+                    
                     
 
                     if(msg!=null){
