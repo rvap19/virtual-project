@@ -10,21 +10,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 import jxta.listener.ConnectionListener;
 import net.jxta.endpoint.Message;
-import net.jxta.endpoint.MessageElement;
 import net.jxta.endpoint.StringMessageElement;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.pipe.PipeMsgEvent;
 import net.jxta.pipe.PipeMsgListener;
 import net.jxta.protocol.PipeAdvertisement;
 import net.jxta.util.JxtaBiDiPipe;
-import net.jxta.util.JxtaServerPipe;
 import services.RecoveryListener;
 import util.RecoveryUtil;
 import virtualrisikoii.GameParameter;
@@ -37,7 +34,6 @@ import virtualrisikoii.listener.InitListener;
 import virtualrisikoii.listener.MovementListener;
 import virtualrisikoii.listener.PassListener;
 import virtualrisikoii.listener.ReconnectionRequestListener;
-import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
@@ -96,9 +92,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private GameParameter gameParameter;
     private PipeAdvertisement centralPeerPipeAdv;
-
-    private final long GAME_TIMEOUT= 2 * 60 *1000;
+    
     private PeerGroup peerGroup;
+    private PipeThread listener;
 
     private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -138,10 +134,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,30*1000, instance, true);
         instance.centralPeerPipeAdv=pipe;
         instance.peerGroup=group;
-
+        
         if(!instance.connect()){
             instance=null;
         }
+        
 
         return instance;
 
@@ -176,7 +173,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
         if(toCentralPeer.isBound()){
             System.err.println("server contattato");
-            toCentralPeer.setMessageListener(instance);
+            gameInProgress=true;
+            instance.listener=new PipeThread();
+            instance.listener.start();
+
+          //  toCentralPeer.setMessageListener(instance);
             Message msg=createWelcomeMessage();
             sendMessage(msg);
             return true;
@@ -604,8 +605,13 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
-       System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-       
+       this.elaborateMessage(msg);
+
+    }
+
+    private synchronized void elaborateMessage(Message msg){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
        System.out.println(msg.getMessageElement(type).toString()+" FROM "+msg.getMessageElement(GAMER)+" ID "+msg.getMessageElement(ID_MSG));
 
        String messageType=msg.getMessageElement(namespace, type).toString();
@@ -623,7 +629,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
      if(this.isCentral){
             this.sendMessage(msg,msgID);
      }
-      
+
 
        if(messageType.equals(INIT)){
            this.elaborateInitMessage(msg);
@@ -646,10 +652,6 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
        }else{
            return;
        }
-
-
-   
-
     }
 
     public void notifyConnection(JxtaBiDiPipe pipe,Message msg) {
@@ -1149,24 +1151,55 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         public static final String PEER_NAME="peer_name";
     }
 
+    private static class PipeThread extends Thread{
+        private int GAME_TIME_OUT=2 * 1000;
 
-
-    private class TimeOutToCentralPeerTask extends TimerTask{
-
-        public TimeOutToCentralPeerTask(){
-            super();
-        }
-        
         @Override
         public void run() {
-            try {
-                instance.connect();
-            } catch (IOException ex) {
-                System.err.println("io exception in connection to central peer ");
+            Message msg=null;
+            while(instance.gameInProgress){
+                msg=null;
+                if(instance.toCentralPeer!=null){
+                    try {
+                        msg = instance.toCentralPeer.getMessage(GAME_TIME_OUT);
+                    } catch (InterruptedException ex) {
+                        msg=null;
+                        System.err.println("tentativo 1 :: impossibile ricevere messaggi");
+                    }
+                    if(msg==null){
+                        try {
+                            msg = instance.toCentralPeer.getMessage(GAME_TIME_OUT);
+                        } catch (InterruptedException ex) {
+                            msg=null;
+                            System.err.println("tentativo 2 :: impossibile ricevere messaggi");
+                        }
+                    }
+                    
+
+                    if(msg!=null){
+                        instance.elaborateMessage(msg);
+                    }else {
+                        instance.gameInProgress=false;
+                    }
+                }
+
+            }
+
+            if(msg==null){
+                try {
+                    instance.connect();
+                } catch (IOException ex) {
+                    instance.toCentralPeer=null;
+                    System.err.println("impossibile riconnettersi alla partita");
+                }
             }
         }
 
+
     }
+
+
+    
     
     
    
