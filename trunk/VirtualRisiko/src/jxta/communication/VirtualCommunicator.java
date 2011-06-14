@@ -94,7 +94,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private PipeAdvertisement centralPeerPipeAdv;
     
     private PeerGroup peerGroup;
-    private PipeThread listener;
+
 
     private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -167,17 +167,15 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         int limit=4;
         toCentralPeer=new JxtaBiDiPipe();
         while((!toCentralPeer.isBound())&&counter<limit){
-           // toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,12*1000, this, true);
-            toCentralPeer=new JxtaBiDiPipe();
-            toCentralPeer.connect(peerGroup, centralPeerPipeAdv, 2*60*1000);
+            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,12*1000, this, true);
+            
             counter++;
         }
 
         if(toCentralPeer.isBound()){
             System.err.println("server contattato");
             gameInProgress=true;
-            instance.listener=new PipeThread();
-            instance.listener.start();
+            
 
           //  toCentralPeer.setMessageListener(instance);
             Message msg=createWelcomeMessage();
@@ -1153,48 +1151,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         public static final String PEER_NAME="peer_name";
     }
 
-    private static class PipeThread extends Thread{
-        private int GAME_TIME_OUT=2 * 60 * 1000;
+    
 
-        public PipeThread(){
-            instance.gameInProgress=true;
-        }
-        @Override
-        public void run() {
-            Message msg=null;
-            while(instance.gameInProgress){
-                msg=null;
-                if(instance.toCentralPeer!=null){
-                    try {
-                        msg = instance.toCentralPeer.getMessage(GAME_TIME_OUT);
-                    } catch (InterruptedException ex) {
-                        msg=null;
-                        System.err.println("tentativo 1 :: impossibile ricevere messaggi");
-                    }
-                    
-                    
-
-                    if(msg!=null){
-                        instance.elaborateMessage(msg);
-                    }else {
-                        instance.gameInProgress=false;
-                    }
-                }
-
-            }
-
-            if(msg==null){
-                try {
-                    instance.connect();
-                } catch (IOException ex) {
-                    instance.toCentralPeer=null;
-                    System.err.println("impossibile riconnettersi alla partita");
-                }
-            }
-        }
-
-
-    }
+}
 
 
     
@@ -1203,4 +1162,4 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
    
 
 
-}
+
