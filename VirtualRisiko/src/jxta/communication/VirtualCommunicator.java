@@ -1154,6 +1154,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private static class PipeThread extends Thread{
         private int GAME_TIME_OUT=2 * 60 * 1000;
 
+        public PipeThread(){
+            instance.gameInProgress=true;
+        }
         @Override
         public void run() {
             Message msg=null;
