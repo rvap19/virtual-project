@@ -1202,8 +1202,8 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
                             System.err.println("impossibile riconnessione server");
                         }
                     } catch (IOException ex) {
-                        System.err.println("impossibile riconettersi al server...riavviare applicazione");
-                        System.exit(-1);
+                        System.err.println("impossibile riconettersi al server...è consigliato riavviare applicazione");
+                        
                     }
                 }
             }
