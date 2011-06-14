@@ -1176,7 +1176,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private static class PeerTimerThread extends Thread{
 
-        private int sleepTime=20 * 1000 ;
+        private int sleepTime=17 * 1000 ;
         private int interval=5;
         @Override
         public void run() {
@@ -1214,7 +1214,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
 
     private static class  ManagerTimerThread extends Thread{
 
-        private int sleepTime=60 * 1000 ;
+        private int sleepTime=33 * 1000 ;
         private int interval=2;
         @Override
         public void run() {
