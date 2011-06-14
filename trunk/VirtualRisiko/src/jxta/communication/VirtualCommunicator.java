@@ -131,7 +131,6 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         instance=new VirtualCommunicator();
         instance.playerName=peerName;
         instance.isCentral=false;
-        instance.toCentralPeer=	new JxtaBiDiPipe(group,pipe,30*1000, instance, true);
         instance.centralPeerPipeAdv=pipe;
         instance.peerGroup=group;
         
