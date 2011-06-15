@@ -35,6 +35,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         //String pathColore=null;
         this.tavolo=Tavolo.getInstance();
         VirtualCommunicator.getInstance().addStatusListener(this);
+        VirtualCommunicator.getInstance().addPassListener(this);
         String colore=null;
         Color color;
         List<Giocatore> giocatori=tavolo.getGiocatori();
