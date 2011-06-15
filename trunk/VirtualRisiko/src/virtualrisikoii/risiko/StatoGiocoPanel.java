@@ -20,7 +20,12 @@ import java.util.List;
  */
 public class StatoGiocoPanel extends javax.swing.JPanel {
 
+
     /** Creates new form StatoGiocoPanel */
+    public StatoGiocoPanel(){
+        this.initComponents();
+    }
+
     public StatoGiocoPanel(Tavolo tavolo) {
         initComponents();
         //String pathColore=null;
@@ -364,27 +369,21 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
         nomeGiocatoreLabel5.setName("nomeGiocatoreLabel5"); // NOI18N
         add(nomeGiocatoreLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 150, 70, -1));
 
-        statoLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         statoLabel6.setName("statoLabel6"); // NOI18N
         add(statoLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 160, 30));
 
-        statoLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         statoLabel2.setName("statoLabel2"); // NOI18N
         add(statoLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, 30));
 
-        statoLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         statoLabel1.setName("statoLabel1"); // NOI18N
         add(statoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 160, 30));
 
-        statoLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         statoLabel3.setName("statoLabel3"); // NOI18N
         add(statoLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 160, 30));
 
-        statoLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         statoLabel4.setName("statoLabel4"); // NOI18N
         add(statoLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 160, 30));
 
-        statoLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         statoLabel5.setName("statoLabel5"); // NOI18N
         add(statoLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 160, 30));
 

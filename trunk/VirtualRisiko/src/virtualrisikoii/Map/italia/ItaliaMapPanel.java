@@ -160,6 +160,7 @@ public class ItaliaMapPanel extends XMapPanel {
         lAquilaLabel = new javax.swing.JLabel();
         latinaLabel = new javax.swing.JLabel();
         triesteLabel = new javax.swing.JLabel();
+        statoGiocoPanel1 = new virtualrisikoii.risiko.StatoGiocoPanel();
 
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -580,6 +581,9 @@ public class ItaliaMapPanel extends XMapPanel {
         triesteLabel.setName("triesteLabel"); // NOI18N
         mapPanel1.add(triesteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 130, 70));
 
+        statoGiocoPanel1.setName("statoGiocoPanel1"); // NOI18N
+        mapPanel1.add(statoGiocoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, 180, 210));
+
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -757,6 +761,7 @@ public class ItaliaMapPanel extends XMapPanel {
     private javax.swing.JLabel salernoLabel;
     private javax.swing.JLabel sassariLabel;
     private javax.swing.JLabel sienaLabel;
+    private virtualrisikoii.risiko.StatoGiocoPanel statoGiocoPanel1;
     private javax.swing.JLabel torinoLabel;
     private javax.swing.JLabel trapaniLabel;
     private javax.swing.JLabel trentoLabel;

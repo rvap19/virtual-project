@@ -161,6 +161,7 @@ public class EuropeMapPanel extends XMapPanel {
         portogalloLabel = new javax.swing.JLabel();
         spagnaLabel = new javax.swing.JLabel();
         turchiaLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -576,6 +577,10 @@ public class EuropeMapPanel extends XMapPanel {
         turchiaLabel.setName("turchiaLabel"); // NOI18N
         mapPanel1.add(turchiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 190, 60));
 
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+        mapPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -735,6 +740,7 @@ public class EuropeMapPanel extends XMapPanel {
     private javax.swing.JLabel irlandaLabel;
     private javax.swing.JLabel islandaLabel;
     private javax.swing.JLabel italiaLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel kazakistanLabel;
     private javax.swing.JLabel libiaLabel;
