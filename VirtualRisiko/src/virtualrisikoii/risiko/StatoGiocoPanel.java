@@ -22,14 +22,12 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
 
 
     /** Creates new form StatoGiocoPanel */
-    public StatoGiocoPanel(){
-        this.initComponents();
-    }
+  
 
-    public StatoGiocoPanel(Tavolo tavolo) {
+    public StatoGiocoPanel() {
         initComponents();
         //String pathColore=null;
-        this.tavolo=tavolo;
+        this.tavolo=tavolo.getInstance();
         String colore=null;
         Color color;
         List<Giocatore> giocatori=tavolo.getGiocatori();
