@@ -75,8 +75,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
                             nomeGiocatore=giocatori.get(i).getUsername();
                     break;
                 }
-                  pathColore.set(i, "/virtualrisikoii/resources/tanks/"+colTurno+".png");
-                  nomeGiocatori.set(i,nomeGiocatore);
+                  pathColore.add(i, "/virtualrisikoii/resources/tanks/"+colTurno+".png");
+                  nomeGiocatori.add(i,nomeGiocatore);
                   i++;
             }
 
