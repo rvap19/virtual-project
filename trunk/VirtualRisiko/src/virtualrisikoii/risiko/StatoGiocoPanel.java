@@ -43,7 +43,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         List<String> nomeGiocatori=new ArrayList<String>();
 
 
-         List<String> pathColore = null;
+         List<String> pathColore = new ArrayList<String>();
 
 
         while(i<numGioc){
