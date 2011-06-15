@@ -63,7 +63,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private int truppeSelezionate;
     private boolean[] reconnectionNeeds;
 
-    private boolean messageReceived;
+    private boolean[] messageReceived;
     private ManagerTimerThread managerTimer;
     private static GameController instance=null;
 
@@ -103,6 +103,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
 
         if(comunicator.isManager()){
+
+            messageReceived=new boolean[Tavolo.getInstance().getGiocatori().size()];
+            for(int i=0;i<messageReceived.length;i++){
+                messageReceived[i]=false;
+            }
+            messageReceived[0]=true;
             this.timer=new GameTimer(this, GameTimer.ACTION);
             timer.start();
 
@@ -195,8 +201,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
         int troops_number=msg.getTroops_number();
         int region=msg.getRegion();
-        this.messageReceived=true;
+        
         Tavolo tavolo=Tavolo.getInstance();
+        this.messageReceived[tavolo.getTurno()]=true;
         Territorio territorio=tavolo.getMappa().getTerritorio(region);
         String message="Il "+territorio.getOccupante().getNome()+" posiziona "+troops_number+" in "+territorio.getNome();
         historyListener.appendActionInHistory(message);
@@ -218,8 +225,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         int from=msg.getFrom();
         int to=msg.getTo();
 
-        this.messageReceived=true;
+        
         Tavolo tavolo=Tavolo.getInstance();
+        this.messageReceived[tavolo.getTurno()]=true;
         Territorio fromTerritorio=tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=tavolo.getMappa().getTerritorio(to);
         Giocatore  attaccante=fromTerritorio.getOccupante();
@@ -286,8 +294,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         int troops_number=msg.getTroopNumber();
         int from=msg.getFrom();
         int to=msg.getTo();
-        messageReceived=true;
+        
         Tavolo tavolo=Tavolo.getInstance();
+        messageReceived[tavolo.getTurno()]=true;
         Territorio fromTerritorio=tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=tavolo.getMappa().getTerritorio(to);
         System.out.println("Spostamento :Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
@@ -317,8 +326,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         int card1=msg.getCard1();
         int card2=msg.getCard2();
         int card3=msg.getCard3();
-        messageReceived=true;
+        
         Tavolo tavolo=Tavolo.getInstance();
+        messageReceived[tavolo.getTurno()]=true;
         Giocatore g=tavolo.getGiocatoreCorrente();
         Carta c1=g.getCarta(card1);
         Carta c2=g.getCarta(card2);
@@ -676,9 +686,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void updatePass(PassMessage msg) {
         int turno_successivo=msg.getTurno_successivo();
-            messageReceived=true;
+            
             Tavolo tavolo=Tavolo.getInstance();
-
+            messageReceived[tavolo.getTurno()]=true;
             int turnoSucc=tavolo.getTurnoSuccessivo();
             if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
                 tavolo.setInizializzazione(false);
@@ -788,7 +798,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     private void autoDispose(int troops){
         Tavolo tavolo=Tavolo.getInstance();
-        Set<Territorio> set=tavolo.getMyGiocatore().getNazioni();
+        Set<Territorio> set=tavolo.getGiocatoreCorrente().getNazioni();
             int size=set.size();
             Territorio[] territori=new Territorio[size];
             territori=set.toArray(territori);
@@ -822,6 +832,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
         private AtomicBoolean continueTimer;
 
+
         public ManagerTimerThread(){
             this.continueTimer=new AtomicBoolean(true);
         }
@@ -834,10 +845,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         public void run() {
             while(continueTimer.get()){
                 try {
+                    Tavolo tavolo=Tavolo.getInstance();
+                    messageReceived[tavolo.getTurno()]=false;
                     for(int i=0;i<interval;i++){
                         this.sleep(sleepTime);
                     }
-                    if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived){
+
+
+                    if(!tavolo.isTurnoMyGiocatore()&&!messageReceived[tavolo.getTurno()]){
                         autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         try {
                             Giocatore g=Tavolo.getInstance().getGiocatoreCorrente();
@@ -846,8 +861,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         } catch (IOException ex) {
                             System.err.println("impossibile chidere pipe");
                         }
-                    }else{
-                        messageReceived=false;
                     }
                     
                 } catch (InterruptedException ex) {

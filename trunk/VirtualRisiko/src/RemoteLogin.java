@@ -138,7 +138,16 @@ public class RemoteLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-     UserInfo info= server.authenticate(this.usernameField.getText(),this.passwordField.getText());
+        String userName=usernameField.getText();
+        String pss=passwordField.getText();
+        if(userName==null){
+            userName="";
+        }
+        if(pss==null){
+            pss="";
+        }
+
+     UserInfo info= server.authenticate(userName,pss);
         if(info.logged){
             System.out.println("Utente "+usernameField.getText()+" autenticato");
            // server.shutdown();
