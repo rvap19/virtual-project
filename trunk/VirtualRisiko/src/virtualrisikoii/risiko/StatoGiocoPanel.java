@@ -15,14 +15,16 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.PassMessage;
 import jxta.communication.messages.StatusPeerMessage;
+import jxta.communication.messages.listener.PassListener;
 import jxta.communication.messages.listener.StatusPeerListener;
 
 /**
  *
  * @author Administrator
  */
-public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerListener{
+public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerListener,PassListener{
 
 
     /** Creates new form StatoGiocoPanel */
@@ -436,5 +438,11 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
 
     public void updateStatus(StatusPeerMessage message) {
         this.NotifyOutPlayer(tavolo.getGiocatori().get(message.getId()), !message.isOnline());
+    }
+
+    public void updatePass(PassMessage m) {
+        int turno=m.getTurno_successivo();
+        Giocatore g=Tavolo.getInstance().getGiocatori().get(turno);
+        this.updateGiocatore(g);
     }
 }
