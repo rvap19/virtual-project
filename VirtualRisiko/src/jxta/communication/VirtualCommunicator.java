@@ -670,6 +670,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
     }
 
 
+    public boolean isOnline(String player){
+        return toPeersPipes.get(player)!=null;
+    }
 
     
     

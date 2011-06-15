@@ -850,9 +850,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     Tavolo tavolo=Tavolo.getInstance();
                     Giocatore giocatore=tavolo.getGiocatoreCorrente();
                     messageReceived[tavolo.getTurno()]=false;
-                    for(int i=0;i<interval;i++){
-                        this.sleep(sleepTime);
+                    if(comunicator.isOnline(giocatore.getUsername())){
+                        for(int i=0;i<interval;i++){
+                            this.sleep(sleepTime);
+                        }
                     }
+
+                    
 
 
                     if(!tavolo.isTurnoMyGiocatore()&&!messageReceived[giocatore.getID()]){
