@@ -55,7 +55,7 @@ import jxta.communication.messages.listener.StatusPeerListener;
  *
  * @author root
  */
-public class VirtualCommunicator implements ConnectionListener{
+public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
 
     public static VirtualCommunicator instance;
     
@@ -173,9 +173,9 @@ public class VirtualCommunicator implements ConnectionListener{
         int counter=0;
         int limit=4;
         toCentralPeer=new JxtaBiDiPipe();
-        VirtualPipeListener listener=new VirtualPipeListener();
+        
         while((!toCentralPeer.isBound())&&counter<limit){
-            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,25*1000, listener, true);
+            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,25*1000, this, true);
             
             counter++;
         }
@@ -186,7 +186,7 @@ public class VirtualCommunicator implements ConnectionListener{
             
 
           //  toCentralPeer.setMessageListener(instance);
-            listener.start();
+            
             Message msg=new WelcomeMessage(playerName);
             sendMessage(msg);
             return true;
@@ -484,9 +484,9 @@ public class VirtualCommunicator implements ConnectionListener{
         if((!isClose)||(this.toPeersPipes.containsKey(m.getWelcomeName()))){
             this.currentPlayerNumber++;
             this.toPeersPipes.put(m.getWelcomeName(), pipe);
-            VirtualPipeListener listener=new VirtualPipeListener();
-            pipe.setMessageListener(listener);
-            listener.start();
+            
+            pipe.setMessageListener(this);
+            
             if(this.currentPlayerNumber==this.maxPlayers){
                 this.sendInitMessages();
                 this.gameInProgress=true;
@@ -499,9 +499,9 @@ public class VirtualCommunicator implements ConnectionListener{
         String name=msg.getMessageElement(namespace, WelcomeMessage.PEER_NAME).toString();
         int turn=this.findTurno(name);
         this.toPeersPipes.put(name, pipe);
-        VirtualPipeListener listener=new VirtualPipeListener();
-        pipe.setMessageListener(listener);
-        listener.start();
+        
+        pipe.setMessageListener(this);
+        
         this.recoveryRequestListener.notifyReconnectionRequest(turn);
 
     }
@@ -523,7 +523,7 @@ public class VirtualCommunicator implements ConnectionListener{
     private boolean free=true;
     Lock lock=new ReentrantLock();
 
-   /* public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
+    public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
        try{
@@ -532,7 +532,7 @@ public class VirtualCommunicator implements ConnectionListener{
         }finally{
             lock.unlock();
         }
-    }*/
+    }
 
     private synchronized void elaborateMessage(Message msg){
         
@@ -795,27 +795,7 @@ public class VirtualCommunicator implements ConnectionListener{
         }
     }
 
-    private class VirtualPipeListener extends Thread implements PipeMsgListener{
-
-        @Override
-        public void run() {
-            while(true);
-        }
-
-
-
-         public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
-
-           Message msg=pme.getMessage();
-           try{
-               lock.lock();
-               elaborateMessage(msg);
-            }finally{
-                lock.unlock();
-            }
-         }
-
-    }
+    
     
 
 }
