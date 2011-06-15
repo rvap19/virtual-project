@@ -331,9 +331,17 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         while(iter.hasNext()){
 
             msg=new InitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region(),names);
+
             StringMessageElement mE=new StringMessageElement(InitMessage.TURN, Integer.toString(turn), null);
-             
             msg.addMessageElement(namespace, mE);
+
+            mE=new StringMessageElement(VirtualRisikoMessage.GAMER, playerName, null);
+            msg.addMessageElement(namespace, mE);
+
+            mE=new StringMessageElement(VirtualRisikoMessage.ID_MSG, Integer.toString(0), null);
+
+            msg.addMessageElement(namespace, mE);
+
             gine=gine&&toPeersPipes.get(iter.next()).sendMessage(msg);
             turn++;
         }
