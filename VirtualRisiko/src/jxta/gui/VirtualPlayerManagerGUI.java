@@ -468,7 +468,8 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
 
-            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards());
+            List<String> names=communicator.getPlayerrNames();
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
             tavolo.setNameMap(gameParameter.getMapName());
             GameController controller=GameController.createGameController();
             factory.loadMapPanel();
@@ -561,6 +562,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             String map_name=msg.getMap_name();
             int seed_card=msg.getSeed_card();
             int seed_region=msg.getSeed_region();
+            List<String> names=msg.getNames();
             receivedInit = true;
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             GameFactory factory = new GameFactory();
@@ -570,7 +572,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
             System.out.println("REGISTRAZIONE " + myTurno);
-            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, players, myTurno, seed_dice, seed_region, seed_card);
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, players, myTurno, seed_dice, seed_region, seed_card,names);
             tavolo.setNameMap(map_name);
             GameController controller = GameController.createGameController();
             this.setVisible(false);

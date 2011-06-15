@@ -12,13 +12,17 @@
 package virtualrisikoii.risiko;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
+import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.StatusPeerMessage;
+import jxta.communication.messages.listener.StatusPeerListener;
 
 /**
  *
  * @author Administrator
  */
-public class StatoGiocoPanel extends javax.swing.JPanel {
+public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerListener{
 
 
     /** Creates new form StatoGiocoPanel */
@@ -27,15 +31,16 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
     public StatoGiocoPanel() {
         initComponents();
         //String pathColore=null;
-        this.tavolo=tavolo.getInstance();
+        this.tavolo=Tavolo.getInstance();
+        VirtualCommunicator.getInstance().addStatusListener(this);
         String colore=null;
         Color color;
         List<Giocatore> giocatori=tavolo.getGiocatori();
         Giocatore giocatoreCorrente=tavolo.getGiocatoreCorrente();
         numGioc=giocatori.size();
         int i=0;
-        //String nomeGiocatore=null;
-        //List<String> nomeGiocatori=null;
+        String nomeGiocatore=null;
+        List<String> nomeGiocatori=new ArrayList<String>();
 
 
          List<String> pathColore = null;
@@ -46,39 +51,39 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
                   switch(giocatori.get(i).getID()){
                     case 0: colTurno="rosso" ;
                             colore="Rosso";
-                            //nomeGiocatore=giocatori.get(i).getNomeGiocatore();
+                            nomeGiocatore=giocatori.get(i).getUsername();
 
                     break;
                     case 1: colTurno="giallo";
                             colore="Giallo";
-                            //nomeGiocatore=giocatori.get(i).getNomeGiocatore();
+                            nomeGiocatore=giocatori.get(i).getUsername();
                     break;
                     case 2: colTurno="verde";
                             colore="Verde";
-                            //nomeGiocatore=giocatori.get(i).getNomeGiocatore();
+                            nomeGiocatore=giocatori.get(i).getUsername();
                     break;
                     case 3: colTurno="nero";
                             colore="Nero";
-                            //nomeGiocatore=giocatori.get(i).getNomeGiocatore();
+                            nomeGiocatore=giocatori.get(i).getUsername();
                     break;
                     case 4: colTurno="viola";
                             colore="Viola";
-                            //nomeGiocatore=giocatori.get(i).getNomeGiocatore();
+                            nomeGiocatore=giocatori.get(i).getUsername();
                     break;
                     case 5: colTurno="blu";
                             colore="Blu";
-                            //nomeGiocatore=giocatori.get(i).getNomeGiocatore();
+                            nomeGiocatore=giocatori.get(i).getUsername();
                     break;
                 }
                   pathColore.set(i, "/virtualrisikoii/resources/tanks/"+colTurno+".png");
-                  //nomeGiocatori.set(i,nomeGiocatore);
+                  nomeGiocatori.set(i,nomeGiocatore);
                   i++;
             }
 
          int lunghPathColore =pathColore.size();
 
           iconStateLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(0))));
-          //nomeGiocatoreLabel1.setText(nomeGiocatore);
+          nomeGiocatoreLabel1.setText(nomeGiocatori.get(0));
           puntLabel1.setText("0");
           statoLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
           
@@ -86,31 +91,31 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
 
           if(lunghPathColore>1){
           iconStateLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(1))));
-          //nomeGiocatoreLabel2.setText(nomeGiocatore);
+          nomeGiocatoreLabel2.setText(nomeGiocatori.get(1));
          puntLabel2.setText("0");
          statoLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
           }
           if(lunghPathColore>2){
           iconStateLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(2))));
-          //nomeGiocatoreLabel3.setText(nomeGiocatore);
+          nomeGiocatoreLabel3.setText(nomeGiocatori.get(2));
           puntLabel3.setText("0");
           statoLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
           if(lunghPathColore>3){
           iconStateLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(3))));
-          //nomeGiocatoreLabel4.setText(nomeGiocatore);
+          nomeGiocatoreLabel4.setText(nomeGiocatori.get(3));
           puntLabel4.setText("0");
           statoLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
           if(lunghPathColore>4){
           iconStateLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(4))));
-          //nomeGiocatoreLabel5.setText(nomeGiocatore);
+          nomeGiocatoreLabel5.setText(nomeGiocatori.get(4));
           puntLabel5.setText("0");
           statoLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
           if(lunghPathColore>5){
           iconStateLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(5))));
-          //nomeGiocatoreLabel6.setText(nomeGiocatore);
+          nomeGiocatoreLabel6.setText(nomeGiocatori.get(5));
           puntLabel6.setText("0");
           statoLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
@@ -221,7 +226,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
           }
     }
 
-    public void NotifyOutPlayer(Giocatore giocatore, Boolean outLine){
+    public void NotifyOutPlayer(Giocatore giocatore, boolean outLine){
 
         ////// outLine=true  ==> il giocatore non è on line!
         String path="/virtualrisikoii/resources/tanks/out.png";
@@ -257,6 +262,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
         }
         }
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -427,4 +433,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
     private String colTurno;
     private Tavolo tavolo;
     private int numGioc;
+
+    public void updateStatus(StatusPeerMessage message) {
+        this.NotifyOutPlayer(tavolo.getGiocatori().get(message.getId()), !message.isOnline());
+    }
 }

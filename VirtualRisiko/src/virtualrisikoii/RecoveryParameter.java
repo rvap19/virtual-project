@@ -5,6 +5,8 @@
 
 package virtualrisikoii;
 
+import java.util.List;
+
 /**
  *
  * @author root
@@ -24,9 +26,11 @@ public class RecoveryParameter {
     private  int cards_lanch;
     private int turnoMyGiocatore;
 
+    private List<String> names;
 
 
-    public RecoveryParameter(String mapName,boolean inizializzazione,int[] idOccupante,int[] numeroTruppe,int[] objectives,int[] armateDisponibili,int turno,int numeroGiocatori,int seed_card,int seed_dice,int dice_lanch,int card_lanch){
+
+    public RecoveryParameter(String mapName,boolean inizializzazione,int[] idOccupante,int[] numeroTruppe,int[] objectives,int[] armateDisponibili,int turno,int numeroGiocatori,int seed_card,int seed_dice,int dice_lanch,int card_lanch,List<String> names){
         this.mapName=mapName;
         this.inizializzazione=inizializzazione;
         this.idOccupante=idOccupante;
@@ -39,6 +43,7 @@ public class RecoveryParameter {
         this.seed_dice=seed_dice;
         this.dice_lanch=dice_lanch;
         this.cards_lanch=card_lanch;
+        this.names=names;
     }
 
     public RecoveryParameter(){
@@ -150,6 +155,16 @@ public class RecoveryParameter {
     public int getTurnoMyGiocatore() {
         return turnoMyGiocatore;
     }
+
+    public void setPlayersNames(List<String> playersNames) {
+        this.names=playersNames;
+    }
+
+    public List<String> getPlayersNames() {
+        return names;
+    }
+
+
 
     
 

@@ -6,6 +6,8 @@
 package jxta.communication.messages;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -20,6 +22,7 @@ public class InitMessage extends VirtualRisikoMessage{
     public static final String SEED_REGION="seed_region";
     public static final String PLAYERS="players_number";
     public static final String TURN="myTurn";
+    public static final String PLAYER_NAMES="players_names";
 
     private int players;
     private int seed_dice;
@@ -27,10 +30,11 @@ public class InitMessage extends VirtualRisikoMessage{
     private int seed_card;
     private int seed_region;
     private int myTurno;
+    private List<String> names;
 
     
 
-    public InitMessage(int players,int seed_dice,String map_name,int seed_card,int seed_region){
+    public InitMessage(int players,int seed_dice,String map_name,int seed_card,int seed_region,List<String> playerNames){
         super();
         this.players=players;
         this.seed_dice=seed_dice;
@@ -52,6 +56,15 @@ public class InitMessage extends VirtualRisikoMessage{
         addMessageElement(namespace, mElement);
         mElement = new StringMessageElement(PLAYERS,Integer.toString(players), null);
         addMessageElement(namespace, mElement);
+
+
+        String info;
+
+        for(int i=0;i<players;i++){
+            info=playerNames.get(i);
+            mE=new StringMessageElement(PLAYER_NAMES,info , null);
+            addMessageElement(namespace, mE);
+        }
          
         
     }
@@ -64,6 +77,12 @@ public class InitMessage extends VirtualRisikoMessage{
          seed_region=Integer.parseInt(message.getMessageElement(namespace, SEED_REGION).toString());
          players=Integer.parseInt(message.getMessageElement(namespace, PLAYERS).toString());
          myTurno=Integer.parseInt(message.getMessageElement(namespace, TURN).toString());
+
+         this.names=new ArrayList<String>();
+         ElementIterator iter=message.getMessageElements(namespace, PLAYER_NAMES);
+         while(iter.hasNext()){
+            names.add(iter.next().toString());
+         }
     }
 
     public String getMap_name() {
@@ -88,6 +107,10 @@ public class InitMessage extends VirtualRisikoMessage{
 
     public int getSeed_region() {
         return seed_region;
+    }
+
+    public List<String> getNames() {
+        return names;
     }
 
     

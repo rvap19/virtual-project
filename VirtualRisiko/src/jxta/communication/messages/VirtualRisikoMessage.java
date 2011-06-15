@@ -29,6 +29,7 @@ public class VirtualRisikoMessage extends Message{
     public static final String CHAT="chat";
     public static final String WELCOME="welcome";
     public static final String RECOVERY="recovery";
+    public static final String STATUS="status";
     
 
     protected String playerName;

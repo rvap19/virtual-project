@@ -5,6 +5,8 @@
 
 package util;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.risiko.Giocatore;
@@ -34,6 +36,7 @@ public class RecoveryUtil {
         parameter.setSeed_card(tavolo.getCardSeed());
         parameter.setSeed_dice(tavolo.getDiceSeed());
         parameter.setTurno(tavolo.getTurno());
+        parameter.setPlayersNames(getPlayersNames(tavolo));
         parameter.setTurnoMyGiocatore(tavolo.getGiocatori().indexOf(tavolo.getMyGiocatore()));
         return parameter;
     }
@@ -45,7 +48,7 @@ public class RecoveryUtil {
         Mappa mappa=gameFactory.getMappa();
         List<Obiettivo> obiettivi=gameFactory.getObiettivi();
 
-        Tavolo tavolo=Tavolo.createInstance(mappa, obiettivi, parameter.getTurno(), parameter.getNumeroGiocatori(), parameter.getTurnoMyGiocatore(), parameter.getSeed_dice(), 0, parameter.getSeed_card());
+        Tavolo tavolo=Tavolo.createInstance(mappa, obiettivi, parameter.getTurno(), parameter.getNumeroGiocatori(), parameter.getTurnoMyGiocatore(), parameter.getSeed_dice(), 0, parameter.getSeed_card(),parameter.getPlayersNames());
         tavolo.setInizializzazione(parameter.isInizializzazione());
         int diceLanch=tavolo.getDiceLanch();
         int limit=parameter.getDice_lanch();
@@ -129,6 +132,16 @@ public class RecoveryUtil {
             armate[i]=giocatori.get(i).getNumeroTruppe();
         }
         return armate;
+    }
+
+    public List<String> getPlayersNames(Tavolo tavolo){
+        Iterator<Giocatore> giocatori=tavolo.getGiocatori().iterator();
+        List<String> names=new ArrayList<String>();
+        while(giocatori.hasNext()){
+            names.add(giocatori.next().getUsername());
+        }
+        return names;
+
     }
 
 }

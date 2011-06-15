@@ -5,6 +5,8 @@
 
 package jxta.communication.messages;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 import virtualrisikoii.RecoveryParameter;
@@ -30,6 +32,7 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         public static final String REGION_NUMBER="regions";
         public static final String MAP_NAME="map_name";
         public static final String MY_TURNO="my_turno";
+        public static final String NAMES="play_names";
     private  RecoveryParameter parameter;
     
 
@@ -69,6 +72,8 @@ public class RecoveryMessage extends VirtualRisikoMessage{
 
         addTurnoMyGiocatoreElement( parameter.getTurnoMyGiocatore());
 
+        addNames(parameter.getPlayersNames());
+
     }
 
     public RecoveryMessage(Message message){
@@ -107,14 +112,38 @@ public class RecoveryMessage extends VirtualRisikoMessage{
 
         int turnoMyGiocatore=elaborateTurnoMyGiocatoreElement(message);
 
+        List<String> names=elaboratePlayersNames(message);
+
         String mapName=elaborateMapNameElement(message);
 
-        parameter=new RecoveryParameter(mapName, inizializzazione, idOccupante, troopsNumber, objectives, num_armate, turno, numeroGiocatori, seed_card, seed_dice, dice_lanch, card_lanch);
+        parameter=new RecoveryParameter(mapName, inizializzazione, idOccupante, troopsNumber, objectives, num_armate, turno, numeroGiocatori, seed_card, seed_dice, dice_lanch, card_lanch,names);
         parameter.setTurnoMyGiocatore(turnoMyGiocatore);
     }
 
 
 
+    private void addNames(List<String> names){
+        int size=names.size();
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=names.get(i);
+            mE=new StringMessageElement(NAMES,info , null);
+            addMessageElement(namespace, mE);
+        }
+    }
+
+    private List<String> elaboratePlayersNames(Message message){
+        ArrayList<String> list=new ArrayList<String>();
+        Message.ElementIterator iter=message.getMessageElements(NAMES);
+
+        while(iter.hasNext()){
+            list.add(iter.next().toString());
+
+
+        }
+        return list;
+    }
 
     private void addInitElement(boolean inizializzazione){
 

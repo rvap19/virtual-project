@@ -53,9 +53,9 @@ public  class Tavolo {
         return instance;
     }
 
-    public static Tavolo createInstance(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards) throws MappaException{
+    public static Tavolo createInstance(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> playersnames) throws MappaException{
         instance=new Tavolo();
-        instance.initTavolo(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_cards);
+        instance.initTavolo(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_cards,playersnames);
         return instance;
     }
 
@@ -68,7 +68,7 @@ public  class Tavolo {
     }
 
     
-    private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards) throws MappaException{
+    private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> names) throws MappaException{
         this.diceSeed=seed_dice;
         this.cardSeed=seed_cards;
         dado=new Random(seed_dice);
@@ -76,7 +76,7 @@ public  class Tavolo {
         this.obiettivi=obiettivi;
         this.turno=turno;
         this.numeroGiocatori=numeroGiocatori;
-        this.initGiocatori(numeroGiocatori,seed_dice);
+        this.initGiocatori(numeroGiocatori,names,seed_dice);
         this.assegnaTerritori(seed_region);
         this.initCarte(seed_cards);
         this.myGiocatore=giocatori.get(myTurno);
@@ -346,7 +346,7 @@ public  class Tavolo {
     }
 
 
-    private void initGiocatori(int numeroGiocatori,int seed){
+    private void initGiocatori(int numeroGiocatori,List<String> names,int seed){
         if(numeroGiocatori<minGiocatori){
             System.out.println("Impossibile avviare gioco ...numero giocatori minimo :"+minGiocatori);
             System.exit(-1);
@@ -373,6 +373,7 @@ public  class Tavolo {
        for(int i=0;i<numeroGiocatori;i++){
            g=new Giocatore(i);
            g.setNumeroTruppe(truppe);
+           g.setUsername(names.get(i));
            giocatori.add(g);
        }
 

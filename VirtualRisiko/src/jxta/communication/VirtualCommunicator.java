@@ -6,6 +6,7 @@
 package jxta.communication;
 
 import java.io.IOException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ import jxta.communication.messages.InitMessage;
 import jxta.communication.messages.MovementMessage;
 import jxta.communication.messages.PassMessage;
 import jxta.communication.messages.RecoveryMessage;
+import jxta.communication.messages.StatusPeerMessage;
 import jxta.communication.messages.VirtualRisikoMessage;
 import jxta.communication.messages.WelcomeMessage;
 
@@ -45,6 +47,7 @@ import jxta.communication.messages.listener.InitListener;
 import jxta.communication.messages.listener.MovementListener;
 import jxta.communication.messages.listener.PassListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
+import jxta.communication.messages.listener.StatusPeerListener;
 
 /**
  *
@@ -69,6 +72,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     private List<PassListener> passListeners;
     private RecoveryListener recoveryListeners;
     private ReconnectionRequestListener recoveryRequestListener;
+    private List<StatusPeerListener> statusListener;
     
     
 
@@ -104,7 +108,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         initListeners=new ArrayList<InitListener>();
         movementListeners=new ArrayList<MovementListener>();
         passListeners=new ArrayList<PassListener>();
-        
+        statusListener=new ArrayList<StatusPeerListener>();
 
     }
 
@@ -210,6 +214,16 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         this.applianceListeners.remove(listener);
     }
 
+    public void removeStatusListener(StatusPeerListener o) {
+         statusListener.remove(o);
+    }
+
+    public void addStatusListener(StatusPeerListener e) {
+         statusListener.add(e);
+    }
+
+
+
     public void addAttackListener(AttackListener listener){
         this.attackListeners.add(listener);
     }
@@ -280,11 +294,13 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         }
         boolean result=true;
 
-        Iterator<JxtaBiDiPipe> iterPipe=this.toPeersPipes.values().iterator();
-        while(iterPipe.hasNext()){
-            JxtaBiDiPipe pipe=iterPipe.next();
+        Iterator<String> users=this.toPeersPipes.keySet().iterator();
+        while(users.hasNext()){
+            JxtaBiDiPipe pipe=toPeersPipes.get(users.next());
             try {
-                result = result && pipe.sendMessage(message);
+                if(pipe!=null){
+                    result = result && pipe.sendMessage(message);
+                }
                 
             } catch (Exception ex) {
                 System.err.println("pipe malfunzionante");
@@ -310,10 +326,11 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         }
         int turn=1;
 
+        List<String> names=this.getPlayerrNames();
         Iterator<String> iter=toPeersPipes.keySet().iterator();
         while(iter.hasNext()){
 
-            msg=new InitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region());
+            msg=new InitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region(),names);
             StringMessageElement mE=new StringMessageElement(InitMessage.TURN, Integer.toString(turn), null);
              
             msg.addMessageElement(namespace, mE);
@@ -382,6 +399,19 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         Iterator<AttackListener> listeners=this.attackListeners.iterator();
         while(listeners.hasNext()){
             listeners.next().updateAttack(m);
+        }
+    }
+
+
+    public void elaborateStatusMessage(Message message){
+         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
+        StatusPeerMessage m=new StatusPeerMessage(message);
+        Iterator<StatusPeerListener> listeners=this.statusListener.iterator();
+        while(listeners.hasNext()){
+            listeners.next().updateStatus(m);
         }
     }
 
@@ -531,6 +561,9 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
        }else if(messageType.equals(VirtualRisikoMessage.RECOVERY)){
            
            this.elaborateRecoveryMessage(msg);
+       }else if(messageType.equals(VirtualRisikoMessage.STATUS)){
+
+           this.elaborateStatusMessage(msg);
        }else if(messageType.equals(VirtualRisikoMessage.CHAT)){
 
            this.elaborateChatMessage(msg);
@@ -663,12 +696,31 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
          }
     }
 
-    public void closePipeFor(String name) throws IOException{
+    public void closePipeFor(int turn,String name) throws IOException{
          JxtaBiDiPipe pipe=this.toPeersPipes.get(name);
          if(pipe!=null){
              pipe.close();
              toPeersPipes.put(name, null);
+             StatusPeerMessage msg=new StatusPeerMessage(turn, false);
+             sendMessage(msg);
+             this.elaborateStatusMessage(msg);
          }
+    }
+
+    public List<String> getPlayerrNames(){
+
+        ArrayList<String> list=new ArrayList<String>();
+        list.add(playerName);
+        if(!isCentral){
+            return list;
+        }
+
+        Iterator<String> iter=this.toPeersPipes.keySet().iterator();
+        while(iter.hasNext()){
+            list.add(iter.next());
+        }
+        return list;
+
     }
 
     private  class  Pinger extends Thread{
