@@ -298,7 +298,7 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
         while(users.hasNext()){
             JxtaBiDiPipe pipe=toPeersPipes.get(users.next());
             try {
-                if(pipe!=null){
+                if(pipe!=null&&pipe.isBound()){
                     result = result && pipe.sendMessage(message);
                 }
                 
