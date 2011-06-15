@@ -840,7 +840,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived){
                         autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         try {
-                            comunicator.closePipeFor(Tavolo.getInstance().getTurno());
+                            Giocatore g=Tavolo.getInstance().getGiocatoreCorrente();
+                            comunicator.closePipeFor(g.getID(),g.getUsername());
+                            
                         } catch (IOException ex) {
                             System.err.println("impossibile chidere pipe");
                         }

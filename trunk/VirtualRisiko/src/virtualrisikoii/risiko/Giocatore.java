@@ -31,6 +31,7 @@ public class Giocatore  implements Comparable<Giocatore>{
     private int stato;
     private int numeroTruppeDisponibili;
     private int id;
+    private String username;
 
     public Giocatore(int id){
         this(id,id);
@@ -153,6 +154,14 @@ public class Giocatore  implements Comparable<Giocatore>{
             return -1;
         }
         return 1;
+    }
+
+    public void setUsername(String get) {
+        this.username=get;
+    }
+
+    public String getUsername(){
+        return username;
     }
     
 }

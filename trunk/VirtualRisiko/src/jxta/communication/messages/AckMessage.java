@@ -19,6 +19,7 @@ public class AckMessage extends VirtualRisikoMessage{
 
 
         private int ack_message_id;
+
     public AckMessage(int ack_message_id){
         super();
         this.ack_message_id=ack_message_id;
