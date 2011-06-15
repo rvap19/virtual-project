@@ -20,7 +20,7 @@ public class WelcomeMessage extends VirtualRisikoMessage{
 
     public WelcomeMessage(String welcomePlayerName){
         super();
-        StringMessageElement mE=new StringMessageElement(type, WELCOME, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, WELCOME, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PEER_NAME,welcomePlayerName, null);

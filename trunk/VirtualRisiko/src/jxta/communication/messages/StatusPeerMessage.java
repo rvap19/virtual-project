@@ -23,7 +23,7 @@ public class StatusPeerMessage extends VirtualRisikoMessage{
         super();
         this.id=id;
         this.online=online;
-        StringMessageElement mE=new StringMessageElement(type, STATUS, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, STATUS, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PEER_ID,Integer.toString(id), null);

@@ -39,7 +39,7 @@ public class RecoveryMessage extends VirtualRisikoMessage{
     public RecoveryMessage(RecoveryParameter parameter){
         super();
         this.parameter=parameter;
-        StringMessageElement mE=new StringMessageElement(type, RECOVERY, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, RECOVERY, null);
         addMessageElement(namespace, mE);
         addMapNameElement(parameter.getMapName());
 

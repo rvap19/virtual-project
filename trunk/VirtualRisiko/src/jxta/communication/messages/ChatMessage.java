@@ -31,7 +31,7 @@ public class ChatMessage extends VirtualRisikoMessage{
         this.from=from;
         this.messageString=messageString;
 
-        StringMessageElement mE=new StringMessageElement(type, CHAT, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, CHAT, null);
         addMessageElement(namespace, mE);
 
          mE=new StringMessageElement(DESTINATION , to, null);

@@ -23,7 +23,7 @@ public class AckMessage extends VirtualRisikoMessage{
     public AckMessage(int ack_message_id){
         super();
         this.ack_message_id=ack_message_id;
-        StringMessageElement mE=new StringMessageElement(type, ACK, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, ACK, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(ACK_FOR_MESSAGE_ID,Integer.toString(ack_message_id), null);
