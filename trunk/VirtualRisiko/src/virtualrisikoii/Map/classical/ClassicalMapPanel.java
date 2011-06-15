@@ -144,6 +144,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         africaSudLabel = new javax.swing.JLabel();
         madagascarLabel = new javax.swing.JLabel();
         islandaLabel = new javax.swing.JLabel();
+        statoGiocoPanel1 = new virtualrisikoii.risiko.StatoGiocoPanel();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(ClassicalMapPanel.class);
         jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N
@@ -163,6 +164,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         scandinaviaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         scandinaviaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         scandinaviaLabel.setName("scandinaviaLabel"); // NOI18N
+        mapPanel1.add(scandinaviaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 60, 70));
 
         ucrainaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         ucrainaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,6 +172,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         ucrainaLabel.setToolTipText(resourceMap.getString("ucrainaLabel.toolTipText")); // NOI18N
         ucrainaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ucrainaLabel.setName("ucrainaLabel"); // NOI18N
+        mapPanel1.add(ucrainaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 60, 110));
 
         granBretagnaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         granBretagnaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -177,6 +180,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         granBretagnaLabel.setToolTipText(resourceMap.getString("granBretagnaLabel.toolTipText")); // NOI18N
         granBretagnaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         granBretagnaLabel.setName("granBretagnaLabel"); // NOI18N
+        mapPanel1.add(granBretagnaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 50, 50));
 
         uraliLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         uraliLabel.setText(resourceMap.getString("uraliLabel.text")); // NOI18N
@@ -184,12 +188,14 @@ public class ClassicalMapPanel extends   XMapPanel{
         uraliLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         uraliLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         uraliLabel.setName("uraliLabel"); // NOI18N
+        mapPanel1.add(uraliLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 50, 50));
 
         siberiaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         siberiaLabel.setText(resourceMap.getString("siberiaLabel.text")); // NOI18N
         siberiaLabel.setToolTipText(resourceMap.getString("siberiaLabel.toolTipText")); // NOI18N
         siberiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         siberiaLabel.setName("siberiaLabel"); // NOI18N
+        mapPanel1.add(siberiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 60, 110));
 
         jacuziaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         jacuziaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -197,6 +203,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         jacuziaLabel.setToolTipText(resourceMap.getString("jacuziaLabel.toolTipText")); // NOI18N
         jacuziaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jacuziaLabel.setName("jacuziaLabel"); // NOI18N
+        mapPanel1.add(jacuziaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 80, 60));
 
         kamchatkaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         kamchatkaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -204,6 +211,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         kamchatkaLabel.setToolTipText(resourceMap.getString("kamchatkaLabel.toolTipText")); // NOI18N
         kamchatkaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         kamchatkaLabel.setName("kamchatkaLabel"); // NOI18N
+        mapPanel1.add(kamchatkaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 70, 80));
 
         alaskaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         alaskaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -211,6 +219,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         alaskaLabel.setToolTipText(resourceMap.getString("alaskaLabel.toolTipText")); // NOI18N
         alaskaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         alaskaLabel.setName("alaskaLabel"); // NOI18N
+        mapPanel1.add(alaskaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 80, 70));
 
         ontarioLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         ontarioLabel.setText(resourceMap.getString("ontarioLabel.text")); // NOI18N
@@ -218,6 +227,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         ontarioLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         ontarioLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ontarioLabel.setName("ontarioLabel"); // NOI18N
+        mapPanel1.add(ontarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, 70, 60));
 
         citaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         citaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -225,6 +235,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         citaLabel.setToolTipText(resourceMap.getString("citaLabel.toolTipText")); // NOI18N
         citaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         citaLabel.setName("citaLabel"); // NOI18N
+        mapPanel1.add(citaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 60, 40));
 
         territorioNOLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         territorioNOLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -232,6 +243,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         territorioNOLabel.setToolTipText(resourceMap.getString("territorioNOLabel.toolTipText")); // NOI18N
         territorioNOLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         territorioNOLabel.setName("territorioNOLabel"); // NOI18N
+        mapPanel1.add(territorioNOLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 110, 40));
 
         albertaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         albertaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -240,6 +252,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         albertaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         albertaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         albertaLabel.setName("albertaLabel"); // NOI18N
+        mapPanel1.add(albertaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 70, 60));
 
         statiUnitiOccLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         statiUnitiOccLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -248,6 +261,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         statiUnitiOccLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         statiUnitiOccLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         statiUnitiOccLabel.setName("statiUnitiOccLabel"); // NOI18N
+        mapPanel1.add(statiUnitiOccLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 230, 60, 60));
 
         quebecLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         quebecLabel.setText(resourceMap.getString("quebecLabel.text")); // NOI18N
@@ -255,6 +269,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         quebecLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         quebecLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         quebecLabel.setName("quebecLabel"); // NOI18N
+        mapPanel1.add(quebecLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 160, 60, 60));
 
         groenlandiaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         groenlandiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -263,6 +278,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         groenlandiaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         groenlandiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         groenlandiaLabel.setName("groenlandiaLabel"); // NOI18N
+        mapPanel1.add(groenlandiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 140, 110));
 
         statiUnitiOriLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         statiUnitiOriLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -271,36 +287,42 @@ public class ClassicalMapPanel extends   XMapPanel{
         statiUnitiOriLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         statiUnitiOriLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         statiUnitiOriLabel.setName("statiUnitiOriLabel"); // NOI18N
+        mapPanel1.add(statiUnitiOriLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 250, 80, 60));
 
         messicoLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         messicoLabel.setText(resourceMap.getString("messicoLabel.text")); // NOI18N
         messicoLabel.setToolTipText(resourceMap.getString("messicoLabel.toolTipText")); // NOI18N
         messicoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         messicoLabel.setName("messicoLabel"); // NOI18N
+        mapPanel1.add(messicoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 310, 70, 50));
 
         venezuelaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         venezuelaLabel.setText(resourceMap.getString("venezuelaLabel.text")); // NOI18N
         venezuelaLabel.setToolTipText(resourceMap.getString("venezuelaLabel.toolTipText")); // NOI18N
         venezuelaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         venezuelaLabel.setName("venezuelaLabel"); // NOI18N
+        mapPanel1.add(venezuelaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 380, 60, 30));
 
         brasileLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         brasileLabel.setText(resourceMap.getString("brasileLabel.text")); // NOI18N
         brasileLabel.setToolTipText(resourceMap.getString("brasileLabel.toolTipText")); // NOI18N
         brasileLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         brasileLabel.setName("brasileLabel"); // NOI18N
+        mapPanel1.add(brasileLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 400, 120, 60));
 
         peruLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         peruLabel.setText(resourceMap.getString("peruLabel.text")); // NOI18N
         peruLabel.setToolTipText(resourceMap.getString("peruLabel.toolTipText")); // NOI18N
         peruLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         peruLabel.setName("peruLabel"); // NOI18N
+        mapPanel1.add(peruLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 490, 60, 30));
 
         argentinaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         argentinaLabel.setText(resourceMap.getString("argentinaLabel.text")); // NOI18N
         argentinaLabel.setToolTipText(resourceMap.getString("argentinaLabel.toolTipText")); // NOI18N
         argentinaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         argentinaLabel.setName("argentinaLabel"); // NOI18N
+        mapPanel1.add(argentinaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 550, 70, 80));
 
         australiaOrientaleLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         australiaOrientaleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -308,6 +330,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         australiaOrientaleLabel.setToolTipText(resourceMap.getString("australiaOrientaleLabel.toolTipText")); // NOI18N
         australiaOrientaleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         australiaOrientaleLabel.setName("australiaOrientaleLabel"); // NOI18N
+        mapPanel1.add(australiaOrientaleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 580, 50, 110));
 
         australiaOccidentaleLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         australiaOccidentaleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -316,6 +339,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         australiaOccidentaleLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         australiaOccidentaleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         australiaOccidentaleLabel.setName("australiaOccidentaleLabel"); // NOI18N
+        mapPanel1.add(australiaOccidentaleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 570, 50, 90));
 
         nuovaGuineaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         nuovaGuineaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -323,6 +347,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         nuovaGuineaLabel.setToolTipText(resourceMap.getString("nuovaGuineaLabel.toolTipText")); // NOI18N
         nuovaGuineaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         nuovaGuineaLabel.setName("nuovaGuineaLabel"); // NOI18N
+        mapPanel1.add(nuovaGuineaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 490, 70, 40));
 
         indonesiaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         indonesiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -331,6 +356,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         indonesiaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         indonesiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         indonesiaLabel.setName("indonesiaLabel"); // NOI18N
+        mapPanel1.add(indonesiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 80, 70));
 
         siamLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         siamLabel.setText(resourceMap.getString("siamLabel.text")); // NOI18N
@@ -338,6 +364,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         siamLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         siamLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         siamLabel.setName("siamLabel"); // NOI18N
+        mapPanel1.add(siamLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, 70, 70));
 
         indiaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         indiaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -346,6 +373,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         indiaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         indiaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         indiaLabel.setName("indiaLabel"); // NOI18N
+        mapPanel1.add(indiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 70, 80));
 
         cinaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         cinaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -353,18 +381,21 @@ public class ClassicalMapPanel extends   XMapPanel{
         cinaLabel.setToolTipText(resourceMap.getString("cinaLabel.toolTipText")); // NOI18N
         cinaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cinaLabel.setName("cinaLabel"); // NOI18N
+        mapPanel1.add(cinaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 130, 50));
 
         mongoliaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         mongoliaLabel.setText(resourceMap.getString("mongoliaLabel.text")); // NOI18N
         mongoliaLabel.setToolTipText(resourceMap.getString("mongoliaLabel.toolTipText")); // NOI18N
         mongoliaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mongoliaLabel.setName("mongoliaLabel"); // NOI18N
+        mapPanel1.add(mongoliaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 80, 30));
 
         giapponeLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         giapponeLabel.setText(resourceMap.getString("giapponeLabel.text")); // NOI18N
         giapponeLabel.setToolTipText(resourceMap.getString("giapponeLabel.toolTipText")); // NOI18N
         giapponeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         giapponeLabel.setName("giapponeLabel"); // NOI18N
+        mapPanel1.add(giapponeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 50, 50));
 
         kazakistanLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         kazakistanLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -373,6 +404,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         kazakistanLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         kazakistanLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         kazakistanLabel.setName("kazakistanLabel"); // NOI18N
+        mapPanel1.add(kazakistanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 70, 50));
 
         medioOrienteLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         medioOrienteLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -381,6 +413,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         medioOrienteLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         medioOrienteLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         medioOrienteLabel.setName("medioOrienteLabel"); // NOI18N
+        mapPanel1.add(medioOrienteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 70, 80));
 
         europaSettentrionaleLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         europaSettentrionaleLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -389,6 +422,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         europaSettentrionaleLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         europaSettentrionaleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         europaSettentrionaleLabel.setName("europaSettentrionaleLabel"); // NOI18N
+        mapPanel1.add(europaSettentrionaleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 70, 40));
 
         europaMeridionaleLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         europaMeridionaleLabel.setText(resourceMap.getString("europaMeridionaleLabel.text")); // NOI18N
@@ -396,12 +430,14 @@ public class ClassicalMapPanel extends   XMapPanel{
         europaMeridionaleLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         europaMeridionaleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         europaMeridionaleLabel.setName("europaMeridionaleLabel"); // NOI18N
+        mapPanel1.add(europaMeridionaleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 60, 50));
 
         europaOccidentaleLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         europaOccidentaleLabel.setText(resourceMap.getString("europaOccidentaleLabel.text")); // NOI18N
         europaOccidentaleLabel.setToolTipText(resourceMap.getString("europaOccidentaleLabel.toolTipText")); // NOI18N
         europaOccidentaleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         europaOccidentaleLabel.setName("europaOccidentaleLabel"); // NOI18N
+        mapPanel1.add(europaOccidentaleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 50, 50));
 
         egittoLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         egittoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -410,6 +446,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         egittoLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         egittoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         egittoLabel.setName("egittoLabel"); // NOI18N
+        mapPanel1.add(egittoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 70, 40));
 
         africaOrientaleLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         africaOrientaleLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -418,6 +455,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         africaOrientaleLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         africaOrientaleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         africaOrientaleLabel.setName("africaOrientaleLabel"); // NOI18N
+        mapPanel1.add(africaOrientaleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 80, 40));
 
         africaNordLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         africaNordLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -425,6 +463,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         africaNordLabel.setToolTipText(resourceMap.getString("africaNordLabel.toolTipText")); // NOI18N
         africaNordLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         africaNordLabel.setName("africaNordLabel"); // NOI18N
+        mapPanel1.add(africaNordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, 110));
 
         congoLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         congoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -432,6 +471,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         congoLabel.setToolTipText(resourceMap.getString("congoLabel.toolTipText")); // NOI18N
         congoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         congoLabel.setName("congoLabel"); // NOI18N
+        mapPanel1.add(congoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, 50, 40));
 
         africaSudLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         africaSudLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -439,12 +479,14 @@ public class ClassicalMapPanel extends   XMapPanel{
         africaSudLabel.setToolTipText(resourceMap.getString("africaSudLabel.toolTipText")); // NOI18N
         africaSudLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         africaSudLabel.setName("africaSudLabel"); // NOI18N
+        mapPanel1.add(africaSudLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, 60, 90));
 
         madagascarLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         madagascarLabel.setText(resourceMap.getString("madagascarLabel.text")); // NOI18N
         madagascarLabel.setToolTipText(resourceMap.getString("madagascarLabel.toolTipText")); // NOI18N
         madagascarLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         madagascarLabel.setName("madagascarLabel"); // NOI18N
+        mapPanel1.add(madagascarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 550, 50, 70));
 
         islandaLabel.setFont(resourceMap.getFont("europaMeridionaleLabel.font")); // NOI18N
         islandaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -453,244 +495,10 @@ public class ClassicalMapPanel extends   XMapPanel{
         islandaLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         islandaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         islandaLabel.setName("islandaLabel"); // NOI18N
+        mapPanel1.add(islandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 40));
 
-        javax.swing.GroupLayout mapPanel1Layout = new javax.swing.GroupLayout(mapPanel1);
-        mapPanel1.setLayout(mapPanel1Layout);
-        mapPanel1Layout.setHorizontalGroup(
-            mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mapPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addComponent(islandaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(scandinaviaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(granBretagnaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(europaSettentrionaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(europaOccidentaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(europaMeridionaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(africaNordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addComponent(ucrainaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(uraliLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(kazakistanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(siberiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jacuziaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(citaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(mongoliaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(medioOrienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(africaOrientaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50)
-                                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addComponent(cinaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addComponent(indiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(siamLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(egittoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(congoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(410, 410, 410)
-                        .addComponent(indonesiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(kamchatkaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(giapponeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(nuovaGuineaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addComponent(alaskaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addComponent(territorioNOLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(groenlandiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(albertaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ontarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(quebecLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(statiUnitiOccLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(statiUnitiOriLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(messicoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(brasileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(venezuelaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(peruLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(mapPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(africaSudLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(madagascarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180)
-                .addComponent(australiaOccidentaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(australiaOrientaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(270, 270, 270)
-                .addComponent(argentinaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        mapPanel1Layout.setVerticalGroup(
-            mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mapPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(islandaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(scandinaviaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(granBretagnaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addGap(30, 30, 30)
-                                                .addComponent(europaSettentrionaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(10, 10, 10)
-                                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(europaOccidentaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(europaMeridionaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(40, 40, 40)
-                                        .addComponent(africaNordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addGap(70, 70, 70)
-                                                .addComponent(ucrainaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addGap(80, 80, 80)
-                                                .addComponent(uraliLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(30, 30, 30)
-                                                .addComponent(kazakistanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(siberiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(jacuziaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(20, 20, 20)
-                                                .addComponent(citaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(30, 30, 30)
-                                                .addComponent(mongoliaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(10, 10, 10)
-                                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(medioOrienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(50, 50, 50)
-                                                .addComponent(africaOrientaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                .addComponent(cinaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(10, 10, 10)
-                                                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(indiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                                        .addGap(30, 30, 30)
-                                                        .addComponent(siamLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                                        .addGap(270, 270, 270)
-                                        .addComponent(egittoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(20, 20, 20)
-                                .addComponent(congoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(390, 390, 390)
-                                .addComponent(indonesiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(kamchatkaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(giapponeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190)
-                        .addComponent(nuovaGuineaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(alaskaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(territorioNOLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(groenlandiaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(albertaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ontarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(quebecLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(statiUnitiOccLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(statiUnitiOriLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(messicoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mapPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(brasileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(venezuelaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(peruLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
-                .addGroup(mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(africaSudLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(madagascarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(australiaOccidentaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mapPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(australiaOrientaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(argentinaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        statoGiocoPanel1.setName("statoGiocoPanel1"); // NOI18N
+        mapPanel1.add(statoGiocoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, -1, -1));
 
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -860,6 +668,7 @@ public class ClassicalMapPanel extends   XMapPanel{
     private javax.swing.JLabel siberiaLabel;
     private javax.swing.JLabel statiUnitiOccLabel;
     private javax.swing.JLabel statiUnitiOriLabel;
+    private virtualrisikoii.risiko.StatoGiocoPanel statoGiocoPanel1;
     private javax.swing.JLabel territorioNOLabel;
     private javax.swing.JLabel ucrainaLabel;
     private javax.swing.JLabel uraliLabel;
