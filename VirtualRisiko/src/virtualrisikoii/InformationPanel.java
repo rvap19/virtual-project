@@ -17,11 +17,12 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.ChatMessage;
 import services.GameController;
 import services.HistoryListener;
 import services.PlayerDataListener;
 import services.TimeoutNotifier;
-import virtualrisikoii.listener.ChatListener;
+import jxta.communication.messages.listener.ChatListener;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.JFrameCountdown;
 import virtualrisikoii.risiko.Tavolo;
@@ -332,8 +333,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     private javax.swing.JPanel turnoPanel;
     // End of variables declaration//GEN-END:variables
 
-    public void updateChat(String from,String to, String messageString) {
-        if(to.equals(VirtualCommunicator.ChatAttributes.TO_ALL)){
+    public void updateChat(ChatMessage msg) {
+        String from=msg.getFrom();
+        String to=msg.getTo();
+        String messageString=msg.getMessageString();
+        if(to.equals(ChatMessage.TO_ALL)){
            this.chatTextArea.append(from +" > "+messageString+"\n");
            this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }else if(to.equals(Tavolo.getInstance().getMyGiocatore().getNome())||from.equals(Tavolo.getInstance().getMyGiocatore())){

@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.ChangeCardMessage;
 import net.jxta.endpoint.Message;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
@@ -175,7 +176,7 @@ public class CardChangeController {
         list.add(c3);
 
         VirtualCommunicator communicator=VirtualCommunicator.getInstance();
-        Message msg=communicator.createChangeCardsMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
+        Message msg=new ChangeCardMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
         try {
             communicator.sendMessage(msg);
         } catch (IOException ex) {
