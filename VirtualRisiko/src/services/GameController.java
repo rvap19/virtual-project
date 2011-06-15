@@ -724,19 +724,20 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public   void  passaTurno() throws IOException{
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
             locker.releaseTavolo();
             return;
         }
         
         this.timer.stopTimer();
-        int troops=tavolo.getMyGiocatore().getNumeroTruppe();
+        Giocatore giocatore=Tavolo.getInstance().getGiocatoreCorrente();
+        int troops=tavolo.getGiocatoreCorrente().getNumeroTruppe();
         if(troops>0){
             this.autoDispose(troops);
         }
-        if((!tavolo.isInizializzazione())&&tavolo.isTurnoMyGiocatore()){
+        if((!tavolo.isInizializzazione())){
             //codice per il recupero carta
-            Carta carta=tavolo.recuperaCarta(tavolo.getMyGiocatore());
+            Carta carta=tavolo.recuperaCarta(giocatore);
             if(carta!=null){
                 this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
             }
@@ -847,17 +848,20 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             while(continueTimer.get()){
                 try {
                     Tavolo tavolo=Tavolo.getInstance();
+                    Giocatore giocatore=tavolo.getGiocatoreCorrente();
                     messageReceived[tavolo.getTurno()]=false;
                     for(int i=0;i<interval;i++){
                         this.sleep(sleepTime);
                     }
 
 
-                    if(!tavolo.isTurnoMyGiocatore()&&!messageReceived[tavolo.getTurno()]){
-                        autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
+                    if(!tavolo.isTurnoMyGiocatore()&&!messageReceived[giocatore.getID()]){
+                        //autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
+                        
                         try {
-                            Giocatore g=Tavolo.getInstance().getGiocatoreCorrente();
-                            comunicator.closePipeFor(g.getID(),g.getUsername());
+                            passaTurno();
+                            
+                            comunicator.closePipeFor(giocatore.getID(),giocatore.getUsername());
                             
                         } catch (IOException ex) {
                             System.err.println("impossibile chidere pipe");
