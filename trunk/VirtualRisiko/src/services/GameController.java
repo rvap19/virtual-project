@@ -102,12 +102,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
            
         }
 
+        messageReceived=new boolean[Tavolo.getInstance().getGiocatori().size()];
+        for(int i=0;i<messageReceived.length;i++){
+            messageReceived[i]=false;
+        }
         if(comunicator.isManager()){
 
-            messageReceived=new boolean[Tavolo.getInstance().getGiocatori().size()];
-            for(int i=0;i<messageReceived.length;i++){
-                messageReceived[i]=false;
-            }
+            
             messageReceived[0]=true;
             this.timer=new GameTimer(this, GameTimer.ACTION);
             timer.start();
