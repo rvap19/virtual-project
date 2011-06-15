@@ -25,6 +25,7 @@ import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.PlayerAdvertisement;
 import jxta.advertisement.RegistrationAdvertisement;
 import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.InitMessage;
 import jxta.listener.GameListener;
 import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
@@ -42,7 +43,7 @@ import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIView;
 import virtualrisikoii.XMapPanel;
-import virtualrisikoii.listener.InitListener;
+import jxta.communication.messages.listener.InitListener;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Obiettivo;
@@ -549,11 +550,17 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     }
 
    
-    public void init(int myTurno, int players, int seed_dice, String map_name, int seed_card, int seed_region) {
+    public void init(InitMessage msg) {
         try {
             if (receivedInit) {
                 return;
             }
+            int myTurno=msg.getMyTurno();
+            int players=msg.getPlayers();
+            int seed_dice=msg.getSeed_dice();
+            String map_name=msg.getMap_name();
+            int seed_card=msg.getSeed_card();
+            int seed_region=msg.getSeed_region();
             receivedInit = true;
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             GameFactory factory = new GameFactory();
