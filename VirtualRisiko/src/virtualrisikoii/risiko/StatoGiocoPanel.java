@@ -81,7 +81,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel {
           //nomeGiocatoreLabel1.setText(nomeGiocatore);
           puntLabel1.setText("0");
           statoLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
-          statoLabel1.setBackground(Color.RED);
+          
 
 
           if(lunghPathColore>1){
