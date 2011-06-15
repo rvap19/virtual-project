@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jxta.communication.messages.ApplianceMessage;
@@ -513,12 +515,17 @@ public class VirtualCommunicator implements PipeMsgListener,ConnectionListener{
     }
 
     private boolean free=true;
+    Lock lock=new ReentrantLock();
 
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
-       this.elaborateMessage(msg);
-
+       try{
+           lock.lock();
+           this.elaborateMessage(msg);
+        }finally{
+            lock.unlock();
+        }
     }
 
     private synchronized void elaborateMessage(Message msg){
