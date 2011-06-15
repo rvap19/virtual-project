@@ -28,7 +28,7 @@ public class AttackMessage extends VirtualRisikoMessage{
         this.to=to;
         this.from=from;
 
-        StringMessageElement mE=new StringMessageElement(type, ATTACK, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, ATTACK, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(TROOPS_NUMBER,Integer.toString(troops_number), null);

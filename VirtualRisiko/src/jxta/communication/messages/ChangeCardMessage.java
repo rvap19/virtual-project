@@ -25,7 +25,7 @@ public class ChangeCardMessage extends VirtualRisikoMessage{
     private int card3;
     public ChangeCardMessage(int card1,int card2,int card3){
 
-        StringMessageElement mE=new StringMessageElement(type, CHANGE_CARD, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, CHANGE_CARD, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(CARD1_ID,Integer.toString(card1), null);

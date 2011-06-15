@@ -26,7 +26,7 @@ public class ApplianceMessage extends VirtualRisikoMessage{
         super();
         this.troops_number=troops_number;
         this.region=region;
-        StringMessageElement mE=new StringMessageElement(type, APPLIANCE, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, APPLIANCE, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(TROOPS_NUMBER,Integer.toString(troops_number), null);

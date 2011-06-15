@@ -19,7 +19,7 @@ public class PassMessage extends VirtualRisikoMessage{
 
     public PassMessage(int turno_successivo){
         super();
-        StringMessageElement mE=new StringMessageElement(type, PASSES, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, PASSES, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(SUCC_TURN,Integer.toString(turno_successivo), null);

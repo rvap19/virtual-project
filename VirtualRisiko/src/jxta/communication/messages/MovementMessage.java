@@ -28,7 +28,7 @@ public class MovementMessage extends VirtualRisikoMessage{
         this.from=from;
         this.to=to;
         
-        StringMessageElement mE=new StringMessageElement(type, MOVEMENT, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MOVEMENT, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(TROOPS_NUMBER,Integer.toString(troops_number), null);
