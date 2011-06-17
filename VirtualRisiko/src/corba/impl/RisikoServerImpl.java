@@ -8,6 +8,9 @@ package corba.impl;
 import corba.PartitaInfo;
 import corba.RegistrationInfo;
 import corba.RisikoServerPOA;
+import corba.Summary;
+import corba.SummaryPlayerInfo;
+import corba.UserDetails;
 import corba.UserInfo;
 import corba.impl.dao.GameJpaController;
 import corba.impl.dao.GameregistrationJpaController;
@@ -20,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.CORBA.ORB;
@@ -44,21 +48,15 @@ public class RisikoServerImpl extends RisikoServerPOA{
     }
     public UserInfo authenticate(String usrname, String pwd) {
         User user=this.userDAO.findUserByUserNamePassword(usrname, pwd);
-        if(user!=null){
-            user.setLogged(true);
-            try {
-                this.userDAO.edit(user);
-
-            } catch (IllegalOrphanException ex) {
-                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NonexistentEntityException ex) {
-                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        System.out.println("authenticate "+usrname+" "+pwd);
+        if(user!=null&&!user.getConfermato()){
+            user=null;
         }
         UserInfo info= CorbaUtil.createUserInfo(user);
-        this.users.put(usrname, info);
+        if(user!=null&&user.getConfermato()){
+            this.users.put(usrname, info);
+        }
+        
         return info;
     }
 
@@ -68,13 +66,22 @@ public class RisikoServerImpl extends RisikoServerPOA{
 
         PartitaInfo[] result=new PartitaInfo[size];
         for(int i=0;i<size;i++){
-            result[i]=CorbaUtil.createPartitaInfo(games.get(i));
+            int users=registrationDAO.findGameregistrationByPartitaID(games.get(i).getId()).size();
+            result[i]=CorbaUtil.createPartitaInfo(games.get(i),users);
         }
         return result;
     }
 
     public PartitaInfo getCurrentGame(UserInfo player) {
-        throw new UnsupportedOperationException("Not supported yet.");
+         User user=this.userDAO.findUser(player.username);
+         Iterator<Gameregistration> registration=user.getGameregistrationCollection().iterator();
+         while(registration.hasNext()){
+             Gameregistration current=registration.next();
+             if(current.getGame().getAttiva()){
+                 return CorbaUtil.createPartitaInfo(current.getGame(),0);
+             }
+         }
+         return CorbaUtil.createPartitaInfo(null,0);
     }
 
     public boolean saveResult(RegistrationInfo[] results) {
@@ -85,7 +92,6 @@ public class RisikoServerImpl extends RisikoServerPOA{
         Gameregistration registration;
         for(int i=0;i<size;i++){
             user=this.userDAO.findUserByUsername(results[i].username);
-            user.setLogged(false);
             this.users.remove(user.getUsername());
 
 
@@ -108,19 +114,9 @@ public class RisikoServerImpl extends RisikoServerPOA{
         return result;
     }
 
-    public PartitaInfo createGame(UserInfo u, short maxTurns, short maxPlayers, String name) {
-        Game g=new Game();
-        g.setAttiva(true);
-        g.setDataCreazione(new Date());
-        g.setInizio(new Date());
-        g.setNome(name);
-        g.setNumeroGiocatoriMax((int)maxPlayers);
-        g.setNumeroTurniMax(maxTurns);
-        this.gameDAO.create(g);
-        return CorbaUtil.createPartitaInfo(g);
-    }
+   
 
-    public boolean signPlayer(UserInfo player, PartitaInfo partita) {
+    public synchronized boolean signPlayer(UserInfo player, PartitaInfo partita) {
 
         Gameregistration registration=new Gameregistration(partita.id,player.username);
         try {
@@ -167,5 +163,100 @@ public class RisikoServerImpl extends RisikoServerPOA{
     public void setORB(ORB orb) {
         this.orb=orb;
     }
+
+    public PartitaInfo createGame(UserInfo user, short maxTurn, short maxPlayers, String name, String type) {
+
+        Game g=this.gameDAO.findActiveGamesByManagerUsername(user.username);
+        if(g!=null){
+            return CorbaUtil.createPartitaInfo(null, g.getNumeroGiocatoriMax());
+        }
+        g=new Game();
+        g.setAttiva(true);
+        g.setDataCreazione(new Date());
+        g.setInizio(new Date());
+        g.setNome(name);
+        g.setNumeroGiocatoriMax((int)maxPlayers);
+        g.setNumeroTurniMax(maxTurn);
+        g.setManagerUsername(user.username);
+        g.setMappa(type);
+        this.gameDAO.create(g);
+        return CorbaUtil.createPartitaInfo(g,0);
+    }
+
+    public boolean createUser(UserDetails details) {
+        boolean created=false;
+        User user=CorbaUtil.createUser(details);
+        Random random=new Random();
+        user.setCodiceRegistrazione(random.nextInt(1000000000));
+        user.setConfermato(false);
+        try {
+            this.userDAO.create(user);
+            String message=Mailer.createWelcomeMessage(user.getUsername(), user.getPassword(), Integer.toString(user.getCodiceRegistrazione()));
+            Mailer.inoltraEmail(user.getEmail(), "team@virtualrisiko.org", "welcome to the virtual risiko world", message);
+            created=true;
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return created;
+    }
+
+    public boolean checkUsername(String username) {
+       User user= this.userDAO.findUser(username);
+       return user==null;
+    }
+
+    public boolean activateUser(String username,int codice) {
+        boolean active=false;
+        User user=this.userDAO.findUser(username);
+        if(user!=null&&user.getCodiceRegistrazione()==codice){
+            try {
+                user.setConfermato(true);
+                this.userDAO.edit(user);
+                active=true;
+            } catch (IllegalOrphanException ex) {
+                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        return active;
+    }
+
+    public boolean sendEmailForPassword(UserInfo user) {
+        User x=this.userDAO.findUser(user.username);
+        if(x==null){
+            return false;
+        }
+
+        String message=Mailer.createRecoveryPasswordMessage(x.getUsername(), x.getPassword());
+        Mailer.inoltraEmail(x.getEmail(), "team@virtualrisiko.org", "password recovery", message);
+        return true;
+    }
+
+    public SummaryPlayerInfo getStatistics(String username) {
+        User user=this.userDAO.findUser(username);
+        SummaryPlayerInfo info=CorbaUtil.createSummaryPlayerInfo(user);
+        return info;
+
+    }
+
+    public Summary[] getCompleteStatistics() {
+        List<User> list=this.userDAO.findUserEntities();
+        int size=list.size();
+        Summary[] result=new Summary[size];
+
+        for(int i=0;i<size;i++){
+            result[i]=CorbaUtil.createSummary(list.get(i));
+        }
+        return result;
+    }
+
+ 
+ 
 
 }

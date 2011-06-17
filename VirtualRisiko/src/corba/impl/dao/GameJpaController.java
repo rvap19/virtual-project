@@ -141,5 +141,22 @@ public class GameJpaController {
             em.close();
         }
     }
+    
+    public Game findActiveGamesByManagerUsername(String username) {
+         EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Game.findActiveGamesByManagerUsername");
+            q.setParameter("attiva", true);
+            q.setParameter("managerUsername", username);
+            return  (Game) q.getSingleResult();
+
+
+
+        } finally {
+            em.close();
+        }
+    }
+
+
 
 }

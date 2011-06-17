@@ -1,3 +1,5 @@
+package corba.client;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -35,6 +37,11 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame {
    private UserInfo myIdentity;
 
    private GameDialog gameDialog;
+
+   public RemotePlayerManagerGUI(RisikoServer server,UserInfo me,String name) throws IOException, PeerGroupException{
+       
+       this(server,me,name,9701);
+   }
 
     public RemotePlayerManagerGUI(RisikoServer server,UserInfo me,String name,int port) throws IOException, PeerGroupException {
         this.server=server;
@@ -305,9 +312,10 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame {
              name = gameDialog.getGameName();
              maxPlayers = gameDialog.getMaxPlayer();
              mapName=gameDialog.getMapName();
-             server.createGame(myIdentity, (short)15,(short) 6, name);
-            
-        this.updateGamesJList();
+             if(this.gameDialog.isConfirmed()){
+                 server.createGame(myIdentity,(short) 100, (short)maxPlayers, name, mapName);
+                this.updateGamesJList();
+             }
       
 
       

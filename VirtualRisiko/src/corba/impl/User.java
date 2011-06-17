@@ -29,16 +29,15 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-    @NamedQuery(name= "User.findByUsernamePassword",query = "SELECT u FROM User u WHERE u.username = :username and u.password = :password"),
+    @NamedQuery(name = "User.findByUsernamePassword", query = "SELECT u FROM User u WHERE u.username = :username and u.password = :password"),
     @NamedQuery(name = "User.findByCognome", query = "SELECT u FROM User u WHERE u.cognome = :cognome"),
     @NamedQuery(name = "User.findByConfermato", query = "SELECT u FROM User u WHERE u.confermato = :confermato"),
     @NamedQuery(name = "User.findByDataDiIscrizione", query = "SELECT u FROM User u WHERE u.dataDiIscrizione = :dataDiIscrizione"),
     @NamedQuery(name = "User.findByDataDiNascita", query = "SELECT u FROM User u WHERE u.dataDiNascita = :dataDiNascita"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByLogged", query = "SELECT u FROM User u WHERE u.logged = :logged"),
-    @NamedQuery(name = "User.findByNazione", query = "SELECT u FROM User u WHERE u.nazione = :nazione"),
     @NamedQuery(name = "User.findByNome", query = "SELECT u FROM User u WHERE u.nome = :nome"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+    @NamedQuery(name = "User.findByCodiceRegistrazione", query = "SELECT u FROM User u WHERE u.codiceRegistrazione = :codiceRegistrazione")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,17 +62,14 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @Column(name = "logged")
-    private boolean logged;
-    @Basic(optional = false)
-    @Column(name = "Nazione")
-    private String nazione;
-    @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
     @Column(name = "Password")
     private String password;
+    @Basic(optional = false)
+    @Column(name = "codiceRegistrazione")
+    private int codiceRegistrazione;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Tournamentregistration> tournamentregistrationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -86,17 +82,16 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public User(String username, String cognome, boolean confermato, Date dataDiIscrizione, Date dataDiNascita, String email, boolean logged, String nazione, String nome, String password) {
+    public User(String username, String cognome, boolean confermato, Date dataDiIscrizione, Date dataDiNascita, String email, String nome, String password, int codiceRegistrazione) {
         this.username = username;
         this.cognome = cognome;
         this.confermato = confermato;
         this.dataDiIscrizione = dataDiIscrizione;
         this.dataDiNascita = dataDiNascita;
         this.email = email;
-        this.logged = logged;
-        this.nazione = nazione;
         this.nome = nome;
         this.password = password;
+        this.codiceRegistrazione = codiceRegistrazione;
     }
 
     public String getUsername() {
@@ -147,22 +142,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public boolean getLogged() {
-        return logged;
-    }
-
-    public void setLogged(boolean logged) {
-        this.logged = logged;
-    }
-
-    public String getNazione() {
-        return nazione;
-    }
-
-    public void setNazione(String nazione) {
-        this.nazione = nazione;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -177,6 +156,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getCodiceRegistrazione() {
+        return codiceRegistrazione;
+    }
+
+    public void setCodiceRegistrazione(int codiceRegistrazione) {
+        this.codiceRegistrazione = codiceRegistrazione;
     }
 
     public Collection<Tournamentregistration> getTournamentregistrationCollection() {

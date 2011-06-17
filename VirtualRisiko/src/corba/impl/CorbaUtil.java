@@ -7,8 +7,14 @@ package corba.impl;
 
 import corba.PartitaInfo;
 import corba.RegistrationInfo;
+import corba.ResultInfo;
+import corba.Summary;
+import corba.SummaryPlayerInfo;
+import corba.UserDetails;
 import corba.UserInfo;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  *
@@ -28,50 +34,81 @@ public class CorbaUtil {
 
     public static UserInfo createUserInfo(User user){
         if(user==null){
-            return new UserInfo("", "", "", "", false);
+            return new UserInfo("", "", false);
         }
-        UserInfo info=new UserInfo("", "", user.getUsername(), user.getPassword(), true);
+        UserInfo info=new UserInfo(user.getUsername(), user.getPassword(), true);
+        
         return info;
     }
 
-    public static PartitaInfo createPartitaInfo(Game partita){
+    public static PartitaInfo createPartitaInfo(Game partita,int players){
         if(partita==null){
-            return new PartitaInfo(false,(short) 0, 0,(short)0,(short)0, "");
+            return new PartitaInfo("", "", (short)0, 0, (short)0, (short)0, "");
             
         }
-      //  PartitaInfo info=new PartitaInfo(partita.getAttiva(),(short) partita.getGameregistrationCollection().size(),partita.getId(),(short) partita.getNumeroTurniMax(), (short)partita.getNumeroGiocatoriMax(), partita.getNome());
-        PartitaInfo x=new PartitaInfo(partita.getAttiva(), (short)(partita.getGameregistrationCollection().size()), partita.getId(), (short)partita.getNumeroTurniMax(), (short)partita.getNumeroGiocatoriMax().intValue(), partita.getNome());
-      //  (boolean _active, short _playersNumber, int _id, short _maxTurns, short _maxPlayers, String _name)
+        PartitaInfo x=new PartitaInfo(partita.getNome(), partita.getMappa(), (short)players, partita.getId(), (short)partita.getNumeroTurniMax(), (short)partita.getNumeroGiocatoriMax().intValue(), partita.getManagerUsername());
         return x;
     }
 
     public static Game createGame(PartitaInfo info){
         Game g=new Game();
-        g.setAttiva(info.active);
         g.setDataCreazione(new Date());
         g.setNumeroTurniMax(info.maxTurns);
         g.setNome(info.name);
         g.setNumeroGiocatoriMax((int)info.maxPlayers);
         g.setId(info.id);
-
+        g.setManagerUsername(info.managerUsername);
+        g.setDataCreazione(new Date());
+        g.setInizio(new Date());
         return g;
     }
 
-    public static Gameregistration createGameRegistration(RegistrationInfo info,User user,Game game){
-        Gameregistration r=new Gameregistration();
-        r.setGame(game);
-        r.setPunteggio(info.score);
-        r.setUser(user);
-        r.setVincitore(info.victory);
-        return r;
+
+ 
+
+    
+
+    static SummaryPlayerInfo createSummaryPlayerInfo(User user){
+        Collection<Gameregistration> collection=user.getGameregistrationCollection();
+        Iterator<Gameregistration> registrations=collection.iterator();
+        int size=collection.size();
+
+        ResultInfo[] results=new ResultInfo[size];
+        Gameregistration current;
+        int index=0;
+        while(registrations.hasNext()){
+            current=registrations.next();
+            results[index]=new ResultInfo(current.getGame().getNome(), current.getGame().getInizio().toString(), current.getPunteggio(), current.getVincitore());
+            index++;
+        }
+        return new SummaryPlayerInfo(user.getUsername(), results);
     }
 
-    public static RegistrationInfo createRegistrationInfo(Gameregistration r){
-        if(r==null){
-            return new RegistrationInfo(0, "", 0, false);
+
+    static Summary createSummary(User user) {
+
+        Iterator<Gameregistration> iter=user.getGameregistrationCollection().iterator();
+        int result=0;
+        while(iter.hasNext()){
+            result=result+iter.next().getPunteggio();
         }
-        RegistrationInfo info=new RegistrationInfo(r.getGame().getId(), r.getUser().getUsername(), r.getPunteggio(), r.getVincitore());
-        return info;
+        return new Summary(user.getUsername(), result);
     }
+
+    
+
+    static User createUser(UserDetails details) {
+        User user=new User(details.username);
+        user.setPassword(details.password);
+        user.setNome(details.name);
+        user.setCognome(details.surname);
+        user.setEmail(details.email);
+        user.setDataDiNascita(new Date());
+        user.setDataDiIscrizione(new Date());
+       
+        return user;
+    }
+
+    
 
 }
