@@ -578,7 +578,7 @@ public class EuropeMapPanel extends XMapPanel {
         mapPanel1.add(turchiaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 190, 60));
 
         statoGiocoPanel1.setName("statoGiocoPanel1"); // NOI18N
-        mapPanel1.add(statoGiocoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, -1, -1));
+        mapPanel1.add(statoGiocoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, -1, 210));
 
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
