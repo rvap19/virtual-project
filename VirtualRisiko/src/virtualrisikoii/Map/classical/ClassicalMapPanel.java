@@ -498,7 +498,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         mapPanel1.add(islandaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 40));
 
         statoGiocoPanel1.setName("statoGiocoPanel1"); // NOI18N
-        mapPanel1.add(statoGiocoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, -1, -1));
+        mapPanel1.add(statoGiocoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, 210));
 
         add(mapPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
