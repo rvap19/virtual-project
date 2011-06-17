@@ -160,7 +160,7 @@ public class ItaliaMapPanel extends XMapPanel {
         lAquilaLabel = new javax.swing.JLabel();
         latinaLabel = new javax.swing.JLabel();
         triesteLabel = new javax.swing.JLabel();
-        statoGiocoPanel1 = new virtualrisikoii.risiko.StatoGiocoPanel();
+        statoGiocoPanel1 = virtualrisikoii.risiko.StatoGiocoPanel.getInstance();
 
         jLabel2.setName("jLabel2"); // NOI18N
 

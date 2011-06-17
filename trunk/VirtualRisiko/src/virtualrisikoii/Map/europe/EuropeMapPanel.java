@@ -161,7 +161,7 @@ public class EuropeMapPanel extends XMapPanel {
         portogalloLabel = new javax.swing.JLabel();
         spagnaLabel = new javax.swing.JLabel();
         turchiaLabel = new javax.swing.JLabel();
-        statoGiocoPanel1 = new virtualrisikoii.risiko.StatoGiocoPanel();
+        statoGiocoPanel1 =  virtualrisikoii.risiko.StatoGiocoPanel.getInstance();
 
         jLabel2.setName("jLabel2"); // NOI18N
 

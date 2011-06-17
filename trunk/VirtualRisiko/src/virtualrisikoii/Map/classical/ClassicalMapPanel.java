@@ -144,7 +144,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         africaSudLabel = new javax.swing.JLabel();
         madagascarLabel = new javax.swing.JLabel();
         islandaLabel = new javax.swing.JLabel();
-        statoGiocoPanel1 = new virtualrisikoii.risiko.StatoGiocoPanel();
+        statoGiocoPanel1 = virtualrisikoii.risiko.StatoGiocoPanel.getInstance();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(ClassicalMapPanel.class);
         jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N

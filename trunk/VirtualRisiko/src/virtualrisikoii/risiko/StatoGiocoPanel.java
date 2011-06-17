@@ -33,7 +33,17 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
   initComponents();
   } */
 
-    public StatoGiocoPanel() {
+
+
+    public static StatoGiocoPanel instance=null;
+
+    public static StatoGiocoPanel getInstance(){
+        if(instance==null){
+            instance=new StatoGiocoPanel();
+        }
+        return instance;
+    }
+    private StatoGiocoPanel() {
         initComponents();
         //String pathColore=null;
         this.tavolo=Tavolo.getInstance();
