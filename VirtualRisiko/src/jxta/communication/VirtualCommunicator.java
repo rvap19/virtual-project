@@ -65,6 +65,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
 
 
 
+
     private List<ApplianceListener> applianceListeners;
     private List<AttackListener> attackListeners;
     private List<ChangeCardListener> changeCardsListeners;
@@ -673,6 +674,38 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
 
     public boolean isOnline(String player){
         return toPeersPipes.get(player)!=null;
+    }
+
+    public List<ApplianceListener> getApplianceListeners() {
+        return applianceListeners;
+    }
+
+    public List<AttackListener> getAttackListeners() {
+        return attackListeners;
+    }
+
+    public List<ChangeCardListener> getChangeCardsListeners() {
+        return changeCardsListeners;
+    }
+
+    public List<ChatListener> getChatListeners() {
+        return chatListeners;
+    }
+
+    public List<InitListener> getInitListeners() {
+        return initListeners;
+    }
+
+    public List<MovementListener> getMovementListeners() {
+        return movementListeners;
+    }
+
+    public List<PassListener> getPassListeners() {
+        return passListeners;
+    }
+
+    public List<StatusPeerListener> getStatusListener() {
+        return statusListener;
     }
 
     
