@@ -6,6 +6,7 @@
 package services;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 //import jxta.communication.Communicator;
 import java.util.Random;
@@ -511,9 +512,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         //Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         comunicator.sendMessage(msg);
                         Thread.sleep(3000);
-                        msg=new PassMessage(tavolo.getTurnoSuccessivo());
+                        msg=new PassMessage(tavolo.getTurno());
                         
                         comunicator.sendMessage(msg);
+                        Iterator<PassListener> iter=comunicator.getPassListeners().iterator();
+                        while(iter.hasNext()){
+                            iter.next().updatePass((PassMessage)msg);
+                        }
 
 
                     } catch (Exception ex) {
@@ -657,8 +662,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     Giocatore prossimo=tavolo.getGiocatoreCorrente();
                     this.playerDataListener.updateDatiGiocatore(prossimo.getNome(), prossimo.getNumeroTruppe(), prossimo.getArmateDisposte(), prossimo.getNazioni().size());
                  //   Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-                    Message msg=new PassMessage(tavolo.getTurnoSuccessivo());
+                    Message msg=new PassMessage(tavolo.getTurno());
                     comunicator.sendMessage(msg);
+                    Iterator<PassListener> iter=comunicator.getPassListeners().iterator();
+                        while(iter.hasNext()){
+                            iter.next().updatePass((PassMessage)msg);
+                        }
                     new JFrameTurno(prossimo.getID()).setVisible(true);
                     sendRecoveryMessage();
 
@@ -686,9 +695,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updatePass(PassMessage msg) {
-        int turno_successivo=msg.getTurno_successivo();
-            
+        int turno=msg.getTurno_successivo();
+
+
             Tavolo tavolo=Tavolo.getInstance();
+            if(turno!=tavolo.getTurnoSuccessivo()){
+                System.err.println("ricevo turno precedente");
+                return;
+            }
             messageReceived[tavolo.getTurno()]=true;
             int turnoSucc=tavolo.getTurnoSuccessivo();
             if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
@@ -742,10 +756,15 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
             }
             tavolo.passaTurno();
-            Message msg= new PassMessage(tavolo.getTurnoSuccessivo());
+            Message msg= new PassMessage(tavolo.getTurno());
+            
             try {
                         //Thread.sleep(3000);
                         this.comunicator.sendMessage(msg);
+                        Iterator<PassListener> iter=comunicator.getPassListeners().iterator();
+                        while(iter.hasNext()){
+                            iter.next().updatePass((PassMessage)msg);
+                        }
 
 
                     } catch (Exception  ex) {
