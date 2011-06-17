@@ -37,6 +37,7 @@ import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.JFrameTurno;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
+import virtualrisikoii.risiko.StatoGiocoPanel;
 import virtualrisikoii.risiko.Tavolo;
 import virtualrisikoii.risiko.Territorio;
 
@@ -513,7 +514,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         comunicator.sendMessage(msg);
                         Thread.sleep(3000);
                         msg=new PassMessage(tavolo.getTurno());
-                        
+                        StatoGiocoPanel.instance.updateGiocatore(corrente);
+                        playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                         comunicator.sendMessage(msg);
                         
 
@@ -661,6 +663,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                  //   Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
                     Message msg=new PassMessage(tavolo.getTurno());
                     comunicator.sendMessage(msg);
+                    Giocatore g=tavolo.getGiocatoreCorrente();
+                    StatoGiocoPanel.instance.updateGiocatore(g);
+                    playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
                     
                     new JFrameTurno(prossimo.getID()).setVisible(true);
                     sendRecoveryMessage();
@@ -751,7 +756,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             }
             tavolo.passaTurno();
             Message msg= new PassMessage(tavolo.getTurno());
-            
+            Giocatore g=tavolo.getGiocatoreCorrente();
+            StatoGiocoPanel.instance.updateGiocatore(g);
+            playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
+
             try {
                         //Thread.sleep(3000);
                         this.comunicator.sendMessage(msg);
@@ -761,7 +769,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     } catch (Exception  ex) {
                         ex.printStackTrace();
                     }
-            Giocatore g=tavolo.getGiocatoreCorrente();
+           
 
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());

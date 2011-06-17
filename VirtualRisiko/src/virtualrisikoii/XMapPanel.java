@@ -165,6 +165,6 @@ public abstract class XMapPanel extends JPanel implements MapListener,TroopsSele
        public void mouseClicked(MouseEvent e){
            makeAction((JLabel)e.getSource(),e);
        }
-   }
+    }
 
 }
