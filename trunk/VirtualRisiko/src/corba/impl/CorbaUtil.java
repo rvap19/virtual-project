@@ -86,11 +86,18 @@ public class CorbaUtil {
 
 
     static Summary createSummary(User user) {
-
-        Iterator<Gameregistration> iter=user.getGameregistrationCollection().iterator();
+        Collection collection=user.getGameregistrationCollection();
         int result=0;
+        if(collection==null||collection.size()==0){
+            return new Summary(user.getUsername(),0);
+        }
+        Iterator<Gameregistration> iter=collection.iterator();
+        Gameregistration current;
         while(iter.hasNext()){
-            result=result+iter.next().getPunteggio();
+            current=iter.next();
+            if(!current.getGame().getAttiva()){
+                result=result+current.getPunteggio();
+            }
         }
         return new Summary(user.getUsername(), result);
     }

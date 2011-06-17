@@ -118,8 +118,22 @@ public class RisikoServerImpl extends RisikoServerPOA{
 
     public synchronized boolean signPlayer(UserInfo player, PartitaInfo partita) {
 
-        Gameregistration registration=new Gameregistration(partita.id,player.username);
+        List list=this.registrationDAO.findGameregistrationByPartitaAndPlayer(partita.id,player.username);
+        if(list!=null&&list.size()>0){
+            return true;
+        }
+        Gameregistration registration=new Gameregistration();
+        Game g=this.gameDAO.findGame(partita.id);
+        User u=this.userDAO.findUser(player.username);
+        registration.setGame(g);
+        registration.setUser(u);
+        registration.setPunteggio(0);
+        registration.setVincitore(false);
         try {
+            List<Gameregistration> regList=this.registrationDAO.findGameregistrationByPartitaID(partita.id);
+            if(regList!=null&&regList.size()>=g.getNumeroGiocatoriMax()){
+                return false;
+            }
             this.registrationDAO.create(registration);
             return true;
         } catch (PreexistingEntityException ex) {
@@ -166,11 +180,11 @@ public class RisikoServerImpl extends RisikoServerPOA{
 
     public PartitaInfo createGame(UserInfo user, short maxTurn, short maxPlayers, String name, String type) {
 
-        Game g=this.gameDAO.findActiveGamesByManagerUsername(user.username);
-        if(g!=null){
-            return CorbaUtil.createPartitaInfo(null, g.getNumeroGiocatoriMax());
+        List result=this.gameDAO.findActiveGamesByManagerUsername(user.username);
+        if(result!=null&&result.size()>0){
+            return CorbaUtil.createPartitaInfo(null, -1);
         }
-        g=new Game();
+        Game g=new Game();
         g.setAttiva(true);
         g.setDataCreazione(new Date());
         g.setInizio(new Date());
@@ -180,7 +194,9 @@ public class RisikoServerImpl extends RisikoServerPOA{
         g.setManagerUsername(user.username);
         g.setMappa(type);
         this.gameDAO.create(g);
-        return CorbaUtil.createPartitaInfo(g,0);
+        PartitaInfo info= CorbaUtil.createPartitaInfo(g,0);
+        this.signPlayer(user, info);
+        return info;
     }
 
     public boolean createUser(UserDetails details) {

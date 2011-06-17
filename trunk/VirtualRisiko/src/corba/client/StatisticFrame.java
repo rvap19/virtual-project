@@ -13,7 +13,11 @@ package corba.client;
 
 import corba.RisikoServer;
 import corba.Summary;
+import corba.SummaryPlayerInfo;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultTreeSelectionModel;
 
 /**
  *
@@ -72,13 +76,29 @@ public class StatisticFrame extends javax.swing.JFrame {
             }
         });
         jTable1.setToolTipText("clicca sul giocatore per avere maggiori informazioni"); // NOI18N
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.setName("jTable1"); // NOI18N
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        System.err.println("selected "+this.jTable1.getSelectedRow());
+        String name=jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+        SummaryPlayerInfo info=this.server.getStatistics(name);
+        new UserStatisticFrame(info).setVisible(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
     * @param args the command line arguments
@@ -100,10 +120,43 @@ public class StatisticFrame extends javax.swing.JFrame {
     }
     
     public void setContent(Summary[] content){
+        DefaultTableModel model=new DefaultTableModel(new String [] {
+                "giocatore", "punteggio"
+            }, content.length){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+
+        jTable1.setRowSelectionAllowed(true);
+        jTable1.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        
+        
+        jTable1.setModel(model);
        for(int i=0;i<content.length;i++){
            jTable1.setValueAt(content[i].username, i, 0);
+           
            jTable1.setValueAt(content[i].score, i, 1);
        }
+
+       
+
+
+
+
+       
+       
     }
 
 

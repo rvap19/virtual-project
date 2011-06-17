@@ -24,6 +24,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Gameregistration.findAll", query = "SELECT g FROM Gameregistration g"),
     @NamedQuery(name = "Gameregistration.findByGameID", query = "SELECT g FROM Gameregistration g WHERE g.gameregistrationPK.gameID = :gameID"),
+    @NamedQuery(name = "Gameregistration.findByGameIDAndPlayer", query = "SELECT g FROM Gameregistration g WHERE g.gameregistrationPK.gameID = :gameID and g.gameregistrationPK.userUsername = :username"),
     @NamedQuery(name = "Gameregistration.findByUserUsername", query = "SELECT g FROM Gameregistration g WHERE g.gameregistrationPK.userUsername = :userUsername"),
     @NamedQuery(name = "Gameregistration.findByPunteggio", query = "SELECT g FROM Gameregistration g WHERE g.punteggio = :punteggio"),
     @NamedQuery(name = "Gameregistration.findByVincitore", query = "SELECT g FROM Gameregistration g WHERE g.vincitore = :vincitore")})

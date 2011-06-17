@@ -121,6 +121,11 @@ public class RemoteLogin extends javax.swing.JFrame {
 
         jMenuItem4.setText("classifica");
         jMenuItem4.setName("jMenuItem4"); // NOI18N
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem1.setText("recupera password");
@@ -243,12 +248,17 @@ public class RemoteLogin extends javax.swing.JFrame {
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
+        
+
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TOD
         StatisticFrame frame=new StatisticFrame(server);
         frame.setVisible(true);
         Summary[] content=server.getCompleteStatistics();
         frame.setContent(content);
-
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
     * @param args the command line arguments
