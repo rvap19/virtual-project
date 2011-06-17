@@ -16,12 +16,19 @@ package jxta.gui;
  * @author root
  */
 public class GameDialog extends javax.swing.JDialog {
+    private boolean confirmed;
 
     /** Creates new form GameDialog */
     public GameDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        confirmed=false;
     }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -126,6 +133,7 @@ public class GameDialog extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
+        this.confirmed=true;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void reset(){

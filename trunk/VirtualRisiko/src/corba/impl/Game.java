@@ -6,10 +6,8 @@
 package corba.impl;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +36,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Game.findByInizio", query = "SELECT g FROM Game g WHERE g.inizio = :inizio"),
     @NamedQuery(name = "Game.findByNome", query = "SELECT g FROM Game g WHERE g.nome = :nome"),
     @NamedQuery(name = "Game.findByNumeroTurniMax", query = "SELECT g FROM Game g WHERE g.numeroTurniMax = :numeroTurniMax"),
-    @NamedQuery(name = "Game.findByNumeroGiocatoriMax", query = "SELECT g FROM Game g WHERE g.numeroGiocatoriMax = :numeroGiocatoriMax")})
+    @NamedQuery(name = "Game.findByNumeroGiocatoriMax", query = "SELECT g FROM Game g WHERE g.numeroGiocatoriMax = :numeroGiocatoriMax"),
+    @NamedQuery(name = "Game.findByMappa", query = "SELECT g FROM Game g WHERE g.mappa = :mappa"),
+    @NamedQuery(name = "Game.findActiveGamesByManagerUsername", query = "SELECT g FROM Game g WHERE g.managerUsername = :managerUsername and g.attiva = :attiva"),
+    @NamedQuery(name = "Game.findByManagerUsername", query = "SELECT g FROM Game g WHERE g.managerUsername = :managerUsername")})
 public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,8 +73,12 @@ public class Game implements Serializable {
     private int numeroTurniMax;
     @Column(name = "numeroGiocatoriMax")
     private Integer numeroGiocatoriMax;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
-    private Collection<Gameregistration> gameregistrationCollection;
+    @Basic(optional = false)
+    @Column(name = "mappa")
+    private String mappa;
+    @Basic(optional = false)
+    @Column(name = "managerUsername")
+    private String managerUsername;
 
     public Game() {
     }
@@ -83,13 +87,15 @@ public class Game implements Serializable {
         this.id = id;
     }
 
-    public Game(Integer id, boolean attiva, Date dataCreazione, Date inizio, String nome, int numeroTurniMax) {
+    public Game(Integer id, boolean attiva, Date dataCreazione, Date inizio, String nome, int numeroTurniMax, String mappa, String managerUsername) {
         this.id = id;
         this.attiva = attiva;
         this.dataCreazione = dataCreazione;
         this.inizio = inizio;
         this.nome = nome;
         this.numeroTurniMax = numeroTurniMax;
+        this.mappa = mappa;
+        this.managerUsername = managerUsername;
     }
 
     public Integer getId() {
@@ -172,12 +178,20 @@ public class Game implements Serializable {
         this.numeroGiocatoriMax = numeroGiocatoriMax;
     }
 
-    public Collection<Gameregistration> getGameregistrationCollection() {
-        return gameregistrationCollection;
+    public String getMappa() {
+        return mappa;
     }
 
-    public void setGameregistrationCollection(Collection<Gameregistration> gameregistrationCollection) {
-        this.gameregistrationCollection = gameregistrationCollection;
+    public void setMappa(String mappa) {
+        this.mappa = mappa;
+    }
+
+    public String getManagerUsername() {
+        return managerUsername;
+    }
+
+    public void setManagerUsername(String managerUsername) {
+        this.managerUsername = managerUsername;
     }
 
     @Override
