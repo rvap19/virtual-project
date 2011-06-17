@@ -318,6 +318,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
      public boolean sendMessage(Message message) throws IOException{
           StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.GAMER,playerName , null);
         message.addMessageElement(namespace, mElement);
+        System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
          return sendMessage(message,current_message_id);
          
      }

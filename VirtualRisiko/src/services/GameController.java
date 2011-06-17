@@ -732,7 +732,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         this.timer.stopTimer();
         Giocatore giocatore=Tavolo.getInstance().getGiocatoreCorrente();
         int troops=tavolo.getGiocatoreCorrente().getNumeroTruppe();
-        if(troops>0){
+        if(troops>0&&!tavolo.isInizializzazione()){
             this.autoDispose(troops);
         }
         if((!tavolo.isInizializzazione())){
