@@ -434,7 +434,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         }
         PingMessage m=new PingMessage(message);
 
-        PongMessage pong=new PongMessage(findTurno(playerName));
+        PongMessage pong=new PongMessage(playerName);
         try {
             this.toCentralPeer.sendMessage(pong);
         } catch (IOException ex) {
