@@ -436,7 +436,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
 
         PongMessage pong=new PongMessage(playerName);
         try {
-            this.toCentralPeer.sendMessage(pong);
+            sendMessage(pong);
         } catch (IOException ex) {
             System.err.println("impossibile inviare pong al manager");
         }
