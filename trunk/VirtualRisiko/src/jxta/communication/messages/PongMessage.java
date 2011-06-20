@@ -15,7 +15,7 @@ import net.jxta.endpoint.StringMessageElement;
 public class PongMessage extends VirtualRisikoMessage{
 
 
-        public static final String PEER_ID="pong_peer_id";
+        public static final String PING_PEER_ID="pong_peer_id";
 
 
         private String peer_id;
@@ -26,13 +26,13 @@ public class PongMessage extends VirtualRisikoMessage{
         StringMessageElement mE=new StringMessageElement(TYPE, PONG, null);
         addMessageElement(namespace, mE);
 
-        StringMessageElement mElement = new StringMessageElement(PEER_ID,peerId, null);
+        StringMessageElement mElement = new StringMessageElement(PING_PEER_ID,peerId, null);
         addMessageElement(namespace, mElement);
     }
 
     public PongMessage(Message message){
         super(message);
-        this.peer_id=(getMessageElement(PEER_ID).toString());
+        this.peer_id=(getMessageElement(namespace,PING_PEER_ID).toString());
 
     }
 
