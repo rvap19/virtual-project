@@ -557,6 +557,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
        try{
            lock.lock();
            this.elaborateMessage(msg);
+        }catch(Exception ex){
+            ex.printStackTrace();
         }finally{
             lock.unlock();
         }
