@@ -30,6 +30,8 @@ public class VirtualRisikoMessage extends Message{
     public static final String WELCOME="welcome";
     public static final String RECOVERY="recovery";
     public static final String STATUS="status";
+    public static final String PING="ping";
+    public static final String PONG="pong";
     
 
     protected String playerName;

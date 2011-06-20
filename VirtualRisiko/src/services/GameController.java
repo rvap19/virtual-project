@@ -6,7 +6,6 @@
 package services;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 //import jxta.communication.Communicator;
 import java.util.Random;
@@ -21,6 +20,9 @@ import jxta.communication.messages.ChangeCardMessage;
 import jxta.communication.messages.ChatMessage;
 import jxta.communication.messages.MovementMessage;
 import jxta.communication.messages.PassMessage;
+import jxta.communication.messages.PingMessage;
+import jxta.communication.messages.PongMessage;
+import jxta.communication.messages.StatusPeerMessage;
 
 import net.jxta.endpoint.Message;
 import jxta.communication.messages.listener.ApplianceListener;
@@ -29,6 +31,7 @@ import jxta.communication.messages.listener.ChangeCardListener;
 import jxta.communication.messages.listener.ChatListener;
 import jxta.communication.messages.listener.MovementListener;
 import jxta.communication.messages.listener.PassListener;
+import jxta.communication.messages.listener.PongListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
 import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
@@ -45,7 +48,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,TimeoutNotifier,ReconnectionRequestListener{
+public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,TimeoutNotifier,ReconnectionRequestListener,PongListener{
     private MapListener mapListener;
     private HistoryListener historyListener;
     private PlayerDataListener playerDataListener;
@@ -64,9 +67,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private Territorio secondSelection;
     private int truppeSelezionate;
     private boolean[] reconnectionNeeds;
-
     private boolean[] messageReceived;
-    private ManagerTimerThread managerTimer;
+    private ManagerPingerThread managerTimer;
     private static GameController instance=null;
 
     
@@ -115,7 +117,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             this.timer=new GameTimer(this, GameTimer.ACTION);
             timer.start();
 
-             this.managerTimer=new ManagerTimerThread();
+             this.managerTimer=new ManagerPingerThread();
              managerTimer.start();
         }
 
@@ -206,7 +208,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         int region=msg.getRegion();
         
         Tavolo tavolo=Tavolo.getInstance();
-        this.messageReceived[tavolo.getTurno()]=true;
         Territorio territorio=tavolo.getMappa().getTerritorio(region);
         String message="Il "+territorio.getOccupante().getNome()+" posiziona "+troops_number+" in "+territorio.getNome();
         historyListener.appendActionInHistory(message);
@@ -230,7 +231,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
         
         Tavolo tavolo=Tavolo.getInstance();
-        this.messageReceived[tavolo.getTurno()]=true;
         Territorio fromTerritorio=tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=tavolo.getMappa().getTerritorio(to);
         Giocatore  attaccante=fromTerritorio.getOccupante();
@@ -299,7 +299,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         int to=msg.getTo();
         
         Tavolo tavolo=Tavolo.getInstance();
-        messageReceived[tavolo.getTurno()]=true;
         Territorio fromTerritorio=tavolo.getMappa().getTerritorio(from);
         Territorio toTerritorio=tavolo.getMappa().getTerritorio(to);
         System.out.println("Spostamento :Il "+tavolo.getGiocatoreCorrente()+" sposta da "+fromTerritorio.getNome()+" a "+toTerritorio.getNome()+" con "+troops_number+" unita");
@@ -331,7 +330,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         int card3=msg.getCard3();
         
         Tavolo tavolo=Tavolo.getInstance();
-        messageReceived[tavolo.getTurno()]=true;
         Giocatore g=tavolo.getGiocatoreCorrente();
         Carta c1=g.getCarta(card1);
         Carta c2=g.getCarta(card2);
@@ -702,7 +700,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.err.println("ricevo turno precedente");
                 return;
             }
-            messageReceived[tavolo.getTurno()]=true;
             int turnoSucc=tavolo.getTurnoSuccessivo();
             if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
                 tavolo.setInizializzazione(false);
@@ -844,60 +841,100 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         this.timeoutNotifier.remaingTimeNotify(remaing);
     }
 
+    public void notifyPong(PongMessage msg) {
+       this.messageReceived[msg.getPeerID()]=true;
+    }
 
-    private  class  ManagerTimerThread extends Thread{
 
-        private int sleepTime=90 * 1000 ;
-        private int interval=1;
+    private  class  ManagerPingerThread extends Thread{
+
+        private int sleepTime=20 * 1000 ;
+        
 
         private AtomicBoolean continueTimer;
 
 
-        public ManagerTimerThread(){
+        public ManagerPingerThread(){
             this.continueTimer=new AtomicBoolean(true);
         }
 
         public void stopTimer(){
             this.continueTimer.set(false);
         }
+
+        private  void ping(int interval) throws InterruptedException, IOException{
+                for(int i=1;i<messageReceived.length;i++){
+                        messageReceived[i]=false;
+                    }
+                    for(int i=0;i<interval;i++){
+                        Message ping=new PingMessage();
+                        comunicator.sendMessage(ping);
+                        this.sleep(sleepTime);
+                        sendStatusMessage();
+
+                    }
+
+
+         }
+
+        private void sendStatusMessage() throws IOException{
+            StatoGiocoPanel panel=StatoGiocoPanel.getInstance();
+            List<Giocatore> giocatori=Tavolo.getInstance().getGiocatori();
+            for(int i=1;i<messageReceived.length;i++){
+                Message msg=new StatusPeerMessage(i, messageReceived[i]);
+                comunicator.sendMessage(msg);
+                panel.NotifyOutPlayer(giocatori.get(i), !messageReceived[i]);
+            }
+        }
+
         
         @Override
         public void run() {
+            Giocatore g;
             while(continueTimer.get()){
                 try {
-                    Tavolo tavolo=Tavolo.getInstance();
-                    Giocatore giocatore=tavolo.getGiocatoreCorrente();
-                    messageReceived[tavolo.getTurno()]=false;
-                    if(comunicator.isOnline(giocatore.getUsername())){
-                        for(int i=0;i<interval;i++){
-                            this.sleep(sleepTime);
-                        }
+                    try {
+                        ping(3);
+                    } catch (IOException ex) {
+                       System.err.println("impossibile inviare ping");
                     }
 
                     
 
 
-                    if(!tavolo.isTurnoMyGiocatore()&&!messageReceived[giocatore.getID()]){
+                    
+
+                    g=Tavolo.getInstance().getGiocatoreCorrente();
+                    if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
                         //autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         
                         try {
-                            passaTurno();
+                             g=Tavolo.getInstance().getGiocatoreCorrente();
+                             ping(3);
+                            if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
+                                
+                                passaTurno();
+
+                                comunicator.closePipeFor(g.getID(),g.getUsername());
+                            }
                             
-                            comunicator.closePipeFor(giocatore.getID(),giocatore.getUsername());
                             
                         } catch (IOException ex) {
-                            System.err.println("impossibile chidere pipe");
+                            System.err.println("impossibile inviare ping o chidere pipe");
                         }
                     }
                     
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
 
             }
 
+            
 
         }
+
+
     }
 
     
