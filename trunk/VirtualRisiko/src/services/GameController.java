@@ -872,10 +872,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
 
         private  void ping(int interval) throws InterruptedException, IOException{
-                for(int i=1;i<messageReceived.length;i++){
-                        messageReceived[i]=false;
-                    }
+                
                     for(int i=0;i<interval;i++){
+                        for(int j=1;j<messageReceived.length;j++){
+                            messageReceived[j]=false;
+                        }
                         Message ping=new PingMessage();
                         comunicator.sendMessage(ping);
                         this.sleep(sleepTime);
@@ -903,7 +904,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             while(continueTimer.get()){
                 try {
                     try {
-                        ping(3);
+                        ping(1);
                     } catch (IOException ex) {
                        System.err.println("impossibile inviare ping");
                     }
