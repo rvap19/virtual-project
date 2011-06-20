@@ -884,7 +884,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             for(int i=1;i<messageReceived.length;i++){
                 Message msg=new StatusPeerMessage(i, messageReceived[i]);
                 comunicator.sendMessage(msg);
-                panel.NotifyOutPlayer(giocatori.get(i), !messageReceived[i]);
+                panel.NotifyOutPlayer(giocatori.get(i), messageReceived[i]);
             }
         }
 
