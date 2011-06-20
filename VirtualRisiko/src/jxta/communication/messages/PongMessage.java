@@ -18,25 +18,25 @@ public class PongMessage extends VirtualRisikoMessage{
         public static final String PEER_ID="pong_peer_id";
 
 
-        private int peer_id;
+        private String peer_id;
 
-    public PongMessage(int peerId){
+    public PongMessage(String peerId){
         super();
         this.peer_id=peerId;
         StringMessageElement mE=new StringMessageElement(TYPE, PONG, null);
         addMessageElement(namespace, mE);
 
-        StringMessageElement mElement = new StringMessageElement(PEER_ID,Integer.toString(peerId), null);
+        StringMessageElement mElement = new StringMessageElement(PEER_ID,peerId, null);
         addMessageElement(namespace, mElement);
     }
 
     public PongMessage(Message message){
         super(message);
-        this.peer_id=Integer.parseInt(getMessageElement(PEER_ID).toString());
+        this.peer_id=(getMessageElement(PEER_ID).toString());
 
     }
 
-    public int getPeerID() {
+    public String getPeerID() {
         return peer_id;
     }
 

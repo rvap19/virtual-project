@@ -6,6 +6,8 @@
 package services;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 //import jxta.communication.Communicator;
 import java.util.Random;
@@ -70,6 +72,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private boolean[] messageReceived;
     private ManagerPingerThread managerTimer;
     private static GameController instance=null;
+    private HashMap<String,Integer> turns;
 
     
 
@@ -89,7 +92,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private GameController(){
         //this.comunicator=Communicator.getInstance();
         this.comunicator=VirtualCommunicator.getInstance();
-        
+        this.turns=new HashMap<String, Integer>();
         comunicator.addPassListener(this);
         comunicator.addApplianceListener(this);
         comunicator.addAttackListener(this);
@@ -98,7 +101,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         comunicator.setRecoveryRequestListener(this);
         comunicator.addPongListener(this);
         Tavolo tavolo=Tavolo.getInstance();
-        
+
+        Iterator<Giocatore> iter=tavolo.getGiocatori().iterator();
+        while(iter.hasNext()){
+            Giocatore g=iter.next();
+            turns.put(g.getUsername(), g.getID());
+        }
 
         this.reconnectionNeeds=new boolean[tavolo.getGiocatori().size()];
         this.locker=new TableLocker(tavolo);
@@ -843,7 +851,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void notifyPong(PongMessage msg) {
-       this.messageReceived[msg.getPeerID()]=true;
+       this.messageReceived[turns.get(msg.getPeerID())]=true;
     }
 
 
