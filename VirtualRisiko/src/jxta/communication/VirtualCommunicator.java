@@ -132,7 +132,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         instance.isCentral=true;
         instance.currentPlayerNumber=1;
         instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
-        instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 120000);
+        instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 1000);
         instance.connectionHandler.setConnectionListener(instance);
         instance.connectionHandler.start();
         return instance;
