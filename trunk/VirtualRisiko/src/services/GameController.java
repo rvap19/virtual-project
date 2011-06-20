@@ -920,7 +920,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         
                         try {
                              g=Tavolo.getInstance().getGiocatoreCorrente();
-                             ping(3);
+                             ping(1);
                             if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
                                 
                                 passaTurno();
