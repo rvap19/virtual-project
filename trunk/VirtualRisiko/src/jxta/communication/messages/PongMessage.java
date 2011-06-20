@@ -32,7 +32,7 @@ public class PongMessage extends VirtualRisikoMessage{
 
     public PongMessage(Message message){
         super(message);
-        this.peer_id=(getMessageElement(namespace,PING_PEER_ID).toString());
+        this.peer_id=(message.getMessageElement(namespace,PING_PEER_ID).toString());
 
     }
 
