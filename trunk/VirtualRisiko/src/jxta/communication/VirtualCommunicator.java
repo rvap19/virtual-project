@@ -23,6 +23,8 @@ import jxta.communication.messages.ChatMessage;
 import jxta.communication.messages.InitMessage;
 import jxta.communication.messages.MovementMessage;
 import jxta.communication.messages.PassMessage;
+import jxta.communication.messages.PingMessage;
+import jxta.communication.messages.PongMessage;
 import jxta.communication.messages.RecoveryMessage;
 import jxta.communication.messages.StatusPeerMessage;
 import jxta.communication.messages.VirtualRisikoMessage;
@@ -48,6 +50,7 @@ import jxta.communication.messages.listener.ChatListener;
 import jxta.communication.messages.listener.InitListener;
 import jxta.communication.messages.listener.MovementListener;
 import jxta.communication.messages.listener.PassListener;
+import jxta.communication.messages.listener.PongListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
 import jxta.communication.messages.listener.StatusPeerListener;
 
@@ -76,6 +79,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
     private RecoveryListener recoveryListeners;
     private ReconnectionRequestListener recoveryRequestListener;
     private List<StatusPeerListener> statusListener;
+    private List<PongListener> pongListeners;
     
     
 
@@ -112,7 +116,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         movementListeners=new ArrayList<MovementListener>();
         passListeners=new ArrayList<PassListener>();
         statusListener=new ArrayList<StatusPeerListener>();
-
+        pongListeners=new ArrayList<PongListener>();
     }
 
     /*
@@ -227,6 +231,13 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
          statusListener.add(e);
     }
 
+    public void addPongListener(PongListener lister){
+        pongListeners.add(lister);
+    }
+
+    public void removePongListener(PongListener listener){
+        pongListeners.remove(listener);
+    }
 
 
     public void addAttackListener(AttackListener listener){
@@ -416,6 +427,21 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         }
     }
 
+    public void elaboratePingMessage(Message message){
+         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+        if(name.equals(playerName)){
+            return;
+        }
+        PingMessage m=new PingMessage(message);
+
+        PongMessage pong=new PongMessage(findTurno(playerName));
+        try {
+            this.toCentralPeer.sendMessage(pong);
+        } catch (IOException ex) {
+            System.err.println("impossibile inviare pong al manager");
+        }
+    }
+
 
     public void elaborateStatusMessage(Message message){
          String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
@@ -551,7 +577,10 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
             System.err.println("id msg non riconisciuto");
        }
 
-
+       if(messageType.equals(VirtualRisikoMessage.PONG)){
+           this.elaboratePongMessage(msg);
+           return;
+       }
 
 
      if(this.isCentral){
@@ -560,6 +589,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
      }
 
 
+       if(messageType.equals(VirtualRisikoMessage.PING)){
+           this.elaboratePingMessage(msg);
+       }
        if(messageType.equals(VirtualRisikoMessage.INIT)){
            this.elaborateInitMessage(msg);
 
@@ -779,6 +811,15 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         }
         return list;
 
+    }
+
+    private void elaboratePongMessage(Message msg) {
+        PongMessage m=new PongMessage(msg);
+
+        Iterator<PongListener> listeners=this.pongListeners.iterator();
+        while(listeners.hasNext()){
+            listeners.next().notifyPong(m);
+        }
     }
 
     private  class  Pinger extends Thread{
