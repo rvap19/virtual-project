@@ -96,6 +96,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         comunicator.addMovementListener(this);
         comunicator.addChangeCardsListener(this);
         comunicator.setRecoveryRequestListener(this);
+        comunicator.addPongListener(this);
         Tavolo tavolo=Tavolo.getInstance();
         
 
