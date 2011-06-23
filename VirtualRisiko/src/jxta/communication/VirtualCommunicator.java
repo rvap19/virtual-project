@@ -110,6 +110,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
     private boolean messageReceived;
     private MessageWaiter waiter=null;
 
+    
+
     private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
         attackListeners=new ArrayList<AttackListener>();
@@ -139,7 +141,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         instance.connectionHandler=new ConnectionHandler(group, pipe, 10000, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
         instance.connectionHandler.start();
-
+        
         return instance;
     }
 
@@ -200,6 +202,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
             
             Message msg=new WelcomeMessage(playerName);
             sendMessage(msg);
+
             return true;
         }
         System.err.println("impossibile contattare server");
