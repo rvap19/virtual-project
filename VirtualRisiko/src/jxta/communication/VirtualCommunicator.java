@@ -107,7 +107,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
     private PeerGroup peerGroup;
 
     private Lock pipeLock;
-    private boolean pingReceived;
+    private boolean messageReceived;
+    private MessageWaiter waiter=null;
 
     private VirtualCommunicator(){
         applianceListeners=new ArrayList<ApplianceListener>();
@@ -144,6 +145,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
 
     public static VirtualCommunicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
         instance=new VirtualCommunicator();
+        
         instance.playerName=peerName;
         instance.isCentral=false;
         instance.centralPeerPipeAdv=pipe;
@@ -409,7 +411,10 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         while(listeners.hasNext()){
             listeners.next().init(init);
         }
-
+        if(waiter==null){
+            waiter=new MessageWaiter();
+            waiter.start();
+        }
         
         gameInProgress=true;
       
@@ -570,25 +575,23 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
     }
 
     private boolean free=true;
-    Lock lock=new ReentrantLock();
+    
 
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
-       try{
-           lock.lock();
+      
+           
            this.elaborateMessage(msg);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally{
-            lock.unlock();
-        }
+        
+            
+        
     }
 
     private synchronized void elaborateMessage(Message msg){
         
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
+        messageReceived=true;
        System.out.println(msg.getMessageElement(VirtualRisikoMessage.TYPE).toString()+" FROM "+msg.getMessageElement(VirtualRisikoMessage.GAMER)+" ID "+msg.getMessageElement(VirtualRisikoMessage.ID_MSG));
 
        String messageType=msg.getMessageElement(namespace, VirtualRisikoMessage.TYPE).toString();
@@ -849,14 +852,14 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         }
     }
 
-    private  class  Pinger extends Thread{
+    private  class  MessageWaiter extends Thread{
 
         private int sleepTime=90 * 1000 ;
         private int interval=1;
 
         private AtomicBoolean continueTimer;
 
-        public Pinger(){
+        public MessageWaiter(){
             this.continueTimer=new AtomicBoolean(true);
         }
 
@@ -868,26 +871,19 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         public void run() {
             while(continueTimer.get()){
                 try {
-                    pingReceived=false;
-                    sendPing();
+                    messageReceived=false;
+                    
                     for(int i=0;i<interval;i++){
                         this.sleep(sleepTime);
                     }
-                    if(!pingReceived){
-                        try {
-                            connect();
+                    if(!messageReceived){
 
-
-                        } catch (IOException ex) {
-                            System.err.println("IMPOSSIBILE RICONNETTERSI");
-                        }
+                        connect();
+   
                     }
-
-
-                    
-                    
-                } catch (InterruptedException ex) {
-                   
+            
+                } catch (Exception ex) {
+                   ex.printStackTrace();
                 }
 
             }
@@ -895,9 +891,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
 
         }
 
-        private void sendPing() {
-            throw new UnsupportedOperationException("Not yet implemented");
-        }
+        
     }
 
     

@@ -579,7 +579,12 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             factory.loadMapPanel();
             XMapPanel panel = factory.getMapPanel();
              app = new VirtualRisikoIIApp();
-            app.show(new VirtualRisikoIIView(app, panel));
+              view=new VirtualRisikoIIView(app, panel);
+
+            app.show(view);
+            
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
@@ -608,7 +613,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             factory.loadMapPanel();
             XMapPanel panel = factory.getMapPanel();
              app = new VirtualRisikoIIApp();
-            app.show(new VirtualRisikoIIView(app, panel));
+             app.hide(view);
+             view=new  VirtualRisikoIIView(app, panel);
+            app.show(view);
             app.exit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -618,6 +625,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     
 
   private VirtualRisikoIIApp app;
+  private VirtualRisikoIIView view;
 
     
 

@@ -924,10 +924,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                              
                             
                                 
-                                
+                                comunicator.closePipeFor(g.getID(),g.getUsername());
                                 autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                 passaTurno();
-                               // comunicator.closePipeFor(g.getID(),g.getUsername());
+                                
                             
                             
                             
