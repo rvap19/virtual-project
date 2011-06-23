@@ -601,8 +601,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             factory.loadGame(parameter.getMapName());
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
-            int turno = 0;
-            System.out.println("riconnessione con turno " + parameter.getTurnoMyGiocatore());
+            
+            System.out.println("riconnessione ::: turno corrente" +parameter.getTurno()+" turno del mio giocatore "+ parameter.getTurnoMyGiocatore());
+
             RecoveryUtil util=new RecoveryUtil();
             util.recoveryTable(parameter);
             Tavolo tavolo = Tavolo.getInstance();
