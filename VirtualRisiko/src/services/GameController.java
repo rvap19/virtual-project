@@ -122,11 +122,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         for(int i=0;i<messageReceived.length;i++){
             messageReceived[i]=false;
         }
+        this.timer=new GameTimer(this, GameTimer.ACTION);
         if(comunicator.isManager()){
 
             
             messageReceived[0]=true;
-            this.timer=new GameTimer(this, GameTimer.ACTION);
+            
             timer.start();
 
              this.managerTimer=new ManagerPingerThread();
