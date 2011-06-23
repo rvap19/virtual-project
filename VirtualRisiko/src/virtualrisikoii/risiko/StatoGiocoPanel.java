@@ -643,12 +643,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         Giocatore g=tavolo.getGiocatori().get(message.getId());
         boolean offline=!message.isOnline();
 
-        if(offline){
-            g.setStato(Giocatore.FUORI_GIOCO);
-        }else{
-            g.setStato(Giocatore.IN_GIOCO);
-        }
-        this.NotifyOutPlayer(tavolo.getGiocatori().get(message.getId()), !message.isOnline());
+        
+        this.NotifyOutPlayer(g, offline);
 
     }
 

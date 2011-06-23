@@ -920,14 +920,15 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         //autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         
                         try {
-                             g=Tavolo.getInstance().getGiocatoreCorrente();
-                             ping(1);
-                            if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
+                             
+                             
+                            
                                 
+                                
+                                autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                 passaTurno();
-
                                // comunicator.closePipeFor(g.getID(),g.getUsername());
-                            }
+                            
                             
                             
                         } catch (IOException ex) {
