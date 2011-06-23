@@ -594,9 +594,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
 
     public void notifyReconnect(RecoveryParameter parameter) {
         try {
-            if(app!=null){
-                app.exit();
-            }
+            
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             GameFactory factory = new GameFactory();
             //factory.loadGame("classicalMap");
