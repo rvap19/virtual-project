@@ -53,12 +53,13 @@ import jxta.communication.messages.listener.PassListener;
 import jxta.communication.messages.listener.PongListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
 import jxta.communication.messages.listener.StatusPeerListener;
+import net.jxta.util.PipeStateListener;
 
 /**
  *
  * @author root
  */
-public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
+public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,PipeStateListener{
 
     public static VirtualCommunicator instance;
     
@@ -132,7 +133,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         instance.isCentral=true;
         instance.currentPlayerNumber=1;
         instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
-        instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 1000);
+        instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 120 * 1000);
         instance.connectionHandler.setConnectionListener(instance);
         instance.connectionHandler.start();
         return instance;
@@ -514,6 +515,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
             this.toPeersPipes.put(m.getWelcomeName(), pipe);
             
             pipe.setMessageListener(this);
+            pipe.setPipeStateListener(this);
             
             if(this.currentPlayerNumber==this.maxPlayers){
                 this.sendInitMessages();
@@ -784,6 +786,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         JxtaBiDiPipe pipe=this.toPeersPipes.get(name);
         if(pipe!=null){
              pipe.close();
+             
              toPeersPipes.put(name, null);
          }
     }
@@ -821,6 +824,18 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener{
         Iterator<PongListener> listeners=this.pongListeners.iterator();
         while(listeners.hasNext()){
             listeners.next().notifyPong(m);
+        }
+    }
+
+    public void stateEvent(Object o, int i) {
+        System.err.println("state change");
+        JxtaBiDiPipe pipe=(JxtaBiDiPipe)o;
+        if(i==PIPE_CLOSED_EVENT||i==PIPE_FAILED_EVENT){
+            try {
+                pipe.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
