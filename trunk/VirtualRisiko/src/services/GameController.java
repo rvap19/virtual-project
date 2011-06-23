@@ -531,7 +531,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                        ex.printStackTrace();
                     }
 
-                    sendRecoveryMessage();
+                    sendRecoveryMessage(tavolo);
 
                     
                     this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
@@ -547,8 +547,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
-    private void sendRecoveryMessage(){
-        Tavolo tavolo=locker.acquireTavolo();
+    private void sendRecoveryMessage(Tavolo tavolo){
+        
         int turno=tavolo.getTurno();
 
         if(this.reconnectionNeeds[turno]){
@@ -559,7 +559,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.err.println("Impossibile inviare messaggio di recupero");
             }
         }
-        locker.releaseTavolo();
+        
     }
 
     public void makeSecondSelection(int terrID){
@@ -675,7 +675,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
                     
                     new JFrameTurno(prossimo.getID()).setVisible(true);
-                    sendRecoveryMessage();
+                    sendRecoveryMessage(tavolo);
 
                 }catch (Exception ex) {
                     ex.printStackTrace();
@@ -702,10 +702,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void updatePass(PassMessage msg) {
         int turno=msg.getTurno_successivo();
+            Tavolo tavolo=locker.acquireTavolo();
 
-
-            Tavolo tavolo=Tavolo.getInstance();
+            
             if(turno!=tavolo.getTurnoSuccessivo()){
+                locker.releaseTavolo();
                 System.err.println("ricevo turno precedente");
                 return;
             }
@@ -736,8 +737,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.out.println("ancora in inizializzazione "+tavolo.isInizializzazione());
             }
 
-            sendRecoveryMessage();
-
+            sendRecoveryMessage(tavolo);
+            locker.releaseTavolo();
 
     }
 
@@ -780,7 +781,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
-        sendRecoveryMessage();
+        sendRecoveryMessage(tavolo);
         locker.releaseTavolo();
     }
 
