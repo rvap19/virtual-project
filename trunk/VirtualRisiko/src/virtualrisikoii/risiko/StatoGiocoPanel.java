@@ -251,9 +251,11 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
 
     public void NotifyOutPlayer(Giocatore giocatore, boolean outLine){
 
+
         ////// outLine=true  ==> il giocatore non è on line!
         String path="/virtualrisikoii/resources/tanks/out.png";
        if(outLine==true){
+
         switch(giocatore.getID()){
             case 0:  iconStateLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(path)));
             break;
@@ -638,7 +640,16 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
     private int numGioc;
 
     public void updateStatus(StatusPeerMessage message) {
+        Giocatore g=tavolo.getGiocatori().get(message.getId());
+        boolean offline=!message.isOnline();
+
+        if(offline){
+            g.setStato(Giocatore.FUORI_GIOCO);
+        }else{
+            g.setStato(Giocatore.IN_GIOCO);
+        }
         this.NotifyOutPlayer(tavolo.getGiocatori().get(message.getId()), !message.isOnline());
+
     }
 
     public void updatePass(PassMessage m) {
