@@ -797,6 +797,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void notifyReconnectionRequest(int player) {
         reconnectionNeeds[player]=true;
+        messageReceived[player]=true;
     }
 
     public void timeoutNotify() {
@@ -891,7 +892,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             StatoGiocoPanel panel=StatoGiocoPanel.getInstance();
             List<Giocatore> giocatori=Tavolo.getInstance().getGiocatori();
             for(int i=1;i<messageReceived.length;i++){
-                Message msg=new StatusPeerMessage(i, messageReceived[i]);
+                Message msg=new StatusPeerMessage(i, messageReceived[i]||reconnectionNeeds[i]);
                 comunicator.sendMessage(msg);
                 panel.updateStatus((StatusPeerMessage) msg);
             }
@@ -925,7 +926,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                 
                                 passaTurno();
 
-                                comunicator.closePipeFor(g.getID(),g.getUsername());
+                               // comunicator.closePipeFor(g.getID(),g.getUsername());
                             }
                             
                             
