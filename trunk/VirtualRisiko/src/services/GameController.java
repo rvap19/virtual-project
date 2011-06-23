@@ -77,13 +77,16 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     
 
     public static GameController createGameController(){
-        if(instance==null){
+        
             instance=new GameController();
-        }
+        
         return instance;
     }
 
     public static GameController getInstance(){
+        if(instance==null){
+            instance=new GameController();
+        }
         return instance;
     }
 
