@@ -616,7 +616,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
              app.hide(view);
              view=new  VirtualRisikoIIView(app, panel);
             app.show(view);
-            app.exit();
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
