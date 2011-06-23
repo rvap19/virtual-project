@@ -106,6 +106,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
     
     private PeerGroup peerGroup;
 
+    private Lock pipeLock;
     private boolean pingReceived;
 
     private VirtualCommunicator(){
@@ -128,14 +129,16 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
 
     public static VirtualCommunicator initCentralCommunicator1(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
         instance=new VirtualCommunicator();
+        instance.pipeLock=new ReentrantLock(true);
         instance.gameInProgress=false;
         instance.playerName=peerName;
         instance.isCentral=true;
         instance.currentPlayerNumber=1;
         instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
-        instance.connectionHandler=new ConnectionHandler(group, pipe, 10, 120 * 1000);
+        instance.connectionHandler=new ConnectionHandler(group, pipe, 10000, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
         instance.connectionHandler.start();
+
         return instance;
     }
 
@@ -306,22 +309,34 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
                 ex.printStackTrace();
                 
                
-                return false;
+                System.out.println();
+                try {
+                    toCentralPeer.close();
+                    
+                } catch (IOException ex1) {
+
+                }
+
             }
         }
         boolean result=true;
 
-        Iterator<String> users=this.toPeersPipes.keySet().iterator();
-        while(users.hasNext()){
-            JxtaBiDiPipe pipe=toPeersPipes.get(users.next());
-            try {
-                if(pipe!=null&&pipe.isBound()){
-                    result = result && pipe.sendMessage(message);
+        try{
+            pipeLock.lock();
+            Iterator<String> users=this.toPeersPipes.keySet().iterator();
+            while(users.hasNext()){
+                JxtaBiDiPipe pipe=toPeersPipes.get(users.next());
+                try {
+                    if(pipe!=null&&pipe.isBound()){
+                        result = result && pipe.sendMessage(message);
+                    }
+
+                } catch (Exception ex) {
+                    System.err.println("pipe malfunzionante");
                 }
-                
-            } catch (Exception ex) {
-                System.err.println("pipe malfunzionante");
             }
+        }finally{
+            pipeLock.unlock();
         }
         
         
@@ -528,8 +543,12 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
     private void elaborateReconnectRequest(JxtaBiDiPipe pipe,Message msg){
         String name=msg.getMessageElement(namespace, WelcomeMessage.PEER_NAME).toString();
         int turn=this.findTurno(name);
-        this.toPeersPipes.put(name, pipe);
-        
+        try{
+            pipeLock.lock();
+            this.toPeersPipes.put(name, pipe);
+        }finally{
+            pipeLock.unlock();
+        }
         pipe.setMessageListener(this);
         
         this.recoveryRequestListener.notifyReconnectionRequest(turn);
@@ -775,31 +794,22 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
 
 
 
-    public void closePipeFor(int playerTurn) throws IOException{
-        String name=null;
-        Iterator<String> iter=this.toPeersPipes.keySet().iterator();
-        for(int i=0;i<playerTurn;i++){
-            iter.hasNext();
-            name=iter.next();
-        }
-
-        JxtaBiDiPipe pipe=this.toPeersPipes.get(name);
-        if(pipe!=null){
-             pipe.close();
-             
-             toPeersPipes.put(name, null);
-         }
-    }
+    
 
     public void closePipeFor(int turn,String name) throws IOException{
-         JxtaBiDiPipe pipe=this.toPeersPipes.get(name);
-         if(pipe!=null){
-             pipe.close();
-             toPeersPipes.put(name, null);
-             StatusPeerMessage msg=new StatusPeerMessage(turn, false);
-             sendMessage(msg);
-             this.elaborateStatusMessage(msg);
-         }
+        try{
+             pipeLock.lock();
+             JxtaBiDiPipe pipe=this.toPeersPipes.get(name);
+             if(pipe!=null){
+                 pipe.close();
+                 toPeersPipes.put(name, null);
+                 StatusPeerMessage msg=new StatusPeerMessage(turn, false);
+                 sendMessage(msg);
+                 this.elaborateStatusMessage(msg);
+             }
+        }finally{
+            pipeLock.unlock();
+        }
     }
 
     public List<String> getPlayerrNames(){
