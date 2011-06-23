@@ -796,9 +796,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
        this.cardChangeListener=aThis;
     }
 
-    public void notifyReconnectionRequest(int player) {
-        reconnectionNeeds[player]=true;
-        messageReceived[player]=true;
+    public void notifyReconnectionRequest(String playerName) {
+        int turn=this.turns.get(playerName).intValue();
+        reconnectionNeeds[turn]=true;
+        messageReceived[turn]=true;
     }
 
     public void timeoutNotify() {

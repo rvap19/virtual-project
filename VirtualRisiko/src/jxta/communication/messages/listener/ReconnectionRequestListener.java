@@ -10,6 +10,6 @@ package jxta.communication.messages.listener;
  * @author root
  */
 public interface ReconnectionRequestListener {
-    public void notifyReconnectionRequest(int player);
+    public void notifyReconnectionRequest(String player);
 
 }

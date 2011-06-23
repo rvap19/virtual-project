@@ -550,7 +550,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
 
     private void elaborateReconnectRequest(JxtaBiDiPipe pipe,Message msg){
         String name=msg.getMessageElement(namespace, WelcomeMessage.PEER_NAME).toString();
-        int turn=this.findTurno(name);
+        
         try{
             pipeLock.lock();
             this.toPeersPipes.put(name, pipe);
@@ -559,7 +559,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         }
         pipe.setMessageListener(this);
         
-        this.recoveryRequestListener.notifyReconnectionRequest(turn);
+        this.recoveryRequestListener.notifyReconnectionRequest(name);
 
     }
 
