@@ -557,6 +557,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 this.reconnectionNeeds[turno] = false;
             } catch (Exception ex) {
                 System.err.println("Impossibile inviare messaggio di recupero");
+                ex.printStackTrace();
             }
         }
         
@@ -925,8 +926,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                              
                              
                             
-                                
-                                comunicator.closePipeFor(g.getID(),g.getUsername());
+                                if(!reconnectionNeeds[g.getID()]){
+                                    comunicator.closePipeFor(g.getID(),g.getUsername());
+                                }
                                 autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                 passaTurno();
                                 
