@@ -5,22 +5,24 @@
 
 package util;
 
+import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import jxta.communication.messages.VirtualRisikoMessage;
+import net.jxta.endpoint.Message;
 
 /**
  *
  * @author root
  */
 public class MessageSequencer {
-    private VirtualRisikoMessage[] buffer;
+    private Message[] buffer;
     private int currentMessageID;
     private VirtualRisikoMessageNotifier notifier;
     private Lock lock;
     public MessageSequencer(int bufSize){
         currentMessageID=0;
-        buffer=new VirtualRisikoMessage[bufSize];
+        buffer=new Message[bufSize];
         lock=new ReentrantLock(true);
     }
 
@@ -32,8 +34,18 @@ public class MessageSequencer {
         return this.currentMessageID;
     }
 
-    public void insertMessage(VirtualRisikoMessage message){
-        int i=message.getMSG_ID();
+    public VirtualRisikoMessageNotifier getNotifier() {
+        return notifier;
+    }
+
+    public void setNotifier(VirtualRisikoMessageNotifier notifier) {
+        this.notifier = notifier;
+    }
+
+
+
+    public void insertMessage(Message message){
+        int i=new Integer(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString()).intValue();
         if(currentMessageID==i){
             notifyMessage(message);
         }else{
@@ -46,19 +58,23 @@ public class MessageSequencer {
         }
     }
 
-    private void notifyMessage(VirtualRisikoMessage message){
+    private void notifyMessage(Message message){
         try{
             lock.lock();
             this.notifier.notifyMessage(message);
             currentMessageID++;
-            while(buffer[currentMessageID%buffer.length]!=null){
-                this.notifier.notifyMessage(buffer[currentMessageID%buffer.length]);
-                buffer[currentMessageID]=null;
+            int position=currentMessageID%buffer.length;
+            while(buffer[position]!=null){
+                this.notifier.notifyMessage(buffer[position]);
+                buffer[position]=null;
                 currentMessageID++;
+                position=currentMessageID%buffer.length;
             }
         }finally{
             lock.unlock();
         }
     }
+
+    
 
 }

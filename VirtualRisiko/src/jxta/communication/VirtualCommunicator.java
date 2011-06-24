@@ -54,12 +54,14 @@ import jxta.communication.messages.listener.PongListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
 import jxta.communication.messages.listener.StatusPeerListener;
 import net.jxta.util.PipeStateListener;
+import util.MessageSequencer;
+import util.VirtualRisikoMessageNotifier;
 
 /**
  *
  * @author root
  */
-public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,PipeStateListener{
+public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,VirtualRisikoMessageNotifier{
 
     public static VirtualCommunicator instance;
     
@@ -110,6 +112,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
     private boolean messageReceived;
     private MessageWaiter waiter=null;
 
+    private MessageSequencer sequencer;
     
 
     private VirtualCommunicator(){
@@ -122,6 +125,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         passListeners=new ArrayList<PassListener>();
         statusListener=new ArrayList<StatusPeerListener>();
         pongListeners=new ArrayList<PongListener>();
+        sequencer=new MessageSequencer(150);
+        sequencer.setNotifier(this);
     }
 
     /*
@@ -538,7 +543,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
             this.toPeersPipes.put(m.getWelcomeName(), pipe);
             
             pipe.setMessageListener(this);
-            pipe.setPipeStateListener(this);
+           
             
             if(this.currentPlayerNumber==this.maxPlayers){
                 this.sendInitMessages();
@@ -577,21 +582,25 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         
     }
 
-    private boolean free=true;
+    
     
 
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
       
+           this.sequencer.insertMessage(msg);
            
-           this.elaborateMessage(msg);
         
             
         
     }
 
-    private synchronized void elaborateMessage(Message msg){
+
+
+
+
+    public void notifyMessage(Message msg){
         
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         messageReceived=true;
@@ -843,17 +852,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,P
         }
     }
 
-    public void stateEvent(Object o, int i) {
-        System.err.println("state change");
-        JxtaBiDiPipe pipe=(JxtaBiDiPipe)o;
-        if(i==PIPE_CLOSED_EVENT||i==PIPE_FAILED_EVENT){
-            try {
-                pipe.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
+
+
+   
 
     private  class  MessageWaiter extends Thread{
 
