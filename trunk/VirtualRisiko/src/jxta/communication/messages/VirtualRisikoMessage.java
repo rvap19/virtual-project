@@ -6,6 +6,7 @@
 package jxta.communication.messages;
 
 import net.jxta.endpoint.Message;
+import net.jxta.endpoint.StringMessageElement;
 
 /**
  *
@@ -58,6 +59,19 @@ public class VirtualRisikoMessage extends Message{
 
     public int getMSG_ID(){
        return msgID;
+    }
+
+    public void setPlayerName(String name){
+        this.playerName=name;
+
+        StringMessageElement mElement = new StringMessageElement(GAMER,name, null);
+        addMessageElement(namespace, mElement);
+    }
+
+    public void setMSG_ID(int id){
+        this.msgID=id;
+        StringMessageElement mElement = new StringMessageElement(ID_MSG,Integer.toString(id), null);
+        addMessageElement(namespace, mElement);
     }
 
 

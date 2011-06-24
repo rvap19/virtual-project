@@ -5,7 +5,7 @@
 
 package util;
 
-import jxta.communication.messages.VirtualRisikoMessage;
+import net.jxta.endpoint.Message;
 
 /**
  *
@@ -13,5 +13,5 @@ import jxta.communication.messages.VirtualRisikoMessage;
  */
 public interface VirtualRisikoMessageNotifier {
 
-    void notifyMessage(VirtualRisikoMessage message);
+    void notifyMessage(Message message);
 }
