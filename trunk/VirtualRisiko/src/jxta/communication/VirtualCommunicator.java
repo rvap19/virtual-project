@@ -424,7 +424,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
          if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
             System.err.println("Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
             // sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
-            
+            sequencer.incrementID();
 
          }
          return result;
@@ -460,7 +460,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         }
         this.gameInProgress=true;
      //   sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
-       
+        sequencer.incrementID();
 
         return gine;
 
