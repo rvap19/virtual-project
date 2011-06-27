@@ -421,7 +421,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
        // System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
          boolean result= sendMessage(message,sequencer.getCurrentMessageID());
          String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
-         if(!(type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
+         if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
             sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
          }
          return result;

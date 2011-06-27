@@ -79,7 +79,7 @@ public class MessageSequencer {
 
 
 
-        if(type.equals(VirtualRisikoMessage.CHAT)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.ACK)){
+        if(type.equals(VirtualRisikoMessage.CHAT)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.STATUS)){
             this.notifier.notifyMessage(message, 0);
             return;
         }
