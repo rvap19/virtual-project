@@ -422,8 +422,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
          boolean result= sendMessage(message,sequencer.getCurrentMessageID());
          String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
          if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
-            sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
             System.err.println("Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
+             sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
+            
 
          }
          return result;
@@ -667,8 +668,11 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
-      
+       String gamer=msg.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
+       if(!gamer.equals(playerName)){
            this.sequencer.insertMessage(msg);
+       }
+           
            
         
             
