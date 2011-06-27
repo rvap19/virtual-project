@@ -78,7 +78,10 @@ public class MessageSequencer {
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
 
         
-        
+        if(player.equals(myPlayername)){
+
+                return;
+            }
 
 
 
@@ -104,10 +107,7 @@ public class MessageSequencer {
 
         if(currentMessageID==i){
             
-            if(player.equals(myPlayername)){
-                
-                return;
-            }
+            
             notifyMessage(message);
             System.out.println("Messaggio "+i+" notificato");
         }else{
