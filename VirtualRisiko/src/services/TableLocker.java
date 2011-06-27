@@ -15,17 +15,17 @@ import virtualrisikoii.risiko.Tavolo;
  */
 public class TableLocker {
 
-    private Tavolo tavolo;
+    
     private Lock lock;
 
-    public TableLocker(Tavolo tavolo){
-        this.tavolo=tavolo;
+    public TableLocker(){
+        
         this.lock=new ReentrantLock(true);
     }
 
     public Tavolo acquireTavolo(){
         lock.lock();
-        return tavolo;
+        return Tavolo.getInstance();
     }
 
     public void releaseTavolo(){

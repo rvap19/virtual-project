@@ -12,6 +12,7 @@
 package jxta.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,8 +25,11 @@ import jxta.PlayerManager;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.PlayerAdvertisement;
 import jxta.advertisement.RegistrationAdvertisement;
+import services.ElectionController;
 import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.ElectionMessage;
 import jxta.communication.messages.InitMessage;
+import jxta.communication.messages.listener.ElectionListener;
 import jxta.listener.GameListener;
 import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
@@ -44,6 +48,8 @@ import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIView;
 import virtualrisikoii.XMapPanel;
 import jxta.communication.messages.listener.InitListener;
+import virtualrisikoii.risiko.Giocatore;
+
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
 import virtualrisikoii.risiko.Obiettivo;
@@ -53,7 +59,7 @@ import virtualrisikoii.risiko.Tavolo;
  *
  * @author root
  */
-public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener , InitListener,RecoveryListener{
+public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener , InitListener,RecoveryListener,ElectionListener{
 
     private PlayerManager manager;
     private GameDialog gameDialog;
@@ -350,6 +356,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             manager.createGame(name,mapName, maxPlayers);
             VirtualCommunicator communicator=VirtualCommunicator.initCentralCommunicator1(this.myName, this.manager.getPeerGroup(), this.manager.getMyPipeAdvertisement());
             communicator.setPlayerName(myName);
+            ElectionController electionController=new ElectionController(this.myName, this.manager.getPeerGroup(), pipes);
+            communicator.setElectionNotifier(electionController);
+            electionController.setElectionListener(this);
             Random random=new Random();
             this.gameParameter=new GameParameter(mapName);
             gameParameter.setMaxPlayers(maxPlayers);
@@ -420,10 +429,13 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             }
             
             PipeAdvertisement creatorPipe = pipes.get(gameAdv.getCreatorID() + " Pipe");
-            VirtualCommunicator communicator=VirtualCommunicator.initPeerComunicator(this.myName, this.manager.getPeerGroup(), creatorPipe);
+            VirtualCommunicator communicator=VirtualCommunicator.initPeerComunicator(this.myName, this.manager.getPeerGroup(), creatorPipe,this.manager.getMyPipeAdvertisement());
             if(communicator!=null){
                 communicator.addInitListener(this);
                 communicator.setRecoveryListeners(this);
+                ElectionController electionController=new ElectionController(this.myName, this.manager.getPeerGroup(), pipes);
+                communicator.setElectionNotifier(electionController);
+                electionController.setElectionListener(this);
                 updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
 
                 this.jButton1.setEnabled(false);
@@ -596,21 +608,20 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         try {
             
             System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            GameFactory factory = new GameFactory();
+            
             //factory.loadGame("classicalMap");
-            factory.loadGame(parameter.getMapName());
-            Mappa mappa = factory.getMappa();
-            List<Obiettivo> obiettivi = factory.getObiettivi();
+            
+            
             
             System.out.println("riconnessione ::: turno corrente" +parameter.getTurno()+" turno del mio giocatore "+ parameter.getTurnoMyGiocatore());
 
             RecoveryUtil util=new RecoveryUtil();
             util.recoveryTable(parameter);
             Tavolo tavolo = Tavolo.getInstance();
-            GameController controller = GameController.createGameController();
+          //  GameController controller = GameController.createGameController();
             this.setVisible(false);
-            factory.loadMapPanel();
-            XMapPanel panel = factory.getMapPanel();
+           
+            XMapPanel panel = util.getPanel();
              app = new VirtualRisikoIIApp();
              app.hide(view);
              view=new  VirtualRisikoIIView(app, panel);
@@ -621,10 +632,50 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         } 
     }
 
+     public void notifyElection(ElectionMessage msg) {
+         
+        String newManager=msg.getPeerID();
+        int currentTurn=msg.getCurrentTurn();
+        System.out.println("elezione notificata nuovo manager :: "+newManager);
+        PipeAdvertisement pipeAdv=this.pipes.get(newManager+" Pipe");
+        try{
+            if(newManager.equals(this.myName)){
+                List<Giocatore> players=Tavolo.getInstance().getGiocatori();
+                ArrayList<String> names=new ArrayList<String>();
+                Giocatore g;
+                for(int i=0;i<players.size();i++){
+                    g=players.get(i);
+                    if(!g.getUsername().equals(myName)){
+                        names.add(g.getUsername());
+                    }
+                }
+                VirtualCommunicator.getInstance().commuteToCentralCommunicator(pipeAdv, names, true);
+                GameController.getInstance().startTimers();
+                
+              /*  List<Giocatore> players=Tavolo.getInstance().getGiocatori();
+                Giocatore g;
+                for(int i=0;i<players.size();i++){
+                    g=players.get(i);
+                    if(!g.getUsername().equals(myName)){
+                        VirtualCommunicator.getInstance().sendRecoveryMessage(i);
+                    }
+                }*/
+            }else{
+               // VirtualCommunicator.initPeerComunicator(myName, this.manager.getPeerGroup(), pipeAdv, this.manager.getMyPipeAdvertisement());
+               VirtualCommunicator.getInstance().restartPeerCommunicator(pipeAdv, this.manager.getMyPipeAdvertisement());
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+       
+        
+    }
     
 
   private VirtualRisikoIIApp app;
   private VirtualRisikoIIView view;
+
+
 
     
 

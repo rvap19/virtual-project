@@ -13,5 +13,6 @@ import net.jxta.endpoint.Message;
  */
 public interface VirtualRisikoMessageNotifier {
 
-    void notifyMessage(Message message);
+
+    public void notifyMessage(Message message, int ID);
 }
