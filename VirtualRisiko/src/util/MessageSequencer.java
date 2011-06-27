@@ -104,7 +104,10 @@ public class MessageSequencer {
 
         if(currentMessageID==i){
             
-            
+            if(player.equals(myPlayername)){
+                
+                return;
+            }
             notifyMessage(message);
             System.out.println("Messaggio "+i+" notificato");
         }else{
