@@ -77,7 +77,7 @@ public class MessageSequencer {
 
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
 
-        
+
         if(player.equals(myPlayername)){
 
                 return;

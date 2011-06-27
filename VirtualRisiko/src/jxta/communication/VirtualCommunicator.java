@@ -112,7 +112,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     private List<String> playerNames;
     
 
-    private VirtualCommunicator(){
+    private VirtualCommunicator(String playername){
+        this.playerName=playername;
         applianceListeners=new HashSet<ApplianceListener>();
         attackListeners=new HashSet<AttackListener>();
         changeCardsListeners=new HashSet<ChangeCardListener>();
@@ -135,10 +136,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
 
     public static VirtualCommunicator initCentralCommunicator1(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
-        instance=new VirtualCommunicator();
+        instance=new VirtualCommunicator(peerName);
         instance.pipeLock=new ReentrantLock(true);
         instance.gameInProgress=false;
-        instance.playerName=peerName;
         instance.isCentral=true;
         instance.currentPlayerNumber=1;
         instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
@@ -153,7 +153,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     }
 
     public static VirtualCommunicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement centralPeerPipeAdv,PipeAdvertisement peerPipeAdv) throws IOException{
-        instance=new VirtualCommunicator();
+        instance=new VirtualCommunicator(peerName);
         instance.pipeLock=new ReentrantLock(true);
         instance.connectionHandler=ConnectionHandler.getInstance(group, peerPipeAdv, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
@@ -161,7 +161,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             instance.connectionHandler.start();
         }
         
-        instance.playerName=peerName;
+
         instance.isCentral=false;
         instance.centralPeerPipeAdv=centralPeerPipeAdv;
         instance.peerGroup=group;
