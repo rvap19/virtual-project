@@ -538,7 +538,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         Message msg=new MovementMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
                         //Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         comunicator.sendMessage(msg);
-                        Thread.sleep(3000);
+                        
                         msg=new PassMessage(tavolo.getTurno());
                         StatoGiocoPanel.instance.updateGiocatore(corrente);
                         playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
@@ -680,7 +680,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     
                     timer.stopTimer();
                    
-                    Thread.sleep(2000);
+                    
                     if((tavolo.getTurno()==(tavolo.getGiocatori().size()-1))&&(corrente.getNumeroTruppe()==0)){
                         tavolo.setInizializzazione(false);
                     }
