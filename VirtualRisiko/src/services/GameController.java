@@ -523,7 +523,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     //codice per il recupero carta
                     Carta carta=tavolo.recuperaCarta(corrente);
                     if(carta!=null){
-                        this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
+                        String s="null";
+                        Territorio territorio=carta.getTerritorio();
+                        if(territorio!=null){
+                            s=territorio.getNome();
+                        }
+                        this.cardListener.notifyCard(carta.getCodice(), s);
                     }
                     tavolo.passaTurno();
                     corrente=tavolo.getGiocatoreCorrente();
@@ -774,7 +779,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             //codice per il recupero carta
             Carta carta=tavolo.recuperaCarta(giocatore);
             if(carta!=null){
-                this.cardListener.notifyCard(carta.getCodice(), carta.getTerritorio().getNome());
+                String s="null";
+                Territorio territorio=carta.getTerritorio();
+                if(territorio!=null){
+                    s=territorio.getNome();
+                }
+                this.cardListener.notifyCard(carta.getCodice(), s);
             }
             tavolo.passaTurno();
             Message msg= new PassMessage(tavolo.getTurno());
