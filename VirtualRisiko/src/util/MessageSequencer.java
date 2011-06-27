@@ -59,6 +59,9 @@ public class MessageSequencer {
         this.enabled = enabled;
     }
 
+    public void incrementID(){
+        this.currentMessageID++;
+    }
 
     
 
@@ -100,10 +103,7 @@ public class MessageSequencer {
         }
 
         if(currentMessageID==i){
-            if(player.equals(myPlayername)){
-                currentMessageID++;
-                return;
-            }
+            
             
             notifyMessage(message);
             System.out.println("Messaggio "+i+" notificato");
