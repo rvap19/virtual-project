@@ -63,10 +63,11 @@ public class MessageSequencer {
         
         i=new Integer(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString()).intValue();
        
+        System.out.println("Waiting for ::: "+currentMessageID);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ NEW MESSAGE RECEIVED @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("Waiting for ::: "+i);
-        System.out.println(type+" FROM "+player+" ID "+i);
+        System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
+        
+        
 
 
 
@@ -90,8 +91,9 @@ public class MessageSequencer {
         }
 
         if(currentMessageID==i){
-            System.out.println("Messaggio "+currentMessageID+" pronto per la notifica");
+            
             notifyMessage(message);
+            System.out.println("Messaggio "+i+" notificato");
         }else{
             try{
                 lock.lock();
@@ -99,6 +101,7 @@ public class MessageSequencer {
             }finally{
                 lock.unlock();
             }
+            System.out.println("Messaggio "+i+" bufferizzato");
         }
     }
 
