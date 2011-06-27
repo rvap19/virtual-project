@@ -93,7 +93,7 @@ public class ElectionController implements PipeMsgListener{
         }
 
         ElectionMessage message=null;
-        if(!ackReceived&&send||messageReceived){
+        if(!ackReceived&&send||messageReceived||!send){
                     message=sendElectionMessages();
                      //closePipes();
                 }
