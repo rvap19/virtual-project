@@ -21,7 +21,10 @@ public class MessageSequencer {
     private VirtualRisikoMessageNotifier notifier;
     private Lock lock;
     private boolean enabled;
-    public MessageSequencer(int bufSize){
+
+    private String myPlayername;
+    public MessageSequencer(String player,int bufSize){
+        this.myPlayername=player;
         currentMessageID=0;
         enabled=true;
         buffer=new Message[bufSize];
@@ -70,7 +73,10 @@ public class MessageSequencer {
         System.out.println("Waiting for ::: "+currentMessageID);
 
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
-        
+
+        if(player.equals(myPlayername)){
+            return;
+        }
         
 
 

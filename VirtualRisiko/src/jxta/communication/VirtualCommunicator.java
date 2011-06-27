@@ -122,7 +122,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         passListeners=new HashSet<PassListener>();
         statusListener=new HashSet<StatusPeerListener>();
         pongListeners=new HashSet<PongListener>();
-        sequencer=new MessageSequencer(150);
+        sequencer=new MessageSequencer(this.playerName,150);
         sequencer.setCurrentMessageID(0);
         sequencer.setNotifier(this);
         sequencer.setEnabled(true);
@@ -423,7 +423,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
          String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
          if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
             System.err.println("Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
-             sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
+            // sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
             
 
          }
@@ -459,7 +459,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             turn++;
         }
         this.gameInProgress=true;
-        sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
+     //   sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
        
 
         return gine;
@@ -668,10 +668,10 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     public synchronized void pipeMsgEvent(PipeMsgEvent pme) {
         
        Message msg=pme.getMessage();
-       String gamer=msg.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
-       if(!gamer.equals(playerName)){
-           this.sequencer.insertMessage(msg);
-       }
+       
+       
+       this.sequencer.insertMessage(msg);
+       
            
            
         
