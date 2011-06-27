@@ -74,9 +74,7 @@ public class MessageSequencer {
 
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
 
-        if(player.equals(myPlayername)){
-            return;
-        }
+        
         
 
 
@@ -102,6 +100,10 @@ public class MessageSequencer {
         }
 
         if(currentMessageID==i){
+            if(player.equals(myPlayername)){
+                currentMessageID++;
+                return;
+            }
             
             notifyMessage(message);
             System.out.println("Messaggio "+i+" notificato");
@@ -121,6 +123,7 @@ public class MessageSequencer {
             lock.lock();
             this.notifier.notifyMessage(message,currentMessageID);
             currentMessageID++;
+
             int position=currentMessageID%buffer.length;
             while(buffer[position]!=null){
                 this.notifier.notifyMessage(buffer[position],currentMessageID);
