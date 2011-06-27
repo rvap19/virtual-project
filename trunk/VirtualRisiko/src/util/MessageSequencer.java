@@ -76,11 +76,14 @@ public class MessageSequencer {
             return;
         }
 
-        if(type.equals(VirtualRisikoMessage.CHAT)){
+
+
+
+        if(type.equals(VirtualRisikoMessage.CHAT)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.ACK)){
             this.notifier.notifyMessage(message, 0);
             return;
         }
-        if(type.equals(VirtualRisikoMessage.RECOVERY)){
+        if(type.equals(VirtualRisikoMessage.RECOVERY)||type.equals(VirtualRisikoMessage.INIT)){
             this.currentMessageID=i;
             notifyMessage(message);
             return;
