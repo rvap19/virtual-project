@@ -154,6 +154,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
     public static VirtualCommunicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement centralPeerPipeAdv,PipeAdvertisement peerPipeAdv) throws IOException{
         instance=new VirtualCommunicator();
+        instance.pipeLock=new ReentrantLock(true);
         instance.connectionHandler=ConnectionHandler.getInstance(group, peerPipeAdv, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
         if(!instance.connectionHandler.isAlive()){
@@ -182,11 +183,11 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
         gameInProgress=true;
 
-        connectionHandler= ConnectionHandler.getInstance(this.peerGroup, peerPipe, 50, 2*60*1000);
+       /* connectionHandler= ConnectionHandler.getInstance(this.peerGroup, peerPipe, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
         if(!instance.connectionHandler.isAlive()){
             instance.connectionHandler.start();
-        }
+        }*/
 
         return instance.connect();
 
@@ -194,7 +195,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     
 
     public void commuteToCentralCommunicator(PipeAdvertisement pipe,List<String> playerNames,boolean isClose) throws IOException{
-        pipeLock=new ReentrantLock();
+        
         isCentral=true;
         this.centralPeerPipeAdv=pipe;
         
@@ -206,11 +207,11 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         while(players.hasNext()){
             toPeersPipes.put(players.next(), null);
         }
-        connectionHandler= ConnectionHandler.getInstance(this.peerGroup, pipe, 50, 2*60*1000);
+     /*   connectionHandler= ConnectionHandler.getInstance(this.peerGroup, pipe, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
         if(!instance.connectionHandler.isAlive()){
             instance.connectionHandler.start();
-        }
+        }*/
 
     }
     

@@ -612,12 +612,13 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             //factory.loadGame("classicalMap");
             
             
-            GameController controller=GameController.getInstance();
+           
             System.out.println("riconnessione ::: turno corrente" +parameter.getTurno()+" turno del mio giocatore "+ parameter.getTurnoMyGiocatore());
 
             RecoveryUtil util=new RecoveryUtil();
             util.recoveryTable(parameter);
             Tavolo tavolo = Tavolo.getInstance();
+             GameController controller=GameController.getInstance();
           //  GameController controller = GameController.createGameController();
             this.setVisible(false);
            
