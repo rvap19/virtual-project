@@ -423,6 +423,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
          String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
          if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
             sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
+            System.err.println("Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
+
          }
          return result;
          
