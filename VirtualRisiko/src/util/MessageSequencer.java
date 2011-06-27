@@ -26,6 +26,10 @@ public class MessageSequencer {
         enabled=true;
         buffer=new Message[bufSize];
         lock=new ReentrantLock(true);
+
+        for(int i=0;i<buffer.length;i++){
+            buffer[i]=null;
+        }
     }
 
     public void setCurrentMessageID(int id){
@@ -85,6 +89,7 @@ public class MessageSequencer {
             return;
         }
         if(type.equals(VirtualRisikoMessage.RECOVERY)||type.equals(VirtualRisikoMessage.INIT)){
+            System.err.println("riconnessione con id "+i);
             this.currentMessageID=i;
             notifyMessage(message);
             return;
@@ -114,7 +119,9 @@ public class MessageSequencer {
             while(buffer[position]!=null){
                 this.notifier.notifyMessage(buffer[position],currentMessageID);
                 buffer[position]=null;
+                System.err.println("notificato msg "+currentMessageID+" e rimosso del buffer");
                 currentMessageID++;
+                
                 position=currentMessageID%buffer.length;
             }
         }finally{
