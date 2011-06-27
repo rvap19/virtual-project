@@ -612,7 +612,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             //factory.loadGame("classicalMap");
             
             
-            
+            GameController controller=GameController.getInstance();
             System.out.println("riconnessione ::: turno corrente" +parameter.getTurno()+" turno del mio giocatore "+ parameter.getTurnoMyGiocatore());
 
             RecoveryUtil util=new RecoveryUtil();
@@ -623,9 +623,14 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
            
             XMapPanel panel = util.getPanel();
              app = new VirtualRisikoIIApp();
-             app.hide(view);
+             if(view!=null){
+                 app.hide(view);
+             }
              view=new  VirtualRisikoIIView(app, panel);
             app.show(view);
+            
+            controller.startTimers();
+
             
         } catch (Exception ex) {
             ex.printStackTrace();
