@@ -125,7 +125,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         sequencer=new MessageSequencer(150);
         sequencer.setCurrentMessageID(0);
         sequencer.setNotifier(this);
-        sequencer.setEnabled(false);
+        sequencer.setEnabled(true);
     }
 
     /*
@@ -420,7 +420,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
        // System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
          boolean result= sendMessage(message,sequencer.getCurrentMessageID());
-         if(!message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString().equals(VirtualRisikoMessage.CHAT)){
+         String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
+         if(!(type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
             sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
          }
          return result;
