@@ -112,7 +112,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
 
         this.reconnectionNeeds=new boolean[tavolo.getGiocatori().size()];
-        this.locker=new TableLocker(tavolo);
+        this.locker=new TableLocker();
         for(int i=0;i<reconnectionNeeds.length;i++){
             reconnectionNeeds[i]=false;
            
@@ -126,18 +126,26 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         if(comunicator.isManager()){
 
             
-            messageReceived[0]=true;
-            
-            timer.start();
-
-             this.managerTimer=new ManagerPingerThread();
-             managerTimer.start();
+            startTimers();
         }
 
-        
-       
-        
+    }
 
+
+    public void startTimers(){
+         messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
+
+         if(Tavolo.getInstance().isTurnoMyGiocatore()){
+             timer.start();
+         }
+
+         this.managerTimer=new ManagerPingerThread();
+         managerTimer.start();
+         try{
+             this.locker.releaseTavolo();
+        }catch(Exception ex){
+
+        }
     }
 
     public TimeoutNotifier getTimeoutNotifier() {
@@ -147,6 +155,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     public void setTimeoutNotifier(TimeoutNotifier timeoutNotifier) {
         this.timeoutNotifier = timeoutNotifier;
     }
+
 
     
 
@@ -223,7 +232,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Tavolo tavolo=Tavolo.getInstance();
         Territorio territorio=tavolo.getMappa().getTerritorio(region);
         String message="Il "+territorio.getOccupante().getNome()+" posiziona "+troops_number+" in "+territorio.getNome();
-        historyListener.appendActionInHistory(message);
+        
         System.out.println("ricevuto messaggio di appliance per territorio "+territorio.getNome()+" di "+troops_number+" unita");
         if(tavolo.assegnaUnita(troops_number, territorio)){
             this.mapListener.setLabelAttributes(region, territorio.getNumeroUnita(), territorio.getOccupante().getID());
@@ -232,8 +241,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             this.playerDataListener.updateDatiGiocatore(giocatoreCorrente.getNome(),giocatoreCorrente.getNumeroTruppe(),giocatoreCorrente.getArmateDisposte(),giocatoreCorrente.getNazioni().size());
         }else{
             System.out.println("errore comunicazione appliance");
-
+            message=message+" -> ERRORE :: turno "+Tavolo.getInstance().getTurno()+" tavolo in init? "+Tavolo.getInstance().isInizializzazione();
         }
+        historyListener.appendActionInHistory(message);
         //showInfo("Disposizione", message);
     }
 
@@ -897,11 +907,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
         private void sendStatusMessage() throws IOException{
             StatoGiocoPanel panel=StatoGiocoPanel.getInstance();
+            int myTurn=Tavolo.getInstance().getMyGiocatore().getID();
             List<Giocatore> giocatori=Tavolo.getInstance().getGiocatori();
-            for(int i=1;i<messageReceived.length;i++){
-                Message msg=new StatusPeerMessage(i, messageReceived[i]||reconnectionNeeds[i]);
-                comunicator.sendMessage(msg);
-                panel.updateStatus((StatusPeerMessage) msg);
+            for(int i=0;i<messageReceived.length;i++){
+                
+                    Message msg=new StatusPeerMessage(i, messageReceived[i]||reconnectionNeeds[i]||i==myTurn);
+                    comunicator.sendMessage(msg);
+                    panel.updateStatus((StatusPeerMessage) msg);
+                
             }
         }
 

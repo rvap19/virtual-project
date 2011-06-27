@@ -5,21 +5,23 @@
 
 package jxta.communication;
 
+import services.ElectionController;
 import java.io.IOException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxta.communication.messages.ApplianceMessage;
 import jxta.communication.messages.AttackMessage;
 import jxta.communication.messages.ChangeCardMessage;
 import jxta.communication.messages.ChatMessage;
+import jxta.communication.messages.ElectionMessage;
+import jxta.communication.messages.ElectionRequestMessage;
 import jxta.communication.messages.InitMessage;
 import jxta.communication.messages.MovementMessage;
 import jxta.communication.messages.PassMessage;
@@ -53,7 +55,7 @@ import jxta.communication.messages.listener.PassListener;
 import jxta.communication.messages.listener.PongListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
 import jxta.communication.messages.listener.StatusPeerListener;
-import net.jxta.util.PipeStateListener;
+
 import util.MessageSequencer;
 import util.VirtualRisikoMessageNotifier;
 
@@ -65,24 +67,19 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
     public static VirtualCommunicator instance;
     
-    public final String namespace=VirtualRisikoMessage.namespace;
-   
-
-
-
-
-
-    private List<ApplianceListener> applianceListeners;
-    private List<AttackListener> attackListeners;
-    private List<ChangeCardListener> changeCardsListeners;
-    private List<ChatListener> chatListeners;
-    private List<InitListener> initListeners;
-    private List<MovementListener> movementListeners;
-    private List<PassListener> passListeners;
+    private Set<ApplianceListener> applianceListeners;
+    private Set<AttackListener> attackListeners;
+    private Set<ChangeCardListener> changeCardsListeners;
+    private Set<ChatListener> chatListeners;
+    private Set<InitListener> initListeners;
+    private Set<MovementListener> movementListeners;
+    private Set<PassListener> passListeners;
     private RecoveryListener recoveryListeners;
     private ReconnectionRequestListener recoveryRequestListener;
-    private List<StatusPeerListener> statusListener;
-    private List<PongListener> pongListeners;
+    private Set<StatusPeerListener> statusListener;
+    private Set<PongListener> pongListeners;
+
+    private ElectionController electionManager;
     
     
 
@@ -95,7 +92,6 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     private int maxPlayers;
 
     private boolean isCentral;
-    private int current_message_id=0;
     private String playerName;
 
    // private List<String> playerNames;
@@ -113,20 +109,23 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     private MessageWaiter waiter=null;
 
     private MessageSequencer sequencer;
+    private List<String> playerNames;
     
 
     private VirtualCommunicator(){
-        applianceListeners=new ArrayList<ApplianceListener>();
-        attackListeners=new ArrayList<AttackListener>();
-        changeCardsListeners=new ArrayList<ChangeCardListener>();
-        chatListeners=new ArrayList<ChatListener>();
-        initListeners=new ArrayList<InitListener>();
-        movementListeners=new ArrayList<MovementListener>();
-        passListeners=new ArrayList<PassListener>();
-        statusListener=new ArrayList<StatusPeerListener>();
-        pongListeners=new ArrayList<PongListener>();
+        applianceListeners=new HashSet<ApplianceListener>();
+        attackListeners=new HashSet<AttackListener>();
+        changeCardsListeners=new HashSet<ChangeCardListener>();
+        chatListeners=new HashSet<ChatListener>();
+        initListeners=new HashSet<InitListener>();
+        movementListeners=new HashSet<MovementListener>();
+        passListeners=new HashSet<PassListener>();
+        statusListener=new HashSet<StatusPeerListener>();
+        pongListeners=new HashSet<PongListener>();
         sequencer=new MessageSequencer(150);
+        sequencer.setCurrentMessageID(0);
         sequencer.setNotifier(this);
+        sequencer.setEnabled(false);
     }
 
     /*
@@ -143,19 +142,27 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         instance.isCentral=true;
         instance.currentPlayerNumber=1;
         instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
-        instance.connectionHandler=new ConnectionHandler(group, pipe, 10000, 2*60*1000);
+        instance.connectionHandler= ConnectionHandler.getInstance(group, pipe, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
-        instance.connectionHandler.start();
+        if(!instance.connectionHandler.isAlive()){
+            instance.connectionHandler.start();
+        }
+        
         
         return instance;
     }
 
-    public static VirtualCommunicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement pipe) throws IOException{
+    public static VirtualCommunicator initPeerComunicator(String peerName,PeerGroup group,PipeAdvertisement centralPeerPipeAdv,PipeAdvertisement peerPipeAdv) throws IOException{
         instance=new VirtualCommunicator();
+        instance.connectionHandler=ConnectionHandler.getInstance(group, peerPipeAdv, 50, 2*60*1000);
+        instance.connectionHandler.setConnectionListener(instance);
+        if(!instance.connectionHandler.isAlive()){
+            instance.connectionHandler.start();
+        }
         
         instance.playerName=peerName;
         instance.isCentral=false;
-        instance.centralPeerPipeAdv=pipe;
+        instance.centralPeerPipeAdv=centralPeerPipeAdv;
         instance.peerGroup=group;
         
         if(!instance.connect()){
@@ -167,6 +174,56 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
         
     }
+
+    public boolean restartPeerCommunicator(PipeAdvertisement centralPipe,PipeAdvertisement peerPipe) throws IOException{
+        
+        isCentral=false;
+        this.centralPeerPipeAdv=centralPipe;
+        
+        gameInProgress=true;
+
+        connectionHandler= ConnectionHandler.getInstance(this.peerGroup, peerPipe, 50, 2*60*1000);
+        instance.connectionHandler.setConnectionListener(instance);
+        if(!instance.connectionHandler.isAlive()){
+            instance.connectionHandler.start();
+        }
+
+        return instance.connect();
+
+    }
+    
+
+    public void commuteToCentralCommunicator(PipeAdvertisement pipe,List<String> playerNames,boolean isClose) throws IOException{
+        pipeLock=new ReentrantLock();
+        isCentral=true;
+        this.centralPeerPipeAdv=pipe;
+        
+        this.isClose=isClose;
+        gameInProgress=true;
+        toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
+
+        Iterator<String> players=playerNames.iterator();
+        while(players.hasNext()){
+            toPeersPipes.put(players.next(), null);
+        }
+        connectionHandler= ConnectionHandler.getInstance(this.peerGroup, pipe, 50, 2*60*1000);
+        instance.connectionHandler.setConnectionListener(instance);
+        if(!instance.connectionHandler.isAlive()){
+            instance.connectionHandler.start();
+        }
+
+    }
+    
+
+    public ElectionController getElectionNotifier() {
+        return electionManager;
+    }
+
+    public void setElectionNotifier(ElectionController electionNotifier) {
+        this.electionManager = electionNotifier;
+    }
+
+    
 
     public RecoveryListener getRecoveryListeners() {
         return recoveryListeners;
@@ -187,13 +244,17 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
 
 
-    public synchronized  boolean connect() throws IOException{
+    public synchronized  boolean connect() throws IOException {
         int counter=0;
-        int limit=4;
+        int limit=2;
         toCentralPeer=new JxtaBiDiPipe();
         
         while((!toCentralPeer.isBound())&&counter<limit){
-            toCentralPeer=new JxtaBiDiPipe(peerGroup,centralPeerPipeAdv,25*1000, this, true);
+            try {
+                toCentralPeer = new JxtaBiDiPipe(peerGroup, centralPeerPipeAdv, 25 * 1000, this, true);
+            } catch (IOException ex) {
+                System.err.println("connection timeout :: impossibile connettersi al amanger");
+            }
             
             counter++;
         }
@@ -309,22 +370,22 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
     private boolean sendMessage(Message message,int msgID) {
         StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.ID_MSG, Integer.toString(msgID), null);
-        message.addMessageElement(namespace, mElement);
+        message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
        
 
         if(!this.isCentral){
             try {
                 return this.toCentralPeer.sendMessage(message);
             } catch (Exception ex) {
-                ex.printStackTrace();
+                
                 
                
-                System.out.println();
+                System.err.println("Impossibile inviare messaggio al coordinatore");
                 try {
                     toCentralPeer.close();
-                    
+                    System.out.println("chiudo pipe verso manager");
                 } catch (IOException ex1) {
-
+                    System.err.println("impossibile chidere pipe verso manager");
                 }
 
             }
@@ -355,9 +416,13 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
      public boolean sendMessage(Message message) throws IOException{
           StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.GAMER,playerName , null);
-        message.addMessageElement(namespace, mElement);
-        System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
-         return sendMessage(message,current_message_id);
+        message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
+       // System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
+         boolean result= sendMessage(message,sequencer.getCurrentMessageID());
+         if(!message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString().equals(VirtualRisikoMessage.CHAT)){
+            sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
+         }
+         return result;
          
      }
 
@@ -376,19 +441,20 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             msg=new InitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region(),names);
 
             StringMessageElement mE=new StringMessageElement(InitMessage.TURN, Integer.toString(turn), null);
-            msg.addMessageElement(namespace, mE);
+            msg.addMessageElement(VirtualRisikoMessage.namespace, mE);
 
             mE=new StringMessageElement(VirtualRisikoMessage.GAMER, playerName, null);
-            msg.addMessageElement(namespace, mE);
+            msg.addMessageElement(VirtualRisikoMessage.namespace, mE);
 
-            mE=new StringMessageElement(VirtualRisikoMessage.ID_MSG, Integer.toString(0), null);
+            mE=new StringMessageElement(VirtualRisikoMessage.ID_MSG, Integer.toString(sequencer.getCurrentMessageID()), null);
 
-            msg.addMessageElement(namespace, mE);
+            msg.addMessageElement(VirtualRisikoMessage.namespace, mE);
 
             gine=gine&&toPeersPipes.get(iter.next()).sendMessage(msg);
             turn++;
         }
         this.gameInProgress=true;
+        sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
        
 
         return gine;
@@ -415,22 +481,31 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             return;
         }
 
+        this.playerNames=init.getNames();
         Iterator<InitListener> listeners=this.initListeners.iterator();
         while(listeners.hasNext()){
             listeners.next().init(init);
         }
-        if(waiter==null){
-            waiter=new MessageWaiter();
-            waiter.start();
-        }
+        startMessageWaiter();
         
         gameInProgress=true;
       
 
     }
 
+    private void startMessageWaiter(){
+        if(waiter==null){
+            waiter=new MessageWaiter();
+
+        }
+
+        if(!waiter.isAlive()){
+            waiter.start();
+        }
+    }
+
     public void elaborateApplianceMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -445,7 +520,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     
 
     public void elaborateAttackMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -457,7 +532,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     }
 
     public void elaboratePingMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -473,7 +548,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
 
     public void elaborateStatusMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -487,7 +562,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     
 
     public void elaborateMovementMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -503,7 +578,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
    
 
     public void elaborateChangeCardsMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -522,7 +597,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     
 
     public void elaboratePassesMessage(Message message){
-         String name=message.getMessageElement(namespace, VirtualRisikoMessage.GAMER).toString();
+         String name=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.GAMER).toString();
         if(name.equals(playerName)){
             return;
         }
@@ -554,7 +629,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     }
 
     private void elaborateReconnectRequest(JxtaBiDiPipe pipe,Message msg){
-        String name=msg.getMessageElement(namespace, WelcomeMessage.PEER_NAME).toString();
+        String name=msg.getMessageElement(VirtualRisikoMessage.namespace, WelcomeMessage.PEER_NAME).toString();
         
         try{
             pipeLock.lock();
@@ -600,20 +675,13 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
 
 
-    public void notifyMessage(Message msg){
+    public void notifyMessage(Message msg,int msgID){
         
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        
         messageReceived=true;
-       System.out.println(msg.getMessageElement(VirtualRisikoMessage.TYPE).toString()+" FROM "+msg.getMessageElement(VirtualRisikoMessage.GAMER)+" ID "+msg.getMessageElement(VirtualRisikoMessage.ID_MSG));
-
-       String messageType=msg.getMessageElement(namespace, VirtualRisikoMessage.TYPE).toString();
-       int msgID=0;
-
-       try{
-           msgID=new Integer(msg.getMessageElement(namespace, VirtualRisikoMessage.ID_MSG).toString()).intValue();
-       }catch(NumberFormatException ex){
-            System.err.println("id msg non riconisciuto");
-       }
+       
+       String messageType=msg.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
+      
 
        if(messageType.equals(VirtualRisikoMessage.PONG)){
            this.elaboratePongMessage(msg);
@@ -629,6 +697,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
        if(messageType.equals(VirtualRisikoMessage.PING)){
            this.elaboratePingMessage(msg);
+
        }
        if(messageType.equals(VirtualRisikoMessage.INIT)){
            this.elaborateInitMessage(msg);
@@ -666,9 +735,34 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
        }
     }
 
+    private void elaborateRequestElectionMessage(JxtaBiDiPipe pipe,Message msg){
+        ElectionRequestMessage erMsg=new ElectionRequestMessage(msg);
+        this.electionManager.notifyRequestElectionMessage(pipe,erMsg);
+        
+    }
+
+    private void elaborateElectionMessage(Message msg){
+        ElectionMessage eMsg=new ElectionMessage(msg);
+        this.electionManager.notifyElectionMessage(eMsg);
+    }
+
     public void notifyConnection(JxtaBiDiPipe pipe,Message msg) {
        
-            
+
+            String type=msg.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
+            if(type.equals(VirtualRisikoMessage.REQUEST_ELECTION)){
+                this.elaborateRequestElectionMessage(pipe,msg);
+                
+                return;
+
+            }
+
+            if(type.equals(VirtualRisikoMessage.ELECTION)){
+                this.elaborateElectionMessage(msg);
+                
+                return;
+            }
+
             if(!this.gameInProgress){
             try {
                 this.elaborateWelcomeMessage(pipe, msg);
@@ -698,12 +792,15 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             index++;
         }
         StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.GAMER,playerName , null);
-        msg.addMessageElement(namespace, mElement);
+        msg.addMessageElement(VirtualRisikoMessage.namespace, mElement);
 
-         mElement=new StringMessageElement(VirtualRisikoMessage.ID_MSG,"0" , null);
-        msg.addMessageElement(namespace, mElement);
+         mElement=new StringMessageElement(VirtualRisikoMessage.ID_MSG,Integer.toString(sequencer.getCurrentMessageID()), null);
+        msg.addMessageElement(VirtualRisikoMessage.namespace, mElement);
 
-        toPeersPipes.get(name).sendMessage(msg);
+        JxtaBiDiPipe pipe=toPeersPipes.get(name);
+        if(pipe!=null){
+            pipe.sendMessage(msg);
+        }
 
         
        
@@ -714,7 +811,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
    
 
     private int findTurno(String name){
-        Iterator<String> iter=this.toPeersPipes.keySet().iterator();
+        Iterator<String> iter=this.playerNames.iterator();
         int index=0;
         boolean found=false;
         while(iter.hasNext()&&!found){
@@ -723,7 +820,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
                 index++;
             }
         }
-        return index+1;
+        return index;
     }
     public void elaborateRecoveryMessage(Message message){
 
@@ -746,37 +843,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         return toPeersPipes.get(player)!=null;
     }
 
-    public List<ApplianceListener> getApplianceListeners() {
-        return applianceListeners;
-    }
-
-    public List<AttackListener> getAttackListeners() {
-        return attackListeners;
-    }
-
-    public List<ChangeCardListener> getChangeCardsListeners() {
-        return changeCardsListeners;
-    }
-
-    public List<ChatListener> getChatListeners() {
-        return chatListeners;
-    }
-
-    public List<InitListener> getInitListeners() {
-        return initListeners;
-    }
-
-    public List<MovementListener> getMovementListeners() {
-        return movementListeners;
-    }
-
-    public List<PassListener> getPassListeners() {
-        return passListeners;
-    }
-
-    public List<StatusPeerListener> getStatusListener() {
-        return statusListener;
-    }
+    
 
     
     
@@ -852,13 +919,17 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         }
     }
 
+    public void setGameInProgress(boolean b) {
+        this.gameInProgress=b;
+    }
+
 
 
    
 
     private  class  MessageWaiter extends Thread{
 
-        private int sleepTime=90 * 1000 ;
+        private int sleepTime=45 * 1000 ;
         private int interval=1;
 
         private AtomicBoolean continueTimer;
@@ -882,7 +953,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
                     }
                     if(!messageReceived){
 
-                        connect();
+                        continueTimer.set(connect());
    
                     }
             
@@ -892,7 +963,20 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
             }
 
+            closeVirtualCommunicator();
+            try {
+                if(!electionManager.isStarted()){
+                        electionManager.startElection(false);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
+
+        }
+
+        private void closeVirtualCommunicator() {
+            System.err.println("close Virtual communicator");
         }
 
         

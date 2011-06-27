@@ -33,6 +33,8 @@ public class VirtualRisikoMessage extends Message{
     public static final String STATUS="status";
     public static final String PING="ping";
     public static final String PONG="pong";
+    public static final String ELECTION="election";
+    public static final String REQUEST_ELECTION="request_election";
     
 
     protected String playerName;

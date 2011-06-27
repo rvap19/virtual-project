@@ -8,6 +8,7 @@ package jxta.communication;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jxta.communication.messages.VirtualRisikoMessage;
 import jxta.listener.ConnectionListener;
 import net.jxta.endpoint.Message;
 import net.jxta.peergroup.PeerGroup;
@@ -20,16 +21,24 @@ import net.jxta.util.JxtaServerPipe;
  * @author root
  */
 public class ConnectionHandler extends Thread{
-    
+
+    private static ConnectionHandler instance;
+
     private ConnectionListener connectionListener;
-    public JxtaServerPipe server;
+    private JxtaServerPipe server;
 
     private PeerGroup group;
     private PipeAdvertisement pipeadv;
     private int backlog;
     private int timeout;
 
-    public ConnectionHandler(PeerGroup group, PipeAdvertisement pipeadv, int backlog, int timeout) throws IOException{
+    public static ConnectionHandler getInstance(PeerGroup group, PipeAdvertisement pipeadv, int backlog, int timeout) throws IOException{
+        if(instance==null){
+            instance=new ConnectionHandler(group, pipeadv, backlog, timeout);
+        }
+        return instance;
+    }
+    private ConnectionHandler(PeerGroup group, PipeAdvertisement pipeadv, int backlog, int timeout) throws IOException{
         this.group=group;
         this.pipeadv=pipeadv;
         this.backlog=backlog;
@@ -60,6 +69,8 @@ public class ConnectionHandler extends Thread{
                 try {
                     pipe = server.accept();
                     Message msg=pipe.getMessage(0);
+
+                    
                     connectionListener.notifyConnection(pipe,msg);
                     System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
                 } catch (InterruptedException ex) {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import virtualrisikoii.RecoveryParameter;
+import virtualrisikoii.XMapPanel;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
@@ -21,6 +22,9 @@ import virtualrisikoii.risiko.Territorio;
  * @author root
  */
 public class RecoveryUtil {
+    private Mappa mappa;
+    private List<Obiettivo> obiettivi;
+    private XMapPanel panel;
     public RecoveryParameter createBackup(){
         Tavolo tavolo=Tavolo.getInstance();
         RecoveryParameter parameter=new RecoveryParameter();
@@ -45,8 +49,8 @@ public class RecoveryUtil {
         GameFactory gameFactory=new GameFactory();
         gameFactory.loadGame(parameter.getMapName());
 
-        Mappa mappa=gameFactory.getMappa();
-        List<Obiettivo> obiettivi=gameFactory.getObiettivi();
+         mappa=gameFactory.getMappa();
+         obiettivi=gameFactory.getObiettivi();
 
         Tavolo tavolo=Tavolo.createInstance(mappa, obiettivi, parameter.getTurno(), parameter.getNumeroGiocatori(), parameter.getTurnoMyGiocatore(), parameter.getSeed_dice(), 0, parameter.getSeed_card(),parameter.getPlayersNames());
         tavolo.setInizializzazione(parameter.isInizializzazione());
@@ -64,6 +68,9 @@ public class RecoveryUtil {
         setOccupanti(tavolo,parameter.getIdOccupante());
         setNumeroTruppe(tavolo, parameter.getNumeroTruppe());
         setNumeroArmateDisponibili(tavolo,parameter.getArmateDisponibili());
+
+        gameFactory.loadMapPanel();
+             panel = gameFactory.getMapPanel();
        
     }
 
@@ -143,5 +150,19 @@ public class RecoveryUtil {
         return names;
 
     }
+
+    public Mappa getMappa() {
+        return mappa;
+    }
+
+    public List<Obiettivo> getObiettivi() {
+        return obiettivi;
+    }
+
+    public XMapPanel getPanel() {
+        return panel;
+    }
+
+    
 
 }

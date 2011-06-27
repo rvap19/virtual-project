@@ -20,8 +20,10 @@ public class MessageSequencer {
     private int currentMessageID;
     private VirtualRisikoMessageNotifier notifier;
     private Lock lock;
+    private boolean enabled;
     public MessageSequencer(int bufSize){
         currentMessageID=0;
+        enabled=true;
         buffer=new Message[bufSize];
         lock=new ReentrantLock(true);
     }
@@ -42,11 +44,50 @@ public class MessageSequencer {
         this.notifier = notifier;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
 
-    public void insertMessage(Message message){
-        int i=new Integer(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString()).intValue();
+    
+
+    public void insertMessage(Message message)throws NumberFormatException{
+
+        int i=0;
+        String type=message.getMessageElement(VirtualRisikoMessage.namespace,VirtualRisikoMessage.TYPE).toString();
+        String player=message.getMessageElement(VirtualRisikoMessage.namespace,VirtualRisikoMessage.GAMER).toString();
+        
+        i=new Integer(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString()).intValue();
+       
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ NEW MESSAGE RECEIVED @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("Waiting for ::: "+i);
+        System.out.println(type+" FROM "+player+" ID "+i);
+
+
+
+
+        if(!enabled){
+            this.notifier.notifyMessage(message,0);
+            return;
+        }
+
+        if(type.equals(VirtualRisikoMessage.CHAT)){
+            this.notifier.notifyMessage(message, 0);
+            return;
+        }
+        if(type.equals(VirtualRisikoMessage.RECOVERY)){
+            this.currentMessageID=i;
+            notifyMessage(message);
+            return;
+        }
+
         if(currentMessageID==i){
+            System.out.println("Messaggio "+currentMessageID+" pronto per la notifica");
             notifyMessage(message);
         }else{
             try{
@@ -61,11 +102,11 @@ public class MessageSequencer {
     private void notifyMessage(Message message){
         try{
             lock.lock();
-            this.notifier.notifyMessage(message);
+            this.notifier.notifyMessage(message,currentMessageID);
             currentMessageID++;
             int position=currentMessageID%buffer.length;
             while(buffer[position]!=null){
-                this.notifier.notifyMessage(buffer[position]);
+                this.notifier.notifyMessage(buffer[position],currentMessageID);
                 buffer[position]=null;
                 currentMessageID++;
                 position=currentMessageID%buffer.length;

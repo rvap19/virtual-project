@@ -5,10 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import jxta.gui.VirtualPlayerManagerGUI;
-
-
 import net.jxta.exception.PeerGroupException;
-import virtualrisikoii.risiko.Suono;
 
 /*
  * To change this template, choose Tools | Templates
