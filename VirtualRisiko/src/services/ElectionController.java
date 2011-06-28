@@ -101,7 +101,7 @@ public class ElectionController implements PipeMsgListener{
         }
         
         
-        if(message!=null&&ackReceived){
+        if(message!=null){
             ackReceived=false;
             
             try {
