@@ -75,6 +75,7 @@ public class Territorio {
 
     public void setOccupante(Giocatore occupante) {
         this.occupante = occupante;
+        occupante.getNazioni().add(this);
     }
 
     public boolean confina(Territorio nome){
