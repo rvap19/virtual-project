@@ -83,7 +83,7 @@ public class RegistrationDiscovery implements DiscoveryListener {
   
 
     public void discoveryEvent(DiscoveryEvent TheDiscoveryEvent) {
-        System.out.println("registration remote discovery event....");
+       
 
         // Who triggered the event?
         
@@ -132,7 +132,7 @@ public class RegistrationDiscovery implements DiscoveryListener {
 
     public RegistrationAdvertisement announceRegistartion(String peerName,String gameID)
     {
-        System.out.println("registration  announcing");
+        
         if (discovery != null)
         {
              RegistrationAdvertisement registrationInfo = (RegistrationAdvertisement)
@@ -160,11 +160,11 @@ public class RegistrationDiscovery implements DiscoveryListener {
             {
                 System.out.println("Error publishing locally: " + e);
             }
-            System.out.println("registration annunced");
+           
                 return registrationInfo;
             
         }
-        System.out.println("impossibile pubblicare registrazione ...");
+       
         return null;
         
     }
@@ -172,7 +172,7 @@ public class RegistrationDiscovery implements DiscoveryListener {
     
 
     public void init(PeerGroup group)throws PeerGroupException    {
-        System.out.println("init game presence discover");
+        
 
         // Save a reference to the group of which that this service is
         // a part.
@@ -184,7 +184,7 @@ public class RegistrationDiscovery implements DiscoveryListener {
         this.registeredListeners=new ArrayList<RegistrationListener>();
         
         // Registering our customized advertisement instance
-        System.out.println("initiated registration discover");
+        
         
     }
 
@@ -197,18 +197,18 @@ public class RegistrationDiscovery implements DiscoveryListener {
     public int startApp(String[] args) throws IOException
 
     {
-        System.out.println("registartion discover starting");
+       
         // Now that the service is being started, set the DiscoveryService
         // object to use to publish presence information.
         discovery = peerGroup.getDiscoveryService();
-System.out.println("registration discover started");
+
         discovery.addDiscoveryListener(this);
 
         return 0;
     }
 
     public List<RegistrationAdvertisement> searchRegistrations(String gameID,boolean includeRemote) throws IOException{
-        System.out.println("searching registration ...");
+       
         // Add ourselves as a listener.
         
 
@@ -234,7 +234,7 @@ System.out.println("registration discover started");
      */
     public void stopApp()
     {
-        System.out.println("registration discover stopping");
+        
         if (discovery != null)
         {
             // Unregister ourselves as a listener.
@@ -246,7 +246,7 @@ System.out.println("registration discover started");
             registeredListeners.clear();
             
         }
-        System.out.println("registration discover stopped");
+        
     }
 
   
