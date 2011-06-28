@@ -543,7 +543,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                        ex.printStackTrace();
                     }
 
-                    sendRecoveryMessage(tavolo);
+                    sendRecoveryMessage(tavolo.getTurno());
 
                     
                     this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
@@ -559,9 +559,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
-    private synchronized  void sendRecoveryMessage(Tavolo tavolo){
+    private synchronized  void sendRecoveryMessage(int giocatore){
         
-        int turno=tavolo.getTurno();
+        int turno=giocatore;
 
         if(this.reconnectionNeeds[turno]){
             try {
@@ -688,7 +688,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
                     
                     new JFrameTurno(prossimo.getID()).setVisible(true);
-                    sendRecoveryMessage(tavolo);
+                    sendRecoveryMessage(tavolo.getTurno());
 
                 }catch (Exception ex) {
                     ex.printStackTrace();
@@ -750,7 +750,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.out.println("ancora in inizializzazione "+tavolo.isInizializzazione());
             }
 
-            sendRecoveryMessage(tavolo);
+            sendRecoveryMessage(tavolo.getTurno());
             locker.releaseTavolo();
 
     }
@@ -805,7 +805,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
-        sendRecoveryMessage(tavolo);
+        sendRecoveryMessage(tavolo.getTurno());
         locker.releaseTavolo();
     }
 
@@ -969,6 +969,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                         timer=new GameTimer(GameController.instance, GameTimer.ACTION);
                                         timer.start();
                                     }
+                                }else if(g==g2&&!messageReceived[g.getID()]){
+                                    sendRecoveryMessage(g.getID());
                                 }
                                 
                             
@@ -979,7 +981,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         }
                     }else{
                         if(reconnectionNeeds[g.getID()]){
-                            sendRecoveryMessage(Tavolo.getInstance());
+                            sendRecoveryMessage(g.getID());
                         }
                     }
                     
