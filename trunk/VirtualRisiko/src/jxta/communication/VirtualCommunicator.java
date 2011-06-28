@@ -390,6 +390,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
                 }
 
             }
+            return false;
         }
         boolean result=true;
 
@@ -962,9 +963,16 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
                         this.sleep(sleepTime);
                     }
                     if(!messageReceived){
-
-                        continueTimer.set(connect());
-   
+                        System.out.println("Nessun messaggio ricevuto dam manager .... riconnessione");
+                        boolean connectSuccess=connect();
+                        continueTimer.set(connectSuccess);
+                        if(connectSuccess){
+                            System.out.println("Riconnessione riuscita");
+                        }else{
+                            System.out.println("rinnessione fallita");
+                        }
+                    }else{
+                        System.out.println("contattato dal coordinatore");
                     }
             
                 } catch (Exception ex) {
