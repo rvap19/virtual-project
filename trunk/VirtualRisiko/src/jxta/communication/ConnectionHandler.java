@@ -68,6 +68,8 @@ public class ConnectionHandler extends Thread{
                 JxtaBiDiPipe pipe;
                 try {
                     pipe = server.accept();
+                    pipe.setMaxRetryTimeout(10);
+                    pipe.setRetryTimeout(10);
                     Message msg=pipe.getMessage(0);
 
                     
@@ -76,7 +78,7 @@ public class ConnectionHandler extends Thread{
                 } catch (InterruptedException ex) {
                      System.err.println("timeout su ricezione msg registrazione");
                 } catch (IOException ex) {
-                    System.err.println("impossibile regstrare utente");
+                    System.err.println("");
                 }
                 
                 
