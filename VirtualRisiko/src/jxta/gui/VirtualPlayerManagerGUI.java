@@ -630,7 +630,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
              view=new  VirtualRisikoIIView(app, panel);
             app.show(view);
             
-            controller.startTimers();
+            
 
             
         } catch (Exception ex) {

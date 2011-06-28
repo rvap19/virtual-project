@@ -744,9 +744,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             if(tavolo.isTurnoMyGiocatore()){
                 new JFrameTurno(giocatore.getID()).setVisible(true);
                 
-                timer=new GameTimer(this, GameTimer.ACTION);
                 
-
+                timer.stopTimer();
+                timer=new GameTimer(this, GameTimer.ACTION);
                 timer.start();
             }
             
@@ -959,7 +959,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         
                         try {
                                 System.out.println("giocatore "+g.getUsername()+" non risponde ...");
-                                System.out.println("Ping 2");
+                                System.out.println("Ping (2)");
                                 ping(1);
                                 Giocatore g2=Tavolo.getInstance().getGiocatoreCorrente();
                                 if(!Tavolo.getInstance().isTurnoMyGiocatore()&&g==g2&&!messageReceived[g.getID()]){
@@ -970,6 +970,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                     }
                                     autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                     passaTurno_();
+                                    if(Tavolo.getInstance().isTurnoMyGiocatore()){
+
+                                        timer.stopTimer();
+                                        Thread.sleep(3*1000);
+                                        timer.start();
+                                    }
                                 }
                                 
                             
