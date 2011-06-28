@@ -885,7 +885,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     private  class  ManagerPingerThread extends Thread{
 
-        private int sleepTime=20 * 1000 ;
+        private int sleepTime=30 * 1000 ;
         
 
         private AtomicBoolean continueTimer;
@@ -959,7 +959,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                     System.out.println("giocatore "+g.getUsername()+" continua a non rispondere ...");
                                     if(!reconnectionNeeds[g.getID()]){
                                         System.out.println(" giocatore "+g.getUsername()+" non ha effettuato richiesta riconnessione ... chiusura pipe");
-                                        comunicator.closePipeFor(g.getID(),g.getUsername());
+                                        //comunicator.closePipeFor(g.getID(),g.getUsername());
                                     }
                                     autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                     passaTurno_();
@@ -969,7 +969,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                         timer=new GameTimer(GameController.instance, GameTimer.ACTION);
                                         timer.start();
                                     }
-                                }else if(g==g2&&!messageReceived[g.getID()]){
+                                }else if(g==g2&&!reconnectionNeeds[g.getID()]){
                                     sendRecoveryMessage(g.getID());
                                 }
                                 

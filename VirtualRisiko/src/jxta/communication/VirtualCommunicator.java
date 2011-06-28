@@ -654,6 +654,14 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
         try{
             pipeLock.lock();
+            JxtaBiDiPipe oldPipe=toPeersPipes.get(name);
+            try{
+                if(oldPipe!=null)
+                    oldPipe.close();
+            }catch(Exception ex){
+
+            }
+
             this.toPeersPipes.put(name, pipe);
         }finally{
             pipeLock.unlock();
@@ -998,13 +1006,13 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             }
 
             closeVirtualCommunicator();
-            try {
+          /*  try {
                 if(!electionManager.isStarted()){
                         electionManager.startElection(false);
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
-            }
+            }*/
 
 
         }
