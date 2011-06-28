@@ -99,17 +99,17 @@ public class MessageSequencer {
             return;
         }
         if(type.equals(VirtualRisikoMessage.RECOVERY)||type.equals(VirtualRisikoMessage.INIT)){
-            System.err.println("riconnessione con id "+i);
+            System.out.println("riconnessione con id "+i);
             this.currentMessageID=i;
-            notifyMessage(message);
+            notifyMessage(i,message);
             return;
         }
 
         if(currentMessageID==i){
             
             
-            notifyMessage(message);
-            System.out.println("Messaggio "+i+" notificato");
+            notifyMessage(i,message);
+            
         }else{
             try{
                 lock.lock();
@@ -121,17 +121,18 @@ public class MessageSequencer {
         }
     }
 
-    private void notifyMessage(Message message){
+    private void notifyMessage(int i,Message message){
         try{
             lock.lock();
             this.notifier.notifyMessage(message,currentMessageID);
+            System.out.println("Messaggio "+i+" notificato");
             currentMessageID++;
 
             int position=currentMessageID%buffer.length;
             while(buffer[position]!=null){
                 this.notifier.notifyMessage(buffer[position],currentMessageID);
                 buffer[position]=null;
-                System.err.println("notificato msg "+currentMessageID+" e rimosso del buffer");
+                System.out.println("notificato msg "+currentMessageID+" e rimosso del buffer");
                 currentMessageID++;
                 
                 position=currentMessageID%buffer.length;

@@ -60,7 +60,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
 
 
          List<String> pathColore = new ArrayList<String>();
-
+         Tavolo tavolo=Tavolo.getInstance();
 
         while(i<numGioc){
 
@@ -68,31 +68,38 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
                     case 0: colTurno="rosso" ;
                             colore="Rosso";
                             nomeGiocatore=giocatori.get(i).getUsername();
-
+                            this.puntLabel1.setText(Integer.toString(tavolo.getPunteggioGiocatore(giocatori.get(i))));
                     break;
                     case 1: colTurno="giallo";
                             colore="Giallo";
                             nomeGiocatore=giocatori.get(i).getUsername();
+                            this.puntLabel2.setText(Integer.toString(tavolo.getPunteggioGiocatore(giocatori.get(i))));
                     break;
                     case 2: colTurno="verde";
                             colore="Verde";
                             nomeGiocatore=giocatori.get(i).getUsername();
+                            this.puntLabel3.setText(Integer.toString(tavolo.getPunteggioGiocatore(giocatori.get(i))));
                     break;
                     case 3: colTurno="nero";
                             colore="Nero";
                             nomeGiocatore=giocatori.get(i).getUsername();
+                            this.puntLabel4.setText(Integer.toString(tavolo.getPunteggioGiocatore(giocatori.get(i))));
                     break;
                     case 4: colTurno="viola";
                             colore="Viola";
                             nomeGiocatore=giocatori.get(i).getUsername();
+                            this.puntLabel5.setText(Integer.toString(tavolo.getPunteggioGiocatore(giocatori.get(i))));
                     break;
                     case 5: colTurno="blu";
                             colore="Blu";
                             nomeGiocatore=giocatori.get(i).getUsername();
+                            this.puntLabel6.setText(Integer.toString(tavolo.getPunteggioGiocatore(giocatori.get(i))));
                     break;
                 }
                   pathColore.add(i, "/virtualrisikoii/resources/tanks/"+colTurno+".png");
+
                   nomeGiocatori.add(i,nomeGiocatore);
+
                   i++;
             }
 
