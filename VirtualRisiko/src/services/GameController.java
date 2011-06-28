@@ -763,6 +763,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public   void  passaTurno() throws IOException{
+         if(!Tavolo.getInstance().isTurnoMyGiocatore()){
+             return;
+         }
+         passaTurno_();
+    }
+    private   void  passaTurno_() throws IOException{
         Tavolo tavolo=locker.acquireTavolo();
         if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
             locker.releaseTavolo();
@@ -842,7 +848,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
 
         try {
-            passaTurno();
+            passaTurno_();
         } catch (IOException ex) {
            System.err.println("impossibile passare turno");
         }
@@ -957,7 +963,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                     comunicator.closePipeFor(g.getID(),g.getUsername());
                                 }
                                 autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
-                                passaTurno();
+                                passaTurno_();
                                 
                             
                             
