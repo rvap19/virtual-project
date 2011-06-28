@@ -566,7 +566,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
-    private void sendRecoveryMessage(Tavolo tavolo){
+    private synchronized  void sendRecoveryMessage(Tavolo tavolo){
         
         int turno=tavolo.getTurno();
 
@@ -983,6 +983,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                             
                         } catch (IOException ex) {
                             System.err.println("impossibile inviare ping o chidere pipe");
+                        }
+                    }else{
+                        if(reconnectionNeeds[g.getID()]){
+                            sendRecoveryMessage(Tavolo.getInstance());
                         }
                     }
                     
