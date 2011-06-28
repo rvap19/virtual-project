@@ -272,7 +272,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="statoLabel6">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="statoLabel6.toolTipText"/>
         <Property name="name" type="java.lang.String" value="statoLabel6" noResource="true"/>
       </Properties>
       <Constraints>
@@ -283,7 +282,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="statoLabel3">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="statoLabel3.toolTipText"/>
         <Property name="name" type="java.lang.String" value="statoLabel3" noResource="true"/>
       </Properties>
       <Constraints>
@@ -294,7 +292,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="statoLabel1">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="statoLabel1.toolTipText"/>
         <Property name="name" type="java.lang.String" value="statoLabel1" noResource="true"/>
       </Properties>
       <Constraints>
@@ -305,7 +302,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="statoLabel4">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="statoLabel4.toolTipText"/>
         <Property name="name" type="java.lang.String" value="statoLabel4" noResource="true"/>
       </Properties>
       <Constraints>
@@ -316,7 +312,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="statoLabel5">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="statoLabel5.toolTipText"/>
         <Property name="name" type="java.lang.String" value="statoLabel5" noResource="true"/>
       </Properties>
       <Constraints>
@@ -327,7 +322,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="statoLabel2">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="statoLabel2.toolTipText"/>
         <Property name="name" type="java.lang.String" value="statoLabel2" noResource="true"/>
       </Properties>
       <Constraints>
