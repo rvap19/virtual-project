@@ -68,8 +68,8 @@ public class ConnectionHandler extends Thread{
                 JxtaBiDiPipe pipe;
                 try {
                     pipe = server.accept();
-                    pipe.setMaxRetryTimeout(10);
-                    pipe.setRetryTimeout(10);
+                    pipe.setMaxRetryTimeout(10*1000);
+                    pipe.setRetryTimeout(10*1000);
                     Message msg=pipe.getMessage(0);
 
                     
