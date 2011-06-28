@@ -70,6 +70,7 @@ public  class Tavolo {
     
     private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> names) throws MappaException{
         this.diceSeed=seed_dice;
+        System.out.println("seed dice "+seed_dice);
         this.cardSeed=seed_cards;
         dado=new Random(seed_dice);
         this.mappa=mappa;
