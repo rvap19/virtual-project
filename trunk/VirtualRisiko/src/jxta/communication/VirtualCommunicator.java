@@ -183,9 +183,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
         gameInProgress=true;
 
-       /* connectionHandler= ConnectionHandler.getInstance(this.peerGroup, peerPipe, 50, 2*60*1000);
+        connectionHandler= ConnectionHandler.getInstance(this.peerGroup, peerPipe, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
-        if(!instance.connectionHandler.isAlive()){
+       /* if(!instance.connectionHandler.isAlive()){
             instance.connectionHandler.start();
         }*/
 
