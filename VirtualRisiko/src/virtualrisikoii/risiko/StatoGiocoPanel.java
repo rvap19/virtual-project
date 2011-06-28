@@ -420,26 +420,32 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         add(iconStateLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 150, -1, -1));
 
         nomeGiocatoreLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel1.setToolTipText(nomeGiocatoreLabel1.getText());
         nomeGiocatoreLabel1.setName("nomeGiocatoreLabel1"); // NOI18N
         add(nomeGiocatoreLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
 
         nomeGiocatoreLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel6.setToolTipText(nomeGiocatoreLabel6.getText());
         nomeGiocatoreLabel6.setName("nomeGiocatoreLabel6"); // NOI18N
         add(nomeGiocatoreLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 70, -1));
 
         nomeGiocatoreLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel2.setToolTipText(nomeGiocatoreLabel2.getText());
         nomeGiocatoreLabel2.setName("nomeGiocatoreLabel2"); // NOI18N
         add(nomeGiocatoreLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 70, -1));
 
         nomeGiocatoreLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel3.setToolTipText(nomeGiocatoreLabel3.getText());
         nomeGiocatoreLabel3.setName("nomeGiocatoreLabel3"); // NOI18N
         add(nomeGiocatoreLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 70, -1));
 
         nomeGiocatoreLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel4.setToolTipText(nomeGiocatoreLabel4.getText());
         nomeGiocatoreLabel4.setName("nomeGiocatoreLabel4"); // NOI18N
         add(nomeGiocatoreLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 70, -1));
 
         nomeGiocatoreLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel5.setToolTipText(nomeGiocatoreLabel5.getText());
         nomeGiocatoreLabel5.setName("nomeGiocatoreLabel5"); // NOI18N
         add(nomeGiocatoreLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 70, -1));
 
