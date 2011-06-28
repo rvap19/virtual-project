@@ -67,6 +67,10 @@ public class RecoveryUtil {
             tavolo.getNuovaCartaID();
         }
 
+        Iterator<Giocatore> iter=tavolo.getGiocatori().iterator();
+        while(iter.hasNext()){
+            iter.next().getNazioni().clear();
+        }
         setOccupanti(tavolo,parameter.getIdOccupante());
         setNumeroTruppe(tavolo, parameter.getNumeroTruppe());
         setNumeroArmateDisponibili(tavolo,parameter.getArmateDisponibili());
