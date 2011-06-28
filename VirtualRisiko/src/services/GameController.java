@@ -409,7 +409,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             if(azione!=null){
            
                 if(timer.getInterval()==0){
-                    timer.setInterval(GameTimer.ACTION);
+                    timer.stopTimer();
+                    timer=new GameTimer(this, GameTimer.ACTION);
+                    
                     timer.start();
                 }else{
                     timer.setInterval(GameTimer.ACTION);
