@@ -123,30 +123,21 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             messageReceived[i]=false;
         }
         this.timer=new GameTimer(this, GameTimer.ACTION);
+        if(tavolo.isTurnoMyGiocatore()){
+                 timer.start();
+             }
         if(comunicator.isManager()){
+            messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
 
-            
-            startTimers();
+
+
+             this.managerTimer=new ManagerPingerThread();
+             managerTimer.start();
+             
         }
 
     }
 
-
-    public void startTimers(){
-         messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
-
-         if(Tavolo.getInstance().isTurnoMyGiocatore()){
-             timer.start();
-         }
-
-         this.managerTimer=new ManagerPingerThread();
-         managerTimer.start();
-         try{
-             this.locker.releaseTavolo();
-        }catch(Exception ex){
-
-        }
-    }
 
     public TimeoutNotifier getTimeoutNotifier() {
         return timeoutNotifier;
