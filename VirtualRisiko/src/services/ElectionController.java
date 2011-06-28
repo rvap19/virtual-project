@@ -101,7 +101,7 @@ public class ElectionController implements PipeMsgListener{
         }
         
         
-        if(message!=null){
+        if(message!=null ){
             ackReceived=false;
             
             try {
@@ -109,13 +109,9 @@ public class ElectionController implements PipeMsgListener{
            } catch (InterruptedException ex) {
                    ex.printStackTrace();
            }
-            if(!ackReceived){
+            if(ackReceived){
                 this.electionListener.notifyElection(message);
             }
-        }else{
-            System.err.println("Impossibile connettersi ai partecipanti");
-            System.err.println("l'applicazione verra chiusa");
-            System.exit(-1);
         }
 
         started=false;
