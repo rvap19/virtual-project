@@ -6,10 +6,8 @@
 package virtualrisikoii.risiko;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 
 
@@ -190,14 +188,11 @@ public  class Tavolo {
             this.lastAttacco=attacco;
             if(difensore.getNazioni().size()==0){
                 difensore.setStato(Giocatore.FUORI_GIOCO);
-                Iterator<Carta> iter=difensore.getCarte().iterator();
-                while(iter.hasNext()){
-                    Carta c=iter.next();
-                    difensore.removeCarta(c);
-                    attaccante.addCarta(c);
-                }
+                attaccante.getCarte().addAll(difensore.getCarte());
+                difensore.getCarte().clear();
             }
         }
+        
 
 
         return attacco;
