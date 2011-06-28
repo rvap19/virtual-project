@@ -144,9 +144,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         instance.toPeersPipes=new HashMap<String, JxtaBiDiPipe>();
         instance.connectionHandler= ConnectionHandler.getInstance(group, pipe, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
-        if(!instance.connectionHandler.isAlive()){
+        
             instance.connectionHandler.start();
-        }
+        
         
         
         return instance;
@@ -157,9 +157,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         instance.pipeLock=new ReentrantLock(true);
         instance.connectionHandler=ConnectionHandler.getInstance(group, peerPipeAdv, 50, 2*60*1000);
         instance.connectionHandler.setConnectionListener(instance);
-        if(!instance.connectionHandler.isAlive()){
+        
             instance.connectionHandler.start();
-        }
+        
         
 
         instance.isCentral=false;
