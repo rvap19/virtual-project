@@ -34,10 +34,22 @@ public class CardChangeController {
 
     private Mappa mappa;
 
+    public boolean jollyAvailable;
+
     public CardChangeController (){
 
     }
 
+    public boolean isJollyAvailable() {
+        this.jollyAvailable=this.hasJolly();
+        return jollyAvailable;
+    }
+
+    public void setJollyAvailable(boolean jollyAvailable) {
+        this.jollyAvailable = jollyAvailable;
+    }
+
+    
     public Mappa getMappa() {
         return mappa;
     }
@@ -160,6 +172,8 @@ public class CardChangeController {
         return this.jolly.size()>0;
     }
 
+
+
     public void ottieniRinforzi(Carta c1,Carta c2,Carta c3){
         int rinforzi=this.valutaRinforzo(c1, c2, c3);
         this.removeCartaFromList(c1);
@@ -191,6 +205,8 @@ public class CardChangeController {
             return Rinforzo.getRinfornzo(giocatore, c1, c2, c3, mappa);
       
     }
+
+    
 
     
 
