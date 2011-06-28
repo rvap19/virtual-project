@@ -179,8 +179,12 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     public boolean restartPeerCommunicator(PipeAdvertisement centralPipe,PipeAdvertisement peerPipe) throws IOException{
         
         isCentral=false;
-        this.toCentralPeer.setPipeEventListener(null);
-        this.toCentralPeer.close();
+
+        if(toCentralPeer!=null){
+            this.toCentralPeer.setPipeEventListener(null);
+            this.toCentralPeer.close();
+        }
+        
         this.centralPeerPipeAdv=centralPipe;
         
         gameInProgress=true;
@@ -215,6 +219,10 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             instance.connectionHandler.start();
         }*/
 
+    }
+
+    public boolean isManagerOnLine() {
+        return messageReceived;
     }
 
 
@@ -757,9 +765,9 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
     }
 
-    private void elaborateElectionMessage(Message msg){
+    private void elaborateElectionMessage(JxtaBiDiPipe pipe,Message msg){
         ElectionMessage eMsg=new ElectionMessage(msg);
-        this.electionManager.notifyElectionMessage(eMsg);
+        this.electionManager.notifyElectionMessage(pipe,eMsg);
     }
 
     public void notifyConnection(JxtaBiDiPipe pipe,Message msg) {
@@ -774,7 +782,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             }
 
             if(type.equals(VirtualRisikoMessage.ELECTION)){
-                this.elaborateElectionMessage(msg);
+                this.elaborateElectionMessage(pipe,msg);
                 
                 return;
             }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import jxta.communication.VirtualCommunicator;
 import jxta.communication.messages.AckMessage;
 import jxta.communication.messages.ElectionMessage;
 import jxta.communication.messages.ElectionRequestMessage;
@@ -93,15 +94,31 @@ public class ElectionController implements PipeMsgListener{
         }
 
         ElectionMessage message=null;
+
         if(!ackReceived&&send||messageReceived||!send){
                     message=sendElectionMessages();
                      //closePipes();
-                }
-        started=false;
-
-        if(message!=null){
-            this.electionListener.notifyElection(message);
         }
+        
+        
+        if(message!=null&&ackReceived){
+            ackReceived=false;
+            
+            try {
+                    Thread.sleep(90 * 1000);
+           } catch (InterruptedException ex) {
+                   ex.printStackTrace();
+           }
+            if(!ackReceived){
+                this.electionListener.notifyElection(message);
+            }
+        }else{
+            System.err.println("Impossibile connettersi ai partecipanti");
+            System.err.println("l'applicazione verra chiusa");
+            System.exit(-1);
+        }
+
+        started=false;
                 System.out.println("XXX");
 
         
@@ -222,9 +239,17 @@ public class ElectionController implements PipeMsgListener{
         return;
     }
 
-    public void notifyElectionMessage(ElectionMessage eMsg) {
-        this.electionListener.notifyElection(eMsg);
-        started=false;
+    public void notifyElectionMessage(JxtaBiDiPipe pipe,ElectionMessage eMsg) {
+        if(!VirtualCommunicator.instance.isManagerOnLine()){
+            AckMessage ack=new AckMessage(0);
+            try {
+                this.sendMessage(pipe, ack);
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            this.electionListener.notifyElection(eMsg);
+            started=false;
+        }
     }
 
    
