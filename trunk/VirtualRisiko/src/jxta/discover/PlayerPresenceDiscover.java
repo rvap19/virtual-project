@@ -104,7 +104,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
     }
 
     public void discoveryEvent(DiscoveryEvent TheDiscoveryEvent) {
-        System.out.println("remote discovery event....");
+       
 
         // Who triggered the event?
         
@@ -166,7 +166,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
     public PlayerAdvertisement announcePresence(int presenceStatus,String name)
     {
-        System.out.println("player presence announcing");
+       
         if (discovery != null)
         {
              presenceInfo = (PlayerAdvertisement)
@@ -197,11 +197,11 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
                 System.out.println("Error publishing locally: " + e);
             }
 
-            System.out.println("player presence annunced");
+            
             return presenceInfo;
             
         }
-        System.out.println("impossibile annunciare player");
+        
         return null;
         
     }
@@ -221,7 +221,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
         this.registeredListeners=new ArrayList<PlayerListener>();
         this.registredPipeListeners=new ArrayList<PipeListener>();
         // Registering our customized advertisement instance
-        System.out.println("initiated player presence discover");
+       
         
     }
 
@@ -234,18 +234,18 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
     public int startApp(String[] args) throws IOException
 
     {
-        System.out.println("player presence discover starting");
+        
         // Now that the service is being started, set the DiscoveryService
         // object to use to publish presence information.
         discovery = peerGroup.getDiscoveryService();
-System.out.println("player presence discover started");
+
         
 discovery.addDiscoveryListener(this);
         return 0;
     }
 
     public List<PlayerAdvertisement> searchPlayers(boolean includeRemoteSearch) throws IOException{
-        System.out.println("searching players...");
+       
         // Add ourselves as a listener.
         
 
@@ -266,7 +266,7 @@ discovery.addDiscoveryListener(this);
     }
 
     public List<PipeAdvertisement> searchPipes(boolean includeRemoteSearch) throws IOException{
-        System.out.println("searching players...");
+       
         // Add ourselves as a listener.
 
 
@@ -293,7 +293,7 @@ discovery.addDiscoveryListener(this);
      */
     public void stopApp()
     {
-        System.out.println("player presence discover stopping");
+       
         if (discovery != null)
         {
             // Unregister ourselves as a listener.
@@ -305,12 +305,12 @@ discovery.addDiscoveryListener(this);
             registeredListeners.clear();
             registredPipeListeners.clear();
         }
-        System.out.println("player presence discover stopped");
+        
     }
 
     private void  publishPipeAdvertisement(String name) throws IOException {
 
-        System.out.println("publishing pipe adv");
+        
         // Creating a Pipe Advertisement
         String newName="Player "+name;
         if(MyPipeAdvertisement==null){
@@ -326,7 +326,7 @@ discovery.addDiscoveryListener(this);
         this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
         this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME);
 
-        System.out.println("pipe adv published");
+       
 
     }
 
