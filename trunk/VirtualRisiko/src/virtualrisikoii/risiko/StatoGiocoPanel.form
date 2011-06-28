@@ -185,6 +185,9 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel1">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="nomeGiocatoreLabel1" name="text" type="property"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel1" noResource="true"/>
       </Properties>
       <Constraints>
@@ -196,6 +199,9 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel6">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="nomeGiocatoreLabel6" name="text" type="property"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel6" noResource="true"/>
       </Properties>
       <Constraints>
@@ -207,6 +213,9 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel2">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="nomeGiocatoreLabel2" name="text" type="property"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel2" noResource="true"/>
       </Properties>
       <Constraints>
@@ -218,6 +227,9 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel3">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="nomeGiocatoreLabel3" name="text" type="property"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel3" noResource="true"/>
       </Properties>
       <Constraints>
@@ -229,6 +241,9 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel4">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="nomeGiocatoreLabel4" name="text" type="property"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel4" noResource="true"/>
       </Properties>
       <Constraints>
@@ -240,6 +255,9 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel5">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="nomeGiocatoreLabel5" name="text" type="property"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel5" noResource="true"/>
       </Properties>
       <Constraints>
