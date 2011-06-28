@@ -24,7 +24,7 @@ import services.PlayerDataListener;
 import services.TimeoutNotifier;
 import jxta.communication.messages.listener.ChatListener;
 import virtualrisikoii.risiko.Giocatore;
-import virtualrisikoii.risiko.JFrameCountdown;
+import virtualrisikoii.risiko.Suono;
 import virtualrisikoii.risiko.Tavolo;
 
 /**
@@ -353,20 +353,12 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     public void remaingTimeNotify(int remaing) {
         this.setRemaingTime(remaing);
         if(remaing==11){
-             countdown=new JFrameCountdown();
-             t=new Thread(countdown);
-             t.start() ;
+             Suono.playSound("/virtualrisikoii/resources/dadi/time.wav");
              
-        }else if(remaing>11&&countdown!=null){
-            countdown.setVisible(false);
-            countdown.dispose();
-            t.interrupt();
-            countdown=null;
         }
     }
 
-    private JFrameCountdown countdown=null;
-    private Thread t;
+   
 
 
 
