@@ -307,11 +307,17 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel3 = new javax.swing.JLabel();
-        puntLabel5 = new javax.swing.JLabel();
-        puntLabel4 = new javax.swing.JLabel();
-        puntLabel3 = new javax.swing.JLabel();
-        puntLabel2 = new javax.swing.JLabel();
+        nomeGiocatoreLabel1 = new javax.swing.JLabel();
+        nomeGiocatoreLabel2 = new javax.swing.JLabel();
+        nomeGiocatoreLabel3 = new javax.swing.JLabel();
+        nomeGiocatoreLabel4 = new javax.swing.JLabel();
+        nomeGiocatoreLabel5 = new javax.swing.JLabel();
+        nomeGiocatoreLabel6 = new javax.swing.JLabel();
         puntLabel1 = new javax.swing.JLabel();
+        puntLabel2 = new javax.swing.JLabel();
+        puntLabel3 = new javax.swing.JLabel();
+        puntLabel4 = new javax.swing.JLabel();
+        puntLabel5 = new javax.swing.JLabel();
         puntLabel6 = new javax.swing.JLabel();
         iconStateLabel1 = new javax.swing.JLabel();
         iconStateLabel2 = new javax.swing.JLabel();
@@ -319,20 +325,14 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         iconStateLabel4 = new javax.swing.JLabel();
         iconStateLabel6 = new javax.swing.JLabel();
         iconStateLabel5 = new javax.swing.JLabel();
-        nomeGiocatoreLabel1 = new javax.swing.JLabel();
-        nomeGiocatoreLabel6 = new javax.swing.JLabel();
-        nomeGiocatoreLabel2 = new javax.swing.JLabel();
-        nomeGiocatoreLabel3 = new javax.swing.JLabel();
-        nomeGiocatoreLabel4 = new javax.swing.JLabel();
-        nomeGiocatoreLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        statoLabel6 = new javax.swing.JLabel();
-        statoLabel3 = new javax.swing.JLabel();
         statoLabel1 = new javax.swing.JLabel();
+        statoLabel2 = new javax.swing.JLabel();
+        statoLabel3 = new javax.swing.JLabel();
         statoLabel4 = new javax.swing.JLabel();
         statoLabel5 = new javax.swing.JLabel();
-        statoLabel2 = new javax.swing.JLabel();
+        statoLabel6 = new javax.swing.JLabel();
         sfondoLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         puntLabel7 = new javax.swing.JLabel();
@@ -372,54 +372,6 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         setVerifyInputWhenFocusTarget(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        puntLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        puntLabel5.setName("puntLabel5"); // NOI18N
-        add(puntLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 40, -1));
-
-        puntLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        puntLabel4.setName("puntLabel4"); // NOI18N
-        add(puntLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 40, -1));
-
-        puntLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        puntLabel3.setName("puntLabel3"); // NOI18N
-        add(puntLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 40, -1));
-
-        puntLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        puntLabel2.setName("puntLabel2"); // NOI18N
-        add(puntLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 40, -1));
-
-        puntLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        puntLabel1.setName("puntLabel1"); // NOI18N
-        add(puntLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 40, -1));
-
-        puntLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        puntLabel6.setName("puntLabel6"); // NOI18N
-        add(puntLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 40, -1));
-
-        iconStateLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
-        iconStateLabel1.setName("iconStateLabel1"); // NOI18N
-        add(iconStateLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, -1, -1));
-
-        iconStateLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
-        iconStateLabel2.setName("iconStateLabel2"); // NOI18N
-        add(iconStateLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 60, -1, -1));
-
-        iconStateLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
-        iconStateLabel3.setName("iconStateLabel3"); // NOI18N
-        add(iconStateLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 90, -1, -1));
-
-        iconStateLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
-        iconStateLabel4.setName("iconStateLabel4"); // NOI18N
-        add(iconStateLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 120, -1, -1));
-
-        iconStateLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
-        iconStateLabel6.setName("iconStateLabel6"); // NOI18N
-        add(iconStateLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 180, -1, -1));
-
-        iconStateLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
-        iconStateLabel5.setName("iconStateLabel5"); // NOI18N
-        add(iconStateLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 150, -1, -1));
-
         nomeGiocatoreLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nomeGiocatoreLabel1.setName("nomeGiocatoreLabel1"); // NOI18N
 
@@ -427,14 +379,6 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         bindingGroup.addBinding(binding);
 
         add(nomeGiocatoreLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
-
-        nomeGiocatoreLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel6.setName("nomeGiocatoreLabel6"); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel6, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel6, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
-        bindingGroup.addBinding(binding);
-
-        add(nomeGiocatoreLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 70, -1));
 
         nomeGiocatoreLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nomeGiocatoreLabel2.setName("nomeGiocatoreLabel2"); // NOI18N
@@ -468,6 +412,62 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
 
         add(nomeGiocatoreLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 70, -1));
 
+        nomeGiocatoreLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomeGiocatoreLabel6.setName("nomeGiocatoreLabel6"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel6, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel6, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
+        add(nomeGiocatoreLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 70, -1));
+
+        puntLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        puntLabel1.setName("puntLabel1"); // NOI18N
+        add(puntLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 40, -1));
+
+        puntLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        puntLabel2.setName("puntLabel2"); // NOI18N
+        add(puntLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 40, -1));
+
+        puntLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        puntLabel3.setName("puntLabel3"); // NOI18N
+        add(puntLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 40, -1));
+
+        puntLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        puntLabel4.setName("puntLabel4"); // NOI18N
+        add(puntLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 40, -1));
+
+        puntLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        puntLabel5.setName("puntLabel5"); // NOI18N
+        add(puntLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 40, -1));
+
+        puntLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        puntLabel6.setName("puntLabel6"); // NOI18N
+        add(puntLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 40, -1));
+
+        iconStateLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
+        iconStateLabel1.setName("iconStateLabel1"); // NOI18N
+        add(iconStateLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, -1, -1));
+
+        iconStateLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
+        iconStateLabel2.setName("iconStateLabel2"); // NOI18N
+        add(iconStateLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 60, -1, -1));
+
+        iconStateLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
+        iconStateLabel3.setName("iconStateLabel3"); // NOI18N
+        add(iconStateLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 90, -1, -1));
+
+        iconStateLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
+        iconStateLabel4.setName("iconStateLabel4"); // NOI18N
+        add(iconStateLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 120, -1, -1));
+
+        iconStateLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
+        iconStateLabel6.setName("iconStateLabel6"); // NOI18N
+        add(iconStateLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 180, -1, -1));
+
+        iconStateLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/tanks/outx.png"))); // NOI18N
+        iconStateLabel5.setName("iconStateLabel5"); // NOI18N
+        add(iconStateLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 150, -1, -1));
+
         jLabel1.setText("  Players");
         jLabel1.setName("jLabel1"); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 5, 50, -1));
@@ -476,14 +476,14 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         jLabel2.setName("jLabel2"); // NOI18N
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 5, 50, -1));
 
-        statoLabel6.setName("statoLabel6"); // NOI18N
-        add(statoLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 170, 30));
+        statoLabel1.setName("statoLabel1"); // NOI18N
+        add(statoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 30));
+
+        statoLabel2.setName("statoLabel2"); // NOI18N
+        add(statoLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 170, 30));
 
         statoLabel3.setName("statoLabel3"); // NOI18N
         add(statoLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 170, 30));
-
-        statoLabel1.setName("statoLabel1"); // NOI18N
-        add(statoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 30));
 
         statoLabel4.setName("statoLabel4"); // NOI18N
         add(statoLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 170, 30));
@@ -491,8 +491,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         statoLabel5.setName("statoLabel5"); // NOI18N
         add(statoLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 170, 30));
 
-        statoLabel2.setName("statoLabel2"); // NOI18N
-        add(statoLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 170, 30));
+        statoLabel6.setName("statoLabel6"); // NOI18N
+        add(statoLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 170, 30));
 
         sfondoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/virtualrisikoii/resources/pergamena/174x213.png"))); // NOI18N
         sfondoLabel.setName("sfondoLabel"); // NOI18N
