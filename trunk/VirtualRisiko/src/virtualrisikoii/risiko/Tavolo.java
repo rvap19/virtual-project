@@ -327,7 +327,7 @@ public  class Tavolo {
         while(territoriDisponibili>0){
             int next=random.nextInt(territori.length);
             while(occupati[next]){
-                System.out.println(next+" <-- > ");
+                
                 next=random.nextInt(territori.length);
             }
 
