@@ -102,8 +102,10 @@ public class RecoveryUtil {
     private void setOccupanti(Tavolo tavolo,int[] occupanti){
         Mappa mappa=tavolo.getMappa();
         List<Giocatore> giocatori=tavolo.getGiocatori();
+        System.out.println("stampa occupazione territori");
         for(int i=0;i<occupanti.length;i++){
             mappa.getTerritorio(i).setOccupante(giocatori.get(occupanti[i]));
+            System.out.println(" Territorio "+mappa.getTerritorio(i).getNome()+" occupato da "+giocatori.get(occupanti[i]).getUsername());
         }
     }
 
