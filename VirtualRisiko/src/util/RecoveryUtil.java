@@ -54,11 +54,13 @@ public class RecoveryUtil {
 
         Tavolo tavolo=Tavolo.createInstance(mappa, obiettivi, parameter.getTurno(), parameter.getNumeroGiocatori(), parameter.getTurnoMyGiocatore(), parameter.getSeed_dice(), 0, parameter.getSeed_card(),parameter.getPlayersNames());
         tavolo.setInizializzazione(parameter.isInizializzazione());
+        tavolo.setNameMap(parameter.getMapName());
         int diceLanch=tavolo.getDiceLanch();
         int limit=parameter.getDice_lanch();
-        for(int i=diceLanch;i<=limit;i++){
-            tavolo.lanciaDado();
-        }
+        System.out.println("allineamento dadi");
+        for(int i=diceLanch;i<limit;i++){
+            System.out.print(tavolo.lanciaDado()+" - ");
+        }System.out.println();
 
          limit=parameter.getCards_lanch();
         for(int i=0;i<=limit;i++){
