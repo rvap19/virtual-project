@@ -179,6 +179,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     public boolean restartPeerCommunicator(PipeAdvertisement centralPipe,PipeAdvertisement peerPipe) throws IOException{
         
         isCentral=false;
+        this.toCentralPeer.setPipeEventListener(null);
+        this.toCentralPeer.close();
         this.centralPeerPipeAdv=centralPipe;
         
         gameInProgress=true;
@@ -214,6 +216,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         }*/
 
     }
+
+
     
 
     public ElectionController getElectionNotifier() {
@@ -502,12 +506,15 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     private void startMessageWaiter(){
         if(waiter==null){
             waiter=new MessageWaiter();
+             waiter.start();
 
-        }
-
-        if(!waiter.isAlive()){
+        }else{
+            waiter.stopTimer();
+            waiter=new MessageWaiter();
             waiter.start();
         }
+
+        
     }
 
     public void elaborateApplianceMessage(Message message){
@@ -838,6 +845,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
         RecoveryMessage m=new RecoveryMessage(message);
         recoveryListeners.notifyReconnect(m.getParameter());
+        this.startMessageWaiter();
         
     }
 
