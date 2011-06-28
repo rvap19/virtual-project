@@ -98,9 +98,16 @@ public class MessageSequencer {
             this.notifier.notifyMessage(message, 0);
             return;
         }
-        if(type.equals(VirtualRisikoMessage.RECOVERY)||type.equals(VirtualRisikoMessage.INIT)){
-            System.out.println("riconnessione con id "+i);
+        if(type.equals(VirtualRisikoMessage.INIT)){
+            System.out.println("# connessione con msg id "+i);
             this.currentMessageID=i;
+            notifyMessage(i,message);
+            return;
+        }
+
+        if(type.equals(VirtualRisikoMessage.RECOVERY)){
+            System.out.println("## riconnessione con msg id "+i);
+            this.currentMessageID=i-1;
             notifyMessage(i,message);
             return;
         }
