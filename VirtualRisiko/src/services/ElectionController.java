@@ -72,7 +72,7 @@ public class ElectionController implements PipeMsgListener{
         List<Giocatore> giocatori =Tavolo.getInstance().getGiocatori();
         Giocatore myGiocatore=Tavolo.getInstance().getMyGiocatore();
 
-        List<Giocatore> pred=findGiocatoriSuccessivi(giocatori,myGiocatore);
+        List<Giocatore> pred=findGiocatoriPrecedenti(giocatori,myGiocatore);
         Iterator<Giocatore> iter=pred.iterator();
         
         boolean send=false;
@@ -198,10 +198,10 @@ public class ElectionController implements PipeMsgListener{
         }
     }
 
-    private List<Giocatore> findGiocatoriSuccessivi(List<Giocatore> giocatori, Giocatore myGiocatore) {
+    private List<Giocatore> findGiocatoriPrecedenti(List<Giocatore> giocatori, Giocatore myGiocatore) {
         ArrayList<Giocatore> result=new ArrayList<Giocatore>();
         int size=giocatori.size();
-        for(int i=myGiocatore.getID()+1;i<size;i++){
+        for(int i=myGiocatore.getID()-1;i>=0;i--){
             result.add(giocatori.get(i));
         }
         return result;
