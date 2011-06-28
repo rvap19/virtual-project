@@ -6,9 +6,6 @@
 package jxta.communication;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jxta.communication.messages.VirtualRisikoMessage;
 import jxta.listener.ConnectionListener;
 import net.jxta.endpoint.Message;
 import net.jxta.peergroup.PeerGroup;

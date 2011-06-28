@@ -56,10 +56,9 @@ public class ObiettivoChallenge extends Obiettivo{
             }
         }
 
-        int punteggioCarte=giocatore.getCarte().size();
-        int punteggioTruppe=giocatore.getNumeroTruppe();
+       
 
-        return total+punteggioAltriTerritori/3+punteggioCarte/2+punteggioTruppe/10;
+        return total+punteggioAltriTerritori/3;
     }
 
     public int getPunteggioMassimo(){
