@@ -185,11 +185,11 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel1">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection component="nomeGiocatoreLabel1" name="text" type="property"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel1" noResource="true"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="toolTipText" source="nomeGiocatoreLabel1" sourcePath="${text}" target="nomeGiocatoreLabel1" targetPath="toolTipText" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="30" width="70" height="-1"/>
@@ -199,11 +199,11 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel6">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection component="nomeGiocatoreLabel6" name="text" type="property"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel6" noResource="true"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="toolTipText" source="nomeGiocatoreLabel6" sourcePath="${text}" target="nomeGiocatoreLabel6" targetPath="toolTipText" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="180" width="70" height="-1"/>
@@ -213,11 +213,11 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel2">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection component="nomeGiocatoreLabel2" name="text" type="property"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel2" noResource="true"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="toolTipText" source="nomeGiocatoreLabel2" sourcePath="${text}" target="nomeGiocatoreLabel2" targetPath="toolTipText" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="60" width="70" height="-1"/>
@@ -227,11 +227,11 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel3">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection component="nomeGiocatoreLabel3" name="text" type="property"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel3" noResource="true"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="toolTipText" source="nomeGiocatoreLabel3" sourcePath="${text}" target="nomeGiocatoreLabel3" targetPath="toolTipText" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="90" width="70" height="-1"/>
@@ -241,11 +241,11 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel4">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection component="nomeGiocatoreLabel4" name="text" type="property"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel4" noResource="true"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="toolTipText" source="nomeGiocatoreLabel4" sourcePath="${text}" target="nomeGiocatoreLabel4" targetPath="toolTipText" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="120" width="70" height="-1"/>
@@ -255,11 +255,11 @@
     <Component class="javax.swing.JLabel" name="nomeGiocatoreLabel5">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection component="nomeGiocatoreLabel5" name="text" type="property"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="nomeGiocatoreLabel5" noResource="true"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="toolTipText" source="nomeGiocatoreLabel5" sourcePath="${text}" target="nomeGiocatoreLabel5" targetPath="toolTipText" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="150" width="70" height="-1"/>

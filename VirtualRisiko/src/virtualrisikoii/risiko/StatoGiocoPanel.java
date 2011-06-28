@@ -304,6 +304,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel3 = new javax.swing.JLabel();
         puntLabel5 = new javax.swing.JLabel();
@@ -420,33 +421,51 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         add(iconStateLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 150, -1, -1));
 
         nomeGiocatoreLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel1.setToolTipText(nomeGiocatoreLabel1.getText());
         nomeGiocatoreLabel1.setName("nomeGiocatoreLabel1"); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel1, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel1, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
         add(nomeGiocatoreLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, -1));
 
         nomeGiocatoreLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel6.setToolTipText(nomeGiocatoreLabel6.getText());
         nomeGiocatoreLabel6.setName("nomeGiocatoreLabel6"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel6, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel6, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
         add(nomeGiocatoreLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 70, -1));
 
         nomeGiocatoreLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel2.setToolTipText(nomeGiocatoreLabel2.getText());
         nomeGiocatoreLabel2.setName("nomeGiocatoreLabel2"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel2, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel2, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
         add(nomeGiocatoreLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 70, -1));
 
         nomeGiocatoreLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel3.setToolTipText(nomeGiocatoreLabel3.getText());
         nomeGiocatoreLabel3.setName("nomeGiocatoreLabel3"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel3, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel3, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
         add(nomeGiocatoreLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 70, -1));
 
         nomeGiocatoreLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel4.setToolTipText(nomeGiocatoreLabel4.getText());
         nomeGiocatoreLabel4.setName("nomeGiocatoreLabel4"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel4, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel4, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
         add(nomeGiocatoreLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 70, -1));
 
         nomeGiocatoreLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomeGiocatoreLabel5.setToolTipText(nomeGiocatoreLabel5.getText());
         nomeGiocatoreLabel5.setName("nomeGiocatoreLabel5"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, nomeGiocatoreLabel5, org.jdesktop.beansbinding.ELProperty.create("${text}"), nomeGiocatoreLabel5, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"));
+        bindingGroup.addBinding(binding);
+
         add(nomeGiocatoreLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 70, -1));
 
         jLabel1.setText("  Players");
@@ -587,6 +606,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         jPanel1.add(sfondoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -647,6 +668,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
     private javax.swing.JLabel statoLabel7;
     private javax.swing.JLabel statoLabel8;
     private javax.swing.JLabel statoLabel9;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private String colTurno;
     private Tavolo tavolo;
