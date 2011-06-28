@@ -543,7 +543,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                        ex.printStackTrace();
                     }
 
-                    sendRecoveryMessage(tavolo.getTurno());
+                    
 
                     
                     this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
@@ -688,7 +688,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
                     
                     new JFrameTurno(prossimo.getID()).setVisible(true);
-                    sendRecoveryMessage(tavolo.getTurno());
+                    
 
                 }catch (Exception ex) {
                     ex.printStackTrace();
@@ -750,7 +750,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 System.out.println("ancora in inizializzazione "+tavolo.isInizializzazione());
             }
 
-            sendRecoveryMessage(tavolo.getTurno());
+            
             locker.releaseTavolo();
 
     }
@@ -805,7 +805,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
         }
-        sendRecoveryMessage(tavolo.getTurno());
+        
         locker.releaseTavolo();
     }
 
@@ -947,15 +947,19 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     
 
                     g=Tavolo.getInstance().getGiocatoreCorrente();
-                    if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
+                    if(messageReceived[g.getID()]){
+                         sendRecoveryMessage(g.getID());
+                    }
+                    else if(!Tavolo.getInstance().isTurnoMyGiocatore())
+                    {
                         //autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         
                         try {
                                 System.out.println("giocatore "+g.getUsername()+" non risponde ...");
                                 System.out.println("Ping (2)");
                                 ping(1);
-                                Giocatore g2=Tavolo.getInstance().getGiocatoreCorrente();
-                                if(!Tavolo.getInstance().isTurnoMyGiocatore()&&g==g2&&!messageReceived[g.getID()]){
+
+                                 if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
                                     System.out.println("giocatore "+g.getUsername()+" continua a non rispondere ...");
                                     if(!reconnectionNeeds[g.getID()]){
                                         System.out.println(" giocatore "+g.getUsername()+" non ha effettuato richiesta riconnessione ... chiusura pipe");
@@ -969,8 +973,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                         timer=new GameTimer(GameController.instance, GameTimer.ACTION);
                                         timer.start();
                                     }
-                                }else if(g==g2&&!reconnectionNeeds[g.getID()]){
-                                    sendRecoveryMessage(g.getID());
                                 }
                                 
                             
@@ -978,10 +980,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                             
                         } catch (IOException ex) {
                             System.err.println("impossibile inviare ping o chidere pipe");
-                        }
-                    }else{
-                        if(reconnectionNeeds[g.getID()]){
-                            sendRecoveryMessage(g.getID());
                         }
                     }
                     
