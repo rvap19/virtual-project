@@ -957,13 +957,16 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         
                         try {
                              
-                             
-                            
-                                if(!reconnectionNeeds[g.getID()]){
-                                    comunicator.closePipeFor(g.getID(),g.getUsername());
+                                ping(1);
+                                Giocatore g2=Tavolo.getInstance().getGiocatoreCorrente();
+                                if(!Tavolo.getInstance().isTurnoMyGiocatore()&&g==g2&&!messageReceived[g.getID()]){
+
+                                    if(!reconnectionNeeds[g.getID()]){
+                                        comunicator.closePipeFor(g.getID(),g.getUsername());
+                                    }
+                                    autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
+                                    passaTurno_();
                                 }
-                                autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
-                                passaTurno_();
                                 
                             
                             
