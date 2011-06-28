@@ -108,7 +108,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         
           iconStateLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(0))));
           nomeGiocatoreLabel1.setText(nomeGiocatori.get(0));
-          puntLabel1.setText("0");
+        //  puntLabel1.setText("0");
          // statoLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
            statoLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 2));
 
@@ -117,7 +117,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
              
           iconStateLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(1))));
           nomeGiocatoreLabel2.setText(nomeGiocatori.get(1));
-         puntLabel2.setText("0");
+        // puntLabel2.setText("0");
          //statoLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
           }
  
@@ -125,28 +125,28 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
              
           iconStateLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(2))));
           nomeGiocatoreLabel3.setText(nomeGiocatori.get(2));
-          puntLabel3.setText("0");
+      //    puntLabel3.setText("0");
           //statoLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
           if(lunghPathColore>3){
           
           iconStateLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(3))));
           nomeGiocatoreLabel4.setText(nomeGiocatori.get(3));
-          puntLabel4.setText("0");
+        //  puntLabel4.setText("0");
           //statoLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
           if(lunghPathColore>4){
          
           iconStateLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(4))));
           nomeGiocatoreLabel5.setText(nomeGiocatori.get(4));
-          puntLabel5.setText("0");
+     //     puntLabel5.setText("0");
          // statoLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
           if(lunghPathColore>5){
           
           iconStateLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource(pathColore.get(5))));
           nomeGiocatoreLabel6.setText(nomeGiocatori.get(5));
-          puntLabel6.setText("0");
+      //    puntLabel6.setText("0");
          // statoLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
         }
 

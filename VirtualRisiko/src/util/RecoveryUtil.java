@@ -63,7 +63,7 @@ public class RecoveryUtil {
         }System.out.println();
 
          limit=parameter.getCards_lanch();
-        for(int i=0;i<=limit;i++){
+        for(int i=0;i<limit;i++){
             tavolo.getNuovaCartaID();
         }
 
