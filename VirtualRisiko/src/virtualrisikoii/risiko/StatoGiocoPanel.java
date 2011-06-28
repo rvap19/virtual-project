@@ -444,21 +444,28 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         jLabel2.setName("jLabel2"); // NOI18N
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 5, 50, -1));
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(StatoGiocoPanel.class);
+        statoLabel6.setToolTipText(resourceMap.getString("statoLabel6.toolTipText")); // NOI18N
         statoLabel6.setName("statoLabel6"); // NOI18N
         add(statoLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 170, 30));
 
+        statoLabel3.setToolTipText(resourceMap.getString("statoLabel3.toolTipText")); // NOI18N
         statoLabel3.setName("statoLabel3"); // NOI18N
         add(statoLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 170, 30));
 
+        statoLabel1.setToolTipText(resourceMap.getString("statoLabel1.toolTipText")); // NOI18N
         statoLabel1.setName("statoLabel1"); // NOI18N
         add(statoLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 30));
 
+        statoLabel4.setToolTipText(resourceMap.getString("statoLabel4.toolTipText")); // NOI18N
         statoLabel4.setName("statoLabel4"); // NOI18N
         add(statoLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 170, 30));
 
+        statoLabel5.setToolTipText(resourceMap.getString("statoLabel5.toolTipText")); // NOI18N
         statoLabel5.setName("statoLabel5"); // NOI18N
         add(statoLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 170, 30));
 
+        statoLabel2.setToolTipText(resourceMap.getString("statoLabel2.toolTipText")); // NOI18N
         statoLabel2.setName("statoLabel2"); // NOI18N
         add(statoLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 170, 30));
 
