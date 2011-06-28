@@ -973,7 +973,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                                     if(Tavolo.getInstance().isTurnoMyGiocatore()){
 
                                         timer.stopTimer();
-                                        Thread.sleep(3*1000);
+                                        timer=new GameTimer(GameController.instance, GameTimer.ACTION);
                                         timer.start();
                                     }
                                 }
