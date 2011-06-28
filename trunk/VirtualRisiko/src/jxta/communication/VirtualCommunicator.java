@@ -892,12 +892,14 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
              JxtaBiDiPipe pipe=this.toPeersPipes.get(name);
              if(pipe!=null){
                  pipe.close();
-                 toPeersPipes.put(name, null);
-                 StatusPeerMessage msg=new StatusPeerMessage(turn, false);
-                 sendMessage(msg);
-                 this.elaborateStatusMessage(msg);
+                 
+                 
              }
-        }finally{
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            toPeersPipes.put(name, null);
             pipeLock.unlock();
         }
     }

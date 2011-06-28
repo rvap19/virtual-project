@@ -828,6 +828,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void notifyReconnectionRequest(String playerName) {
+        System.out.println("Ricevuto richiesta riconnessione da "+playerName);
         int turn=this.turns.get(playerName).intValue();
         reconnectionNeeds[turn]=true;
         messageReceived[turn]=true;
@@ -941,6 +942,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             while(continueTimer.get()){
                 try {
                     try {
+                        System.out.println("Ping (1)");
                         ping(1);
                     } catch (IOException ex) {
                        System.err.println("impossibile inviare ping");
@@ -956,12 +958,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         //autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         
                         try {
-                             
+                                System.out.println("giocatore "+g.getUsername()+" non risponde ...");
+                                System.out.println("Ping 2");
                                 ping(1);
                                 Giocatore g2=Tavolo.getInstance().getGiocatoreCorrente();
                                 if(!Tavolo.getInstance().isTurnoMyGiocatore()&&g==g2&&!messageReceived[g.getID()]){
-
+                                    System.out.println("giocatore "+g.getUsername()+" continua a non rispondere ...");
                                     if(!reconnectionNeeds[g.getID()]){
+                                        System.out.println(" giocatore "+g.getUsername()+" non ha effettuato richiesta riconnessione ... chiusura pipe");
                                         comunicator.closePipeFor(g.getID(),g.getUsername());
                                     }
                                     autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
