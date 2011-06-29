@@ -85,10 +85,10 @@ public class Server extends Thread{
     }
 
     public void startJXTA() throws IOException, PeerGroupException{
-      //  this.playerManager=new PlayerManager("foggiano", Server.TCP_PORT);
-      //  this.playerManager.init(null,true);
-        this.rendex=new Rendezvous();
-        rendex.start();
+        this.playerManager=new PlayerManager("foggiano", Server.TCP_PORT);
+        this.playerManager.init(null,true);
+      //  this.rendex=new Rendezvous();
+      //  rendex.start();
     }
 
 
