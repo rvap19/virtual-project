@@ -34,7 +34,7 @@ public class CardChangePanel extends javax.swing.JPanel {
         controller.setGiocatore(Tavolo.getInstance().getMyGiocatore());
         controller.setMappa(Tavolo.getInstance().getMappa());
         initComponents();
-        this.selectJolly.setEnabled(false);
+        
         this.fanteLittleIcon.setText("0");
         this.cannoneLittleIcon.setText("0");
         this.cavaliereLittleIcon.setText("0");

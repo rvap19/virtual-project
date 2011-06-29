@@ -22,16 +22,4 @@
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-  <SubComponents>
-    <Component class="virtualrisikoii.CardChangePanel" name="cardChangePanel1">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="cardChangePanel1" noResource="true"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-          <BorderConstraints direction="Center"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-  </SubComponents>
 </Form>
