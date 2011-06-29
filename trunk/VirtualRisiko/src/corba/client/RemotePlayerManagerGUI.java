@@ -404,10 +404,12 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
     }
 
     public void presenceUpdated(PlayerAdvertisement playerInfo) {
+        System.out.println("scoperto player"+playerInfo.Name);
        updateList(players, playerInfo.getName(), playerInfo, allPlayersList);
     }
 
     public void pipeUpdated(PipeAdvertisement pipeInfo) {
+        System.out.println("scoperto pipe"+pipeInfo.getName());
         this.pipes.put(pipeInfo.getName(), pipeInfo);
     }
 
