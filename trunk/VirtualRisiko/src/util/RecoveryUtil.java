@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.XMapPanel;
+import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Mappa;
 import virtualrisikoii.risiko.MappaException;
@@ -42,6 +43,8 @@ public class RecoveryUtil {
         parameter.setTurno(tavolo.getTurno());
         parameter.setPlayersNames(getPlayersNames(tavolo));
         parameter.setTurnoMyGiocatore(tavolo.getGiocatori().indexOf(tavolo.getMyGiocatore()));
+        parameter.setCarteGiocatori(this.getCarte(tavolo));
+        parameter.setPosizioneCarte(this.getPosizioneCarte(tavolo));
         return parameter;
     }
 
@@ -74,7 +77,7 @@ public class RecoveryUtil {
         setOccupanti(tavolo,parameter.getIdOccupante());
         setNumeroTruppe(tavolo, parameter.getNumeroTruppe());
         setNumeroArmateDisponibili(tavolo,parameter.getArmateDisponibili());
-
+        setCarte(parameter.getCarteGiocatori(),parameter.getPosizioneCarte() , tavolo);
         gameFactory.loadMapPanel();
              panel = gameFactory.getMapPanel();
        
@@ -89,6 +92,86 @@ public class RecoveryUtil {
         }
 
         return obiettivi;
+    }
+
+    private int[] getCarte(Tavolo tavolo){
+        int size=tavolo.getMappa().getNazioni().length;
+        int[] carte=new int[size];
+
+        List<Giocatore> giocatori=tavolo.getGiocatori();
+        int numGiocatori=giocatori.size();
+        for(int i=0;i<numGiocatori;i++){
+            Giocatore g=giocatori.get(i);
+            Iterator<Carta> iter=g.getCarte().iterator();
+            while(iter.hasNext()){
+                Carta current=iter.next();
+                carte[current.getTerritorio().getCodice()]=g.getID();
+            }
+        }
+
+        Iterator<Carta> iter=tavolo.getCarte().iterator();
+        while(iter.hasNext()){
+            Carta current=iter.next();
+            carte[current.getTerritorio().getCodice()]=-1;
+        }
+        return carte;
+    }
+
+    private void setCarte(int[]carte,int[] posizioni,Tavolo tavolo){
+        List<Carta> listCarte=tavolo.getCarte();
+        int numCarte=listCarte.size();
+
+        List<Giocatore> giocatori=tavolo.getGiocatori();
+        Giocatore giocatore;
+        int idGiocatore;
+        for(int i=0;i<numCarte;i++){
+            idGiocatore=carte[i];
+            if(idGiocatore>=0){
+                giocatore=giocatori.get(carte[i]);
+                giocatore.addCarta(listCarte.get(i));
+            }
+
+        }
+
+        ArrayList<Carta> newList=new ArrayList<Carta>(numCarte);
+        for(int i=0;i<numCarte;i++){
+            int position=posizioni[i];
+            if(position>=0){
+                newList.set(position, listCarte.get(i));
+
+            }
+        }
+
+        tavolo.setCarte(newList);
+
+
+    }
+
+    
+
+    private int[] getPosizioneCarte(Tavolo tavolo){
+        int size=tavolo.getMappa().getNazioni().length;
+        int[] posizioniCarte=new int[size];
+
+        List<Giocatore> giocatori=tavolo.getGiocatori();
+        int numGiocatori=giocatori.size();
+        for(int i=0;i<numGiocatori;i++){
+            Giocatore g=giocatori.get(i);
+            Iterator<Carta> iter=g.getCarte().iterator();
+            while(iter.hasNext()){
+                Carta current=iter.next();
+                posizioniCarte[current.getTerritorio().getCodice()]=-1;
+            }
+        }
+
+        Iterator<Carta> iter=tavolo.getCarte().iterator();
+        int pos=0;
+        while(iter.hasNext()){
+            Carta current=iter.next();
+            posizioniCarte[current.getTerritorio().getCodice()]=pos;
+            pos++;
+        }
+        return posizioniCarte;
     }
 
     private int[] getOccupanti(Tavolo tavolo){

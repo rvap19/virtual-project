@@ -33,6 +33,8 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         public static final String MAP_NAME="map_name";
         public static final String MY_TURNO="my_turno";
         public static final String NAMES="play_names";
+        public static final String CARD_PLAYERS="carte_giocatori";
+        public static final String CARD_POSITION="card_position";
     private  RecoveryParameter parameter;
     
 
@@ -73,6 +75,9 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         addTurnoMyGiocatoreElement( parameter.getTurnoMyGiocatore());
 
         addNames(parameter.getPlayersNames());
+
+        addCarteGiocatori(parameter.getCarteGiocatori());
+        addPosizioneCarte(parameter.getPosizioneCarte());
 
     }
 
@@ -118,9 +123,35 @@ public class RecoveryMessage extends VirtualRisikoMessage{
 
         parameter=new RecoveryParameter(mapName, inizializzazione, idOccupante, troopsNumber, objectives, num_armate, turno, numeroGiocatori, seed_card, seed_dice, dice_lanch, card_lanch,names);
         parameter.setTurnoMyGiocatore(turnoMyGiocatore);
+
+        parameter.setCarteGiocatori(elaborateCarteGiocatoriElements(regions,message));
+        parameter.setPosizioneCarte(elaboratePosizionecarte(regions,message));
     }
 
 
+
+    private void addCarteGiocatori(int[] carteGiocatori) {
+        int size=carteGiocatori.length;
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=Integer.toString(carteGiocatori[i]);
+            mE=new StringMessageElement(CARD_PLAYERS,info , null);
+            addMessageElement(namespace, mE);
+        }
+
+    }
+
+    private void addPosizioneCarte(int[] posizioneCarte) {
+        int size=posizioneCarte.length;
+        String info;
+        StringMessageElement mE;
+        for(int i=0;i<size;i++){
+            info=Integer.toString(posizioneCarte[i]);
+            mE=new StringMessageElement(CARD_POSITION,info , null);
+            addMessageElement(namespace, mE);
+        }
+    }
 
     private void addNames(List<String> names){
         int size=names.size();
@@ -132,6 +163,8 @@ public class RecoveryMessage extends VirtualRisikoMessage{
             addMessageElement(namespace, mE);
         }
     }
+
+
 
     private List<String> elaboratePlayersNames(Message message){
         ArrayList<String> list=new ArrayList<String>();
@@ -215,16 +248,7 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         
     }
 
-    private int[] elaborateTerritoriOccupanteElements(Message message,int regions){
-        int[] occupante=new int[regions];
-        Message.ElementIterator iter=message.getMessageElements(REGION_OCCUPANTE_INFO);
-        int counter=0;
-        while(iter.hasNext()){
-            occupante[counter]=Integer.parseInt(iter.next().toString());
-            counter++;
-        }
-        return occupante;
-    }
+    
 
     private void addTerritoriNumeroTruppeElement(int[] numeroTruppe){
         int size=numeroTruppe.length;
@@ -424,6 +448,44 @@ public class RecoveryMessage extends VirtualRisikoMessage{
     public RecoveryParameter getParameter() {
         return parameter;
     }
+
+    private int[] elaborateTerritoriOccupanteElements(Message message,int regions){
+        int[] occupante=new int[regions];
+        Message.ElementIterator iter=message.getMessageElements(REGION_OCCUPANTE_INFO);
+        int counter=0;
+        while(iter.hasNext()){
+            occupante[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return occupante;
+    }
+
+    private int[] elaborateCarteGiocatoriElements(int regions, Message message) {
+        int[] carteGiocatore=new int[regions];
+        Message.ElementIterator iter=message.getMessageElements(CARD_PLAYERS);
+        int counter=0;
+        while(iter.hasNext()){
+            carteGiocatore[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return carteGiocatore;
+    }
+
+    private int[] elaboratePosizionecarte(int regions, Message message) {
+        int[] posizioneCarte=new int[regions];
+        Message.ElementIterator iter=message.getMessageElements(CARD_POSITION);
+        int counter=0;
+        while(iter.hasNext()){
+            posizioneCarte[counter]=Integer.parseInt(iter.next().toString());
+            counter++;
+        }
+        return posizioneCarte;
+    }
+
+    
+
+
+
 
     
 
