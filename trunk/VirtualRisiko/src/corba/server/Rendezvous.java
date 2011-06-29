@@ -27,45 +27,34 @@ package corba.server;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.Properties;
+import jxta.advertisement.GameAdvertisement;
+import jxta.advertisement.PlayerAdvertisement;
+import jxta.advertisement.RegistrationAdvertisement;
 
 import net.jxta.discovery.DiscoveryService;
+import net.jxta.document.AdvertisementFactory;
 
-import net.jxta.document.MimeMediaType;
-import net.jxta.document.StructuredDocumentFactory;
-import net.jxta.document.XMLElement;
 
 import net.jxta.exception.PeerGroupException;
 
-import net.jxta.id.IDFactory;
 
-import net.jxta.peergroup.NetPeerGroupFactory;
 import net.jxta.peergroup.PeerGroup;
-import net.jxta.peergroup.PeerGroupID;
 
-import net.jxta.platform.ModuleSpecID;
 import net.jxta.platform.NetworkConfigurator;
+import net.jxta.platform.NetworkManager;
 
-import net.jxta.protocol.ConfigParams;
-import net.jxta.protocol.ModuleImplAdvertisement;
-import net.jxta.protocol.PeerGroupAdvertisement;
 
 import net.jxta.rendezvous.RendezvousEvent;
 import net.jxta.rendezvous.RendezVousService;
 import net.jxta.rendezvous.RendezvousListener;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 public class Rendezvous implements RendezvousListener {
    RendezVousService     netpgRendezvous;
-   RendezVousService     apppgRendezvous;
-   private               Logger               logger;
    private               String               jxtaHome;
    private               PeerGroup            netPeerGroup;
    private               DiscoveryService     discovery;
@@ -74,33 +63,33 @@ public class Rendezvous implements RendezvousListener {
    // our chosen peer ID
    private               String               peerID = "urn:jxta:uuid-79B6A084D3264DF8B641867D926C48D9F8BA10F44BA74475ABE2BB568892B0DC03";
 
- 
+   
+    private NetworkManager MyNetworkManager;
 
    // ---------------------------------------------------------------------------------
 
    public Rendezvous() {
       jxtaHome = ".jxta";
       System.setProperty("JXTA_HOME", jxtaHome);
-      logger = initLogger();
-      logger.info("Private " + this.getClass().getName() + " Starting");
+      
+      System.out.println("Private " + this.getClass().getName() + " Starting");
    }
 
    // --------------------------------------------------------------------------------
 
-   private void start() {
+   public void start() {
       try {
          configureJXTA();
          startJXTA();
-         createPeerGroup();
          waitForQuit();
       }
       catch (PeerGroupException e) {
          e.printStackTrace();
-         logger.warn("Exiting.");
+       
          System.exit(0);
       }
       catch (Exception e) {
-         logger.warn("Unable to start JXTA platform.  Exiting.");
+         
          e.printStackTrace();
          System.exit(0);
       }
@@ -109,11 +98,11 @@ public class Rendezvous implements RendezvousListener {
    // -----------------------------------------------------------------------------------------
 
    private void startJXTA() throws PeerGroupException, Exception {
-      logger.info("Starting JXTA platform");
-
-    
+      System.out.println("Starting JXTA platform");
 
       
+
+      netPeerGroup   = MyNetworkManager.startNetwork();
 
       // The rendezvous service for NetPeerGroup
       netpgRendezvous = netPeerGroup.getRendezVousService();
@@ -123,63 +112,39 @@ public class Rendezvous implements RendezvousListener {
       // The NetPeerGroup discovery service 
       discovery = netPeerGroup.getDiscoveryService();
 
-      logger.info("Platform started");
+      System.out.println("Platform started");
    }
 
-   // -----------------------------------------------------------------------------------------
-   
-   private void createPeerGroup() throws Exception, PeerGroupException {
+  
 
-      // The new-application subgroup parameters.
-      String name = "My App Group";
-      String desc = "My App Group Description";
-      String gid =  "urn:jxta:uuid-79B6A084D3264DF8B641867D926C48D902";
-      String specID = "urn:jxta:uuid-309B33F10EDF48738183E3777A7C3DE9C5BFE5794E974DD99AC7D409F5686F3306";
+   private void configureJXTA() throws IOException {
+      System.out.println("Configuring platform");
 
-      StringBuilder sb = new StringBuilder("=Creating group:  ");
-      sb.append(name).append(", ");
-      sb.append(desc).append(", ");
-      sb.append(gid).append(", ");
-      sb.append(specID);
-      logger.info(sb.toString());
+      AdvertisementFactory.registerAdvertisementInstance(
+                PlayerAdvertisement.getAdvertisementType(),
+                new PlayerAdvertisement.Instantiator());
 
-      ModuleImplAdvertisement implAdv = netPeerGroup.getAllPurposePeerGroupImplAdvertisement();
-      ModuleSpecID modSpecID = (ModuleSpecID )IDFactory.fromURI(new URI(specID));
-      implAdv.setModuleSpecID(modSpecID);
+        AdvertisementFactory.registerAdvertisementInstance(
+                GameAdvertisement.getAdvertisementType(),
+                new GameAdvertisement.Instantiator());
 
-      // Publish the Peer Group implementation advertisement.
-      discovery.publish(implAdv);
-      discovery.remotePublish(null, implAdv);
+        AdvertisementFactory.registerAdvertisementInstance(
+                RegistrationAdvertisement.getAdvertisementType(),
+                new RegistrationAdvertisement.Instantiator());
 
-      //   Create the new group using the group ID, advertisement, name, and description
-      PeerGroupID groupID = (PeerGroupID )IDFactory.fromURI(new URI(gid));
-      PeerGroup newGroup = netPeerGroup.newGroup(groupID,implAdv,name,desc);
+        File ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + "config_file"+ System.getProperty("file.separator") + "SERVER");
 
-      // Start the rendezvous for our applcation subgroup.
-      apppgRendezvous = newGroup.getRendezVousService();
-      apppgRendezvous.addListener(this);
-      apppgRendezvous.startRendezVous();
+            NetworkManager.RecursiveDelete(ConfigurationFile);
+         MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS_RELAY, "SERVER", ConfigurationFile.toURI());
 
-      // Publish the group remotely.  newGroup() handles the local publishing. 
-      PeerGroupAdvertisement groupAdv = newGroup.getPeerGroupAdvertisement();
-      discovery.remotePublish(null, groupAdv);
 
-      logger.info("Private Application newGroup = " + name + " created and published");
-   }
-
-   // -----------------------------------------------------------------------------------------
-
-   private void configureJXTA() {
-      logger.info("Configuring platform");
-      logger.info("RDV_HOME = " + jxtaHome);
-
-      configurator = new NetworkConfigurator();
-      configurator.setHome(new File(jxtaHome));
+      configurator = MyNetworkManager.getConfigurator();
+      configurator.setHome(ConfigurationFile);
       configurator.setPeerId(peerID);
-      configurator.setName("My Peer Name");
+      configurator.setName("My SERVER Name");
       configurator.setPrincipal("ofno");
       configurator.setPassword("consequence");
-      configurator.setDescription("Private Rendezvous");
+      configurator.setDescription("Risiko Rendezvous");
       configurator.setUseMulticast(false);
 
       try {
@@ -195,6 +160,7 @@ public class Rendezvous implements RendezvousListener {
          configurator.setTcpEnabled(true);
          configurator.setTcpIncoming(true);
          configurator.setTcpOutgoing(true);
+          configurator.setTcpPort(Server.TCP_PORT);
       }
       catch(URISyntaxException e) {
          e.printStackTrace();
@@ -202,7 +168,7 @@ public class Rendezvous implements RendezvousListener {
       }
 
       // Configure the private sandbox network
-      logger.info("Configuring private net");
+      System.out.println("Configuring private net");
       /*
       // XOXO:  In a future release, this will probably be supported, with the two-arg 
       // constructor for NetPeerGroupFactory().  Leave it for reference purposes.
@@ -219,7 +185,7 @@ public class Rendezvous implements RendezvousListener {
          System.exit(1);
       }
 
-      logger.info("Platform configured and saved");
+      System.out.println("Platform configured and saved");
    }
 
    // -----------------------------------------------------------------------------------------
@@ -265,37 +231,9 @@ public class Rendezvous implements RendezvousListener {
                eventDescription = "UNKNOWN RENDEZVOUS EVENT";
          }
 
-         logger.info("RendezvousEvent:  event =  " 
+         System.out.println("RendezvousEvent:  event =  "
                      + eventDescription + " from peer = " + event.getPeer());
    }
-
-   // -----------------------------------------------------------------------------------------
-
-   private Logger initLogger() {
-      // See http://logging.apache.org/log4j/docs/manual.html
-      // Allows for deepest control over Log4J config.
-      System.setProperty("log4j.defaultInitOverride", "true");
-
-      Logger logger=null;
-      try {
-         ClassLoader cl = this.getClass().getClassLoader();
-         InputStream is = cl.getResourceAsStream("log4j.properties");
-         Properties p = new Properties();
-         p.load(is);
-         is.close();
-         org.apache.log4j.PropertyConfigurator.configure(p);
-         logger = Logger.getLogger(this.getClass());
-      }
-      catch (Exception e) {
-         e.printStackTrace();  
-      }
-      finally {
-         return logger;
-      }
-
-   }
-
-   // -----------------------------------------------------------------------------------------
 
    synchronized public void waitForQuit() {
          try {
