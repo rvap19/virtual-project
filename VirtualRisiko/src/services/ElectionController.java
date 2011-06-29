@@ -84,8 +84,10 @@ public class ElectionController implements PipeMsgListener{
         }
 
         if(send){
+            for(int i=0;i<9&&!ackReceived;i++)
                 try {
-                    Thread.sleep(90 * 1000);
+                    Thread.sleep(10 * 1000);
+                    System.out.println("attesa "+i+" .. nessun ack ricevuto per REQUEST election");
                 } catch (InterruptedException ex) {
                    ex.printStackTrace();
                 }
@@ -94,23 +96,30 @@ public class ElectionController implements PipeMsgListener{
         }
 
         if(ackReceived){
+            System.out.println("ack ricevuto ....attedo comunicazione nuovo manager");
             return;
         }
 
         ElectionMessage message=sendElectionMessages();
+
                      //closePipes();
         ackReceived=false;
          if(message!=null){
+             System.out.println("inviati messaggi di elezione");
+             for(int i=0;i<9&&!ackReceived;i++)
               try {
-                    Thread.sleep(90 * 1000);
+                    Thread.sleep(10 * 1000);
+                    System.out.println("attesa "+i+" .. nessun ack ricevuto per ELECTION");
            } catch (InterruptedException ex) {
                    ex.printStackTrace();
            }
             if(!ackReceived){
+                System.out.println("Nessun ack ricevuto per ELECTION ...sono il nuovo manager");
                 this.electionListener.notifyElection(message);
                 
             }
          }else{
+            
             System.err.println("rieffettuare il login");
             System.exit(-1);
          }

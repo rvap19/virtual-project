@@ -180,9 +180,13 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
         isCentral=false;
 
-        if(toCentralPeer!=null){
-            this.toCentralPeer.setPipeEventListener(null);
-            this.toCentralPeer.close();
+        try{
+            if(toCentralPeer!=null){
+                this.toCentralPeer.setPipeEventListener(null);
+                this.toCentralPeer.close();
+            }
+        }catch(Exception ex){
+            System.out.println("problemi in chiusura vecchia pipe ...");
         }
         
         this.centralPeerPipeAdv=centralPipe;
