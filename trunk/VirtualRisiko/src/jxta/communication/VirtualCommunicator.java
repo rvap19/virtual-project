@@ -1006,13 +1006,13 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             }
 
             closeVirtualCommunicator();
-          /*  try {
+            try {
                 if(!electionManager.isStarted()){
-                        electionManager.startElection(false);
+                        electionManager.startElection();
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
-            }*/
+            }
 
 
         }

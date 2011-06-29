@@ -67,7 +67,7 @@ public class ElectionController implements PipeMsgListener{
 
     
     
-    public void startElection(boolean messageReceived) throws IOException{
+    public void startElection() throws IOException{
         started=true;
         System.out.println("start election");
         List<Giocatore> giocatori =Tavolo.getInstance().getGiocatori();
@@ -93,29 +93,32 @@ public class ElectionController implements PipeMsgListener{
               //  closePipes();
         }
 
-        ElectionMessage message=null;
-
-        if(!ackReceived&&send||messageReceived||!send){
-                    message=sendElectionMessages();
-                     //closePipes();
+        if(ackReceived){
+            return;
         }
-        
-        
-        if(message!=null ){
-            ackReceived=false;
-            
-            try {
+
+        ElectionMessage message=sendElectionMessages();
+                     //closePipes();
+        ackReceived=false;
+         if(message!=null){
+              try {
                     Thread.sleep(90 * 1000);
            } catch (InterruptedException ex) {
                    ex.printStackTrace();
            }
-            if(ackReceived){
+            if(!ackReceived){
                 this.electionListener.notifyElection(message);
+                
             }
-        }
+         }
+        
+           
+            
+           
+        
 
-        started=false;
-                System.out.println("XXX");
+        
+              
 
         
         
@@ -226,7 +229,7 @@ public class ElectionController implements PipeMsgListener{
         try {
             this.sendMessage(pipe, ack);
             if(!this.isStarted()){
-                this.startElection(true);
+                this.startElection();
             }
         } catch (IOException ex) {
             System.err.println("impossibile inviare risposta in notify connection");
@@ -236,16 +239,18 @@ public class ElectionController implements PipeMsgListener{
     }
 
     public void notifyElectionMessage(JxtaBiDiPipe pipe,ElectionMessage eMsg) {
-        if(!VirtualCommunicator.instance.isManagerOnLine()){
+        if(VirtualCommunicator.instance.isManagerOnLine()){
             AckMessage ack=new AckMessage(0);
             try {
                 this.sendMessage(pipe, ack);
             }catch(Exception ex){
                 ex.printStackTrace();
             }
+        }else{
             this.electionListener.notifyElection(eMsg);
-            started=false;
         }
+            started=false;
+        
     }
 
    
