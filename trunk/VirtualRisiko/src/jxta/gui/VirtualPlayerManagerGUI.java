@@ -638,9 +638,21 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         } 
     }
 
+    private String newManager=null;
      public void notifyElection(ElectionMessage msg) {
+
+         if(newManager==null){
+             newManager=msg.getPeerID();
+             System.out.println("Primo tentativo ...  nuovo manager :: "+newManager);
+             return;
+         }
          
-        String newManager=msg.getPeerID();
+         String s=msg.getPeerID();
+         if(!s.equals(manager)){
+             newManager=s;
+             System.out.println("cambio vincitore elezione...  nuovo manager :: "+newManager);
+             return;
+         }
         int currentTurn=msg.getCurrentTurn();
         System.out.println("elezione notificata nuovo manager :: "+newManager);
         PipeAdvertisement pipeAdv=this.pipes.get(newManager+" Pipe");
