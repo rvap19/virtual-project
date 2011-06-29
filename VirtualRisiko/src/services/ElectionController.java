@@ -80,7 +80,7 @@ public class ElectionController implements PipeMsgListener{
 
         while(iter.hasNext()){
             String name=iter.next().getUsername();
-            send=sendElectionRequestMessages(name);                       
+            send=send||sendElectionRequestMessages(name);
         }
 
         if(send){
