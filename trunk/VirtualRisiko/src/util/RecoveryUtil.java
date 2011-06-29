@@ -96,7 +96,7 @@ public class RecoveryUtil {
 
     private int[] getCarte(Tavolo tavolo){
         int size=tavolo.getMappa().getNazioni().length;
-        int[] carte=new int[size];
+        int[] carte=new int[size+2];
 
         List<Giocatore> giocatori=tavolo.getGiocatori();
         int numGiocatori=giocatori.size();
@@ -151,7 +151,7 @@ public class RecoveryUtil {
 
     private int[] getPosizioneCarte(Tavolo tavolo){
         int size=tavolo.getMappa().getNazioni().length;
-        int[] posizioniCarte=new int[size];
+        int[] posizioniCarte=new int[size+2];
 
         List<Giocatore> giocatori=tavolo.getGiocatori();
         int numGiocatori=giocatori.size();

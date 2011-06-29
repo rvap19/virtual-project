@@ -414,8 +414,16 @@ public  class Tavolo {
             carte.add(c);
         }
 
-        carte.add(new Carta(Carta.JOLLY));
-        carte.add(new Carta(Carta.JOLLY));
+        Carta jolly1=new Carta(Carta.JOLLY);
+        Carta jolly2=new Carta(Carta.JOLLY);
+
+        Territorio guardia1=new Territorio(42, "Jolly 1");
+        Territorio guardia2=new Territorio(43, "jolly 2");
+
+        jolly1.setTerritorio(guardia1);
+        jolly2.setTerritorio(guardia2);
+        carte.add(jolly1);
+        carte.add(jolly2);
 
 
 
