@@ -26,6 +26,9 @@ public class RecoveryParameter {
     private  int cards_lanch;
     private int turnoMyGiocatore;
 
+    private int[] carteGiocatori;
+    private int[] posizioneCarte;
+
     private List<String> names;
 
 
@@ -49,6 +52,32 @@ public class RecoveryParameter {
     public RecoveryParameter(){
 
     }
+
+    public int[] getCarteGiocatori() {
+        return carteGiocatori;
+    }
+
+    public void setCarteGiocatori(int[] carteGiocatori) {
+        this.carteGiocatori = carteGiocatori;
+    }
+
+    public List<String> getNames() {
+        return names;
+    }
+
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
+    public int[] getPosizioneCarte() {
+        return posizioneCarte;
+    }
+
+    public void setPosizioneCarte(int[] posizioneCarte) {
+        this.posizioneCarte = posizioneCarte;
+    }
+
+    
 
     public int getCards_lanch() {
         return cards_lanch;

@@ -500,6 +500,10 @@ public  class Tavolo {
         return lastAttacco!=null;
     }
 
+    public void setCarte(List<Carta> newList) {
+        this.carte=newList;
+    }
+
 
    
 
