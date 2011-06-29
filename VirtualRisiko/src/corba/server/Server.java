@@ -30,6 +30,7 @@ public class Server extends Thread{
 
     private PlayerManager playerManager;
     private String[] args;
+    private Rendezvous rendex;
 
     public Server(String[] args){
         this.args=args;
@@ -84,8 +85,10 @@ public class Server extends Thread{
     }
 
     public void startJXTA() throws IOException, PeerGroupException{
-        this.playerManager=new PlayerManager("foggiano", Server.TCP_PORT);
-        this.playerManager.init(null,true);
+      //  this.playerManager=new PlayerManager("foggiano", Server.TCP_PORT);
+      //  this.playerManager.init(null,true);
+        this.rendex=new Rendezvous();
+        rendex.start();
     }
 
 
@@ -94,8 +97,9 @@ public class Server extends Thread{
     public static void main(String args[])throws Exception  {
 
         Server server=new Server(args);
-        server.startJXTA();
         server.start();
+        server.startJXTA();
+        
    
 
     }
