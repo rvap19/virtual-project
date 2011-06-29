@@ -138,6 +138,21 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
+    public void restartTimers(){
+        this.timer=new GameTimer(this, GameTimer.ACTION);
+        if(Tavolo.getInstance().isTurnoMyGiocatore()){
+                 timer.start();
+        }
+        if(comunicator.isManager()){
+            messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
+
+
+
+             this.managerTimer=new ManagerPingerThread();
+             managerTimer.start();
+
+        }
+    }
 
     public TimeoutNotifier getTimeoutNotifier() {
         return timeoutNotifier;
