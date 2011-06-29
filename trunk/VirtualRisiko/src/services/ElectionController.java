@@ -110,6 +110,9 @@ public class ElectionController implements PipeMsgListener{
                 this.electionListener.notifyElection(message);
                 
             }
+         }else{
+            System.err.println("rieffettuare il login");
+            System.exit(-1);
          }
         
            
