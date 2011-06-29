@@ -648,7 +648,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
          }
          
          String s=msg.getPeerID();
-         if(!s.equals(manager)){
+         if(!s.equals(newManager)){
              newManager=s;
              System.out.println("cambio vincitore elezione...  nuovo manager :: "+newManager);
              return;
