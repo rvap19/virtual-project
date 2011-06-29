@@ -90,9 +90,13 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
             NetworkManager.RecursiveDelete(ConfigurationFile);
             // Creation of the network manager
+            if(!startAsRendezvous){
              MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
                     Name, ConfigurationFile.toURI());
-
+            }else{
+                 MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS_RELAY,
+                    Name, ConfigurationFile.toURI());
+            }
 
             // Retrieving the network configurator
             NetworkConfigurator MyNetworkConfigurator = MyNetworkManager.getConfigurator();
