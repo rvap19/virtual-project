@@ -101,7 +101,7 @@ public class ElectionController implements PipeMsgListener{
         }
 
         ElectionMessage message=sendElectionMessages();
-
+        this.electionListener.notifyElection(message);
                      //closePipes();
         ackReceived=false;
          if(message!=null){
@@ -115,7 +115,9 @@ public class ElectionController implements PipeMsgListener{
            }
             if(!ackReceived){
                 System.out.println("Nessun ack ricevuto per ELECTION ...sono il nuovo manager");
+
                 this.electionListener.notifyElection(message);
+               sendElectionMessages();
                 
             }
          }else{
