@@ -137,12 +137,20 @@ public class MessageSequencer {
 
             int position=currentMessageID%buffer.length;
             while(buffer[position]!=null){
-                this.notifier.notifyMessage(buffer[position],currentMessageID);
-                buffer[position]=null;
-                System.out.println("notificato msg "+currentMessageID+" e rimosso del buffer");
-                currentMessageID++;
-                
-                position=currentMessageID%buffer.length;
+                int ID=-1;
+                try{
+                    ID=Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString());
+                }catch(Exception ex){
+                    System.out.println("id msg format error");
+                }
+                if(ID==currentMessageID){
+                    this.notifier.notifyMessage(buffer[position],currentMessageID);
+                    System.out.println("notificato msg "+currentMessageID+" e rimosso del buffer");
+                    currentMessageID++;
+                    position=currentMessageID%buffer.length;
+                }else{
+                    buffer[position]=null;
+                }
             }
         }finally{
             lock.unlock();
