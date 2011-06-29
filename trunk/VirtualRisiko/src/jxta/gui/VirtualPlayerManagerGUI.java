@@ -656,7 +656,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
                     }
                 }
                 VirtualCommunicator.getInstance().commuteToCentralCommunicator(pipeAdv, names, true);
-                
+                GameController.getInstance().restartTimers();
                 
               /*  List<Giocatore> players=Tavolo.getInstance().getGiocatori();
                 Giocatore g;
