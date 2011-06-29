@@ -13,6 +13,9 @@ package virtualrisikoii;
 
 import javax.swing.JFrame;
 import services.CardChangeController;
+import virtualrisikoii.risiko.Carta;
+import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.Territorio;
 
 /**
  *
@@ -63,4 +66,17 @@ public class CardChangeDialog extends JFrame {
     private virtualrisikoii.CardChangePanel cardChangePanel1;
     // End of variables declaration//GEN-END:variables
 
+
+    public static void main(String[] args){
+        CardChangeController controller=new CardChangeController();
+        Giocatore g=new Giocatore(0);
+        Carta c1=new Carta(Carta.JOLLY);
+        Territorio guardia=new Territorio(1, "guardia");
+        c1.setTerritorio(guardia);
+
+        g.addCarta(c1);
+
+       
+        
+    }
 }
