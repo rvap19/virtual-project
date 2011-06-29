@@ -74,7 +74,7 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
     public PipeAdvertisement getOutputPipe(){
         return this.playerDiscover.getPipeAdvertisement();
     }
-    public void init() throws IOException, PeerGroupException{
+    public void init(String seed,boolean startAsRendezvous) throws IOException, PeerGroupException{
         AdvertisementFactory.registerAdvertisementInstance(
                 PlayerAdvertisement.getAdvertisementType(),
                 new PlayerAdvertisement.Instantiator());
@@ -96,7 +96,12 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
 
             // Retrieving the network configurator
             NetworkConfigurator MyNetworkConfigurator = MyNetworkManager.getConfigurator();
-           
+
+            MyNetworkConfigurator.clearRendezvousSeeds();
+            if(seed!=null){
+                URI TheSeed = URI.create(seed);
+                MyNetworkConfigurator.addSeedRendezvous(TheSeed);
+            }
 
             
             MyNetworkConfigurator.setTcpPort(TcpPort);
@@ -114,10 +119,14 @@ public class PlayerManager implements PlayerListener,GameListener,RegistrationLi
             // MyNetworkManager.waitForRendezvousConnection(3000);
 
             NetPeerGroup  = MyNetworkManager.startNetwork();
-            NetPeerGroup.getRendezVousService().setAutoStart(true);
-             MyNetworkManager.waitForRendezvousConnection(3000);
-            if(!NetPeerGroup.getRendezVousService().isConnectedToRendezVous()){
+            if(startAsRendezvous){
                 NetPeerGroup.getRendezVousService().startRendezVous();
+            }else{
+                NetPeerGroup.getRendezVousService().setAutoStart(true);
+                 MyNetworkManager.waitForRendezvousConnection(3000);
+                if(!NetPeerGroup.getRendezVousService().isConnectedToRendezVous()){
+                    NetPeerGroup.getRendezVousService().startRendezVous();
+                }
             }
              
              

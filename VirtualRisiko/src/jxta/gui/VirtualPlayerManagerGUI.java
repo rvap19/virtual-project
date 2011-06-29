@@ -92,7 +92,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         games=new HashMap<String, GameAdvertisement>();
         registrations=new HashMap<String, RegistrationAdvertisement>();
         pipes=new HashMap<String,PipeAdvertisement>();
-        manager.init();
+            manager.init(null,false);
         
         manager.addRegistrationListener(this);
         manager.addGameListener(this);
