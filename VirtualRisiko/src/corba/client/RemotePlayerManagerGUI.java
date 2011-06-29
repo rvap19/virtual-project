@@ -76,6 +76,8 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
        gamesList.setModel(new DefaultListModel());
        currentPlayersInGameList.setModel(new DefaultListModel());
        allPlayersList.setModel(new DefaultListModel());
+       manager.addPipeListener(this);
+       manager.addPlayerListener(this);
 
     }
 
