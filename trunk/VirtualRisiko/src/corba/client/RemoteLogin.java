@@ -5,7 +5,11 @@ import corba.RisikoServer;
 import corba.RisikoServerHelper;
 import corba.Summary;
 import corba.UserInfo;
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import net.jxta.exception.PeerGroupException;
 
 
 import org.omg.CORBA.ORB;
@@ -259,7 +263,7 @@ public class RemoteLogin extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
-    public static void main2(String args[])throws Exception {
+    public static void main(String args[])throws Exception {
 
         ORB orb = ORB.init(args, null);
         org.omg.CORBA.Object objRef =
@@ -278,36 +282,6 @@ public class RemoteLogin extends javax.swing.JFrame {
                 login.setVisible(true);
             }
         });
-    }
-
-    public static void main(String args[]) {
-
-        try {
-            // Step 1: Instantiate the ORB
-            ORB orb = ORB.init(args, null);
-
-            // Step 2: Resolve the PersistentHelloServant by using INS's
-            // corbaname url. The URL locates the NameService running on
-            // localhost and listening on 1050 and resolve
-            // 'PersistentServerTutorial' from that NameService
-            org.omg.CORBA.Object obj = orb.string_to_object(
-                "corbaname::localhost:1050#Hello");
-
-            RisikoServer hello = RisikoServerHelper.narrow( obj );
-            final RemoteLogin login=new RemoteLogin();
-            login.setHelloImpl(hello);
-
-
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                  login.setVisible(true);
-               }
-            });
-
-        } catch ( Exception e ) {
-            System.err.println( "Exception in PersistentClient.java..." + e );
-            e.printStackTrace( );
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
