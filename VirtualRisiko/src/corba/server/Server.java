@@ -42,6 +42,7 @@ public class Server extends Thread{
     }
 
 
+
     public void startORB(){
          try{
               // create and initialize the ORB
@@ -92,13 +93,15 @@ public class Server extends Thread{
     }
 
 
-    
+    public static void install(org.omg.CORBA.ORB orb){
 
-    public static void main(String args[])throws Exception  {
+    }
+
+    public static void main(String args[])  {
 
         Server server=new Server(args);
         server.start();
-        server.startJXTA();
+    //    server.startJXTA();
         
    
 
