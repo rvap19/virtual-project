@@ -1,11 +1,15 @@
 package corba.client;
 
 
+import corba.Player;
+import corba.PlayerHelper;
 import corba.RisikoServer;
 import corba.RisikoServerHelper;
 import corba.Summary;
 import corba.UserInfo;
+import corba.impl.PlayerImpl;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -15,6 +19,8 @@ import net.jxta.exception.PeerGroupException;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.PortableServer.POA;
+import org.omg.PortableServer.POAHelper;
 
 /*
  * To change this template, choose Tools | Templates
@@ -36,6 +42,7 @@ public class RemoteLogin extends javax.swing.JFrame {
     /** Creates new form Login */
     
     private RisikoServer server;
+    private ORB orb;
 
     public RemoteLogin() {
         initComponents();
@@ -53,6 +60,15 @@ public class RemoteLogin extends javax.swing.JFrame {
     public void setHelloImpl(RisikoServer helloImpl) {
         this.server = helloImpl;
     }
+
+    public ORB getOrb() {
+        return orb;
+    }
+
+    public void setOrb(ORB orb) {
+        this.orb = orb;
+    }
+
 
 
     /** This method is called from within the constructor to
@@ -214,10 +230,13 @@ public class RemoteLogin extends javax.swing.JFrame {
         if(info.logged){
             System.out.println("Utente "+usernameField.getText()+" autenticato");
             try {
-                // server.shutdown();
-
-                new RemotePlayerManagerGUI(server, info, info.username).setVisible(true);
-                this.dispose();
+                PlayerImpl player  = new PlayerImpl(info);
+                    // server.shutdown();
+                    
+                    ORBThread thread=new ORBThread(server, info, player, orb);
+                    thread.start();
+                    new RemotePlayerManagerGUI(server, player, info.username).setVisible(true);
+                    this.dispose();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -265,23 +284,32 @@ public class RemoteLogin extends javax.swing.JFrame {
     */
     public static void main(String args[])throws Exception {
 
-        ORB orb = ORB.init(args, null);
-        org.omg.CORBA.Object objRef =
-                 orb.resolve_initial_references("NameService");
-        NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+         //initialize orb
+            Properties props = System.getProperties();
+            props.put("org.omg.CORBA.ORBInitialPort", "1050");
+            //Replace MyHost with the name of the host on which you are running the server
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            ORB orb = ORB.init(args, props);
+	    System.out.println("Initialized ORB");
 
-        String name = "Hello";
-        RisikoServer helloImpl = RisikoServerHelper.narrow(ncRef.resolve_str(name));
+            //Resolve MessageServer
+	    RisikoServer risikoServer = RisikoServerHelper.narrow(
+	        orb.string_to_object("corbaname:iiop:1.2@localhost:1050#RisikoServer"));
+
+            
+            
 
         final RemoteLogin login=new RemoteLogin();
-        login.setHelloImpl(helloImpl);
-
-
+        login.setHelloImpl(risikoServer);
+        login.setOrb(orb);
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 login.setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -299,4 +327,49 @@ public class RemoteLogin extends javax.swing.JFrame {
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 
+    private  class ORBThread extends Thread{
+        private ORB orb;
+        private PlayerImpl player;
+        private RisikoServer server;
+        private UserInfo info;
+        public ORBThread(RisikoServer server,UserInfo info,PlayerImpl player,ORB orb){
+            this.server=server;
+            this.player=player;
+            this.orb=orb;
+            this.info=info;
+        }
+
+        @Override
+        public void run() {
+            try{
+            //Instantiate Servant and create reference
+                POA rootPOA = POAHelper.narrow(
+                    orb.resolve_initial_references("RootPOA"));
+                System.out.println("rootPOA resolved");
+
+
+
+                rootPOA.activate_object(player);
+                Player ref = PlayerHelper.narrow(
+                    rootPOA.servant_to_reference(player));
+
+
+System.out.println("try to register with Risiko Server");
+                //Register listener reference (callback object) with MessageServer
+                this.server.registerPlayer(ref);
+                System.out.println("Player registered with Risiko Server");
+
+                //Activate rootpoa
+                rootPOA.the_POAManager().activate();
+
+                //Wait for messages
+                System.out.println("Wait for incoming messages");
+                orb.run();
+            }catch(Exception ex){
+               ex.printStackTrace();
+            }
+        }
+
+
+    }
 }

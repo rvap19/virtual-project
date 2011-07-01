@@ -6,12 +6,15 @@ import corba.RisikoServerHelper;
 
 import corba.impl.RisikoServerImpl;
 import java.io.IOException;
+import java.util.Properties;
 import jxta.PlayerManager;
 import net.jxta.exception.PeerGroupException;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.CosNaming.NamingContextHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
@@ -30,7 +33,6 @@ public class Server extends Thread{
 
     private PlayerManager playerManager;
     private String[] args;
-    private Rendezvous rendex;
 
     public Server(String[] args){
         this.args=args;
@@ -45,44 +47,43 @@ public class Server extends Thread{
 
     public void startORB(){
          try{
-              // create and initialize the ORB
-              ORB orb = ORB.init(args, null);
+              //create and initialize the ORB
+            Properties props = System.getProperties();
+            props.put("org.omg.CORBA.ORBInitialPort", "1050");
+            //Replace MyHost with the name of the host on which you are running the server
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            ORB orb = ORB.init(args, props);
+	    System.out.println("Initialized ORB");
 
-              // get reference to rootpoa & activate the POAManager
-              POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-              rootpoa.the_POAManager().activate();
+            //Instantiate Servant and create reference
+	    POA rootPOA = POAHelper.narrow(
+		orb.resolve_initial_references("RootPOA"));
+	    RisikoServerImpl msImpl = new RisikoServerImpl();
+	    rootPOA.activate_object(msImpl);
+	    RisikoServer msRef = RisikoServerHelper.narrow(
+		rootPOA.servant_to_reference(msImpl));
 
-              // create servant and register it with the ORB
-              RisikoServerImpl helloImpl = new RisikoServerImpl();
-              helloImpl.setORB(orb);
+            //Bind reference with NameService
+	    NamingContext namingContext = NamingContextHelper.narrow(
+		orb.resolve_initial_references("NameService"));
+            System.out.println("Resolved NameService");
+            NameComponent[] nc = { new NameComponent("RisikoServer", "") };
+	    namingContext.rebind(nc, msRef);
 
-              // get object reference from the servant
-              org.omg.CORBA.Object ref = rootpoa.servant_to_reference(helloImpl);
-              RisikoServer href = RisikoServerHelper.narrow(ref);
+	    //Activate rootpoa
+            rootPOA.the_POAManager().activate();
 
-              // get the root naming context
-              // NameService invokes the name service
-              org.omg.CORBA.Object objRef =
-                  orb.resolve_initial_references("NameService");
-              // Use NamingContextExt which is part of the Interoperable
-              // Naming Service (INS) specification.
-              NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+            //Start readthread and wait for incoming requests
+            System.out.println("Risiko Server ready and running ....");
 
-              // bind the Object Reference in Naming
-              String name = "Hello";
-              NameComponent path[] = ncRef.to_name( name );
-              ncRef.rebind(path, href);
+            orb.run();
 
-              System.out.println("HelloServer ready and waiting ...");
-
-              // wait for invocations from clients
-              orb.run();
         }catch (Exception e) {
             System.err.println("ERROR: " + e);
             e.printStackTrace(System.out);
         }
 
-        System.out.println("HelloServer Exiting ...");
+        
     }
 
     public void startJXTA() throws IOException, PeerGroupException{

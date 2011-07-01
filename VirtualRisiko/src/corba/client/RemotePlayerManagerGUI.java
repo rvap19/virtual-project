@@ -14,60 +14,78 @@ package corba.client;
 
 
 import corba.PartitaInfo;
+import corba.PlayerOperations;
+import corba.RegistrationInfo;
 import corba.RisikoServer;
 import corba.UserInfo;
+import corba.impl.PlayerImpl;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import jxta.PlayerManager;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.PlayerAdvertisement;
-import jxta.advertisement.RegistrationAdvertisement;
+import jxta.communication.VirtualCommunicator;
 import jxta.communication.messages.InitMessage;
 import jxta.communication.messages.listener.InitListener;
 import jxta.gui.GameDialog;
 import jxta.listener.GameListener;
 import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
-import jxta.listener.RegistrationListener;
 import net.jxta.document.Advertisement;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.protocol.PipeAdvertisement;
+import services.ElectionController;
+import services.GameController;
+import util.GameFactory;
+import virtualrisikoii.GameParameter;
+import virtualrisikoii.VirtualRisikoIIApp;
+import virtualrisikoii.VirtualRisikoIIView;
+import virtualrisikoii.XMapPanel;
+import virtualrisikoii.risiko.Mappa;
+import virtualrisikoii.risiko.Obiettivo;
+import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
  * @author root
  */
-public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener  , InitListener {
+public class RemotePlayerManagerGUI extends javax.swing.JFrame implements PlayerOperations,GameListener,PlayerListener,PipeListener  , InitListener {
 
    private HashMap<String,UserInfo> players;
    private HashMap<String,PartitaInfo> games;
    private HashMap<String,PipeAdvertisement> pipes;
 
    private RisikoServer server;
-   private UserInfo myIdentity;
+   private PlayerImpl player;
+   
 
    private GameDialog gameDialog;
 
    private PlayerManager manager;
-   public RemotePlayerManagerGUI(RisikoServer server,UserInfo me,String name) throws IOException, PeerGroupException{
+    private GameParameter gameParameter;
+    private boolean receivedInit;
+    private VirtualRisikoIIApp app;
+    private VirtualRisikoIIView view;
+   public RemotePlayerManagerGUI(RisikoServer server,PlayerImpl me,String name) throws IOException, PeerGroupException{
        
        this(server,me,name,9701);
    }
 
-    public RemotePlayerManagerGUI(RisikoServer server,UserInfo me,String name,int port) throws IOException, PeerGroupException {
+    public RemotePlayerManagerGUI(RisikoServer server,PlayerImpl me,String name,int port) throws IOException, PeerGroupException {
         this.server=server;
-        this.myIdentity=me;
+        this.player=me;
+        
         players=new HashMap<String, UserInfo>();
         games=new HashMap<String, PartitaInfo>();
         pipes=new HashMap<String,PipeAdvertisement>();
-        
-        manager=new PlayerManager(me.username, corba.server.Server.TCP_PORT);
-        manager.init("tcp://"+"192.168.1.14:"+corba.server.Server.TCP_PORT, false);
+        receivedInit=false;
+        manager=new PlayerManager(me.getUserInfo().username, corba.server.Server.TCP_PORT);
+        manager.init("tcp://"+"192.168.1.12:"+corba.server.Server.TCP_PORT, false);
         initComponents();
         gameDialog=new GameDialog(this, true);
         gameDialog.setVisible(false);
@@ -78,6 +96,8 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
        allPlayersList.setModel(new DefaultListModel());
        manager.addPipeListener(this);
        manager.addPlayerListener(this);
+
+       player.setListener(this);
 
     }
 
@@ -338,8 +358,28 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
              maxPlayers = gameDialog.getMaxPlayer();
              mapName=gameDialog.getMapName();
              if(this.gameDialog.isConfirmed()){
-                 server.createGame(myIdentity,(short) 100, (short)maxPlayers, name, mapName);
-                this.updateGamesJList();
+                 server.createGame(player.getUserInfo(),(short) 100, (short)maxPlayers, name, mapName);
+                 this.updateGamesJList();
+
+                 try{
+                    String myName=this.player.getUserInfo().username;
+                    VirtualCommunicator communicator=VirtualCommunicator.initCentralCommunicator1(myName, this.manager.getPeerGroup(), this.manager.getMyPipeAdvertisement());
+                    communicator.setPlayerName(myName);
+                   /* ElectionController electionController=new ElectionController(myName, this.manager.getPeerGroup(), pipes);
+                    communicator.setElectionNotifier(electionController);
+                    electionController.setElectionListener(this);*/
+                    Random random=new Random();
+                    this.gameParameter=new GameParameter(mapName);
+                    gameParameter.setMaxPlayers(maxPlayers);
+                    gameParameter.setSeed_cards(random.nextInt());
+                    gameParameter.setSeed_dice(random.nextInt());
+                    gameParameter.setSeed_region(random.nextInt());
+                    communicator.setGameParameter(gameParameter, false, null, maxPlayers);
+                    communicator.addInitListener(this);
+               //     communicator.setRecoveryListeners(this);
+                 }catch(Exception ex){
+                     ex.printStackTrace();
+                 }
              }
       
 
@@ -373,9 +413,38 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
             }
             String gamaName = gamesList.getSelectedValue().toString();
             
-           server.signPlayer(myIdentity, games.get(gamaName));
-           this.updateRegistrationsJList(games.get(gamaName));
-            this.jButton1.setEnabled(false);
+           
+           
+
+            try {
+
+            PartitaInfo partitaInfo = this.games.get(gamaName);
+            
+            
+
+            PipeAdvertisement creatorPipe = pipes.get(partitaInfo.managerUsername + " Pipe");
+            if(creatorPipe==null){
+                System.err.println("IMPOSSIBILE PARTECIPARE ALLA PARTITA");
+                System.exit(0);
+            }
+            VirtualCommunicator communicator=VirtualCommunicator.initPeerComunicator(this.player.getUserInfo().username, this.manager.getPeerGroup(), creatorPipe,this.manager.getMyPipeAdvertisement());
+            if(communicator!=null){
+                communicator.addInitListener(this);
+               // communicator.setRecoveryListeners(this);
+                ElectionController electionController=new ElectionController(this.player.getUserInfo().username, this.manager.getPeerGroup(), pipes);
+                communicator.setElectionNotifier(electionController);
+           //     electionController.setElectionListener(this);
+                
+
+                server.signPlayer(player.getUserInfo(),games.get(gamaName));
+                this.updateRegistrationsJList(games.get(gamaName));
+                this.jButton1.setEnabled(false);
+            }
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
        
 
             
@@ -388,9 +457,12 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
-    private void startGame(){
-       
 
+    private void updateMap(HashMap map,String key,Advertisement adv){
+        if(!map.containsKey(key)){
+            map.put(key, adv);
+            
+        }
     }
 
     private void updateList(HashMap map,String key,Advertisement adv,JList list){
@@ -401,24 +473,62 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
         }
     }
 
+
     public void gameUpdated(GameAdvertisement adv) {
-        updateList(games,adv.getGameName(),adv,gamesList);
+        updateMap(games,adv.getGameName(),adv);
     }
 
     public void presenceUpdated(PlayerAdvertisement playerInfo) {
-        System.out.println("scoperto player"+playerInfo.Name);
-       updateList(players, playerInfo.getName(), playerInfo, allPlayersList);
+        
+       updateMap(players, playerInfo.getName(), playerInfo);
     }
 
     public void pipeUpdated(PipeAdvertisement pipeInfo) {
-        System.out.println("scoperto pipe"+pipeInfo.getName());
+       // System.out.println("scoperto pipe"+pipeInfo.getName());
         this.pipes.put(pipeInfo.getName(), pipeInfo);
     }
 
 
 
-    public void init(InitMessage init) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void init(InitMessage msg) {
+        try {
+            if (receivedInit) {
+                return;
+            }
+            int myTurno=msg.getMyTurno();
+            int players=msg.getPlayers();
+            int seed_dice=msg.getSeed_dice();
+            String map_name=msg.getMap_name();
+            int seed_card=msg.getSeed_card();
+            int seed_region=msg.getSeed_region();
+            List<String> names=msg.getNames();
+            receivedInit = true;
+            System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            GameFactory factory = new GameFactory();
+            //factory.loadGame("classicalMap");
+            factory.loadGame(map_name);
+            Mappa mappa = factory.getMappa();
+            List<Obiettivo> obiettivi = factory.getObiettivi();
+            int turno = 0;
+            System.out.println("REGISTRAZIONE " + myTurno);
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, players, myTurno, seed_dice, seed_region, seed_card,names);
+            tavolo.setNameMap(map_name);
+            GameController controller = GameController.createGameController();
+            this.setVisible(false);
+            factory.loadMapPanel();
+            XMapPanel panel = factory.getMapPanel();
+             app = new VirtualRisikoIIApp();
+              view=new VirtualRisikoIIView(app, panel);
+
+            app.show(view);
+
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -436,6 +546,69 @@ public class RemotePlayerManagerGUI extends javax.swing.JFrame implements GameLi
     private javax.swing.JLabel userNameLabel;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+  
+
+    public void notifyNewGame(PartitaInfo partita) {
+        DefaultListModel model=(DefaultListModel) this.gamesList.getModel();
+        games.put(partita.name, partita);
+        model.addElement(partita.name);
+
+    }
+
+    public void notifyNewRegistration(RegistrationInfo registration) {
+        
+    }
+
+    public void notifyStart(String managerName) {
+        System.out.println("AVVIO GAME");
+        startGame();
+    }
+
+    private void startGame(){
+        try {
+             int myTurno=0;
+
+            VirtualCommunicator communicator=VirtualCommunicator.getInstance();
+
+            communicator.sendInitMessages();
+
+            GameFactory factory = new GameFactory();
+
+            //factory.loadGame("classicalMap");
+            factory.loadGame(gameParameter.getMapName());
+            Mappa mappa = factory.getMappa();
+            List<Obiettivo> obiettivi = factory.getObiettivi();
+            int turno = 0;
+
+            List<String> names=communicator.getPlayerrNames();
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
+            tavolo.setNameMap(gameParameter.getMapName());
+            GameController controller=GameController.createGameController();
+            factory.loadMapPanel();
+            XMapPanel panel=factory.getMapPanel();
+            this.setVisible(false);
+            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
+            app.show(new VirtualRisikoIIView(app,panel));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+    }
+
+    public void notifyNewPlayer(UserInfo userInfo) {
+        DefaultListModel model=(DefaultListModel) allPlayersList.getModel();
+      
+        players.put(userInfo.username, userInfo);
+
+        model.addElement(userInfo.username);
+
+    }
+
+    public UserInfo getUserInfo() {
+        return player.getUserInfo();
+    }
 
     
 
