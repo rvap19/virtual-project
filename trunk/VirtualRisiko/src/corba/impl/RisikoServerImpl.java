@@ -6,6 +6,7 @@
 package corba.impl;
 
 import corba.PartitaInfo;
+import corba.Player;
 import corba.RegistrationInfo;
 import corba.RisikoServerPOA;
 import corba.Summary;
@@ -18,6 +19,7 @@ import corba.impl.dao.UserJpaController;
 import corba.impl.dao.exceptions.IllegalOrphanException;
 import corba.impl.dao.exceptions.NonexistentEntityException;
 import corba.impl.dao.exceptions.PreexistingEntityException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,14 +39,16 @@ public class RisikoServerImpl extends RisikoServerPOA{
     private GameJpaController gameDAO;
     private GameregistrationJpaController registrationDAO;
 
-    private HashMap<String,UserInfo> users;
+    private ArrayList<Player> users;
+    private HashMap<String,UserInfo> infos;
     private ORB orb;
 
     public RisikoServerImpl(){
         this.userDAO=new UserJpaController();
         this.gameDAO=new GameJpaController();
         this.registrationDAO=new GameregistrationJpaController();
-        users=new HashMap<String, UserInfo>();
+        users=new ArrayList<Player>();
+        infos=new HashMap<String, UserInfo>();
     }
     public UserInfo authenticate(String usrname, String pwd) {
         User user=this.userDAO.findUserByUserNamePassword(usrname, pwd);
@@ -53,8 +57,12 @@ public class RisikoServerImpl extends RisikoServerPOA{
             user=null;
         }
         UserInfo info= CorbaUtil.createUserInfo(user);
-        if(user!=null&&user.getConfermato()){
-            this.users.put(usrname, info);
+        if(info!=null){
+            infos.put(info.username, info);
+            int size=users.size();
+            for(int i=0;i<size;i++){
+                users.get(i).notifyNewPlayer(info);
+            }
         }
         
         return info;
@@ -135,6 +143,17 @@ public class RisikoServerImpl extends RisikoServerPOA{
                 return false;
             }
             this.registrationDAO.create(registration);
+            if(regList.size()==g.getNumeroGiocatoriMax()-1){
+                int size=this.users.size();
+                boolean found=false;
+                for(int i=0;i<size&&!found;i++){
+                    Player current=this.users.get(i);
+                    if(current.getUserInfo().username.equals(g.getManagerUsername())){
+                        current.notifyStart(g.getManagerUsername());
+                        found=true;
+                    }
+                }
+            }
             return true;
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,7 +166,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
     }
 
     public UserInfo[] getAuthenticateUsers() {
-        Collection<UserInfo> values=this.users.values();
+        Collection<UserInfo> values=this.infos.values();
         int size=values.size();
 
 
@@ -196,6 +215,10 @@ public class RisikoServerImpl extends RisikoServerPOA{
         this.gameDAO.create(g);
         PartitaInfo info= CorbaUtil.createPartitaInfo(g,0);
         this.signPlayer(user, info);
+        int size=this.users.size();
+        for(int i=0;i<size;i++){
+                users.get(i).notifyNewGame(info);
+            }
         return info;
     }
 
@@ -270,6 +293,17 @@ public class RisikoServerImpl extends RisikoServerPOA{
             result[i]=CorbaUtil.createSummary(list.get(i));
         }
         return result;
+    }
+
+    public void registerPlayer(Player player) {
+       
+      // player.notifyStart("ciao");
+        this.users.add(player);// player);
+        System.out.println("ciao");
+    }
+
+    public boolean isOnline(String username) {
+        return this.infos.get(username)!=null;
     }
 
  

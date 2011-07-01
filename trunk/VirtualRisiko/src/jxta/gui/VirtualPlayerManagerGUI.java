@@ -353,6 +353,9 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
              name = gameDialog.getGameName();
              maxPlayers = gameDialog.getMaxPlayer();
              mapName=gameDialog.getMapName();
+             if(!gameDialog.isConfirmed()){
+                 return;
+             }
             manager.createGame(name,mapName, maxPlayers);
             VirtualCommunicator communicator=VirtualCommunicator.initCentralCommunicator1(this.myName, this.manager.getPeerGroup(), this.manager.getMyPipeAdvertisement());
             communicator.setPlayerName(myName);
