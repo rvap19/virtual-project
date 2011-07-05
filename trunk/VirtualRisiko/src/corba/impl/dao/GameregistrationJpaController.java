@@ -183,6 +183,17 @@ public class GameregistrationJpaController {
         }
     }
 
+    public List<Gameregistration> findGameregistrationByPlayer(String playerID){
+         EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Gameregistration.findByPlayer");
+            q.setParameter("username", playerID);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public List<Gameregistration> findGameregistrationByPartitaAndPlayer(int gameID, String username) {
         EntityManager em = getEntityManager();
         try {

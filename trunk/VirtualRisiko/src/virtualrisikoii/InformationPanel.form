@@ -293,7 +293,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="turnoLabel" alignment="0" pref="232" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="turnoLabel" pref="123" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="currentTurnInfoLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="truppeLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -307,7 +312,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="turnoLabel" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="turnoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="currentTurnInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="8" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="truppeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -346,6 +354,13 @@
             <Property name="font" type="java.awt.Font" resourceKey="turnoLabel.font"/>
             <Property name="text" type="java.lang.String" resourceKey="terrLabel.text"/>
             <Property name="name" type="java.lang.String" value="terrLabel" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="currentTurnInfoLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" resourceKey="currentTurnInfoLabel.font"/>
+            <Property name="text" type="java.lang.String" resourceKey="currentTurnInfoLabel.text"/>
+            <Property name="name" type="java.lang.String" value="currentTurnInfoLabel" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>

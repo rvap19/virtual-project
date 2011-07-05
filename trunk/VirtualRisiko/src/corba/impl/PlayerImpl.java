@@ -10,7 +10,7 @@ import corba.PlayerOperations;
 import corba.PlayerPOA;
 import corba.RegistrationInfo;
 import corba.UserInfo;
-import corba.client.RemotePlayerManagerGUI;
+
 
 /**
  *
@@ -32,6 +32,7 @@ public class PlayerImpl extends PlayerPOA{
     public void setListener(PlayerOperations listener) {
         this.listener = listener;
     }
+
 
 
 
@@ -63,6 +64,10 @@ public class PlayerImpl extends PlayerPOA{
 
     public UserInfo getUserInfo() {
         return info;
+    }
+
+    public boolean isLogged() {
+       return info.logged;
     }
 
    

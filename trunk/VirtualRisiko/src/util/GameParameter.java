@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package virtualrisikoii;
+package util;
 
 /**
  *
@@ -19,7 +19,7 @@ public  class GameParameter {
 
     public GameParameter(String mapName){
         maxPlayers=6;
-        maxTurns=1000;
+        maxTurns=30;
         this.mapName=mapName;
     }
 

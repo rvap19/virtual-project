@@ -23,6 +23,7 @@ public class InitMessage extends VirtualRisikoMessage{
     public static final String PLAYERS="players_number";
     public static final String TURN="myTurn";
     public static final String PLAYER_NAMES="players_names";
+    public static final String MAX_TURNS="max_turns";
 
     private int players;
     private int seed_dice;
@@ -31,11 +32,13 @@ public class InitMessage extends VirtualRisikoMessage{
     private int seed_region;
     private int myTurno;
     private List<String> names;
+    private int maxTurns;
 
     
 
-    public InitMessage(int players,int seed_dice,String map_name,int seed_card,int seed_region,List<String> playerNames){
+    public InitMessage(int maxTurns,int players,int seed_dice,String map_name,int seed_card,int seed_region,List<String> playerNames){
         super();
+        this.maxTurns=maxTurns;
         this.players=players;
         this.seed_dice=seed_dice;
         this.map_name=map_name;
@@ -55,6 +58,8 @@ public class InitMessage extends VirtualRisikoMessage{
         mElement = new StringMessageElement(SEED_REGION,Integer.toString(seed_region), null);
         addMessageElement(namespace, mElement);
         mElement = new StringMessageElement(PLAYERS,Integer.toString(players), null);
+        addMessageElement(namespace, mElement);
+        mElement = new StringMessageElement(MAX_TURNS,Integer.toString(maxTurns), null);
         addMessageElement(namespace, mElement);
 
 
@@ -77,7 +82,7 @@ public class InitMessage extends VirtualRisikoMessage{
          seed_region=Integer.parseInt(message.getMessageElement(namespace, SEED_REGION).toString());
          players=Integer.parseInt(message.getMessageElement(namespace, PLAYERS).toString());
          myTurno=Integer.parseInt(message.getMessageElement(namespace, TURN).toString());
-
+         this.maxTurns=Integer.parseInt(message.getMessageElement(namespace, MAX_TURNS).toString());
          this.names=new ArrayList<String>();
          ElementIterator iter=message.getMessageElements(namespace, PLAYER_NAMES);
          while(iter.hasNext()){
@@ -92,6 +97,11 @@ public class InitMessage extends VirtualRisikoMessage{
     public int getMyTurno() {
         return myTurno;
     }
+
+    public int getMaxTurns() {
+        return maxTurns;
+    }
+    
 
     public int getPlayers() {
         return players;

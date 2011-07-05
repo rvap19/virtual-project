@@ -25,6 +25,9 @@ public class RecoveryParameter {
     private  int dice_lanch;
     private  int cards_lanch;
     private int turnoMyGiocatore;
+    private int maxTurns;
+    private int elapsedTurns;
+    
 
     private int[] carteGiocatori;
     private int[] posizioneCarte;
@@ -53,6 +56,23 @@ public class RecoveryParameter {
 
     }
 
+    public int getElapsedTurns() {
+        return elapsedTurns;
+    }
+
+    public void setElapsedTurns(int elapsedTurns) {
+        this.elapsedTurns = elapsedTurns;
+    }
+
+    public int getMaxTurns() {
+        return maxTurns;
+    }
+
+    public void setMaxTurns(int maxTurns) {
+        this.maxTurns = maxTurns;
+    }
+
+    
     public int[] getCarteGiocatori() {
         return carteGiocatori;
     }

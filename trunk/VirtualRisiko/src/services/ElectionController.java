@@ -118,6 +118,7 @@ public class ElectionController implements PipeMsgListener{
 
                 this.electionListener.notifyElection(message);
                sendElectionMessages();
+               
                 
             }
          }else{

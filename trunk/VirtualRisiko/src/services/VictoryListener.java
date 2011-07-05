@@ -14,7 +14,7 @@ import virtualrisikoii.risiko.Giocatore;
  */
 public interface VictoryListener {
 
-    public void notifyVictory(List<Giocatore> giocatori, Giocatore giocatoreCorrente);
+    public void notifyVictory(List<Giocatore> giocatori, Giocatore giocatoreCorrente,boolean victory);
 
 
 }

@@ -39,16 +39,15 @@ public class RisikoServerImpl extends RisikoServerPOA{
     private GameJpaController gameDAO;
     private GameregistrationJpaController registrationDAO;
 
-    private ArrayList<Player> users;
-    private HashMap<String,UserInfo> infos;
+    private HashMap<String,Player> infos;
     private ORB orb;
 
+    
     public RisikoServerImpl(){
         this.userDAO=new UserJpaController();
         this.gameDAO=new GameJpaController();
         this.registrationDAO=new GameregistrationJpaController();
-        users=new ArrayList<Player>();
-        infos=new HashMap<String, UserInfo>();
+        infos=new HashMap<String, Player>();
     }
     public UserInfo authenticate(String usrname, String pwd) {
         User user=this.userDAO.findUserByUserNamePassword(usrname, pwd);
@@ -58,10 +57,18 @@ public class RisikoServerImpl extends RisikoServerPOA{
         }
         UserInfo info= CorbaUtil.createUserInfo(user);
         if(info!=null){
-            infos.put(info.username, info);
-            int size=users.size();
-            for(int i=0;i<size;i++){
-                users.get(i).notifyNewPlayer(info);
+
+            Iterator<String> keys=this.infos.keySet().iterator();
+            while(keys.hasNext()){
+                Player current=infos.get(keys.next());
+                try{
+                    if(current!=null){
+                        
+                        current.notifyNewPlayer(info);
+                    }
+                }catch(Exception ex){
+                    
+                }
             }
         }
         
@@ -82,6 +89,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
 
     public PartitaInfo getCurrentGame(UserInfo player) {
          User user=this.userDAO.findUser(player.username);
+
          Iterator<Gameregistration> registration=user.getGameregistrationCollection().iterator();
          while(registration.hasNext()){
              Gameregistration current=registration.next();
@@ -93,35 +101,41 @@ public class RisikoServerImpl extends RisikoServerPOA{
     }
 
     public boolean saveResult(RegistrationInfo[] results) {
-        
-        int size=results.length;
-        boolean result=true;
-        User user;
+        int size = results.length;
+        boolean result = true;
         Gameregistration registration;
-        for(int i=0;i<size;i++){
-            user=this.userDAO.findUserByUsername(results[i].username);
-            this.users.remove(user.getUsername());
+        try {
+            for (int i = 0; i < size; i++) {
+                registration = this.registrationDAO.findGameregistration(new GameregistrationPK(results[i].gameID, results[i].username));
+                if (registration != null) {
+                    registration.setPunteggio(results[i].score);
+                    registration.setVincitore(results[i].victory);
 
+                        this.registrationDAO.edit(registration);
+                        this.removePlayer(results[i].username);
 
-            
-
-             registration=this.registrationDAO.findGameregistration(new GameregistrationPK(results[i].gameID, results[i].username));
-             registration.setPunteggio(results[i].score);
-            registration.setVincitore(results[i].victory);
-            try {
-
-                this.registrationDAO.edit(registration);
-                this.userDAO.edit(user);
-            } catch (PreexistingEntityException ex) {
-                Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-                result=false;
-            } catch (Exception ex) {
-                result=false;
+                } else {
+                    result = false;
+                }
             }
+            Game game = this.gameDAO.findGame(results[0].gameID);
+            game.setAttiva(false);
+            game.setFine(new Date());
+            this.gameDAO.edit(game);
+
+        } catch (NonexistentEntityException ex) {
+            result=false;
+        } catch (Exception ex) {
+            result=false;
         }
         return result;
     }
 
+    private void removePlayer(String username){
+        
+
+        this.infos.remove(username);
+    }
    
 
     public synchronized boolean signPlayer(UserInfo player, PartitaInfo partita) {
@@ -144,15 +158,8 @@ public class RisikoServerImpl extends RisikoServerPOA{
             }
             this.registrationDAO.create(registration);
             if(regList.size()==g.getNumeroGiocatoriMax()-1){
-                int size=this.users.size();
-                boolean found=false;
-                for(int i=0;i<size&&!found;i++){
-                    Player current=this.users.get(i);
-                    if(current.getUserInfo().username.equals(g.getManagerUsername())){
-                        current.notifyStart(g.getManagerUsername());
-                        found=true;
-                    }
-                }
+                Player current=this.infos.get(g.getManagerUsername());
+                current.notifyStart(g.getManagerUsername());
             }
             return true;
         } catch (PreexistingEntityException ex) {
@@ -166,14 +173,14 @@ public class RisikoServerImpl extends RisikoServerPOA{
     }
 
     public UserInfo[] getAuthenticateUsers() {
-        Collection<UserInfo> values=this.infos.values();
+        Collection<Player> values=this.infos.values();
         int size=values.size();
 
 
         UserInfo[] result=new UserInfo[size];
-        Iterator<UserInfo> iter=values.iterator();
+        Iterator<Player> iter=values.iterator();
         for(int i=0;i<size;i++){
-            result[i]=iter.next();
+            result[i]=iter.next().getUserInfo();
         }
         return result;
     }
@@ -215,9 +222,17 @@ public class RisikoServerImpl extends RisikoServerPOA{
         this.gameDAO.create(g);
         PartitaInfo info= CorbaUtil.createPartitaInfo(g,0);
         this.signPlayer(user, info);
-        int size=this.users.size();
-        for(int i=0;i<size;i++){
-                users.get(i).notifyNewGame(info);
+        Iterator<String> keys=this.infos.keySet().iterator();
+            while(keys.hasNext()){
+                Player current=infos.get(keys.next());
+
+                try{
+                    if(current!=null){
+                        current.notifyNewGame(info);
+                    }
+                }catch(Exception ex){
+
+                }
             }
         return info;
     }
@@ -297,13 +312,51 @@ public class RisikoServerImpl extends RisikoServerPOA{
 
     public void registerPlayer(Player player) {
        
-      // player.notifyStart("ciao");
-        this.users.add(player);// player);
+        this.infos.put(player.getUserInfo().username, player);
         System.out.println("ciao");
     }
 
     public boolean isOnline(String username) {
         return this.infos.get(username)!=null;
+    }
+
+    public PartitaInfo getActiveGame(String username) {
+        List<Gameregistration> result=this.registrationDAO.findGameregistrationByPlayer(username);
+
+        if(result==null || result.size()==0){
+            return CorbaUtil.createPartitaInfo(null, 0);
+        }
+        Iterator<Gameregistration> iter=result.iterator();
+
+        while(iter.hasNext()){
+            Gameregistration current=iter.next();
+            if(current.getGame().getAttiva()){
+                return CorbaUtil.createPartitaInfo(current.getGame(), 0);
+            }
+        }
+
+        return CorbaUtil.createPartitaInfo(null, 0);
+
+
+    }
+
+    public PartitaInfo getPartitaInfo(int id) {
+        Game game=this.gameDAO.findGame(id);
+        return CorbaUtil.createPartitaInfo(game, 0);
+
+    }
+
+    public void notifyNewManager(PartitaInfo partita, String manager) {
+        Game game=this.gameDAO.findGame(partita.id);
+        game.setManagerUsername(manager);
+        try {
+            this.gameDAO.edit(game);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
  

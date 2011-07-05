@@ -1,0 +1,96 @@
+module corba {
+
+  struct PartitaInfo {
+    wstring name;
+    wstring type;
+    unsigned short playersNumber;
+    unsigned long id;
+    unsigned short maxTurns;
+    unsigned short maxPlayers;
+    wstring managerUsername;
+  };
+
+  struct RegistrationInfo{
+    unsigned long gameID;
+    unsigned long score;
+    boolean victory;
+    wstring username;
+  };
+
+  struct UserInfo{
+    wstring username;
+    wstring password;
+    boolean logged;
+  };
+
+  struct ResultInfo{
+    wstring gameName;
+    wstring date;
+    unsigned long score;
+    boolean victory;
+  };
+
+  struct Summary{
+    wstring username;
+    unsigned long score;
+  };
+
+
+  typedef sequence<Summary> Statistics;
+  typedef sequence<ResultInfo> Results;
+  typedef sequence<UserInfo> Users;
+  typedef sequence<PartitaInfo> Games;
+  typedef sequence<RegistrationInfo> Registrations;
+
+  struct SummaryPlayerInfo{
+    wstring username;
+    Results info;
+  };
+  
+
+  
+
+  struct UserDetails{
+    wstring username;
+    wstring password;
+    wstring email;
+    wstring name;
+    wstring surname;
+    wstring birthday;
+  };
+
+  interface Player{
+    UserInfo getUserInfo();
+    void notifyNewGame(in PartitaInfo partita );
+    void notifyNewRegistration(in RegistrationInfo registration);
+    void notifyStart(in wstring managerName);
+    void notifyNewPlayer(in UserInfo userInfo);
+    boolean isLogged();
+  };
+
+
+  interface RisikoServer{
+    UserInfo authenticate(in wstring username,in wstring pwd);
+    void registerPlayer(in Player player);
+    boolean isOnline(in wstring username);
+    Games getAvailableGames();
+    boolean saveResult(in Registrations res);
+    PartitaInfo createGame(in UserInfo user,in unsigned short maxTurn,in unsigned short maxPlayers,in wstring name,in wstring type);
+    boolean signPlayer(in UserInfo player,in PartitaInfo partita);
+    Users getAuthenticateUsers();
+    Users getPlayers(in PartitaInfo partita);
+    void shutdown();
+
+    PartitaInfo getActiveGame(in wstring username);
+
+    boolean createUser(in UserDetails details);
+    boolean checkUsername(in wstring username);
+    boolean activateUser(in wstring username,in unsigned long codice);
+    boolean sendEmailForPassword(in UserInfo user);
+
+    SummaryPlayerInfo getStatistics(in wstring username);
+    Statistics getCompleteStatistics();
+    
+  };
+};
+

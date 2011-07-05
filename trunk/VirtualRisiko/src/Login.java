@@ -6,6 +6,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import jxta.gui.VirtualPlayerManagerGUI;
 import net.jxta.exception.PeerGroupException;
+import services.VirtualPlayerManager;
 
 /*
  * To change this template, choose Tools | Templates
@@ -128,10 +129,9 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random random=new Random();
         try {
-         /*   gui = new PlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
-            this.setVisible(false);
-            gui.setVisible(true);*/
-              fullGUI = new VirtualPlayerManagerGUI(this.usernameField.getText(), random.nextInt(9800));
+              VirtualPlayerManager manager=new VirtualPlayerManager(this.usernameField.getText(), random.nextInt(9800));
+              fullGUI = new VirtualPlayerManagerGUI(manager);
+              fullGUI.setListeners();
             this.setVisible(false);
             fullGUI.setVisible(true);
 
