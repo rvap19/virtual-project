@@ -13,6 +13,7 @@ package virtualrisikoii;
 
 import javax.swing.JList;
 import services.CardChangeController;
+import services.GameController;
 import virtualrisikoii.InformationPanel;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
@@ -392,6 +393,10 @@ public class CardChangePanel extends javax.swing.JPanel {
 
     private void scambiaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scambiaButtonActionPerformed
         // TODO add your handling code here:
+        if(GameController.getInstance().isGameOver()){
+            this.scambiaButton.setEnabled(false);
+            return;
+        }
         if(!Tavolo.getInstance().isTurnoMyGiocatore()){
             return;
         }

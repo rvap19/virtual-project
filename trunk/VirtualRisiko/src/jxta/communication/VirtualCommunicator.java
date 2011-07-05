@@ -962,6 +962,10 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         this.gameInProgress=b;
     }
 
+    public void stopServer() {
+        this.connectionHandler.stopServer();
+    }
+
 
 
    
