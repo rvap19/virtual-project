@@ -35,6 +35,9 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         public static final String NAMES="play_names";
         public static final String CARD_PLAYERS="carte_giocatori";
         public static final String CARD_POSITION="card_position";
+        public static final String MAX_TURNS="max_turns";
+        public static final String ELAPSED_TURNS="elapsed_turns";
+        
     private  RecoveryParameter parameter;
     
 
@@ -55,6 +58,8 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         addObjectiveElement( parameter.getObjectives());
         //appendo i dati sul turno
         addTurnElement( parameter.getTurno());
+        addMaxTurnsElement(parameter.getMaxTurns());
+        addElapsedTurnsElement(parameter.getElapsedTurns());
         //appendo i dati sul num giocatori
         addPlayersNumberElement( parameter.getNumeroGiocatori());
         //appendo i dati sulseed dadi
@@ -100,6 +105,9 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         //ricevo i dati sul turno
         int turno=elaborateTurnElement(message);
 
+        int maxTurns=elaborateMaxTurnsElement(message);
+        int elapsedTurns=elaborateElapsedTurnsElement(message);
+
         //ricevo i dati sulseed dadi
         int seed_dice=elaborateSeedDiceElement(message);
 
@@ -123,7 +131,8 @@ public class RecoveryMessage extends VirtualRisikoMessage{
 
         parameter=new RecoveryParameter(mapName, inizializzazione, idOccupante, troopsNumber, objectives, num_armate, turno, numeroGiocatori, seed_card, seed_dice, dice_lanch, card_lanch,names);
         parameter.setTurnoMyGiocatore(turnoMyGiocatore);
-
+        parameter.setElapsedTurns(elapsedTurns);
+        parameter.setMaxTurns(maxTurns);
         parameter.setCarteGiocatori(elaborateCarteGiocatoriElements(regions,message));
         parameter.setPosizioneCarte(elaboratePosizionecarte(regions,message));
     }
@@ -315,6 +324,16 @@ public class RecoveryMessage extends VirtualRisikoMessage{
         return turn;
     }
 
+    public int elaborateMaxTurnsElement(Message message){
+        int maxTurns=Integer.parseInt(message.getMessageElement(namespace, MAX_TURNS).toString());
+        return maxTurns;
+    }
+
+    public int elaborateElapsedTurnsElement(Message message){
+        int elapsedTurns=Integer.parseInt(message.getMessageElement(namespace, ELAPSED_TURNS).toString());
+        return elapsedTurns;
+    }
+
     private void addPlayersNumberElement(int numeroGiocatori){
 
         String info;
@@ -379,6 +398,31 @@ public class RecoveryMessage extends VirtualRisikoMessage{
             addMessageElement(namespace, mE);
 
         
+
+    }
+
+    private void addMaxTurnsElement(int maxTurns){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(maxTurns);
+            mE=new StringMessageElement(MAX_TURNS,info , null);
+            addMessageElement(namespace, mE);
+
+
+
+    }
+    private void addElapsedTurnsElement(int elapsedTurns){
+
+        String info;
+        StringMessageElement mE;
+
+            info=Integer.toString(elapsedTurns);
+            mE=new StringMessageElement(ELAPSED_TURNS,info , null);
+            addMessageElement(namespace, mE);
+
+
 
     }
 
@@ -461,7 +505,7 @@ public class RecoveryMessage extends VirtualRisikoMessage{
     }
 
     private int[] elaborateCarteGiocatoriElements(int regions, Message message) {
-        int[] carteGiocatore=new int[regions];
+        int[] carteGiocatore=new int[regions+2];
         Message.ElementIterator iter=message.getMessageElements(CARD_PLAYERS);
         int counter=0;
         while(iter.hasNext()){
@@ -472,7 +516,7 @@ public class RecoveryMessage extends VirtualRisikoMessage{
     }
 
     private int[] elaboratePosizionecarte(int regions, Message message) {
-        int[] posizioneCarte=new int[regions];
+        int[] posizioneCarte=new int[regions+2];
         Message.ElementIterator iter=message.getMessageElements(CARD_POSITION);
         int counter=0;
         while(iter.hasNext()){

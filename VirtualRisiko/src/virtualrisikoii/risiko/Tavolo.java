@@ -24,6 +24,7 @@ public  class Tavolo {
     private int turno;
     private int minGiocatori=3;
     private int maxGiocatori=6;
+    private int maxTurns;
     private List<Obiettivo> obiettivi;
     private Random dado;
     private Random nextCard;
@@ -39,6 +40,7 @@ public  class Tavolo {
 
     private int cardSeed;
     private int diceSeed;
+    private int turnElapsed;
 
 
     private static Tavolo instance=null;
@@ -51,9 +53,9 @@ public  class Tavolo {
         return instance;
     }
 
-    public static Tavolo createInstance(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> playersnames) throws MappaException{
+    public static Tavolo createInstance(Mappa mappa,List<Obiettivo> obiettivi,int turno,int maxTurns,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> playersnames) throws MappaException{
         instance=new Tavolo();
-        instance.initTavolo(mappa, obiettivi, turno, numeroGiocatori, myTurno, seed_dice, seed_region, seed_cards,playersnames);
+        instance.initTavolo(mappa, obiettivi, turno,maxTurns, numeroGiocatori, myTurno, seed_dice, seed_region, seed_cards,playersnames);
         return instance;
     }
 
@@ -65,10 +67,20 @@ public  class Tavolo {
         return diceSeed;
     }
 
+    public int getMaxTurns() {
+        return maxTurns;
+    }
+
+    public void setMaxTurns(int maxTurns) {
+        this.maxTurns = maxTurns;
+    }
+
     
-    private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> names) throws MappaException{
+    
+    private void initTavolo(Mappa mappa,List<Obiettivo> obiettivi,int turno,int maxTurns,int numeroGiocatori,int myTurno,int seed_dice,int seed_region,int seed_cards,List<String> names) throws MappaException{
         this.diceSeed=seed_dice;
-        System.out.println("seed dice "+seed_dice);
+        this.maxTurns=maxTurns;
+        this.turnElapsed=0;
         this.cardSeed=seed_cards;
         dado=new Random(seed_dice);
         this.mappa=mappa;
@@ -121,10 +133,22 @@ public  class Tavolo {
     public boolean isTurnoMyGiocatore(){
         return getGiocatoreCorrente()==this.myGiocatore;
     }
+
+    public int getTurnElapsed() {
+        return turnElapsed;
+    }
+
+    public void setTurnElapsed(int turnElapsed) {
+        this.turnElapsed = turnElapsed;
+    }
+
     
     public void passaTurno(){
-        
+        if(turno==this.numeroGiocatori-1){
+            this.turnElapsed++;
+        }
         turno=(turno+1)%this.numeroGiocatori;
+        
         while(getGiocatoreCorrente().getStato()==Giocatore.FUORI_GIOCO){
             turno=(turno+1)%this.numeroGiocatori;
         }
@@ -433,6 +457,10 @@ public  class Tavolo {
     public boolean controllaObiettivoGiocatore(Giocatore giocatore){
         return giocatore.getObiettivo().controllaObiettivo(giocatore, this);
 
+    }
+
+    public boolean gameOver(){
+        return this.maxTurns==this.turnElapsed;
     }
 
     public int getPunteggioGiocatore(Giocatore giocatore){

@@ -85,6 +85,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         truppeLabel = new javax.swing.JLabel();
         arnatedisposteLabel = new javax.swing.JLabel();
         terrLabel = new javax.swing.JLabel();
+        currentTurnInfoLabel = new javax.swing.JLabel();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(InformationPanel.class);
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("Form.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, resourceMap.getFont("Form.border.titleFont"))); // NOI18N
@@ -227,11 +228,19 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         terrLabel.setText(resourceMap.getString("terrLabel.text")); // NOI18N
         terrLabel.setName("terrLabel"); // NOI18N
 
+        currentTurnInfoLabel.setFont(resourceMap.getFont("currentTurnInfoLabel.font")); // NOI18N
+        currentTurnInfoLabel.setText(resourceMap.getString("currentTurnInfoLabel.text")); // NOI18N
+        currentTurnInfoLabel.setName("currentTurnInfoLabel"); // NOI18N
+
         javax.swing.GroupLayout turnoPanelLayout = new javax.swing.GroupLayout(turnoPanel);
         turnoPanel.setLayout(turnoPanelLayout);
         turnoPanelLayout.setHorizontalGroup(
             turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(turnoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+            .addGroup(turnoPanelLayout.createSequentialGroup()
+                .addComponent(turnoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(currentTurnInfoLabel)
+                .addGap(69, 69, 69))
             .addGroup(turnoPanelLayout.createSequentialGroup()
                 .addComponent(truppeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -243,7 +252,9 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         turnoPanelLayout.setVerticalGroup(
             turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(turnoPanelLayout.createSequentialGroup()
-                .addComponent(turnoLabel)
+                .addGroup(turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(turnoLabel)
+                    .addComponent(currentTurnInfoLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(turnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(truppeLabel)
@@ -296,8 +307,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         this.arnatedisposteLabel.setText("armate : "+numeroTruppeDisposte);
         this.terrLabel.setText("territori : "+numeroTerritori);
 
-
-
+        this.currentTurnInfoLabel.setText("turno "+Tavolo.getInstance().getTurnElapsed()+" di "+Tavolo.getInstance().getMaxTurns());
         this.repaint();
     }
 
@@ -317,6 +327,7 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arnatedisposteLabel;
     private javax.swing.JTextArea chatTextArea;
+    private javax.swing.JLabel currentTurnInfoLabel;
     private javax.swing.JTextArea gameInformationArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

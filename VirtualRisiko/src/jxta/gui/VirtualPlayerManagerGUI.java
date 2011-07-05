@@ -11,109 +11,64 @@
 
 package jxta.gui;
 
+import jxta.advertisement.GameAdvertisement;
+import jxta.advertisement.PlayerAdvertisement;
+import jxta.advertisement.RegistrationAdvertisement;
+import net.jxta.protocol.PipeAdvertisement;
+import virtualrisikoii.GameDialog;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import jxta.PlayerManager;
-import jxta.advertisement.GameAdvertisement;
-import jxta.advertisement.PlayerAdvertisement;
-import jxta.advertisement.RegistrationAdvertisement;
-import services.ElectionController;
-import jxta.communication.VirtualCommunicator;
-import jxta.communication.messages.ElectionMessage;
-import jxta.communication.messages.InitMessage;
-import jxta.communication.messages.listener.ElectionListener;
 import jxta.listener.GameListener;
 import jxta.listener.PipeListener;
 import jxta.listener.PlayerListener;
 import jxta.listener.RegistrationListener;
-import net.jxta.document.Advertisement;
 import net.jxta.exception.PeerGroupException;
-import net.jxta.protocol.PipeAdvertisement;
-import services.GameController;
-import services.RecoveryListener;
-import util.GameFactory;
-import util.ObiettiviException;
-import util.RecoveryUtil;
-import virtualrisikoii.GameParameter;
-import virtualrisikoii.RecoveryParameter;
-import virtualrisikoii.VirtualRisikoIIApp;
-import virtualrisikoii.VirtualRisikoIIView;
-import virtualrisikoii.XMapPanel;
-import jxta.communication.messages.listener.InitListener;
-import virtualrisikoii.risiko.Giocatore;
+import services.VirtualPlayerManager;
 
-import virtualrisikoii.risiko.Mappa;
-import virtualrisikoii.risiko.MappaException;
-import virtualrisikoii.risiko.Obiettivo;
-import virtualrisikoii.risiko.Tavolo;
 
 /**
  *
  * @author root
  */
-public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener , InitListener,RecoveryListener,ElectionListener{
+public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameListener,PlayerListener,PipeListener ,RegistrationListener  {
 
-    private PlayerManager manager;
-    private GameDialog gameDialog;
-    private String myName;
+    
+    protected GameDialog gameDialog;
+    protected VirtualPlayerManager virtualPlayerManager;
 
-    private HashMap<String,PlayerAdvertisement>players;
-    private HashMap<String,GameAdvertisement>games;
-    private HashMap<String,RegistrationAdvertisement>registrations;
-    private HashMap<String,PipeAdvertisement> pipes;
-
-    private boolean receivedInit=false;
-    private GameParameter gameParameter;
     /** Creates new form PlayerManagerGUI */
     
-    public VirtualPlayerManagerGUI() throws IOException,PeerGroupException{
-        this("foggiano ",9701);
-        
-    }
+    
 
-    public VirtualPlayerManagerGUI(String name,int port) throws IOException, PeerGroupException {
+    public VirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
+      
+        this.virtualPlayerManager=virtualPlayermanager;
         
-        
-        manager=new PlayerManager(name,port);
-        myName=name;
         
         gameDialog=new GameDialog(this, true);
         
         gameDialog.setVisible(false);
-        players=new HashMap<String, PlayerAdvertisement>();
-        games=new HashMap<String, GameAdvertisement>();
-        registrations=new HashMap<String, RegistrationAdvertisement>();
-        pipes=new HashMap<String,PipeAdvertisement>();
-            manager.init(null,false);
-        
-        manager.addRegistrationListener(this);
-        manager.addGameListener(this);
-        manager.addPlayerListener(this);
-        manager.addPipeListener(this);
-        manager.findGames();
-        manager.findPlayers();
-
-
 
         initComponents();
-        userNameLabel.setText(name);
+        this.virtualPlayerManager.init();
+        userNameLabel.setText(this.virtualPlayerManager.getMyName());
         
        gamesList.setModel(new DefaultListModel());
        currentPlayersInGameList.setModel(new DefaultListModel());
        allPlayersList.setModel(new DefaultListModel());
 
+    }
 
-       
-     //  FullCommunicator communicator =FullCommunicator.initPeerFullCommunicator(myName, manager.getMyPipeAdvertisement(), manager.getPeerGroup());
-
+    public void setListeners(){
+        virtualPlayerManager.getManager().addRegistrationListener(this);
+        virtualPlayerManager.getManager().addGameListener(this);
+        virtualPlayerManager.getManager().addPlayerListener(this);
+        virtualPlayerManager.getManager().addPipeListener(this);
     }
 
 
@@ -294,44 +249,24 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            this.players.clear();
-            this.games.clear();
-            this.registrations.clear();
+            this.virtualPlayerManager.clear();
 
-            DefaultListModel model=(DefaultListModel) gamesList.getModel();
-            model.clear();
+             DefaultListModel model=(DefaultListModel) this.currentPlayersInGameList.getModel();
+             model.clear();
 
-            model=(DefaultListModel) currentPlayersInGameList.getModel();
-            model.clear();
+             model=(DefaultListModel) this.allPlayersList.getModel();
+             model.clear();
 
-            model=(DefaultListModel) allPlayersList.getModel();
-            model.clear();
+             model=(DefaultListModel) this.gamesList.getModel();
+             model.clear();
 
-            List<PlayerAdvertisement> playersList=this.manager.findPlayers();
-            Iterator<PlayerAdvertisement> iter1=playersList.iterator();
-            while(iter1.hasNext()){
-                PlayerAdvertisement pA=iter1.next();
-                updateList(players, pA.getName(), pA, allPlayersList);
-            }
+            Set<String> players=this.virtualPlayerManager.findPlayers();
+            updateList(players, allPlayersList);
             
-            List<GameAdvertisement> gameList=this.manager.findGames();
-            Iterator<GameAdvertisement> iter2=gameList.iterator();
-            while(iter2.hasNext()){
-                GameAdvertisement gA=iter2.next();
-                updateList(games, gA.getGameName(), gA, gamesList);
-            }
-
-
-            Iterator<PipeAdvertisement> pipeIter=this.manager.findPipes().iterator();
-            while(pipeIter.hasNext()){
-                PipeAdvertisement pipeAdv=pipeIter.next();
-                this.pipes.put(pipeAdv.getName(), pipeAdv);
-            }
             
-
-
-
-
+            Set<String> games=this.virtualPlayerManager.findGames();
+            updateList(games, gamesList);
+  
         } catch (PeerGroupException ex) {
             Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -347,30 +282,20 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
       String name=null;
       int maxPlayers=0;
       String mapName;
+      int maxTurns;
+        
+        // TODO add your handling code here:
+        this.gameDialog.setVisible(true);
+         name = gameDialog.getGameName();
+         maxPlayers = gameDialog.getMaxPlayer();
+         mapName=gameDialog.getMapName();
+         maxTurns=gameDialog.getMaxTurns();
+         if(!gameDialog.isConfirmed()){
+             return;
+         }
+
         try {
-            // TODO add your handling code here:
-            this.gameDialog.setVisible(true);
-             name = gameDialog.getGameName();
-             maxPlayers = gameDialog.getMaxPlayer();
-             mapName=gameDialog.getMapName();
-             if(!gameDialog.isConfirmed()){
-                 return;
-             }
-            manager.createGame(name,mapName, maxPlayers);
-            VirtualCommunicator communicator=VirtualCommunicator.initCentralCommunicator1(this.myName, this.manager.getPeerGroup(), this.manager.getMyPipeAdvertisement());
-            communicator.setPlayerName(myName);
-            ElectionController electionController=new ElectionController(this.myName, this.manager.getPeerGroup(), pipes);
-            communicator.setElectionNotifier(electionController);
-            electionController.setElectionListener(this);
-            Random random=new Random();
-            this.gameParameter=new GameParameter(mapName);
-            gameParameter.setMaxPlayers(maxPlayers);
-            gameParameter.setSeed_cards(random.nextInt());
-            gameParameter.setSeed_dice(random.nextInt());
-            gameParameter.setSeed_region(random.nextInt());
-            communicator.setGameParameter(gameParameter, false, null, maxPlayers);
-            communicator.addInitListener(this);
-            communicator.setRecoveryListeners(this);
+             this.virtualPlayerManager.creategame(name,mapName,maxPlayers,maxTurns);    
         } catch (IOException ex) {
            System.out.println("impossbile creare gioco "+name);
         }
@@ -386,8 +311,11 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             Object xxx=this.gamesList.getSelectedValue();
             if(xxx==null)
                 return;
-            GameAdvertisement gameDv = this.games.get(this.gamesList.getSelectedValue().toString());
-            updateRegistrations(gameDv.getGameID());
+            
+            this.virtualPlayerManager.clearRegistrations();
+            
+            String gameName=this.gamesList.getSelectedValue().toString();
+            updateRegistrations(gameName);
 
             
         } catch (IOException ex) {
@@ -397,18 +325,13 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     }//GEN-LAST:event_gamesListValueChanged
 
     private void updateRegistrations(String gameID) throws IOException{
-        List<RegistrationAdvertisement> rA = this.manager.findRegistrations(gameID);
-        this.registrations.clear();
         DefaultListModel model=(DefaultListModel) this.currentPlayersInGameList.getModel();
         model.clear();
+        Set<String> rA = this.virtualPlayerManager.findRegistrations(gameID);
         
-        Iterator<RegistrationAdvertisement> iter=rA.iterator();
-        while(iter.hasNext()){
-
-            RegistrationAdvertisement adv=iter.next();
-           registrations.put(adv.getPeerID(), adv);
-            model.addElement(adv.getPeerID());
-        }
+        
+        
+        this.updateList(rA, currentPlayersInGameList);
         
     }
 
@@ -422,26 +345,17 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
                 return;
             }
             String gamaName = gamesList.getSelectedValue().toString();
-            GameAdvertisement gameAdv = this.games.get(gamaName);
-            this.manager.createRegistration(gameAdv.getGameID());
-            if (this.myName.equals(gameAdv.getCreatorID())) {
-                this.registrations.put(manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement());
-                updateList(registrations, manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement(), currentPlayersInGameList);
-                startGame();
+
+            if(this.virtualPlayerManager.startCreatedGame(gamaName)){
+                setVisible(false);
                 return;
             }
-            
-            PipeAdvertisement creatorPipe = pipes.get(gameAdv.getCreatorID() + " Pipe");
-            VirtualCommunicator communicator=VirtualCommunicator.initPeerComunicator(this.myName, this.manager.getPeerGroup(), creatorPipe,this.manager.getMyPipeAdvertisement());
-            if(communicator!=null){
-                communicator.addInitListener(this);
-                communicator.setRecoveryListeners(this);
-                ElectionController electionController=new ElectionController(this.myName, this.manager.getPeerGroup(), pipes);
-                communicator.setElectionNotifier(electionController);
-                electionController.setElectionListener(this);
-                updateRegistrations(this.manager.getMyRegistrationAdvertisement().getGameID());
 
+            
+            if(this.virtualPlayerManager.registerInGame(gamaName)){
                 this.jButton1.setEnabled(false);
+                this.setVisible(false);
+                return;
             }
             
             
@@ -449,255 +363,77 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             ex.printStackTrace();
         }
 
-            
-        
-            
-       
-
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
-    private void startGame(){
-        try {
-
-           
+    protected void updateList(Set<String> set,JList list){
+        DefaultListModel model=(DefaultListModel) list.getModel();
         
-        int myTurno=0;
-
-
-            VirtualCommunicator communicator=VirtualCommunicator.getInstance();
-            
-            communicator.sendInitMessages();
-            
-            
-
-
-
-            GameFactory factory = new GameFactory();
-            
-            //factory.loadGame("classicalMap");
-            factory.loadGame(gameParameter.getMapName());
-            Mappa mappa = factory.getMappa();
-            List<Obiettivo> obiettivi = factory.getObiettivi();
-            int turno = 0;
-
-            List<String> names=communicator.getPlayerrNames();
-            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
-            tavolo.setNameMap(gameParameter.getMapName());
-            GameController controller=GameController.createGameController();
-            factory.loadMapPanel();
-            XMapPanel panel=factory.getMapPanel();
-            this.setVisible(false);
-            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
-            app.show(new VirtualRisikoIIView(app,panel));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        Iterator<String> iter=set.iterator();
+        while(iter.hasNext()){
+            String key=iter.next();
+            model.addElement(key);
         }
 
+    }
+
+    protected void updateList(String s,JList list){
+        DefaultListModel model=(DefaultListModel) list.getModel();
+        model.addElement(s);
 
     }
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new VirtualPlayerManagerGUI().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (PeerGroupException ex) {
-                    Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList allPlayersList;
-    private javax.swing.JList currentPlayersInGameList;
-    private javax.swing.JList gamesList;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    protected javax.swing.JList allPlayersList;
+    protected javax.swing.JList currentPlayersInGameList;
+    protected javax.swing.JList gamesList;
+    protected javax.swing.JButton jButton1;
+    protected javax.swing.JButton jButton2;
+    protected javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel userNameLabel;
+    protected javax.swing.JLabel userNameLabel;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
+    
     public void gameUpdated(GameAdvertisement adv) {
-        updateList(games,adv.getGameName(),adv,gamesList);
-    }
+        if(!this.virtualPlayerManager.getGames().contains(adv.getGameName())){
+            this.virtualPlayerManager.gameUpdated(adv);
 
-    public  void presenceUpdated(PlayerAdvertisement playerInfo) {
-        /*if(!this.players.containsKey(playerInfo.getName())){
-            players.put(playerInfo.getName(), playerInfo);
-            DefaultListModel model=(DefaultListModel) this.allPlayersList.getModel();
-            model.addElement(playerInfo.getName());
+            this.updateList(virtualPlayerManager.getGames(), gamesList);
         }
-          */
-        updateList(players, playerInfo.getName(), playerInfo, allPlayersList);
-
-           
         
     }
+    
 
-    public void registrationUpdated(RegistrationAdvertisement adv) {
-        //updateList(registrations, adv.get, adv, gamesList);
-        updateList(registrations, adv.getPeerID(), adv, currentPlayersInGameList);
-    }
-
-    private void updateList(HashMap map,String key,Advertisement adv,JList list){
-        if(!map.containsKey(key)){
-            map.put(key, adv);
-            DefaultListModel model=(DefaultListModel) list.getModel();
-            model.addElement(key);
+    public void presenceUpdated(PlayerAdvertisement playerInfo) {
+        if(!this.virtualPlayerManager.getPlayers().contains(playerInfo.getName())){
+            this.virtualPlayerManager.presenceUpdated(playerInfo);
+            this.updateList(virtualPlayerManager.getPlayers(), allPlayersList);
         }
+        
     }
 
     public void pipeUpdated(PipeAdvertisement pipeInfo) {
-        this.pipes.put(pipeInfo.getName(), pipeInfo);
+        this.virtualPlayerManager.pipeUpdated(pipeInfo);
     }
 
-   
-    public void init(InitMessage msg) {
-        try {
-            if (receivedInit) {
-                return;
-            }
-            int myTurno=msg.getMyTurno();
-            int players=msg.getPlayers();
-            int seed_dice=msg.getSeed_dice();
-            String map_name=msg.getMap_name();
-            int seed_card=msg.getSeed_card();
-            int seed_region=msg.getSeed_region();
-            List<String> names=msg.getNames();
-            receivedInit = true;
-            System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            GameFactory factory = new GameFactory();
-            //factory.loadGame("classicalMap");
-            factory.loadGame(map_name);
-            Mappa mappa = factory.getMappa();
-            List<Obiettivo> obiettivi = factory.getObiettivi();
-            int turno = 0;
-            System.out.println("REGISTRAZIONE " + myTurno);
-            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno, players, myTurno, seed_dice, seed_region, seed_card,names);
-            tavolo.setNameMap(map_name);
-            GameController controller = GameController.createGameController();
-            this.setVisible(false);
-            factory.loadMapPanel();
-            XMapPanel panel = factory.getMapPanel();
-             app = new VirtualRisikoIIApp();
-              view=new VirtualRisikoIIView(app, panel);
-
-            app.show(view);
-            
-
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } 
-
-
-    }
-
-    public void notifyReconnect(RecoveryParameter parameter) {
-        try {
-            
-            System.out.println("messaggio di inizializazione ricevuto !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            
-            //factory.loadGame("classicalMap");
-            
-            
-           
-            System.out.println("riconnessione ::: turno corrente" +parameter.getTurno()+" turno del mio giocatore "+ parameter.getTurnoMyGiocatore());
-
-            RecoveryUtil util=new RecoveryUtil();
-            util.recoveryTable(parameter);
-            Tavolo tavolo = Tavolo.getInstance();
-             GameController controller=GameController.getInstance();
-          //  GameController controller = GameController.createGameController();
-            this.setVisible(false);
-           
-            XMapPanel panel = util.getPanel();
-             app = new VirtualRisikoIIApp();
-             if(view!=null){
-                 app.hide(view);
-             }
-             view=new  VirtualRisikoIIView(app, panel);
-            app.show(view);
-            
-            
-
-            
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } 
-    }
-
-    private String newManager=null;
-     public void notifyElection(ElectionMessage msg) {
-
-         if(newManager==null){
-             newManager=msg.getPeerID();
-             System.out.println("Primo tentativo ...  nuovo manager :: "+newManager);
-             return;
-         }
-         
-         String s=msg.getPeerID();
-         if(!s.equals(newManager)){
-             newManager=s;
-             System.out.println("cambio vincitore elezione...  nuovo manager :: "+newManager);
-             return;
-         }
-        int currentTurn=msg.getCurrentTurn();
-        System.out.println("elezione notificata nuovo manager :: "+newManager);
-        PipeAdvertisement pipeAdv=this.pipes.get(newManager+" Pipe");
-        try{
-            if(newManager.equals(this.myName)){
-                List<Giocatore> players=Tavolo.getInstance().getGiocatori();
-                ArrayList<String> names=new ArrayList<String>();
-                Giocatore g;
-                for(int i=0;i<players.size();i++){
-                    g=players.get(i);
-                    if(!g.getUsername().equals(myName)){
-                        names.add(g.getUsername());
-                    }
-                }
-                VirtualCommunicator.getInstance().commuteToCentralCommunicator(pipeAdv, names, true);
-                GameController.getInstance().restartTimers();
-                
-              /*  List<Giocatore> players=Tavolo.getInstance().getGiocatori();
-                Giocatore g;
-                for(int i=0;i<players.size();i++){
-                    g=players.get(i);
-                    if(!g.getUsername().equals(myName)){
-                        VirtualCommunicator.getInstance().sendRecoveryMessage(i);
-                    }
-                }*/
-            }else{
-               // VirtualCommunicator.initPeerComunicator(myName, this.manager.getPeerGroup(), pipeAdv, this.manager.getMyPipeAdvertisement());
-               VirtualCommunicator.getInstance().restartPeerCommunicator(pipeAdv, this.manager.getMyPipeAdvertisement());
-            }
-        }catch(Exception ex){
-            ex.printStackTrace();
+    public void registrationUpdated(RegistrationAdvertisement adv) {
+        if(!this.virtualPlayerManager.getRegistrations().contains(adv.getPeerID())){
+            this.virtualPlayerManager.registrationUpdated(adv);
+            this.updateList(virtualPlayerManager.getRegistrations(), currentPlayersInGameList);
         }
-       
-        
     }
-    
-
-  private VirtualRisikoIIApp app;
-  private VirtualRisikoIIView view;
 
 
 
     
 
+    
+
+    
 }

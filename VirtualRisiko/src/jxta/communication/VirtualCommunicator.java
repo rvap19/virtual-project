@@ -43,7 +43,7 @@ import net.jxta.protocol.PipeAdvertisement;
 import net.jxta.util.JxtaBiDiPipe;
 import services.RecoveryListener;
 import util.RecoveryUtil;
-import virtualrisikoii.GameParameter;
+import util.GameParameter;
 import virtualrisikoii.RecoveryParameter;
 import jxta.communication.messages.listener.ApplianceListener;
 import jxta.communication.messages.listener.AttackListener;
@@ -460,7 +460,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         Iterator<String> iter=toPeersPipes.keySet().iterator();
         while(iter.hasNext()){
 
-            msg=new InitMessage(this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region(),names);
+            msg=new InitMessage(gameParameter.getMaxTurns(),this.currentPlayerNumber, gameParameter.getSeed_dice(), gameParameter.getMapName(), gameParameter.getSeed_cards(), gameParameter.getSeed_region(),names);
 
             StringMessageElement mE=new StringMessageElement(InitMessage.TURN, Integer.toString(turn), null);
             msg.addMessageElement(VirtualRisikoMessage.namespace, mE);

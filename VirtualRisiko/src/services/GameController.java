@@ -6,6 +6,7 @@
 package services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,8 +14,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxta.communication.VirtualCommunicator;
 import jxta.communication.messages.ApplianceMessage;
 import jxta.communication.messages.AttackMessage;
@@ -54,7 +53,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private MapListener mapListener;
     private HistoryListener historyListener;
     private PlayerDataListener playerDataListener;
-    private VictoryListener victoryListener;
+    private List<VictoryListener> victoryListeners;
     private TroopsSelector troopsSelector;
     private CardListener cardListener;
     private CardChangeListener cardChangeListener;
@@ -103,6 +102,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         comunicator.addChangeCardsListener(this);
         comunicator.setRecoveryRequestListener(this);
         comunicator.addPongListener(this);
+        this.victoryListeners=new ArrayList<VictoryListener>();
         Tavolo tavolo=Tavolo.getInstance();
 
         Iterator<Giocatore> iter=tavolo.getGiocatori().iterator();
@@ -207,13 +207,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         this.troopsSelector = troopsSelector;
     }
 
-    public VictoryListener getVictoryListener() {
-        return victoryListener;
-    }
+   public void addVictoryListener(VictoryListener listener){
+       this.victoryListeners.add(listener);
+   }
 
-    public void setVictoryListener(VictoryListener victoryListener) {
-        this.victoryListener = victoryListener;
-    }
+   public void removeVictoryListener(VictoryListener listener){
+       this.victoryListeners.remove(listener);
+   }
 
 
 
@@ -312,7 +312,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 //azione diversa da null::controllare stato obiettivi
                 if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
 
-                   this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
+                   this.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente(),true);
                 }
 
             }else{
@@ -346,7 +346,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 //azione diversa da null::controllare stato obiettivi
                 if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
 
-                     this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
+                   this.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente(),true);
                 }
 
             }
@@ -492,7 +492,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
                 if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
 
-                    this.victoryListener.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente());
+                   this.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente(),true);
                 }
                 locker.releaseTavolo();
                 return true;
@@ -582,6 +582,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             try {
                 this.comunicator.sendRecoveryMessage(turno);
                 this.reconnectionNeeds[turno] = false;
+                System.out.println("send recovery message to player with ID "+giocatore);
             } catch (Exception ex) {
                 System.err.println("Impossibile inviare messaggio di recupero");
                 ex.printStackTrace();
@@ -759,6 +760,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             }
             
             this.playerDataListener.updateDatiGiocatore(giocatore.getNome(), giocatore.getNumeroTruppe(), giocatore.getArmateDisposte(), giocatore.getNazioni().size());
+            if(tavolo.gameOver()){
+                List<Giocatore> giocatori=tavolo.getGiocatori();
+                Giocatore bestP=this.findBestGiocatore(giocatori);
+                this.notifyVictory(giocatori, bestP, false);
+            }
             if(tavolo.isTurnoMyGiocatore()){
 
                 this.historyListener.appendActionInHistory(tavolo.getGiocatoreCorrente().getNome()+" ancora "+tavolo.getGiocatoreCorrente().getNumeroTruppe());
@@ -819,6 +825,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     //        new JFrameTurno(g.getID()).setVisible(true);
             this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
+            if(tavolo.gameOver()){
+                List<Giocatore> giocatori=tavolo.getGiocatori();
+                Giocatore bestP=this.findBestGiocatore(giocatori);
+                this.notifyVictory(giocatori, bestP, false);
+            }
         }
         
         locker.releaseTavolo();
@@ -897,6 +908,30 @@ public class GameController implements ApplianceListener,AttackListener,Movement
        this.messageReceived[turns.get(msg.getPeerID())]=true;
     }
 
+    private Giocatore findBestGiocatore(List<Giocatore> giocatori) {
+        Tavolo tavolo=Tavolo.getInstance();
+        Giocatore vincitore=giocatori.get(0);
+        int bestScore=tavolo.getPunteggioGiocatore(vincitore);
+
+        for(int i=1;i<giocatori.size();i++){
+            int score=tavolo.getPunteggioGiocatore(giocatori.get(i));
+            if(score>bestScore){
+                bestScore=score;
+                vincitore=giocatori.get(i);
+            }
+        }
+
+        return vincitore;
+
+    }
+
+    private void notifyVictory(List<Giocatore> giocatori, Giocatore g,boolean vistory){
+        Iterator<VictoryListener> iter=this.victoryListeners.iterator();
+        while(iter.hasNext()){
+            iter.next().notifyVictory(giocatori, g, vistory);
+        }
+    }
+
 
     private  class  ManagerPingerThread extends Thread{
 
@@ -964,6 +999,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     g=Tavolo.getInstance().getGiocatoreCorrente();
                     if(messageReceived[g.getID()]){
                          sendRecoveryMessage(g.getID());
+
                     }
                     else if(!Tavolo.getInstance().isTurnoMyGiocatore())
                     {

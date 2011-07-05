@@ -29,7 +29,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         gameController=GameController.getInstance();
         gameController.setMapListener(this);
         gameController.setTroopsSelector(this);
-        gameController.setVictoryListener(this);
+        gameController.addVictoryListener(this);
         gameController.setCardListener(this);
         gameController.setCardChangeListener(this);
         initComponents();

@@ -40,6 +40,8 @@ public class RecoveryUtil {
         parameter.setObjectives(getObiettivi(tavolo));
         parameter.setSeed_card(tavolo.getCardSeed());
         parameter.setSeed_dice(tavolo.getDiceSeed());
+        parameter.setMaxTurns(tavolo.getMaxTurns());
+        parameter.setElapsedTurns(tavolo.getTurnElapsed());
         parameter.setTurno(tavolo.getTurno());
         parameter.setPlayersNames(getPlayersNames(tavolo));
         parameter.setTurnoMyGiocatore(tavolo.getGiocatori().indexOf(tavolo.getMyGiocatore()));
@@ -55,9 +57,10 @@ public class RecoveryUtil {
          mappa=gameFactory.getMappa();
          obiettivi=gameFactory.getObiettivi();
 
-        Tavolo tavolo=Tavolo.createInstance(mappa, obiettivi, parameter.getTurno(), parameter.getNumeroGiocatori(), parameter.getTurnoMyGiocatore(), parameter.getSeed_dice(), 0, parameter.getSeed_card(),parameter.getPlayersNames());
+        Tavolo tavolo=Tavolo.createInstance(mappa, obiettivi, parameter.getTurno(),parameter.getMaxTurns(), parameter.getNumeroGiocatori(), parameter.getTurnoMyGiocatore(), parameter.getSeed_dice(), 0, parameter.getSeed_card(),parameter.getPlayersNames());
         tavolo.setInizializzazione(parameter.isInizializzazione());
         tavolo.setNameMap(parameter.getMapName());
+        tavolo.setTurnElapsed(parameter.getElapsedTurns());
         int diceLanch=tavolo.getDiceLanch();
         int limit=parameter.getDice_lanch();
         System.out.println("allineamento dadi");
@@ -134,6 +137,10 @@ public class RecoveryUtil {
         }
 
         ArrayList<Carta> newList=new ArrayList<Carta>(numCarte);
+        for(int i=0;i<numCarte;i++){
+            newList.add(null);
+        }
+
         for(int i=0;i<numCarte;i++){
             int position=posizioni[i];
             if(position>=0){

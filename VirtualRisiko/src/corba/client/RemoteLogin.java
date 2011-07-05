@@ -8,19 +8,15 @@ import corba.RisikoServerHelper;
 import corba.Summary;
 import corba.UserInfo;
 import corba.impl.PlayerImpl;
-import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import net.jxta.exception.PeerGroupException;
+import jxta.gui.RemoteVirtualPlayerManagerGUI;
 
 
 import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
+import services.RemoteVirtualPlayerManager;
 
 /*
  * To change this template, choose Tools | Templates
@@ -235,7 +231,10 @@ public class RemoteLogin extends javax.swing.JFrame {
                     
                     ORBThread thread=new ORBThread(server, info, player, orb);
                     thread.start();
-                    new RemotePlayerManagerGUI(server, player, info.username).setVisible(true);
+                    RemoteVirtualPlayerManager manager=new RemoteVirtualPlayerManager(server, player, info.username, 9701);
+                    RemoteVirtualPlayerManagerGUI gui=new RemoteVirtualPlayerManagerGUI(manager);
+                    gui.setListeners();
+                    gui.setVisible(true);
                     this.dispose();
             } catch (Exception ex) {
                 ex.printStackTrace();

@@ -126,9 +126,11 @@ public abstract class XMapPanel extends JPanel implements MapListener,TroopsSele
        return -1;
    }
 
-     public void notifyVictory(List<Giocatore> giocatori,Giocatore vincitore){
+     public void notifyVictory(List<Giocatore> giocatori,Giocatore vincitore,boolean victory){
         EndGameFrame frame=new EndGameFrame();
-        frame.setVincitore(vincitore);
+        if(victory){
+            frame.setVincitore(vincitore);
+        }
         Iterator<Giocatore> iter=giocatori.iterator();
         while(iter.hasNext())
             frame.setPunteggio(iter.next());
