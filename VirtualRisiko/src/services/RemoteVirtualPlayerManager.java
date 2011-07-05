@@ -266,6 +266,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     @Override
     public Set<String> findPlayers() throws PeerGroupException, IOException {
+        manager.findPlayers();
         UserInfo[] infos=this.server.getAuthenticateUsers();
         this.players.clear();
 
