@@ -52,7 +52,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
     public UserInfo authenticate(String usrname, String pwd) {
         User user=this.userDAO.findUserByUserNamePassword(usrname, pwd);
         System.out.println("authenticate "+usrname+" "+pwd);
-        if(user!=null&&!user.getConfermato()){
+        if((user!=null&&!user.getConfermato()) ||(infos.get(usrname)!=null)){
             user=null;
         }
         UserInfo info= CorbaUtil.createUserInfo(user);
