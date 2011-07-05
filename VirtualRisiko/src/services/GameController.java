@@ -72,7 +72,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private ManagerPingerThread managerTimer;
     private static GameController instance=null;
     private HashMap<String,Integer> turns;
-
+    private boolean gameOver;
     
 
     public static GameController createGameController(){
@@ -102,6 +102,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         comunicator.addChangeCardsListener(this);
         comunicator.setRecoveryRequestListener(this);
         comunicator.addPongListener(this);
+        gameOver=false;
         this.victoryListeners=new ArrayList<VictoryListener>();
         Tavolo tavolo=Tavolo.getInstance();
 
@@ -137,6 +138,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
 
     }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    
 
     public void restartTimers(){
         this.timer=new GameTimer(this, GameTimer.ACTION);
@@ -231,7 +238,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updateAppliance(ApplianceMessage msg) {
-
+        if(gameOver){
+            return;
+        }
         int troops_number=msg.getTroops_number();
         int region=msg.getRegion();
         
@@ -254,6 +263,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updateAttack(AttackMessage msg) {
+        if(gameOver){
+            return;
+        }
         int troops_number=msg.getTroopNumber();
         int from=msg.getFrom();
         int to=msg.getTo();
@@ -323,6 +335,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updateMovement(MovementMessage msg) {
+        if(gameOver){
+            return;
+        }
         int troops_number=msg.getTroopNumber();
         int from=msg.getFrom();
         int to=msg.getTo();
@@ -354,6 +369,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updateChangeCards(ChangeCardMessage msg) {
+        if(gameOver){
+            return;
+        }
         int card1=msg.getCard1();
         int card2=msg.getCard2();
         int card3=msg.getCard3();
@@ -384,6 +402,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
 
     public void makeFirstSelection(int terrID){
+        if(gameOver){
+            return;
+        }
         Tavolo tavolo=locker.acquireTavolo();
         Territorio t=tavolo.getMappa().getTerritorio(terrID);
         Giocatore corrente=tavolo.getGiocatoreCorrente();
@@ -408,6 +429,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public boolean makeAttack(int fromTerritorioID,int toTerritorioID){
+        if(gameOver){
+            return false;
+        }
         Tavolo tavolo=locker.acquireTavolo();
         if(!tavolo.isTurnoMyGiocatore()){
             locker.releaseTavolo();
@@ -502,6 +526,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public boolean makeSpostamento(int fromterritorioID,int toTerritorioID){
+        if(gameOver){
+            return false;
+        }
         Tavolo tavolo=locker.acquireTavolo();
         if(!tavolo.isTurnoMyGiocatore()){
             locker.releaseTavolo();
@@ -575,6 +602,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     private synchronized  void sendRecoveryMessage(int giocatore){
+        if(gameOver){
+            return;
+        }
         
         int turno=giocatore;
 
@@ -592,6 +622,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void makeSecondSelection(int terrID){
+        if(gameOver){
+            return;
+        }
         Territorio currentSelection=Tavolo.getInstance().getMappa().getTerritorio(terrID);
 
 
@@ -619,6 +652,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void assegnaUnita(int terrID){
+        if(gameOver){
+            return;
+        }
         Tavolo tavolo=locker.acquireTavolo();
         if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
             locker.releaseTavolo();
@@ -660,6 +696,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void assegnaUnitaInInizializzazione(int terrID){
+        if(gameOver){
+            return;
+        }
         Tavolo tavolo=locker.acquireTavolo();
         if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
             locker.releaseTavolo();
@@ -730,6 +769,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void updatePass(PassMessage msg) {
+        if(gameOver){
+            return;
+        }
         int turno=msg.getTurno_successivo();
             Tavolo tavolo=locker.acquireTavolo();
 
@@ -777,6 +819,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public   void  passaTurno() throws IOException{
+        if(gameOver){
+            return;
+        }
          if(!Tavolo.getInstance().isTurnoMyGiocatore()){
              return;
          }
@@ -847,6 +892,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void notifyReconnectionRequest(String playerName) {
+        if(gameOver){
+            return;
+        }
         System.out.println("Ricevuto richiesta riconnessione da "+playerName);
         int turn=this.turns.get(playerName).intValue();
         reconnectionNeeds[turn]=true;
@@ -877,6 +925,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     private void autoDispose(int troops){
+        if(gameOver){
+            return;
+        }
         Tavolo tavolo=Tavolo.getInstance();
         Set<Territorio> set=tavolo.getGiocatoreCorrente().getNazioni();
             int size=set.size();
@@ -926,6 +977,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     private void notifyVictory(List<Giocatore> giocatori, Giocatore g,boolean vistory){
+        if(gameOver){
+            return;
+        }
+        this.gameOver=true;
+        this.timer.stopTimer();
+        VirtualCommunicator comunicator=VirtualCommunicator.getInstance();
+        comunicator.stopServer();
         Iterator<VictoryListener> iter=this.victoryListeners.iterator();
         while(iter.hasNext()){
             iter.next().notifyVictory(giocatori, g, vistory);

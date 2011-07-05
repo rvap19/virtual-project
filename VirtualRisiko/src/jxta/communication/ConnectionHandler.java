@@ -26,6 +26,7 @@ public class ConnectionHandler extends Thread{
 
     private PeerGroup group;
     private PipeAdvertisement pipeadv;
+    private boolean running;
     private int backlog;
     private int timeout;
 
@@ -40,8 +41,12 @@ public class ConnectionHandler extends Thread{
         this.pipeadv=pipeadv;
         this.backlog=backlog;
         this.timeout=timeout;
-        
+        running=true;
        System.err.println("parametri server settati");
+    }
+
+    public void stopServer(){
+        this.running=false;
     }
 
     public ConnectionListener getConnectionListener() {
@@ -55,13 +60,14 @@ public class ConnectionHandler extends Thread{
 
     public void run() {
         try {
+            running=true;
             server = new JxtaServerPipe(group, pipeadv, backlog, timeout);
         } catch (IOException ex) {
             System.err.println("impossibile avviare server");
             System.exit(-1);
         }
             System.err.println("server pipe avviato");
-            while(true){
+            while(running){
                 JxtaBiDiPipe pipe;
                 try {
                     pipe = server.accept();
@@ -69,8 +75,11 @@ public class ConnectionHandler extends Thread{
                     pipe.setRetryTimeout(10*1000);
                     Message msg=pipe.getMessage(0);
 
-                    
-                    connectionListener.notifyConnection(pipe,msg);
+                    if(running){
+                        connectionListener.notifyConnection(pipe,msg);
+                    }else{
+                        pipe.close();
+                    }
                     System.out.println("connection handler "+this.server.getPipeAdv().getName()+":: connessione accettata");
                 } catch (InterruptedException ex) {
                      System.err.println("timeout su ricezione msg registrazione");

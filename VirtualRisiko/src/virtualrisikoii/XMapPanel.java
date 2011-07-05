@@ -66,6 +66,9 @@ public abstract class XMapPanel extends JPanel implements MapListener,TroopsSele
         int id=this.getLabelID(label);
         this.gameController.makeAction(id);*/
 
+        if(gameController.isGameOver()){
+            return;
+        }
         if(!gameController.canMove()){
             return;
         }
