@@ -317,7 +317,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
     }
 
     public boolean isOnline(String username) {
-        return this.infos.get(username)!=null;
+        return this.infos.get(username).isLogged();
     }
 
     public PartitaInfo getActiveGame(String username) {
