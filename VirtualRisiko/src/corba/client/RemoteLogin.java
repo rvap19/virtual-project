@@ -287,13 +287,13 @@ public class RemoteLogin extends javax.swing.JFrame {
             Properties props = System.getProperties();
             props.put("org.omg.CORBA.ORBInitialPort", "1050");
             //Replace MyHost with the name of the host on which you are running the server
-            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            props.put("org.omg.CORBA.ORBInitialHost", "192.168.1.116");
             ORB orb = ORB.init(args, props);
 	    System.out.println("Initialized ORB");
 
             //Resolve MessageServer
 	    RisikoServer risikoServer = RisikoServerHelper.narrow(
-	        orb.string_to_object("corbaname:iiop:1.2@localhost:1050#RisikoServer"));
+	        orb.string_to_object("corbaname:iiop:1.2@192.168.1.116:1050#RisikoServer"));
 
             
             
