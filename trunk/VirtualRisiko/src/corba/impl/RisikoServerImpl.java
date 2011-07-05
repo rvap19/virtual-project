@@ -67,7 +67,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
                         current.notifyNewPlayer(info);
                     }
                 }catch(Exception ex){
-                    ex.printStackTrace();
+                   System.out.println("errore listener");
                 }
             }
         }
