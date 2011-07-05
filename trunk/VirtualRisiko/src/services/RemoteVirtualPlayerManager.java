@@ -68,7 +68,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     @Override
     public void init() throws IOException, PeerGroupException {
-         manager.init("tcp://"+"192.168.1.116:"+corba.server.Server.TCP_PORT, false);
+         manager.init("tcp://"+"192.168.1.113:"+corba.server.Server.TCP_PORT, false);
          manager.findPlayers();
          manager.findPipes();
     }

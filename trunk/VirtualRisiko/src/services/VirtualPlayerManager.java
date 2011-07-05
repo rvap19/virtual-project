@@ -333,7 +333,8 @@ public class VirtualPlayerManager implements  InitListener,RecoveryListener,Elec
                 GameController.getInstance().restartTimers();
 
             }else{
-                PipeAdvertisement pipeAdv=this.pipes.get(newManager+" Pipe");
+                String pipeName=newManager+" Pipe";
+                PipeAdvertisement pipeAdv=this.pipes.get(pipeName);
                // VirtualCommunicator.initPeerComunicator(myName, this.manager.getPeerGroup(), pipeAdv, this.manager.getMyPipeAdvertisement());
                VirtualCommunicator.getInstance().restartPeerCommunicator(pipeAdv, this.manager.getMyPipeAdvertisement());
             }

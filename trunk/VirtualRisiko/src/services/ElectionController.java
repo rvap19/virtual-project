@@ -112,7 +112,7 @@ public class ElectionController implements PipeMsgListener{
         ackReceived=false;
          if(message!=null){
              System.out.println("inviati messaggi di elezione");
-             for(int i=0;i<9&&!ackReceived;i++)
+             for(int i=0;i<2&&!ackReceived;i++)
               try {
                     Thread.sleep(10 * 1000);
                     System.out.println("attesa "+i+" .. nessun ack ricevuto per ELECTION");
