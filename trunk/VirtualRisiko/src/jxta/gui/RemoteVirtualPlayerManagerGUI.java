@@ -27,6 +27,8 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
        super(virtualPlayermanager);
     }
 
+
+
     public void setListeners(){
         virtualPlayerManager.getManager().addPipeListener(this);
         ((RemoteVirtualPlayerManager)virtualPlayerManager).getPlayer().setListener(this);

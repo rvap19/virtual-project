@@ -56,7 +56,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
         pipes=new HashMap<String,PipeAdvertisement>();
         receivedInit=false;
         manager=new PlayerManager(me.getUserInfo().username, corba.server.Server.TCP_PORT);
-       
+        super.myName=name;
 
     }
 
