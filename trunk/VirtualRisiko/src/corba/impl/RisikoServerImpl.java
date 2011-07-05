@@ -67,7 +67,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
                         current.notifyNewPlayer(info);
                     }
                 }catch(Exception ex){
-                    
+                    ex.printStackTrace();
                 }
             }
         }
@@ -310,9 +310,9 @@ public class RisikoServerImpl extends RisikoServerPOA{
         return result;
     }
 
-    public void registerPlayer(Player player) {
+    public void registerPlayer(String username,Player player) {
        
-        this.infos.put(player.getUserInfo().username, player);
+        this.infos.put(username, player);
         System.out.println("ciao");
     }
 

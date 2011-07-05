@@ -355,7 +355,7 @@ public class RemoteLogin extends javax.swing.JFrame {
 
 System.out.println("try to register with Risiko Server");
                 //Register listener reference (callback object) with MessageServer
-                this.server.registerPlayer(ref);
+                this.server.registerPlayer(info.username,ref);
                 System.out.println("Player registered with Risiko Server");
 
                 //Activate rootpoa
