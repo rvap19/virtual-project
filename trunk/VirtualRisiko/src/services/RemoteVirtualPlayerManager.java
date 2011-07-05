@@ -94,6 +94,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                 System.err.println("RICERCA PIPE CREATOR");
                 try {
                     manager.findPipes();
+
                     Thread.sleep(1500);
                 } catch (Exception ex) {
                    ex.printStackTrace();
@@ -111,8 +112,8 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                 communicator.setElectionNotifier(electionController);
                 electionController.setElectionListener(this);
 
-
-                server.signPlayer(player.getUserInfo(),games.get(gamaName));
+                this.game=games.get(gamaName);
+                server.signPlayer(player.getUserInfo(),game);
 
                 return true;
             }
