@@ -317,7 +317,7 @@ public class VirtualPlayerManager implements  InitListener,RecoveryListener,Elec
          }
         int currentTurn=msg.getCurrentTurn();
         System.out.println("elezione notificata nuovo manager :: "+newManager);
-        PipeAdvertisement pipeAdv=this.pipes.get(newManager+" Pipe");
+        
         try{
             if(newManager.equals(this.myName)){
                 List<Giocatore> players=Tavolo.getInstance().getGiocatori();
@@ -329,10 +329,11 @@ public class VirtualPlayerManager implements  InitListener,RecoveryListener,Elec
                         names.add(g.getUsername());
                     }
                 }
-                VirtualCommunicator.getInstance().commuteToCentralCommunicator(pipeAdv, names, true);
+                VirtualCommunicator.getInstance().commuteToCentralCommunicator(this.manager.getMyPipeAdvertisement(), names, true);
                 GameController.getInstance().restartTimers();
 
             }else{
+                PipeAdvertisement pipeAdv=this.pipes.get(newManager+" Pipe");
                // VirtualCommunicator.initPeerComunicator(myName, this.manager.getPeerGroup(), pipeAdv, this.manager.getMyPipeAdvertisement());
                VirtualCommunicator.getInstance().restartPeerCommunicator(pipeAdv, this.manager.getMyPipeAdvertisement());
             }
