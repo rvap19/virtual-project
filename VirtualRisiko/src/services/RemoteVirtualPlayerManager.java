@@ -105,9 +105,11 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
             if(communicator!=null){
                 communicator.addInitListener(this);
                 communicator.setRecoveryListeners(this);
-                ElectionController electionController=new ElectionController(this.player.getUserInfo().username, this.manager.getPeerGroup(), pipes);
+                RemoteElectionController electionController=new RemoteElectionController(this.player.getUserInfo().username, this.manager.getPeerGroup(), pipes);
+                electionController.setPartita(partitaInfo);
+                electionController.setServer(server);
                 communicator.setElectionNotifier(electionController);
-           //     electionController.setElectionListener(this);
+                electionController.setElectionListener(this);
 
 
                 server.signPlayer(player.getUserInfo(),games.get(gamaName));
@@ -171,9 +173,11 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
             String myName=this.player.getUserInfo().username;
             VirtualCommunicator communicator=VirtualCommunicator.initCentralCommunicator1(myName, this.manager.getPeerGroup(), this.manager.getMyPipeAdvertisement());
             communicator.setPlayerName(myName);
-           /* ElectionController electionController=new ElectionController(myName, this.manager.getPeerGroup(), pipes);
+            RemoteElectionController electionController=new RemoteElectionController(myName, this.manager.getPeerGroup(), pipes);
+            electionController.setPartita(game);
+            electionController.setServer(server);
             communicator.setElectionNotifier(electionController);
-            electionController.setElectionListener(this);*/
+            electionController.setElectionListener(this);
             Random random=new Random();
             this.gameParameter=new GameParameter(mapName);
             gameParameter.setMaxPlayers(maxPlayers);
