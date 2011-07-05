@@ -41,6 +41,7 @@ public class ElectionController implements PipeMsgListener{
 
     private boolean started=false;
 
+
     
 
     public ElectionController(String playerName,PeerGroup group,HashMap<String,PipeAdvertisement> advertisements){
@@ -84,7 +85,7 @@ public class ElectionController implements PipeMsgListener{
         }
 
         if(send){
-            for(int i=0;i<9&&!ackReceived;i++)
+            for(int i=0;i<3&&!ackReceived;i++)
                 try {
                     Thread.sleep(10 * 1000);
                     System.out.println("attesa "+i+" .. nessun ack ricevuto per REQUEST election");
