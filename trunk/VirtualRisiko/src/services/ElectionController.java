@@ -101,6 +101,11 @@ public class ElectionController implements PipeMsgListener{
         }
 
         ElectionMessage message=sendElectionMessages();
+        if(message==null){
+            System.out.println("Invio messaggio di elezione fallito ...");
+            System.out.println("provare a riavviare l 'applicazione");
+            System.exit(1);
+        }
         this.electionListener.notifyElection(message);
                      //closePipes();
         ackReceived=false;
