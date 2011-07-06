@@ -10,11 +10,10 @@ import corba.PlayerOperations;
 import corba.RegistrationInfo;
 import corba.UserInfo;
 import java.io.IOException;
-import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import net.jxta.exception.PeerGroupException;
 import services.RemoteVirtualPlayerManager;
 import services.VirtualPlayerManager;
-import virtualrisikoii.GameDialog;
 
 /**
  *
@@ -25,9 +24,30 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
     public RemoteVirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
 
        super(virtualPlayermanager);
+       managePreviuosGame();
     }
 
-
+    private void managePreviuosGame() throws IOException{
+        RemoteVirtualPlayerManager manager=((RemoteVirtualPlayerManager)virtualPlayerManager);
+        PartitaInfo info=manager.getPreviousGame();
+        if(info!=null){
+            if(manager.isManager(info)){
+                //joptionpane for eleminazione partita
+                int result=JOptionPane.showConfirmDialog(rootPane, "Gli iscritti alla partita "+info.name+" sono tutti offline...eliminare la partita ?", "VirtualRisiko info", JOptionPane.OK_CANCEL_OPTION);
+                if(result==JOptionPane.OK_OPTION){
+                    manager.deletePreviousGame();
+                }
+            }else{
+                //joptonpane per leiminazione registrazione
+                int result=JOptionPane.showConfirmDialog(rootPane, "E' stata trovata una precedente registrazione alla partita "+info.name+" ...eliminare registrazione ?", "VirtualRisiko info", JOptionPane.OK_CANCEL_OPTION);
+                if(result==JOptionPane.OK_OPTION){
+                    manager.deletePreviousRegistration();
+                }else{
+                    manager.registerInGame(info.name);
+                }
+            }
+        }
+    }
 
     public void setListeners(){
         virtualPlayerManager.getManager().addPipeListener(this);

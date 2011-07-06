@@ -1,6 +1,7 @@
 package corba.client;
 
 
+import corba.Authentication;
 import corba.Player;
 import corba.PlayerHelper;
 import corba.RisikoServer;
@@ -8,8 +9,11 @@ import corba.RisikoServerHelper;
 import corba.Summary;
 import corba.UserInfo;
 import corba.impl.PlayerImpl;
+import corba.impl.RisikoServerImpl;
 import java.util.Properties;
 import java.util.logging.LogManager;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import jxta.gui.RemoteVirtualPlayerManagerGUI;
 
 
@@ -221,8 +225,18 @@ public class RemoteLogin extends javax.swing.JFrame {
         if(pss==null){
             pss="";
         }
+        
+        Authentication auth=null;
+        try{
+             auth=server.authenticate(userName, pss);
+        }catch(Exception ex){
 
-     UserInfo info= server.authenticate(userName,pss);
+        }
+        if(!auth.message.equals("")){
+            JOptionPane.showMessageDialog(rootPane, auth.message, "VirtualRisiko info", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+     UserInfo info= auth.info;
         if(info.logged){
             System.out.println("Utente "+usernameField.getText()+" autenticato");
             try {

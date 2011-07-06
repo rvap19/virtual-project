@@ -179,7 +179,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     public boolean restartPeerCommunicator(PipeAdvertisement centralPipe,PipeAdvertisement peerPipe) throws IOException{
         
         isCentral=false;
-
+        this.sequencer.setCurrentMessageID(0);
         try{
             if(toCentralPeer!=null){
                 this.toCentralPeer.setPipeEventListener(null);
@@ -263,7 +263,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
     public synchronized  boolean connect() throws IOException {
         int counter=0;
-        int limit=2;
+        int limit=1;
         toCentralPeer=new JxtaBiDiPipe();
         
         while((!toCentralPeer.isBound())&&counter<limit){
