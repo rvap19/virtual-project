@@ -412,6 +412,9 @@ public class RisikoServerImpl extends RisikoServerPOA{
 
     public void deleteRegistration(PartitaInfo partita, UserInfo user) {
         Game game=this.gameDAO.findGame(partita.id);
+        if(game==null){
+            return;
+        }
         if(isOnline(game.getManagerUsername())){
             return;
         }
