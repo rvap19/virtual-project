@@ -37,7 +37,7 @@ import virtualrisikoii.risiko.Tavolo;
 public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements VictoryListener{
     private HashMap<String,UserInfo> players;
     private HashMap<String,PartitaInfo> games;
-    private HashMap<String,PipeAdvertisement> pipes;
+
 
     private RisikoServer server;
     private PlayerImpl player;
@@ -65,6 +65,25 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
         return this.player.getUserInfo().username;
     }
 
+    public PartitaInfo getPreviousGame() {
+        return game;
+    }
+
+    public boolean isManager(PartitaInfo info){
+        return info.managerUsername.equals(this.myName);
+    }
+
+    public void deletePreviousRegistration(){
+        if(game!=null){
+            this.server.deleteRegistration(game, player.getUserInfo());
+        }
+    }
+
+    public void deletePreviousGame(){
+        if(game!=null){
+            this.server.deletePartita(game, player.getUserInfo());
+        }
+    }
 
     @Override
     public void init() throws IOException, PeerGroupException {
@@ -126,8 +145,11 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     }
 
 
-    private PartitaInfo findPreviuosRegistration(){
+    public PartitaInfo findPreviuosRegistration(){
         PartitaInfo info= this.server.getActiveGame(this.player.getUserInfo().username);
+        if(info.name.equals("")){
+            return null;
+        }
         System.out.println(info.name);
         return info;
     }
@@ -267,10 +289,17 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     @Override
     public Set<String> findPlayers() throws PeerGroupException, IOException {
         manager.findPlayers();
-        UserInfo[] infos=this.server.getAuthenticateUsers();
+
+        UserInfo[] infos=null;
+        try{
+            infos=this.server.getAuthenticateUsers();
+        }catch(Exception ex){
+
+        }
         this.players.clear();
 
-        for(int i=0;i<infos.length;i++){
+        if(infos!=null)
+            for(int i=0;i<infos.length;i++){
             this.players.put(infos[i].username, infos[i]);
         }
         return this.players.keySet();
