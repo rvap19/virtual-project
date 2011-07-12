@@ -12,6 +12,7 @@ import corba.RisikoServer;
 import corba.UserInfo;
 import corba.impl.PlayerImpl;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,8 +27,14 @@ import jxta.communication.messages.InitMessage;
 import net.jxta.document.Advertisement;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.protocol.PipeAdvertisement;
+import util.GameFactory;
 import util.GameParameter;
+import virtualrisikoii.VirtualRisikoIIApp;
+import virtualrisikoii.VirtualRisikoIIView;
+import virtualrisikoii.XMapPanel;
 import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.Mappa;
+import virtualrisikoii.risiko.Obiettivo;
 import virtualrisikoii.risiko.Tavolo;
 
 /**
@@ -50,13 +57,15 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     public RemoteVirtualPlayerManager(RisikoServer server,PlayerImpl me,String name,int port) throws IOException, PeerGroupException {
         this.server=server;
         this.player=me;
-        this.game=this.findPreviuosRegistration();
+       
         players=new HashMap<String, UserInfo>();
         games=new HashMap<String, PartitaInfo>();
         pipes=new HashMap<String,PipeAdvertisement>();
         receivedInit=false;
         manager=new PlayerManager(me.getUserInfo().username, corba.server.Server.TCP_PORT);
         super.myName=name;
+         this.game=this.findPreviuosRegistration();
+        
 
     }
 
@@ -101,16 +110,68 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
         this.player = player;
     }
 
+    private List<String> names;
     public boolean register(String gamaName){
          try {
 
-            PartitaInfo partitaInfo = this.games.get(gamaName);
+            this.findPlayers();
+            PartitaInfo partitaInfo =this.game;
+            if(partitaInfo==null){
+                partitaInfo= this.games.get(gamaName);
+            }
+            
+            if((!partitaInfo.tournament.equals(""))){
+                server.signPlayer(this.player.getUserInfo(), partitaInfo);
+                PartitaInfo[] partitas=server.getAvailableGames();
+                for(int i=0;i<partitas.length;i++){
+                    this.games.put(partitas[i].name, partitas[i]);
+                    
+                }
+
+                partitaInfo=this.games.get(partitaInfo.name);
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                if(partitaInfo.managerUsername.equals(this.myName)){
+
+                         UserInfo[] infos=this.server.getPlayers(partitaInfo);
+                         int index=0;
+                         for(int i=0;i<infos.length;i++){
+                             if(infos[i].username.equals(myName)){
+                                 index=i;
+                             }
+                         }
+
+                         UserInfo temp=infos[index];
+                         infos[index]=infos[0];
+                         infos[0]=temp;
+                         names=new ArrayList<String>();
+                         for(int i=0;i<infos.length;i++){
+                             
+                                 names.add(infos[i].username);
+                             
+                         }
+                         creategame_(partitaInfo.name, partitaInfo.type, partitaInfo.maxPlayers, partitaInfo.maxTurns);
+                         this.startGame();
+                         this.findPlayers();
+                         
+                         return true;
+                }
+
+            }
 
 
 
             PipeAdvertisement creatorPipe = pipes.get(partitaInfo.managerUsername + " Pipe");
             if(creatorPipe==null){
-                System.err.println("RICERCA PIPE CREATOR");
+                System.err.println("RICERCA PIPE CREATOR "+partitaInfo.managerUsername);
                 try {
                     manager.findPipes();
 
@@ -138,7 +199,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
             }
 
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
          return false;
@@ -185,13 +246,22 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     }
 
     public void pipeUpdated(PipeAdvertisement pipeInfo) {
-       // System.out.println("scoperto pipe"+pipeInfo.getName());
+     //   System.out.println("scoperto pipe"+pipeInfo.getName());
         this.pipes.put(pipeInfo.getName(), pipeInfo);
+    }
+
+    public PartitaInfo getPartitaInfo(String partita){
+        return this.games.get(partita);
     }
 
     @Override
     public void creategame(String name, String mapName, int maxPlayers, int maxTurns) throws IOException {
         this.game=server.createGame(player.getUserInfo(),(short)maxTurns, (short)maxPlayers, name, mapName);
+        creategame_(name, mapName, maxPlayers, maxTurns);
+    }
+
+     public void creategame_(String name, String mapName, int maxPlayers, int maxTurns) {
+
          try{
             String myName=this.player.getUserInfo().username;
             VirtualCommunicator communicator=VirtualCommunicator.initCentralCommunicator1(myName, this.manager.getPeerGroup(), this.manager.getMyPipeAdvertisement());
@@ -277,11 +347,18 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     @Override
     public Set<String> findGames() throws PeerGroupException, IOException {
+        try{
         PartitaInfo[] infos=this.server.getAvailableGames();
+
         this.games.clear();
 
         for(int i=0;i<infos.length;i++){
-            this.games.put(infos[i].name, infos[i]);
+            if(!infos[i].name.equals("")){
+                this.games.put(infos[i].name, infos[i]);
+            }
+        }
+        }catch(Exception ex){
+
         }
         return this.games.keySet();
     }
@@ -344,11 +421,42 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     }
 
     @Override
-    protected void startGame() {
-        super.startGame();
-        GameController controller =GameController.getInstance();
-        controller.addVictoryListener(this);
+    protected void startGame(){
+        try {
+            int myTurno=0;
+            VirtualCommunicator communicator=VirtualCommunicator.getInstance();
+            communicator.sendInitMessages();
+            GameFactory factory = new GameFactory();
+
+            //factory.loadGame("classicalMap");
+            factory.loadGame(gameParameter.getMapName());
+            Mappa mappa = factory.getMappa();
+            List<Obiettivo> obiettivi = factory.getObiettivi();
+            int turno = 0;
+
+            if(names!=null&&names.size()>0){
+                communicator.setNames(names);
+                communicator.setGameInProgress(true);
+            }else{
+                names=communicator.getPlayerrNames();
+            }
+             
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno,gameParameter.getMaxTurns(), names.size(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
+            tavolo.setNameMap(gameParameter.getMapName());
+            GameController controller=GameController.createGameController();
+            factory.loadMapPanel();
+            XMapPanel panel=factory.getMapPanel();
+            VirtualRisikoIIApp app = new VirtualRisikoIIApp();
+            app.show(new VirtualRisikoIIView(app,panel));
+
+            controller.addVictoryListener(this);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
     }
+   
 
     @Override
     public void notifyElection(ElectionMessage msg) {

@@ -41,12 +41,16 @@ public class CorbaUtil {
         return info;
     }
 
-    public static PartitaInfo createPartitaInfo(Game partita,int players){
+    public static PartitaInfo createPartitaInfo(Game partita, int players, String tournament, int phase) {
         if(partita==null){
-            return new PartitaInfo("", "", (short)0, 0, (short)0, (short)0, "");
+            return new PartitaInfo("", "", (short)0, 0, (short)0, (short)0, "","",(short)0);
             
         }
-        PartitaInfo x=new PartitaInfo(partita.getNome(), partita.getMappa(), (short)players, partita.getId(), (short)partita.getNumeroTurniMax(), (short)partita.getNumeroGiocatoriMax().intValue(), partita.getManagerUsername());
+        String manager="";
+        if(partita.getManagerUsername()!=null){
+            manager=partita.getManagerUsername();
+        }
+        PartitaInfo x=new PartitaInfo(partita.getNome(), partita.getMappa(),(short) players, partita.getId(), (short)partita.getNumeroTurniMax(), (short)partita.getNumeroGiocatoriMax().intValue(), manager,tournament,(short)phase);
         return x;
     }
 
@@ -115,6 +119,9 @@ public class CorbaUtil {
        
         return user;
     }
+
+
+
 
     
 

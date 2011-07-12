@@ -37,7 +37,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByNome", query = "SELECT u FROM User u WHERE u.nome = :nome"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByCodiceRegistrazione", query = "SELECT u FROM User u WHERE u.codiceRegistrazione = :codiceRegistrazione")})
+    @NamedQuery(name = "User.findByCodiceConferma", query = "SELECT u FROM User u WHERE u.codiceConferma = :codiceConferma")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,8 +68,8 @@ public class User implements Serializable {
     @Column(name = "Password")
     private String password;
     @Basic(optional = false)
-    @Column(name = "codiceRegistrazione")
-    private int codiceRegistrazione;
+    @Column(name = "codiceConferma")
+    private int codiceConferma;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Tournamentregistration> tournamentregistrationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -91,7 +91,7 @@ public class User implements Serializable {
         this.email = email;
         this.nome = nome;
         this.password = password;
-        this.codiceRegistrazione = codiceRegistrazione;
+        this.codiceConferma = codiceRegistrazione;
     }
 
     public String getUsername() {
@@ -158,12 +158,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getCodiceRegistrazione() {
-        return codiceRegistrazione;
+    public int getCodiceConferma() {
+        return codiceConferma;
     }
 
-    public void setCodiceRegistrazione(int codiceRegistrazione) {
-        this.codiceRegistrazione = codiceRegistrazione;
+    public void setCodiceConferma(int codiceRegistrazione) {
+        this.codiceConferma = codiceRegistrazione;
     }
 
     public Collection<Tournamentregistration> getTournamentregistrationCollection() {

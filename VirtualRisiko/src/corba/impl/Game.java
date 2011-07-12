@@ -33,6 +33,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Game.findByFaseTorneo", query = "SELECT g FROM Game g WHERE g.faseTorneo = :faseTorneo"),
     @NamedQuery(name = "Game.findByFine", query = "SELECT g FROM Game g WHERE g.fine = :fine"),
     @NamedQuery(name = "Game.findByIDTorneo", query = "SELECT g FROM Game g WHERE g.iDTorneo = :iDTorneo"),
+    @NamedQuery(name = "Game.findByIDTorneoAndPhase", query = "SELECT g FROM Game g WHERE g.iDTorneo = :iDTorneo and g.faseTorneo = :faseTorneo"),
     @NamedQuery(name = "Game.findByInizio", query = "SELECT g FROM Game g WHERE g.inizio = :inizio"),
     @NamedQuery(name = "Game.findByNome", query = "SELECT g FROM Game g WHERE g.nome = :nome"),
     @NamedQuery(name = "Game.findByNumeroTurniMax", query = "SELECT g FROM Game g WHERE g.numeroTurniMax = :numeroTurniMax"),
@@ -55,7 +56,7 @@ public class Game implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCreazione;
     @Column(name = "faseTorneo")
-    private Boolean faseTorneo;
+    private Short faseTorneo;
     @Column(name = "fine")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fine;
@@ -122,11 +123,11 @@ public class Game implements Serializable {
         this.dataCreazione = dataCreazione;
     }
 
-    public Boolean getFaseTorneo() {
+    public Short getFaseTorneo() {
         return faseTorneo;
     }
 
-    public void setFaseTorneo(Boolean faseTorneo) {
+    public void setFaseTorneo(Short faseTorneo) {
         this.faseTorneo = faseTorneo;
     }
 
