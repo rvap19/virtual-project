@@ -949,6 +949,21 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
     }
 
+    public boolean isGameInProgress() {
+        return gameInProgress;
+    }
+
+    
+
+    public void setNames(List<String> names){
+        for(int i=1;i<names.size();i++){
+           if(!names.get(i).equals(playerName)){
+                this.toPeersPipes.put(names.get(i), null);
+            }
+
+        }
+    }
+
     private void elaboratePongMessage(Message msg) {
         PongMessage m=new PongMessage(msg);
 

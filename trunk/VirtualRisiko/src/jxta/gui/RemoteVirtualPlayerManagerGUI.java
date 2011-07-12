@@ -10,10 +10,12 @@ import corba.PlayerOperations;
 import corba.RegistrationInfo;
 import corba.UserInfo;
 import java.io.IOException;
+import java.util.logging.LogManager;
 import javax.swing.JOptionPane;
 import net.jxta.exception.PeerGroupException;
 import services.RemoteVirtualPlayerManager;
 import services.VirtualPlayerManager;
+import virtualrisikoii.GameDetailsFrame;
 
 /**
  *
@@ -24,6 +26,8 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
     public RemoteVirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
 
        super(virtualPlayermanager);
+       LogManager.getLogManager().reset();
+       setListeners();
        managePreviuosGame();
     }
 
@@ -81,5 +85,37 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
     public boolean isLogged() {
        return this.getUserInfo().logged;
     }
+
+    @Override
+    protected void selectList() {
+        super.selectList();
+        if(super.gamesList.getSelectedValue()==null){
+            return;
+        }
+        String name=super.gamesList.getSelectedValue().toString();
+
+        PartitaInfo info=((RemoteVirtualPlayerManager)virtualPlayerManager).getPartitaInfo(name);
+        GameDetailsFrame details=new GameDetailsFrame(this, true);
+        details.getPlayersNumberLabel().setText(Integer.toString(info.playersNumber));
+        details.getPeermanagerLabel().setText(info.managerUsername);
+        details.getNameLabel().setText(info.name);
+        details.getMapNameLabel().setText(info.type);
+        details.getMaxPlayersLabel().setText(Integer.toString(info.maxPlayers));
+        details.getMaxTurnsLabel().setText(Integer.toString(info.maxTurns));
+        details.setVisible(true);
+
+        if(info.phase<0){
+            details.getTornamentLabel().setText("###");
+            details.getPhaseLabel().setText("###");
+        }else{
+            details.getTornamentLabel().setText(info.tournament);
+            details.getPhaseLabel().setText(Short.toString(info.phase));
+        }
+
+    }
+
+
+
+
 
 }

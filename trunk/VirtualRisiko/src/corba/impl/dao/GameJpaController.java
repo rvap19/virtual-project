@@ -50,6 +50,7 @@ public class GameJpaController {
             em.getTransaction().begin();
             game = em.merge(game);
             em.getTransaction().commit();
+            em.flush();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
@@ -148,6 +149,21 @@ public class GameJpaController {
             Query q = em.createNamedQuery("Game.findActiveGamesByManagerUsername");
             q.setParameter("attiva", true);
             q.setParameter("managerUsername", username);
+            return  q.getResultList();
+
+
+
+        } finally {
+            em.close();
+        }
+    }
+
+     public List<Game> findGamesByTorneoAndPhase(int idTorneo,int phase) {
+         EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Game.findByIDTorneoAndPhase");
+            q.setParameter("iDTorneo", idTorneo);
+            q.setParameter("faseTorneo", phase);
             return  q.getResultList();
 
 

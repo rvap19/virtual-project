@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jxta.PlayerManager;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.PlayerAdvertisement;
@@ -65,7 +67,13 @@ public class VirtualPlayerManager implements  InitListener,RecoveryListener,Elec
         games=new HashMap<String, GameAdvertisement>();
         registrations=new HashMap<String, RegistrationAdvertisement>();
         pipes=new HashMap<String,PipeAdvertisement>();
-        
+        try {
+            init();
+        } catch (IOException ex) {
+            Logger.getLogger(VirtualPlayerManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PeerGroupException ex) {
+            Logger.getLogger(VirtualPlayerManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
              
     }
 

@@ -306,21 +306,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void gamesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_gamesListValueChanged
-        try {
-            // TODO add your handling code here:
-            Object xxx=this.gamesList.getSelectedValue();
-            if(xxx==null)
-                return;
-            
-            this.virtualPlayerManager.clearRegistrations();
-            
-            String gameName=this.gamesList.getSelectedValue().toString();
-            updateRegistrations(gameName);
-
-            
-        } catch (IOException ex) {
-            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            selectList();
 
     }//GEN-LAST:event_gamesListValueChanged
 
@@ -335,6 +321,23 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         
     }
 
+    protected void selectList(){
+        try {
+            // TODO add your handling code here:
+            Object xxx=this.gamesList.getSelectedValue();
+            if(xxx==null)
+                return;
+
+            this.virtualPlayerManager.clearRegistrations();
+
+            String gameName=this.gamesList.getSelectedValue().toString();
+            updateRegistrations(gameName);
+
+
+        } catch (IOException ex) {
+            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /*
      * registrazione alla partita
      */
