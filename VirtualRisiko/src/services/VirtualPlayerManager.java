@@ -67,13 +67,7 @@ public class VirtualPlayerManager implements  InitListener,RecoveryListener,Elec
         games=new HashMap<String, GameAdvertisement>();
         registrations=new HashMap<String, RegistrationAdvertisement>();
         pipes=new HashMap<String,PipeAdvertisement>();
-        try {
-            init();
-        } catch (IOException ex) {
-            Logger.getLogger(VirtualPlayerManager.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PeerGroupException ex) {
-            Logger.getLogger(VirtualPlayerManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
              
     }
 

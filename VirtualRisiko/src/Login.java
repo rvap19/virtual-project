@@ -135,10 +135,8 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(false);
             fullGUI.setVisible(true);
 
-        } catch (IOException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PeerGroupException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
