@@ -11,11 +11,13 @@ import corba.RegistrationInfo;
 import corba.RisikoServer;
 import corba.UserInfo;
 import corba.impl.PlayerImpl;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import jxta.PlayerManager;
@@ -96,7 +98,10 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     @Override
     public void init() throws IOException, PeerGroupException {
-         manager.init("tcp://"+"localhost:"+corba.server.Server.TCP_PORT, false);
+        Properties props=new Properties();
+
+                props.load(new FileInputStream("remoteGame.properties"));
+         manager.init("tcp://"+props.getProperty("org.omg.CORBA.ORBInitialHost")+":"+corba.server.Server.TCP_PORT, false);
          manager.findPlayers();
          manager.findPipes();
     }

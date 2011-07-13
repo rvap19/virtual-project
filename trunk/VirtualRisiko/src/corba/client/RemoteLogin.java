@@ -10,6 +10,7 @@ import corba.Summary;
 import corba.UserInfo;
 import corba.impl.PlayerImpl;
 import corba.impl.RisikoServerImpl;
+import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.logging.LogManager;
 import javax.swing.JDialog;
@@ -295,33 +296,40 @@ public class RemoteLogin extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[])throws Exception {
 
-         //initialize orb
-            Properties props = System.getProperties();
-            props.put("org.omg.CORBA.ORBInitialPort", "1050");
-            //Replace MyHost with the name of the host on which you are running the server
-            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+    public static void start(String[] args)throws Exception{
+        Properties props=new Properties();
+
+                props.load(new FileInputStream("remoteGame.properties"));
             ORB orb = ORB.init(args, props);
 	    System.out.println("Initialized ORB");
 
             //Resolve MessageServer
 	    RisikoServer risikoServer = RisikoServerHelper.narrow(
-	        orb.string_to_object("corbaname:iiop:1.2@localhost:1050#RisikoServer"));
+	        orb.string_to_object("corbaname:iiop:1.2@"+props.getProperty("org.omg.CORBA.ORBInitialHost")+":"+props.getProperty("org.omg.CORBA.ORBInitialPort")+"#RisikoServer"));
 
-            
-            
+
+
 
         final RemoteLogin login=new RemoteLogin();
         login.setHelloImpl(risikoServer);
         login.setOrb(orb);
-        
-        
+
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 login.setVisible(true);
             }
         });
+    }
+    public static void main(String args[])throws Exception {
+
+         //initialize orb
+         /*   Properties props = System.getProperties();
+            props.put("org.omg.CORBA.ORBInitialPort", "1050");
+            //Replace MyHost with the name of the host on which you are running the server
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");*/
+        start(args);
 
     }
 
