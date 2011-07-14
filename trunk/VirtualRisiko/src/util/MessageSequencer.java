@@ -185,7 +185,31 @@ public class MessageSequencer {
             currentMessageID++;
 
             int position=currentMessageID%buffer.length;
-            while(buffer[position]!=null){
+            while(buffer[position]!=null && Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString())==currentMessageID){
+                
+                
+                    this.notifier.notifyMessage(buffer[position],currentMessageID);
+                    System.out.println("notificato msg "+currentMessageID+" e rimosso del buffer");
+                    currentMessageID++;
+                    position=currentMessageID%buffer.length;
+                /*else{
+                    buffer[position]=null;
+                }*/
+            }
+        }finally{
+            lock.unlock();
+        }
+    }
+
+  /*   private void notifyMessage(int i,Message message){
+        try{
+            lock.lock();
+            this.notifier.notifyMessage(message,currentMessageID);
+            System.out.println("Messaggio "+i+" notificato");
+            currentMessageID++;
+
+            int position=currentMessageID%buffer.length;
+            while(buffer[position]!=null && ){
                 int ID=-1;
                 try{
                     ID=Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString());
@@ -200,11 +224,11 @@ public class MessageSequencer {
                 }/*else{
                     buffer[position]=null;
                 }*/
-            }
-        }finally{
+         //   }
+      /*  }finally{
             lock.unlock();
         }
-    }
+    }*/
 
     public void bufferize(Message message, int currentMessageID) {
        try{
