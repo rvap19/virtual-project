@@ -133,10 +133,11 @@ public class MessageSequencer {
                 try {
                     VirtualCommunicator.getInstance().sendMessage(retrasmit,false);
                     System.out.println("## inviata richiesta ritrasmissione per "+currentMessageID);
+
                 } catch (IOException ex) {
                     System.out.println("###### impossibile richiedere ritrasmissione per messaggio "+currentMessageID);
                 }
-                return;
+                
             }
 
 
