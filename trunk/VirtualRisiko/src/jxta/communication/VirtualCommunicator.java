@@ -451,8 +451,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
          if((!retrasmit)&&(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.RETRASMIT_REQUEST)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT)))){
             System.out.println("<<<<<---------->>>INVIO MSG:::::::Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
             // sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
-            sequencer.bufferize(message,sequencer.getCurrentMessageID());
-            sequencer.incrementID();
+            sequencer.bufferize(message,sequencer.getCurrentMSG_ID().getAndIncrement());
+            
 
          }
          return result;
@@ -488,7 +488,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         }
         this.gameInProgress=true;
      //   sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
-        sequencer.incrementID();
+       // sequencer.incrementID();
+        sequencer.getCurrentMSG_ID().getAndIncrement();;
 
         return gine;
 
