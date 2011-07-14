@@ -606,13 +606,14 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             return;
         }
         
-        int turno=giocatore;
+        
 
-        if(this.reconnectionNeeds[turno]){
+        if(this.reconnectionNeeds[giocatore]){
             try {
-                this.comunicator.sendRecoveryMessage(turno);
-                this.reconnectionNeeds[turno] = false;
-                System.out.println("send recovery message to player with ID "+giocatore);
+                String name=Tavolo.getInstance().getGiocatori().get(giocatore).getUsername();
+                this.comunicator.sendRecoveryMessage(name,giocatore);
+                this.reconnectionNeeds[giocatore] = false;
+                System.out.println("send recovery message to player "+name+" with ID "+giocatore);
             } catch (Exception ex) {
                 System.err.println("Impossibile inviare messaggio di recupero");
                 ex.printStackTrace();
