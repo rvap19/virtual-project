@@ -6,16 +6,12 @@
 package util;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxta.communication.VirtualCommunicator;
 import jxta.communication.messages.RetrasmissionRequest;
 import jxta.communication.messages.VirtualRisikoMessage;
-import jxta.communication.messages.listener.RetrasmissionListener;
 import net.jxta.endpoint.Message;
 
 /**

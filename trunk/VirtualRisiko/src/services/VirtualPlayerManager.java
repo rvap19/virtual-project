@@ -361,7 +361,7 @@ public class VirtualPlayerManager implements  InitListener,RecoveryListener,Elec
             List<Obiettivo> obiettivi = factory.getObiettivi();
             int turno = 0;
 
-            List<String> names=communicator.getPlayerrNames();
+            List<String> names=communicator.getPlayerNames();
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno,gameParameter.getMaxTurns(), communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
             tavolo.setNameMap(gameParameter.getMapName());
             GameController controller=GameController.createGameController();

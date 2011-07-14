@@ -6,7 +6,6 @@
 package services;
 
 import corba.PartitaInfo;
-import corba.PlayerOperations;
 import corba.RegistrationInfo;
 import corba.RisikoServer;
 import corba.UserInfo;
@@ -454,7 +453,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                 communicator.setNames(names);
                 communicator.setGameInProgress(true);
             }else{
-                names=communicator.getPlayerrNames();
+                names=communicator.getPlayerNames();
             }
              
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno,gameParameter.getMaxTurns(), names.size(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);

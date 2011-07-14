@@ -467,7 +467,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         }
         int turn=1;
 
-        List<String> names=this.getPlayerrNames();
+        List<String> names=this.getPlayerNames();
         Iterator<String> iter=toPeersPipes.keySet().iterator();
         while(iter.hasNext()){
 
@@ -827,18 +827,12 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
     
 
-    public void sendRecoveryMessage(int player) throws IOException{
+    public void sendRecoveryMessage(String name,int player) throws IOException{
         RecoveryUtil util=new RecoveryUtil();
         RecoveryParameter parameter=util.createBackup();
         parameter.setTurnoMyGiocatore(player);
         Message msg=new RecoveryMessage(parameter);
-        Iterator<String> iter=toPeersPipes.keySet().iterator();
-        int index=0;
-        String name=null;
-        while(index<player && iter.hasNext()){
-            name=iter.next();
-            index++;
-        }
+        
         StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.GAMER,playerName , null);
         msg.addMessageElement(VirtualRisikoMessage.namespace, mElement);
 
@@ -945,7 +939,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         }
     }
 
-    public List<String> getPlayerrNames(){
+    public List<String> getPlayerNames(){
 
         ArrayList<String> list=new ArrayList<String>();
         list.add(playerName);
@@ -1022,7 +1016,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
                         this.sleep(sleepTime);
                     }
                     if(!messageReceived){
-                        System.out.println("Nessun messaggio ricevuto dam manager .... riconnessione");
+                        System.out.println("Nessun messaggio ricevuto dal manager .... riconnessione");
                         boolean connectSuccess=connect();
                         continueTimer.set(connectSuccess);
                         if(connectSuccess){
