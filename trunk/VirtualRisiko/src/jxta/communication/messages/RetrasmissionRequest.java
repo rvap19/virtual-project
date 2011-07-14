@@ -32,7 +32,7 @@ public class RetrasmissionRequest extends VirtualRisikoMessage{
 
     public RetrasmissionRequest(Message message){
         super(message);
-        this.messageID=Integer.parseInt(getMessageElement(namespace,RETRASMIT_MESG_ID).toString());
+        this.messageID=Integer.parseInt(message.getMessageElement(namespace,RETRASMIT_MESG_ID).toString());
 
     }
 
