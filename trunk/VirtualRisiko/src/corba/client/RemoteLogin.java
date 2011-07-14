@@ -306,7 +306,8 @@ public class RemoteLogin extends javax.swing.JFrame {
 
             //Resolve MessageServer
 	    RisikoServer risikoServer = RisikoServerHelper.narrow(
-	        orb.string_to_object("corbaname:iiop:"+props.getProperty("org.omg.CORBA.ORBInitialHost")+":"+props.getProperty("org.omg.CORBA.ORBInitialPort")+"#RisikoServer"));
+//	        orb.string_to_object("corbaname:iiop:"+props.getProperty("org.omg.CORBA.ORBInitialHost")+":"+props.getProperty("org.omg.CORBA.ORBInitialPort")+"#RisikoServer"));
+orb.string_to_object("corbaname::"+props.getProperty("org.omg.CORBA.ORBInitialHost")+":"+props.getProperty("org.omg.CORBA.ORBInitialPort")+"#RisikoServer"));
 
 
 

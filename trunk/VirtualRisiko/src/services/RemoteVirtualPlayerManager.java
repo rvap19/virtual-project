@@ -87,12 +87,14 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     public void deletePreviousRegistration(){
         if(game!=null){
             this.server.deleteRegistration(game, player.getUserInfo());
+            game=null;
         }
     }
 
     public void deletePreviousGame(){
         if(game!=null){
             this.server.deletePartita(game, player.getUserInfo());
+            game=null;
         }
     }
 
@@ -118,7 +120,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     private List<String> names;
     public boolean register(String gamaName){
          try {
-
+            
             this.findPlayers();
             PartitaInfo partitaInfo =this.game;
             if(partitaInfo==null){
@@ -263,6 +265,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     public void creategame(String name, String mapName, int maxPlayers, int maxTurns) throws IOException {
         this.game=server.createGame(player.getUserInfo(),(short)maxTurns, (short)maxPlayers, name, mapName);
         creategame_(name, mapName, maxPlayers, maxTurns);
+        
     }
 
      public void creategame_(String name, String mapName, int maxPlayers, int maxTurns) {

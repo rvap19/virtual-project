@@ -31,9 +31,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Tournament.findAll", query = "SELECT t FROM Tournament t"),
     @NamedQuery(name = "Tournament.findById", query = "SELECT t FROM Tournament t WHERE t.id = :id"),
-    @NamedQuery(name = "Tournament.findByAttivo", query = "SELECT t FROM Tournament t WHERE t.attivo = :attivo"),
     @NamedQuery(name = "Tournament.findByDataFine", query = "SELECT t FROM Tournament t WHERE t.dataFine = :dataFine"),
-    @NamedQuery(name = "Tournament.findByDatainizio", query = "SELECT t FROM Tournament t WHERE t.datainizio = :datainizio"),
+    @NamedQuery(name = "Tournament.findByDataInizio", query = "SELECT t FROM Tournament t WHERE t.dataInizio = :datainizio"),
     @NamedQuery(name = "Tournament.findByNome", query = "SELECT t FROM Tournament t WHERE t.nome = :nome")})
 public class Tournament implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -43,15 +42,13 @@ public class Tournament implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "attivo")
-    private boolean attivo;
     @Column(name = "dataFine")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataFine;
     @Basic(optional = false)
-    @Column(name = "datainizio")
+    @Column(name = "dataInizio")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date datainizio;
+    private Date dataInizio;
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
@@ -67,8 +64,7 @@ public class Tournament implements Serializable {
 
     public Tournament(Integer id, boolean attivo, Date datainizio, String nome) {
         this.id = id;
-        this.attivo = attivo;
-        this.datainizio = datainizio;
+        this.dataInizio = datainizio;
         this.nome = nome;
     }
 
@@ -80,13 +76,7 @@ public class Tournament implements Serializable {
         this.id = id;
     }
 
-    public boolean getAttivo() {
-        return attivo;
-    }
-
-    public void setAttivo(boolean attivo) {
-        this.attivo = attivo;
-    }
+    
 
     public Date getDataFine() {
         return dataFine;
@@ -96,12 +86,12 @@ public class Tournament implements Serializable {
         this.dataFine = dataFine;
     }
 
-    public Date getDatainizio() {
-        return datainizio;
+    public Date getDataInizio() {
+        return dataInizio;
     }
 
-    public void setDatainizio(Date datainizio) {
-        this.datainizio = datainizio;
+    public void setDataInizio(Date datainizio) {
+        this.dataInizio = datainizio;
     }
 
     public String getNome() {
