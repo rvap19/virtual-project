@@ -825,6 +825,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
          if(!Tavolo.getInstance().isTurnoMyGiocatore()){
              return;
          }
+
+         if(Tavolo.getInstance().isInizializzazione()){
+             return;
+         }
          passaTurno_();
     }
     private   void  passaTurno_() throws IOException{
@@ -952,7 +956,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
 
     public void remaingTimeNotify(int remaing) {
-        this.timeoutNotifier.remaingTimeNotify(remaing);
+        if(timeoutNotifier!=null){
+            this.timeoutNotifier.remaingTimeNotify(remaing);
+        }
+        
     }
 
     public void notifyPong(PongMessage msg) {
