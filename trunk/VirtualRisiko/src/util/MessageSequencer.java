@@ -7,6 +7,7 @@ package util;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -22,8 +23,9 @@ import net.jxta.endpoint.Message;
  * @author root
  */
 public class MessageSequencer {
+    private AtomicInteger currentMSG_ID;
     private Message[] buffer;
-    private int currentMessageID;
+    //private int currentMessageID;
     private VirtualRisikoMessageNotifier notifier;
     private Lock lock;
     private boolean enabled;
@@ -31,7 +33,8 @@ public class MessageSequencer {
     private String myPlayername;
     public MessageSequencer(String player,int bufSize){
         this.myPlayername=player;
-        currentMessageID=0;
+      //  currentMessageID=0;
+        currentMSG_ID=new AtomicInteger(0);
         enabled=true;
         buffer=new Message[bufSize];
         lock=new ReentrantLock(true);
@@ -42,11 +45,11 @@ public class MessageSequencer {
     }
 
     public void setCurrentMessageID(int id){
-        this.currentMessageID=id;
+        this.currentMSG_ID.set(id);
     }
 
     public int getCurrentMessageID(){
-        return this.currentMessageID;
+        return this.currentMSG_ID.get();
     }
 
     public VirtualRisikoMessageNotifier getNotifier() {
@@ -66,7 +69,8 @@ public class MessageSequencer {
     }
 
     public void incrementID(){
-        this.currentMessageID++;
+        //this.currentMessageID++;
+        this.currentMSG_ID.incrementAndGet();
     }
 
     
@@ -79,7 +83,8 @@ public class MessageSequencer {
         
         i=new Integer(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString()).intValue();
        
-        System.out.println("Waiting for ::: "+currentMessageID);
+       // System.out.println("Waiting for ::: "+currentMessageID);
+        System.out.println("Waiting for ::: "+currentMSG_ID.get());
 
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
 
@@ -112,14 +117,16 @@ public class MessageSequencer {
 
         if(type.equals(VirtualRisikoMessage.INIT)){
             System.out.println("# connessione con msg id "+i);
-            this.currentMessageID=i;
+         //   this.currentMessageID=i;
+            this.currentMSG_ID.set(i);
             notifyMessage(i,message);
             return;
         }
 
         if(type.equals(VirtualRisikoMessage.RECOVERY)){
             System.out.println("## riconnessione con msg id "+i);
-            this.currentMessageID=i-1;
+           // this.currentMessageID=i-1;
+            this.currentMSG_ID.decrementAndGet();
             notifyMessage(i,message);
             return;
         }
@@ -128,14 +135,14 @@ public class MessageSequencer {
 
 
 
-        if(i>currentMessageID){
-                RetrasmissionRequest retrasmit=new RetrasmissionRequest(currentMessageID);
+        if(i>currentMSG_ID.get()){
+                RetrasmissionRequest retrasmit=new RetrasmissionRequest(currentMSG_ID.get());
                 try {
                     VirtualCommunicator.getInstance().sendMessage(retrasmit,false);
-                    System.out.println("## inviata richiesta ritrasmissione per "+currentMessageID);
+                    System.out.println("## inviata richiesta ritrasmissione per "+currentMSG_ID.get());
 
                 } catch (IOException ex) {
-                    System.out.println("###### impossibile richiedere ritrasmissione per messaggio "+currentMessageID);
+                    System.out.println("###### impossibile richiedere ritrasmissione per messaggio "+currentMSG_ID.get());
                 }
                 
             }
@@ -168,7 +175,7 @@ public class MessageSequencer {
             }
             
 
-            if(currentMessageID==i){
+            if(currentMSG_ID.get()==i){
 
                 notifyMessage(i,message);
 
@@ -180,18 +187,18 @@ public class MessageSequencer {
     private void notifyMessage(int i,Message message){
         try{
             lock.lock();
-            this.notifier.notifyMessage(message,currentMessageID);
+            this.notifier.notifyMessage(message,currentMSG_ID.get());
             System.out.println("Messaggio "+i+" notificato");
-            currentMessageID++;
-
-            int position=currentMessageID%buffer.length;
-            while(buffer[position]!=null && Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString())==currentMessageID){
+            //currentMessageID++;
+            currentMSG_ID.incrementAndGet();
+            int position=currentMSG_ID.get()%buffer.length;
+            while(buffer[position]!=null && Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString())==currentMSG_ID.get()){
                 
                 
-                    this.notifier.notifyMessage(buffer[position],currentMessageID);
-                    System.out.println("notificato msg "+currentMessageID+" e rimosso del buffer");
-                    currentMessageID++;
-                    position=currentMessageID%buffer.length;
+                    this.notifier.notifyMessage(buffer[position],currentMSG_ID.get());
+                    System.out.println("notificato msg "+currentMSG_ID.get()+" e rimosso del buffer");
+                    currentMSG_ID.incrementAndGet();
+                    position=currentMSG_ID.get()%buffer.length;
                 /*else{
                     buffer[position]=null;
                 }*/
