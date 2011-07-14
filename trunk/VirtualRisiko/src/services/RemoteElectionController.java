@@ -9,6 +9,7 @@ import corba.PartitaInfo;
 import corba.RisikoServer;
 import java.io.IOException;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import net.jxta.peergroup.PeerGroup;
 import net.jxta.protocol.PipeAdvertisement;
 
@@ -52,18 +53,22 @@ public class RemoteElectionController extends ElectionController{
             this.partita=this.server.getPartitaInfo(partita.id);
         }catch(Exception ex){
             System.err.println("Impossibile continuare partita :  server perso");
+            JOptionPane.showMessageDialog(null, "Errore di rete..provare a riavviare l'applicazione", "Virtual Risiko Info", JOptionPane.ERROR_MESSAGE);
+
+            System.exit(-1);
         }
         boolean manageronline=false;
         try{
              manageronline=this.server.isOnline(partita.managerUsername);
         }catch(Exception ex){
-            System.out.println("il server non riesce a contattare il manager");
-            manageronline=false;
+            
+            manageronline=true;
         }
         
         if(manageronline){
             System.out.println("manager online ....elezione annullata");
-            return;
+            JOptionPane.showMessageDialog(null, "Errore di rete..provare a riavviare l'applicazione", "Virtual Risiko Info", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         }
         System.out.println("start remote election");
 
