@@ -271,7 +271,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         
         while((!toCentralPeer.isBound())&&counter<limit){
             try {
-                toCentralPeer = new JxtaBiDiPipe(peerGroup, centralPeerPipeAdv, 25 * 1000, this, false);
+                toCentralPeer = new JxtaBiDiPipe(peerGroup, centralPeerPipeAdv, 25 * 1000, this, true);
             } catch (IOException ex) {
                 System.err.println("connection timeout :: impossibile connettersi al amanger");
             }
