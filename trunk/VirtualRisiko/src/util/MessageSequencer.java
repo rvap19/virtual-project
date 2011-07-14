@@ -5,10 +5,16 @@
 
 package util;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jxta.communication.VirtualCommunicator;
+import jxta.communication.messages.RetrasmissionRequest;
 import jxta.communication.messages.VirtualRisikoMessage;
+import jxta.communication.messages.listener.RetrasmissionListener;
 import net.jxta.endpoint.Message;
 
 /**
@@ -83,7 +89,36 @@ public class MessageSequencer {
                 return;
             }
 
+        if(type.equalsIgnoreCase(VirtualRisikoMessage.RETRASMIT_REQUEST)){
+            RetrasmissionRequest request=new RetrasmissionRequest(message);
+            int index=request.getMessageID();
+            Message msg=buffer[index%buffer.length];
+            int ID=Integer.parseInt(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString());
+            if(ID==index){
+                try {
+                    VirtualCommunicator.getInstance().sendMessage(msg);
+                    System.out.println(" ## inviata ritrasmissione per "+ID);
+                } catch (IOException ex) {
+                    System.out.println("impossibile inviare ritrasmissione per "+ID);
+                }
+                return;
+            }
 
+            this.notifier.notifyMessage(message, i);
+            return;
+
+        }
+
+        if(i>currentMessageID){
+                RetrasmissionRequest retrasmit=new RetrasmissionRequest(currentMessageID);
+                try {
+                    VirtualCommunicator.getInstance().sendMessage(retrasmit);
+                    System.out.println("## inviata richiesta ritrasmissione per "+currentMessageID);
+                } catch (IOException ex) {
+                    System.out.println("###### impossibile richiedere ritrasmissione per messaggio "+currentMessageID);
+                }
+                return;
+            }
 
 
         if(!enabled){
@@ -91,13 +126,7 @@ public class MessageSequencer {
             return;
         }
 
-
-
-
-        if(type.equals(VirtualRisikoMessage.CHAT)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.STATUS)){
-            this.notifier.notifyMessage(message, 0);
-            return;
-        }
+        
         if(type.equals(VirtualRisikoMessage.INIT)){
             System.out.println("# connessione con msg id "+i);
             this.currentMessageID=i;
@@ -112,20 +141,32 @@ public class MessageSequencer {
             return;
         }
 
-        if(currentMessageID==i){
-            
-            
-            notifyMessage(i,message);
-            
-        }else{
+
+
+
+
+        if(type.equals(VirtualRisikoMessage.CHAT)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.STATUS)){
+            this.notifier.notifyMessage(message, 0);
+            return;
+        }
+
+        
             try{
                 lock.lock();
                 buffer[i%buffer.length]=message;
+                System.out.println("Messaggio "+i+" bufferizzato");
             }finally{
                 lock.unlock();
             }
-            System.out.println("Messaggio "+i+" bufferizzato");
-        }
+            
+
+            if(currentMessageID==i){
+
+                notifyMessage(i,message);
+
+            }
+            
+        
     }
 
     private void notifyMessage(int i,Message message){
@@ -148,14 +189,25 @@ public class MessageSequencer {
                     System.out.println("notificato msg "+currentMessageID+" e rimosso del buffer");
                     currentMessageID++;
                     position=currentMessageID%buffer.length;
-                }else{
+                }/*else{
                     buffer[position]=null;
-                }
+                }*/
             }
         }finally{
             lock.unlock();
         }
     }
+
+    public void bufferize(Message message, int currentMessageID) {
+       try{
+                lock.lock();
+                buffer[currentMessageID%buffer.length]=message;
+            }finally{
+                lock.unlock();
+            }
+    }
+
+    
 
     
 

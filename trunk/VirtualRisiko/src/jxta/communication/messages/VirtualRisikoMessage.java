@@ -35,6 +35,7 @@ public class VirtualRisikoMessage extends Message{
     public static final String PONG="pong";
     public static final String ELECTION="election";
     public static final String REQUEST_ELECTION="request_election";
+    public static final String RETRASMIT_REQUEST="retrasmit_request";
     
 
     protected String playerName;
