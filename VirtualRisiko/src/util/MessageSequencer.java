@@ -93,8 +93,9 @@ public class MessageSequencer {
             RetrasmissionRequest request=new RetrasmissionRequest(message);
             int index=request.getMessageID();
             Message msg=buffer[index%buffer.length];
+             String msgType=msg.getMessageElement(VirtualRisikoMessage.namespace,VirtualRisikoMessage.TYPE).toString();
             int ID=Integer.parseInt(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString());
-            if(ID==index){
+            if(ID==index&&(!msgType.equals(VirtualRisikoMessage.INIT))&&(!msgType.equals(VirtualRisikoMessage.RECOVERY))){
                 try {
                     VirtualCommunicator.getInstance().sendMessage(msg);
                     System.out.println(" ## inviata ritrasmissione per "+ID);
@@ -108,6 +109,24 @@ public class MessageSequencer {
             return;
 
         }
+
+        if(type.equals(VirtualRisikoMessage.INIT)){
+            System.out.println("# connessione con msg id "+i);
+            this.currentMessageID=i;
+            notifyMessage(i,message);
+            return;
+        }
+
+        if(type.equals(VirtualRisikoMessage.RECOVERY)){
+            System.out.println("## riconnessione con msg id "+i);
+            this.currentMessageID=i-1;
+            notifyMessage(i,message);
+            return;
+        }
+
+
+
+
 
         if(i>currentMessageID){
                 RetrasmissionRequest retrasmit=new RetrasmissionRequest(currentMessageID);
@@ -127,19 +146,7 @@ public class MessageSequencer {
         }
 
         
-        if(type.equals(VirtualRisikoMessage.INIT)){
-            System.out.println("# connessione con msg id "+i);
-            this.currentMessageID=i;
-            notifyMessage(i,message);
-            return;
-        }
-
-        if(type.equals(VirtualRisikoMessage.RECOVERY)){
-            System.out.println("## riconnessione con msg id "+i);
-            this.currentMessageID=i-1;
-            notifyMessage(i,message);
-            return;
-        }
+        
 
 
 
