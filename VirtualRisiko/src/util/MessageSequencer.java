@@ -68,10 +68,11 @@ public class MessageSequencer {
         this.enabled = enabled;
     }
 
-    public void incrementID(){
-        //this.currentMessageID++;
-        this.currentMSG_ID.incrementAndGet();
+    public AtomicInteger getCurrentMSG_ID() {
+        return currentMSG_ID;
     }
+
+    
 
     
 
@@ -187,8 +188,9 @@ public class MessageSequencer {
     private void notifyMessage(int i,Message message){
         try{
             lock.lock();
-            this.notifier.notifyMessage(message,currentMSG_ID.get());
-            currentMSG_ID.incrementAndGet();
+            
+            this.notifier.notifyMessage(message,currentMSG_ID.getAndIncrement());
+            
             System.out.println("Messaggio "+i+" notificato");
             //currentMessageID++;
             
@@ -196,9 +198,9 @@ public class MessageSequencer {
             while(buffer[position]!=null && Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString())==currentMSG_ID.get()){
                 
                 
-                    this.notifier.notifyMessage(buffer[position],currentMSG_ID.get());
+                    this.notifier.notifyMessage(buffer[position],currentMSG_ID.getAndIncrement());
                     System.out.println("notificato msg "+currentMSG_ID.get()+" e rimosso del buffer");
-                    currentMSG_ID.incrementAndGet();
+                    
                     position=currentMSG_ID.get()%buffer.length;
                 /*else{
                     buffer[position]=null;
