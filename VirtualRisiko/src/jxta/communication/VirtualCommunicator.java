@@ -54,6 +54,7 @@ import jxta.communication.messages.listener.MovementListener;
 import jxta.communication.messages.listener.PassListener;
 import jxta.communication.messages.listener.PongListener;
 import jxta.communication.messages.listener.ReconnectionRequestListener;
+import jxta.communication.messages.listener.RetrasmissionListener;
 import jxta.communication.messages.listener.StatusPeerListener;
 
 import util.MessageSequencer;
@@ -76,6 +77,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     private Set<PassListener> passListeners;
     private RecoveryListener recoveryListeners;
     private ReconnectionRequestListener recoveryRequestListener;
+    private RetrasmissionListener retrasmissionListener;
     private Set<StatusPeerListener> statusListener;
     private Set<PongListener> pongListeners;
 
@@ -127,6 +129,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
         sequencer.setCurrentMessageID(0);
         sequencer.setNotifier(this);
         sequencer.setEnabled(true);
+        
     }
 
     /*
@@ -441,6 +444,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
          if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
             System.err.println("Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
             // sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
+            sequencer.bufferize(message,sequencer.getCurrentMessageID());
             sequencer.incrementID();
 
          }
