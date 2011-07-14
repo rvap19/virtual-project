@@ -293,7 +293,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
          if(!gameDialog.isConfirmed()){
              return;
          }
-
+         this.jButton1.setEnabled(false);
         try {
              this.virtualPlayerManager.creategame(name,mapName,maxPlayers,maxTurns);    
         } catch (IOException ex) {
