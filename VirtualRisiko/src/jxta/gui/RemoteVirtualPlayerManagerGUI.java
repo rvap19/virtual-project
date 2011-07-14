@@ -47,7 +47,12 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
                 if(result==JOptionPane.OK_OPTION){
                     manager.deletePreviousRegistration();
                 }else{
-                    manager.registerInGame(info.name);
+                    if(manager.registerInGame(info.name)){
+                        dispose();
+                    }else{
+                        JOptionPane.showConfirmDialog(rootPane, "Impossibile partecipare alla partita "+info.name+" ...chidere l'applicazione", "VirtualRisiko info", JOptionPane.ERROR_MESSAGE);
+                        System.exit(-1);
+                    }
                 }
             }
         }

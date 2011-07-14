@@ -422,10 +422,13 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     public boolean registerInGame(String gamaName) throws IOException {
         PartitaInfo info=this.register(gamaName);
         if(info!=null){
-            return this.server.signPlayer(this.getUserInfo(), games.get(gamaName));
+
+             this.server.signPlayer(this.getUserInfo(), info);
+             return true;
            
+        }else{
+            return false;
         }
-        return false;
     }
 
     @Override
