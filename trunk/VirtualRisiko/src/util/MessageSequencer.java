@@ -188,9 +188,10 @@ public class MessageSequencer {
         try{
             lock.lock();
             this.notifier.notifyMessage(message,currentMSG_ID.get());
+            currentMSG_ID.incrementAndGet();
             System.out.println("Messaggio "+i+" notificato");
             //currentMessageID++;
-            currentMSG_ID.incrementAndGet();
+            
             int position=currentMSG_ID.get()%buffer.length;
             while(buffer[position]!=null && Integer.parseInt(buffer[position].getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString())==currentMSG_ID.get()){
                 
