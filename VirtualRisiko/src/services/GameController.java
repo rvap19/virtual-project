@@ -475,7 +475,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 try {
                         Message msg=new AttackMessage(truppeSelezionate,secondSelection.getCodice(), firstSelection.getCodice());
                        // Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
-                        comunicator.sendMessage(msg);
+                        comunicator.sendMessage(msg,false);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -572,12 +572,12 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     try {
                         Message msg=new MovementMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
                         //Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
-                        comunicator.sendMessage(msg);
+                        comunicator.sendMessage(msg,false);
                         
                         msg=new PassMessage(tavolo.getTurno());
                         StatoGiocoPanel.instance.updateGiocatore(corrente);
                         playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-                        comunicator.sendMessage(msg);
+                        comunicator.sendMessage(msg,false);
                         
 
 
@@ -668,7 +668,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 try {
                         Message msg=new ApplianceMessage(1, t.getCodice());
                        // Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
-                        comunicator.sendMessage(msg);
+                        comunicator.sendMessage(msg,false);
                         this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                         if(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0){
                             
@@ -713,7 +713,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     try {
                         Message msg=new ApplianceMessage(1, t.getCodice());
                       //  Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
-                        comunicator.sendMessage(msg);
+                        comunicator.sendMessage(msg,false);
 
                         truppeSelezionate++;
                         this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
@@ -737,7 +737,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     this.playerDataListener.updateDatiGiocatore(prossimo.getNome(), prossimo.getNumeroTruppe(), prossimo.getArmateDisposte(), prossimo.getNazioni().size());
                  //   Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
                     Message msg=new PassMessage(tavolo.getTurno());
-                    comunicator.sendMessage(msg);
+                    comunicator.sendMessage(msg,false);
                     Giocatore g=tavolo.getGiocatoreCorrente();
                     StatoGiocoPanel.instance.updateGiocatore(g);
                     playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
@@ -762,7 +762,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         Message msg=new ChatMessage(to, Tavolo.getInstance().getMyGiocatore().getNome(), message);
         
         try {
-            this.comunicator.sendMessage(msg);
+            this.comunicator.sendMessage(msg,false);
         } catch (IOException ex) {
             System.out.println("impossibile inviare msg a "+to+" msg --> "+message);
         }
@@ -864,7 +864,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
             try {
                         //Thread.sleep(3000);
-                        this.comunicator.sendMessage(msg);
+                        this.comunicator.sendMessage(msg,false);
                         
 
 
@@ -1022,7 +1022,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                             messageReceived[j]=false;
                         }
                         Message ping=new PingMessage();
-                        comunicator.sendMessage(ping);
+                        comunicator.sendMessage(ping,false);
                         this.sleep(sleepTime);
                         sendStatusMessage();
 
@@ -1038,7 +1038,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             for(int i=0;i<messageReceived.length;i++){
                 
                     Message msg=new StatusPeerMessage(i, messageReceived[i]||reconnectionNeeds[i]||i==myTurn);
-                    comunicator.sendMessage(msg);
+                    comunicator.sendMessage(msg,false);
                     panel.updateStatus((StatusPeerMessage) msg);
                 
             }
