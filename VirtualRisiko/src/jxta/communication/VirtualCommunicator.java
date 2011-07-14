@@ -441,8 +441,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
        // System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
          boolean result= sendMessage(message,sequencer.getCurrentMessageID());
          String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
-         if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
-            System.err.println("Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
+         if(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.RETRASMIT_REQUEST)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT))){
+            System.out.println("<<<<<---------->>>INVIO MSG:::::::Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
             // sequencer.setCurrentMessageID(sequencer.getCurrentMessageID()+1);
             sequencer.bufferize(message,sequencer.getCurrentMessageID());
             sequencer.incrementID();
