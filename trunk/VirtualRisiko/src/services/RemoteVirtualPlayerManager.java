@@ -118,7 +118,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     }
 
     private List<String> names;
-    public boolean register(String gamaName){
+    public PartitaInfo register(String gamaName){
          try {
             
             this.findPlayers();
@@ -169,7 +169,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                          this.startGame();
                          this.findPlayers();
                          
-                         return true;
+                         return partitaInfo;
                 }
 
             }
@@ -203,14 +203,14 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                 }
                 server.signPlayer(player.getUserInfo(),game);
 
-                return true;
+                return game;
             }
 
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-         return false;
+         return null;
     }
 
 
@@ -420,8 +420,12 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     @Override
     public boolean registerInGame(String gamaName) throws IOException {
-        this.register(gamaName);
-        return this.server.signPlayer(this.getUserInfo(), games.get(gamaName));
+        PartitaInfo info=this.register(gamaName);
+        if(info!=null){
+            return this.server.signPlayer(this.getUserInfo(), games.get(gamaName));
+           
+        }
+        return false;
     }
 
     @Override
