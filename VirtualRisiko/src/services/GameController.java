@@ -838,12 +838,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             return;
         }
         
-        this.timer.stopTimer();
+        
         Giocatore giocatore=Tavolo.getInstance().getGiocatoreCorrente();
         int troops=tavolo.getGiocatoreCorrente().getNumeroTruppe();
         if(troops>0&&!tavolo.isInizializzazione()){
             this.autoDispose(troops);
         }
+        this.timer.stopTimer();
         if((!tavolo.isInizializzazione())){
             //codice per il recupero carta
             Carta carta=tavolo.recuperaCarta(giocatore);
