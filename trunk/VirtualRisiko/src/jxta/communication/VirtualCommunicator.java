@@ -388,9 +388,8 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
 
 
-    private boolean sendMessage(Message message,int msgID) {
-        StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.ID_MSG, Integer.toString(msgID), null);
-        message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
+    private boolean sendMessage(Message message) {
+        
        
 
         if(!this.isCentral){
@@ -436,10 +435,18 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
     }
 
      public boolean sendMessage(Message message,boolean retrasmit) throws IOException{
-          StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.GAMER,playerName , null);
-        message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
+         int msgID=0;
+         if(!retrasmit){
+            StringMessageElement mElement=new StringMessageElement(VirtualRisikoMessage.GAMER,playerName , null);
+            message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
+            msgID=sequencer.getCurrentMessageID();
+             mElement=new StringMessageElement(VirtualRisikoMessage.ID_MSG, Integer.toString(msgID), null);
+            message.addMessageElement(VirtualRisikoMessage.namespace, mElement);
        // System.out.println("inviato messaggio di "+message.getMessageElement(VirtualRisikoMessage.TYPE)+" dal "+message.getMessageElement(VirtualRisikoMessage.GAMER));
-         boolean result= sendMessage(message,sequencer.getCurrentMessageID());
+         }else{
+             msgID=Integer.parseInt(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString());
+         }
+          boolean result= sendMessage(message);
          String type=message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.TYPE).toString();
          if((!retrasmit)&&(!(type.equals(VirtualRisikoMessage.STATUS)||type.equals(VirtualRisikoMessage.RETRASMIT_REQUEST)||type.equals(VirtualRisikoMessage.ACK)||type.equals(VirtualRisikoMessage.PING)||type.equals(VirtualRisikoMessage.PONG)||type.equals(VirtualRisikoMessage.CHAT)))){
             System.out.println("<<<<<---------->>>INVIO MSG:::::::Inviato messaggio di "+type+" con MSG_ID "+sequencer.getCurrentMessageID());
@@ -730,7 +737,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
 
 
      if(this.isCentral){
-            this.sendMessage(msg,msgID);
+            this.sendMessage(msg);
 
      }
 

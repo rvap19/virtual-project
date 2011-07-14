@@ -98,7 +98,7 @@ public class MessageSequencer {
             if(ID==index&&(!msgType.equals(VirtualRisikoMessage.INIT))&&(!msgType.equals(VirtualRisikoMessage.RECOVERY))){
                 try {
                     VirtualCommunicator.getInstance().sendMessage(msg,true);
-                    System.out.println(" ## inviata ritrasmissione per "+ID);
+                    System.out.println(" @ inviata ritrasmissione per "+ID);
                 } catch (IOException ex) {
                     System.out.println("impossibile inviare ritrasmissione per "+ID);
                 }
