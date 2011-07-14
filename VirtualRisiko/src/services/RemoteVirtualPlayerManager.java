@@ -198,8 +198,9 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                 electionController.setServer(server);
                 communicator.setElectionNotifier(electionController);
                 electionController.setElectionListener(this);
-
-                this.game=games.get(gamaName);
+                if(game==null){
+                    this.game=games.get(gamaName);
+                }
                 server.signPlayer(player.getUserInfo(),game);
 
                 return true;
