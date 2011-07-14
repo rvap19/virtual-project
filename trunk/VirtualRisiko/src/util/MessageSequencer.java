@@ -97,7 +97,7 @@ public class MessageSequencer {
             int ID=Integer.parseInt(message.getMessageElement(VirtualRisikoMessage.namespace, VirtualRisikoMessage.ID_MSG).toString());
             if(ID==index&&(!msgType.equals(VirtualRisikoMessage.INIT))&&(!msgType.equals(VirtualRisikoMessage.RECOVERY))){
                 try {
-                    VirtualCommunicator.getInstance().sendMessage(msg);
+                    VirtualCommunicator.getInstance().sendMessage(msg,true);
                     System.out.println(" ## inviata ritrasmissione per "+ID);
                 } catch (IOException ex) {
                     System.out.println("impossibile inviare ritrasmissione per "+ID);
@@ -131,7 +131,7 @@ public class MessageSequencer {
         if(i>currentMessageID){
                 RetrasmissionRequest retrasmit=new RetrasmissionRequest(currentMessageID);
                 try {
-                    VirtualCommunicator.getInstance().sendMessage(retrasmit);
+                    VirtualCommunicator.getInstance().sendMessage(retrasmit,false);
                     System.out.println("## inviata richiesta ritrasmissione per "+currentMessageID);
                 } catch (IOException ex) {
                     System.out.println("###### impossibile richiedere ritrasmissione per messaggio "+currentMessageID);

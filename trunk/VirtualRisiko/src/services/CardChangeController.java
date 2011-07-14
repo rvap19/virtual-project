@@ -192,7 +192,7 @@ public class CardChangeController {
         VirtualCommunicator communicator=VirtualCommunicator.getInstance();
         Message msg=new ChangeCardMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
         try {
-            communicator.sendMessage(msg);
+            communicator.sendMessage(msg,false);
         } catch (IOException ex) {
             System.out.println("Impossibile inviare messaggio di change card");
         }
