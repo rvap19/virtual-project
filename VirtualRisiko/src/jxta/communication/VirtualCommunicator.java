@@ -285,7 +285,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
             
 
           //  toCentralPeer.setMessageListener(instance);
-            
+            this.sequencer.setPermitRetrasmissionRequest(false);
             Message msg=new WelcomeMessage(playerName);
             sendMessage(msg,false);
 

@@ -29,6 +29,7 @@ public class MessageSequencer {
     private VirtualRisikoMessageNotifier notifier;
     private Lock lock;
     private boolean enabled;
+    private boolean permitRetrasmissionRequest=true;
 
     private String myPlayername;
     public MessageSequencer(String player,int bufSize){
@@ -47,6 +48,16 @@ public class MessageSequencer {
     public void setCurrentMessageID(int id){
         this.currentMSG_ID.set(id);
     }
+
+    public boolean isPermitRetrasmissionRequest() {
+        return permitRetrasmissionRequest;
+    }
+
+    public void setPermitRetrasmissionRequest(boolean permitRetrasmissionRequest) {
+        this.permitRetrasmissionRequest = permitRetrasmissionRequest;
+    }
+
+
 
     public int getCurrentMessageID(){
         return this.currentMSG_ID.get();
@@ -118,6 +129,7 @@ public class MessageSequencer {
 
         if(type.equals(VirtualRisikoMessage.INIT)){
             System.out.println("# connessione con msg id "+i);
+            this.permitRetrasmissionRequest=true;
          //   this.currentMessageID=i;
             this.currentMSG_ID.set(i);
             notifyMessage(i,message);
@@ -126,6 +138,7 @@ public class MessageSequencer {
 
         if(type.equals(VirtualRisikoMessage.RECOVERY)){
             System.out.println("## riconnessione con msg id "+i);
+            this.permitRetrasmissionRequest=true;
            // this.currentMessageID=i-1;
             this.currentMSG_ID.decrementAndGet();
             notifyMessage(i,message);
@@ -136,7 +149,7 @@ public class MessageSequencer {
 
 
 
-        if(i>currentMSG_ID.get()){
+        if(i>currentMSG_ID.get()&&permitRetrasmissionRequest){
                 RetrasmissionRequest retrasmit=new RetrasmissionRequest(currentMSG_ID.get());
                 try {
                     VirtualCommunicator.getInstance().sendMessage(retrasmit,false);
