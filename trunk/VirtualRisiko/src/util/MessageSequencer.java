@@ -105,7 +105,7 @@ public class MessageSequencer {
                 return;
             }
 
-            this.notifier.notifyMessage(message, i);
+           // this.notifier.notifyMessage(message, i);
             return;
 
         }
