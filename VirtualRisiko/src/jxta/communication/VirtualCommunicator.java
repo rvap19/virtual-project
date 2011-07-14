@@ -1019,7 +1019,7 @@ public class VirtualCommunicator implements ConnectionListener,PipeMsgListener,V
                             System.out.println("rinnessione fallita");
                         }
                     }else{
-                        System.out.println("contattato dal coordinatore");
+                        System.out.println("ricevuto dal coordinatore");
                     }
             
                 } catch (Exception ex) {

@@ -235,7 +235,7 @@ public class RisikoServerImpl extends RisikoServerPOA{
                 Logger.getLogger(RisikoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            tournament.setAttivo(false);
+            
             tournament.setDataFine(new Date());
             try {
                 this.tournamentDAO.edit(tournament);
