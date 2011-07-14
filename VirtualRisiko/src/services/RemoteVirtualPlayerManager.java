@@ -51,7 +51,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     private PlayerImpl player;
 
     private PartitaInfo game;
-
+    private boolean registred;
 
   
 
