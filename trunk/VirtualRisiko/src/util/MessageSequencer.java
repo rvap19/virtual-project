@@ -140,7 +140,7 @@ public class MessageSequencer {
             System.out.println("## riconnessione con msg id "+i);
             this.permitRetrasmissionRequest=true;
            // this.currentMessageID=i-1;
-            this.currentMSG_ID.decrementAndGet();
+            this.currentMSG_ID.set(i-1);
             notifyMessage(i,message);
             return;
         }
