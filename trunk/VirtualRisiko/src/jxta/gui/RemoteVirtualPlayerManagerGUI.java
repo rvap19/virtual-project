@@ -28,6 +28,7 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
     public RemoteVirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
 
        super(virtualPlayermanager);
+       super.local=false;
        LogManager.getLogManager().reset();
        setListeners();
        managePreviuosGame();
