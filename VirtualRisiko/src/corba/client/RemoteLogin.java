@@ -231,7 +231,8 @@ public class RemoteLogin extends javax.swing.JFrame {
         try{
              auth=server.authenticate(userName, pss);
         }catch(Exception ex){
-
+            JOptionPane.showMessageDialog(rootPane, "Impossibile contattare server", "VirtualRisiko info", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if(!auth.message.equals("")){
             JOptionPane.showMessageDialog(rootPane, auth.message, "VirtualRisiko info", JOptionPane.ERROR_MESSAGE);

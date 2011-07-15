@@ -40,7 +40,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     
     protected GameDialog gameDialog;
     protected VirtualPlayerManager virtualPlayerManager;
-
+    protected boolean local;
     /** Creates new form PlayerManagerGUI */
     
     
@@ -48,7 +48,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     public VirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
       
         this.virtualPlayerManager=virtualPlayermanager;
-        
+        local=true;
         
         gameDialog=new GameDialog(this, true);
         
@@ -293,7 +293,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
          if(!gameDialog.isConfirmed()){
              return;
          }
-         this.jButton1.setEnabled(false);
+         this.jButton1.setEnabled(local);
         try {
              this.virtualPlayerManager.creategame(name,mapName,maxPlayers,maxTurns);    
         } catch (IOException ex) {
