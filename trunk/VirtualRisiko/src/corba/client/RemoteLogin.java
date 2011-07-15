@@ -19,6 +19,8 @@ import jxta.gui.RemoteVirtualPlayerManagerGUI;
 
 
 import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 import services.RemoteVirtualPlayerManager;
@@ -299,7 +301,7 @@ public class RemoteLogin extends javax.swing.JFrame {
     * @param args the command line arguments
     */
 
-    public static void start(String[] args)throws Exception{
+    public static void start2(String[] args)throws Exception{
         Properties props=new Properties();
 
                 props.load(new FileInputStream("remoteGame.properties"));
@@ -312,6 +314,34 @@ public class RemoteLogin extends javax.swing.JFrame {
 orb.string_to_object("corbaname::"+props.getProperty("org.omg.CORBA.ORBInitialHost")+":"+props.getProperty("org.omg.CORBA.ORBInitialPort")+"#RisikoServer"));
 
 
+
+
+        final RemoteLogin login=new RemoteLogin();
+        login.setHelloImpl(risikoServer);
+        login.setOrb(orb);
+
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                login.setVisible(true);
+            }
+        });
+    }
+
+    public static void start(String[] args)throws Exception{
+        Properties props=new Properties();
+
+                props.load(new FileInputStream("remoteGame.properties"));
+            ORB orb = ORB.init(args, props);
+	    System.out.println("Initialized ORB");
+
+            org.omg.CORBA.Object objRef =
+                     orb.resolve_initial_references("NameService");
+	    NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+            RisikoServer risikoServer= RisikoServerHelper.narrow(ncRef.resolve_str("RisikoServer"));
+            //Resolve MessageServer
+	    System.out.println("risiko server loaded");
 
 
         final RemoteLogin login=new RemoteLogin();
