@@ -45,7 +45,7 @@ public class Server extends Thread{
 
 
 
-    public void startORB(){
+    public void startORB2(){
          try{
               //create and initialize the ORB
             Properties props = System.getProperties();
@@ -85,6 +85,59 @@ public class Server extends Thread{
 
         
     }
+     public void startORB(){
+         try{
+              //create and initialize the ORB
+            Properties props = System.getProperties();
+            props.put("org.omg.CORBA.ORBInitialPort", "1050");
+            //Replace MyHost with the name of the host on which you are running the server
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+
+            // Step 1: Instantiate the ORB
+            ORB orb = ORB.init(args, props);
+   System.out.println("Initialized ORB");
+            // Step 2: Instantiate the servant
+            RisikoServerImpl servant = new RisikoServerImpl();
+   System.out.println("Initialized servant");
+            // Step 3 : Create a POA with Persistent Policy
+            // *******************
+            // Step 3-1: Get the rootPOA
+            POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+
+            rootPOA.the_POAManager().activate( );
+            rootPOA.activate_object(servant);
+            // ***********************
+
+
+
+            // Step 5: Resolve RootNaming context and bind a name for the
+            // servant.
+            // NOTE: If the Server is persistent in nature then using Persistent
+            // Name Service is a good choice. Even if ORBD is restarted the Name
+            // Bindings will be intact. To use Persistent Name Service use
+            // 'NameService' as the key for resolve_initial_references() when
+            // ORBD is running.
+            org.omg.CORBA.Object obj = orb.resolve_initial_references(
+                "NameService" );
+            System.out.println("Resolved NameService");
+            NamingContextExt rootContext = NamingContextExtHelper.narrow( obj );
+
+            NameComponent[] nc = rootContext.to_name(
+                "RisikoServer" );
+            rootContext.rebind( nc, rootPOA.servant_to_reference(
+                servant ) );
+   System.out.println("server ready");
+            // Step 6: We are ready to receive client requests
+            orb.run();
+        } catch ( Exception e ) {
+            System.err.println( "Exception in Persistent Server Startup " + e );
+        }
+
+       
+
+
+    }
+
 
     public void startJXTA() throws IOException, PeerGroupException{
         this.playerManager=new PlayerManager("foggiano", Server.TCP_PORT);
