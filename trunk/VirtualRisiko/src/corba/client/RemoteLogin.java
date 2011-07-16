@@ -252,8 +252,7 @@ public class RemoteLogin extends javax.swing.JFrame {
                     RemoteVirtualPlayerManager manager=new RemoteVirtualPlayerManager(server, player, info.username, 9701);
                     RemoteVirtualPlayerManagerGUI gui=new RemoteVirtualPlayerManagerGUI(manager);
                     gui.setListeners();
-                    gui.setVisible(!gui.isRegistred());
-
+                    gui.setVisible(true);
                     this.dispose();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -301,7 +300,7 @@ public class RemoteLogin extends javax.swing.JFrame {
     * @param args the command line arguments
     */
 
-    public static void start2(String[] args)throws Exception{
+    public static void start(String[] args)throws Exception{
         Properties props=new Properties();
 
                 props.load(new FileInputStream("remoteGame.properties"));
@@ -328,7 +327,7 @@ orb.string_to_object("corbaname::"+props.getProperty("org.omg.CORBA.ORBInitialHo
         });
     }
 
-    public static void start(String[] args)throws Exception{
+    public static void start2(String[] args)throws Exception{
         Properties props=new Properties();
 
                 props.load(new FileInputStream("remoteGame.properties"));

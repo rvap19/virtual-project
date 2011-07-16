@@ -23,8 +23,6 @@ import virtualrisikoii.GameDetailsFrame;
  */
 public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI implements PlayerOperations{
 
-    private boolean registred=false;
-
     public RemoteVirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
 
        super(virtualPlayermanager);
@@ -51,7 +49,7 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
                     manager.deletePreviousRegistration();
                 }else{
                     if(manager.registerInGame(info.name)){
-                        registred=true;
+                        dispose();
                     }else{
                         JOptionPane.showConfirmDialog(rootPane, "Impossibile partecipare alla partita "+info.name+" ...chidere l'applicazione", "VirtualRisiko info", JOptionPane.ERROR_MESSAGE);
                         System.exit(-1);
@@ -61,11 +59,6 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
         }
     }
 
-    public boolean isRegistred() {
-        return registred;
-    }
-
-    
     public void setListeners(){
         virtualPlayerManager.getManager().addPipeListener(this);
         ((RemoteVirtualPlayerManager)virtualPlayerManager).getPlayer().setListener(this);

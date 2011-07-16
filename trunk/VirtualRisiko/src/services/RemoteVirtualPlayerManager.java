@@ -51,7 +51,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     private PlayerImpl player;
 
     private PartitaInfo game;
-    private boolean registred;
+
 
   
 
@@ -248,12 +248,12 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     }
 
     public void presenceUpdated(PlayerAdvertisement playerInfo) {
-
+        System.out.println("scoperto player "+playerInfo.getName());
        updateMap(players, playerInfo.getName(), playerInfo);
     }
 
     public void pipeUpdated(PipeAdvertisement pipeInfo) {
-     //   System.out.println("scoperto pipe"+pipeInfo.getName());
+        System.out.println("scoperto pipe"+pipeInfo.getName());
         this.pipes.put(pipeInfo.getName(), pipeInfo);
     }
 
