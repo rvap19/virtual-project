@@ -8,6 +8,8 @@ module corba {
     unsigned short maxTurns;
     unsigned short maxPlayers;
     wstring managerUsername;
+    wstring tournament;
+    unsigned short phase;
   };
 
   struct RegistrationInfo{
@@ -16,6 +18,7 @@ module corba {
     boolean victory;
     wstring username;
   };
+
 
   struct UserInfo{
     wstring username;
@@ -35,13 +38,18 @@ module corba {
     unsigned long score;
   };
 
-
+struct Authentication{
+    wstring message;
+    UserInfo info;
+  };
+  
   typedef sequence<Summary> Statistics;
   typedef sequence<ResultInfo> Results;
   typedef sequence<UserInfo> Users;
   typedef sequence<PartitaInfo> Games;
   typedef sequence<RegistrationInfo> Registrations;
 
+  
   struct SummaryPlayerInfo{
     wstring username;
     Results info;
@@ -59,18 +67,33 @@ module corba {
     wstring birthday;
   };
 
-  
+  interface Player{
+    UserInfo getUserInfo();
+    void notifyNewGame(in PartitaInfo partita );
+    void notifyNewRegistration(in RegistrationInfo registration);
+    void notifyStart(in wstring managerName);
+    void notifyNewPlayer(in UserInfo userInfo);
+    boolean isLogged();
+  };
+
 
   interface RisikoServer{
-    UserInfo authenticate(in wstring username,in wstring pwd);
+    Authentication authenticate(in wstring username,in wstring pwd);
+    void registerPlayer(in wstring username,in Player player);
+    boolean isOnline(in wstring username);
     Games getAvailableGames();
+    void deleteRegistration(in PartitaInfo partita,in UserInfo user);
+    void deletePartita(in PartitaInfo partita,in UserInfo info);
+    void changeManager(in PartitaInfo partita,in UserInfo info);
     boolean saveResult(in Registrations res);
     PartitaInfo createGame(in UserInfo user,in unsigned short maxTurn,in unsigned short maxPlayers,in wstring name,in wstring type);
     boolean signPlayer(in UserInfo player,in PartitaInfo partita);
     Users getAuthenticateUsers();
     Users getPlayers(in PartitaInfo partita);
     void shutdown();
-
+    PartitaInfo getPartitaInfo(in unsigned long id);
+    PartitaInfo getActiveGame(in wstring username);
+    void notifyNewManager(in PartitaInfo partita,in wstring manager);
     boolean createUser(in UserDetails details);
     boolean checkUsername(in wstring username);
     boolean activateUser(in wstring username,in unsigned long codice);
