@@ -97,6 +97,11 @@ public class MessageSequencer {
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
 
 
+        if(type.equals(VirtualRisikoMessage.CHAT)){
+            this.notifier.notifyMessage(message, 0);
+            return;
+        }
+
         if(player.equals(myPlayername)){
 
                 return;
