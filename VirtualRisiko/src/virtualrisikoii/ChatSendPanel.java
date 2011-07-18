@@ -45,7 +45,7 @@ public class ChatSendPanel extends javax.swing.JPanel {
             players.add(iter.next().getNome());
         }
         initComponents();
-       // this.jComboBox1.setSelectedIndex(0);
+        this.jComboBox1.setSelectedIndex(0);
     }
 
     public List<String> getPlayers() {
