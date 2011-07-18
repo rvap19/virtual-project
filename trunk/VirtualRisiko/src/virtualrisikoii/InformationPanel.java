@@ -348,10 +348,11 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         String from=msg.getFrom();
         String to=msg.getTo();
         String messageString=msg.getMessageString();
+        String me=Tavolo.getInstance().getMyGiocatore().getNome();
         if(to.equals(ChatMessage.TO_ALL)){
            this.chatTextArea.append(from +" > "+messageString+"\n");
            this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
-        }else if(to.equals(Tavolo.getInstance().getMyGiocatore().getNome())||from.equals(Tavolo.getInstance().getMyGiocatore())){
+        }else if(to.equals(me)||from.equals(me)){
             this.chatTextArea.append("(PRIVATO) "+from+" > "+messageString+"\n");
             this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }

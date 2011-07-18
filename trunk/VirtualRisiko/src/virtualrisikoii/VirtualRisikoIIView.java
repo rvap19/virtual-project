@@ -120,6 +120,7 @@ public class VirtualRisikoIIView extends FrameView {
         mainPanel = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
+        chatSendPanel1 = new virtualrisikoii.ChatSendPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         informationPanel1 = new virtualrisikoii.InformationPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -142,6 +143,9 @@ public class VirtualRisikoIIView extends FrameView {
 
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
+
+        chatSendPanel1.setName("chatSendPanel1"); // NOI18N
+        jPanel1.add(chatSendPanel1, java.awt.BorderLayout.PAGE_END);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -258,6 +262,7 @@ public class VirtualRisikoIIView extends FrameView {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private virtualrisikoii.ChatSendPanel chatSendPanel1;
     private virtualrisikoii.InformationPanel informationPanel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
