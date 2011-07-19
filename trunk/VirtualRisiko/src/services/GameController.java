@@ -777,11 +777,11 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             Tavolo tavolo=locker.acquireTavolo();
 
             
-            if(turno!=tavolo.getTurnoSuccessivo()){
+          /*  if(turno!=tavolo.getTurnoSuccessivo()){
                 locker.releaseTavolo();
                 System.err.println("ricevo turno precedente");
                 return;
-            }
+            }*/
             int turnoSucc=tavolo.getTurnoSuccessivo();
             if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
                 tavolo.setInizializzazione(false);

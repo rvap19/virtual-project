@@ -69,15 +69,15 @@ public class GameTimer extends Thread {
 
     public void run(){
         
-            while(interval.intValue()>0){
+            while(interval.intValue()>=0){
                 try {
                     this.sleep(1 * 1000);
                 } catch (InterruptedException ex) {
                     System.err.println("interrutp exception");
                 }
                 
-                this.notifier.remaingTimeNotify(interval.intValue());
-                interval.decrementAndGet();
+                this.notifier.remaingTimeNotify(interval.getAndDecrement());
+                
             }
 
             if(notify.get()){

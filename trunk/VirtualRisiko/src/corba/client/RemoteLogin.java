@@ -252,7 +252,7 @@ public class RemoteLogin extends javax.swing.JFrame {
                     RemoteVirtualPlayerManager manager=new RemoteVirtualPlayerManager(server, player, info.username, 9701);
                     RemoteVirtualPlayerManagerGUI gui=new RemoteVirtualPlayerManagerGUI(manager);
                     gui.setListeners();
-                    gui.setVisible(true);
+                    
                     this.dispose();
             } catch (Exception ex) {
                 ex.printStackTrace();

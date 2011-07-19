@@ -684,8 +684,44 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
     }
 
     public void updatePass(PassMessage m) {
-        int turno=m.getTurno_successivo();
-        Giocatore g=Tavolo.getInstance().getGiocatori().get(turno);
+        Tavolo tavolo=Tavolo.getInstance();
+        int turno=tavolo.getTurno();
+        List<Giocatore> giocatori=tavolo.getGiocatori();
+        int numeroG=tavolo.getGiocatori().size();
+        updatePoints(numGioc, giocatori);
+        
+        
+        Giocatore g=giocatori.get(turno);
         this.updateGiocatore(g);
+    }
+
+    public void updatePoints(int numGioc,List<Giocatore> list){
+            if(numGioc>0){
+                puntLabel1.setText(Integer.toString(tavolo.getPunteggioGiocatore(list.get(0))));
+            }
+
+            if(numGioc>1){
+                puntLabel2.setText(Integer.toString(tavolo.getPunteggioGiocatore(list.get(1))));
+            }
+
+            if(numGioc>2){
+                puntLabel3.setText(Integer.toString(tavolo.getPunteggioGiocatore(list.get(2))));
+            }
+
+            if(numGioc>3){
+                puntLabel4.setText(Integer.toString(tavolo.getPunteggioGiocatore(list.get(3))));
+            }
+
+            if(numGioc>4){
+                puntLabel5.setText(Integer.toString(tavolo.getPunteggioGiocatore(list.get(4))));
+            }
+
+            if(numGioc>5){
+                puntLabel6.setText(Integer.toString(tavolo.getPunteggioGiocatore(list.get(5))));
+            }
+
+
+
+
     }
 }

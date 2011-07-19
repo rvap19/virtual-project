@@ -29,27 +29,40 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
        super.local=false;
        LogManager.getLogManager().reset();
        setListeners();
-       managePreviuosGame();
+       boolean delete= managePreviuosGame();
+       if(delete){
+           setVisible(true);
+           JOptionPane.showMessageDialog(null, "Virtual Risiko ... waiting ... non chiudere l'applicazione", "Virtual Risiko Info", JOptionPane.INFORMATION_MESSAGE);
+       }else{
+           setVisible(false);
+       }
+
     }
 
-    private void managePreviuosGame() throws IOException{
+    private boolean managePreviuosGame() throws IOException{
         RemoteVirtualPlayerManager manager=((RemoteVirtualPlayerManager)virtualPlayerManager);
         PartitaInfo info=manager.getPreviousGame();
+        boolean delete=false;
         if(info!=null){
+            boolean allOffline=manager.isAllOffline(info);
             if(manager.isManager(info)){
                 //joptionpane for eleminazione partita
-                int result=JOptionPane.showConfirmDialog(rootPane, "Gli iscritti alla partita "+info.name+" sono tutti offline...eliminare la partita ?", "VirtualRisiko info", JOptionPane.OK_CANCEL_OPTION);
-                if(result==JOptionPane.OK_OPTION){
-                    manager.deletePreviousGame();
+                if(!allOffline){
+                    int result=JOptionPane.showConfirmDialog(rootPane, "Impossibile accedere all'applicazione ..ricollegati piu tardi", "VirtualRisiko info", JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(-1);
+                }else{
+                    manager.registerInGame(true, info.name);
                 }
+                
             }else{
                 //joptonpane per leiminazione registrazione
                 int result=JOptionPane.showConfirmDialog(rootPane, "E' stata trovata una precedente registrazione alla partita "+info.name+" ...eliminare registrazione ?", "VirtualRisiko info", JOptionPane.OK_CANCEL_OPTION);
                 if(result==JOptionPane.OK_OPTION){
                     manager.deletePreviousRegistration();
+                    delete= true;
                 }else{
-                    if(manager.registerInGame(info.name)){
-                        dispose();
+                    if(manager.registerInGame(allOffline,info.name)){
+                        delete= false;
                     }else{
                         JOptionPane.showConfirmDialog(rootPane, "Impossibile partecipare alla partita "+info.name+" ...chidere l'applicazione", "VirtualRisiko info", JOptionPane.ERROR_MESSAGE);
                         System.exit(-1);
@@ -57,7 +70,10 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
                 }
             }
         }
+        return delete;
     }
+
+    
 
     public void setListeners(){
         virtualPlayerManager.getManager().addPipeListener(this);
