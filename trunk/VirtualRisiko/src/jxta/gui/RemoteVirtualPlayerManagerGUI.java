@@ -54,6 +54,7 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
                     System.exit(-1);
                 }else{
                     manager.registerInGame(true, info.name);
+                    delete=false;
                 }
                 
             }else{
