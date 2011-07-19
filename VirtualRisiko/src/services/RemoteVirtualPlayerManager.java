@@ -491,10 +491,11 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     public boolean isAllOffline(PartitaInfo info){
         boolean online=false;
+        String myName=getUserInfo().username;
         UserInfo[] users=server.getPlayers(info);
         for(int i=0;i<users.length;i++){
             UserInfo u=users[i];
-            if(!u.username.equals(this.myName)){
+            if(!u.username.equals(myName)){
                 online=online || server.isOnline(u.username);
             }
         }
