@@ -44,7 +44,7 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
     private boolean managePreviuosGame() throws IOException{
         RemoteVirtualPlayerManager manager=((RemoteVirtualPlayerManager)virtualPlayerManager);
         PartitaInfo info=manager.getPreviousGame();
-        boolean delete=false;
+        boolean delete=true;
         if(info!=null){
             boolean allOffline=manager.isAllOffline(info);System.out.println("giocatori tutti offline "+allOffline);
             if(manager.isManager(info)){
