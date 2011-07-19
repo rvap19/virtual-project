@@ -692,7 +692,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         
         
         Giocatore g=giocatori.get(turno);
-        this.updateGiocatore(g);
+        this.updateGiocatore(giocatori.get(m.getTurno_successivo()));
     }
 
     public void updatePoints(int numGioc,List<Giocatore> list){
