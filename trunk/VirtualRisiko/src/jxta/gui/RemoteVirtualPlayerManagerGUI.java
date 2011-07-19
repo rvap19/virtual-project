@@ -30,6 +30,7 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
        LogManager.getLogManager().reset();
        setListeners();
        boolean delete= managePreviuosGame();
+       setVisible(delete);
        if(delete){
            setVisible(false);
            JOptionPane.showMessageDialog(null, "Virtual Risiko ... waiting ... non chiudere l'applicazione", "Virtual Risiko Info", JOptionPane.INFORMATION_MESSAGE);
@@ -44,7 +45,7 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
         PartitaInfo info=manager.getPreviousGame();
         boolean delete=false;
         if(info!=null){
-            boolean allOffline=manager.isAllOffline(info);
+            boolean allOffline=manager.isAllOffline(info);System.out.println("giocatori tutti offline "+allOffline);
             if(manager.isManager(info)){
                 //joptionpane for eleminazione partita
                 if(!allOffline){
