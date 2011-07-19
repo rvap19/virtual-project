@@ -117,7 +117,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
     }
 
     private List<String> names;
-    public PartitaInfo register(String gamaName){
+    public PartitaInfo register(boolean meManager,String gamaName){
          try {
             
             this.findPlayers();
@@ -125,8 +125,10 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
             if(partitaInfo==null){
                 partitaInfo= this.games.get(gamaName);
             }
-            
-            if((!partitaInfo.tournament.equals(""))){
+            if(meManager){
+                server.changeManager(partitaInfo, this.getUserInfo());
+            }
+            if((!partitaInfo.tournament.equals(""))||meManager){
                 server.signPlayer(this.player.getUserInfo(), partitaInfo);
                 PartitaInfo[] partitas=server.getAvailableGames();
                 for(int i=0;i<partitas.length;i++){
@@ -186,7 +188,7 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
                    ex.printStackTrace();
                 }
 
-                return register(gamaName);
+                return register(meManager,gamaName);
             }
             VirtualCommunicator communicator=VirtualCommunicator.initPeerComunicator(this.player.getUserInfo().username, this.manager.getPeerGroup(), creatorPipe,this.manager.getMyPipeAdvertisement());
             if(communicator!=null){
@@ -419,7 +421,13 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
 
     @Override
     public boolean registerInGame(String gamaName) throws IOException {
-        PartitaInfo info=this.register(gamaName);
+        return this.registerInGame(false, gamaName);
+    }
+
+
+
+    public boolean registerInGame(boolean meManager,String gamaName) throws IOException {
+        PartitaInfo info=this.register(meManager,gamaName);
         if(info!=null){
 
              this.server.signPlayer(this.getUserInfo(), info);
@@ -481,6 +489,18 @@ public class RemoteVirtualPlayerManager extends VirtualPlayerManager implements 
         }
     }
 
+    public boolean isAllOffline(PartitaInfo info){
+        boolean online=false;
+        UserInfo[] users=server.getPlayers(info);
+        for(int i=0;i<users.length;i++){
+            UserInfo u=users[i];
+            if(!u.username.equals(this.myName)){
+                online=online || server.isOnline(u.username);
+            }
+        }
+        return !online;
+
+    }
 
 
 

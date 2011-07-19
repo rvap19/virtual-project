@@ -34,7 +34,7 @@ public class VirtualRisikoIIView extends FrameView {
     public VirtualRisikoIIView(SingleFrameApplication app,XMapPanel panel) {
         super(app);
         
-        
+        app.getMainFrame().setTitle("Virtual Risiko");
         initComponents();
         
         this.jScrollPane1.setViewportView(panel);
@@ -95,7 +95,8 @@ public class VirtualRisikoIIView extends FrameView {
                 }
             }
         });
-     
+
+
     }
 
     @Action

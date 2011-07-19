@@ -187,7 +187,7 @@ public class GameDialog extends javax.swing.JDialog {
     }
 
     public int getMaxTurns(){
-        int max=100;
+        int max=1000;
         int min=1;
         try{
             int turns=Integer.parseInt(this.maxTurnsText.getText());
