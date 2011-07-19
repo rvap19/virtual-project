@@ -32,10 +32,11 @@ public class RemoteVirtualPlayerManagerGUI extends VirtualPlayerManagerGUI imple
        boolean delete= managePreviuosGame();
        setVisible(delete);
        if(delete){
+           setVisible(true);
+       }else{
            setVisible(false);
            JOptionPane.showMessageDialog(null, "Virtual Risiko ... waiting ... non chiudere l'applicazione", "Virtual Risiko Info", JOptionPane.INFORMATION_MESSAGE);
-       }else{
-           setVisible(true);
+       
        }
 
     }
