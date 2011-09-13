@@ -65,10 +65,7 @@ public class JXTAMiddle extends Middle implements PingEventListener{
 
     
 
-    public void notifyMessage(RisikoMessage message) {
-        RisikoEvent e=super.eventGenerator.generateEvent(message);
-        super.notifyEvent(e);
-    }
+    
 
     @Override
     protected void sendInitMessages() {

@@ -387,6 +387,19 @@ public abstract class VirtualCommunicator {
         this.gameInProgress=b;
     }
 
+    public void propagateMessage(RisikoMessage message) {
+        try{
+
+            Iterator<String> users=this.playerNames.iterator();
+            while(users.hasNext()){
+                sendMessageTo(message,users.next());
+            }
+        } catch (IOException ex) {
+            System.err.println("impossibile propagare msg");
+            
+        }
+    }
+
     
 
 
