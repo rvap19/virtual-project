@@ -34,7 +34,7 @@ public abstract class RisikoPipe {
     
 
     public  boolean sendMessage(RisikoMessage message) {
-        int ID=this.sequencer.getAndIncrementID();
+        int ID=this.sequencer.getCurrentMessageID();
         message.setMSG_ID(ID);
         
         try {

@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
+import javax.sound.midi.Sequencer;
 import middle.event.RisikoEvent;
 import middle.messages.RisikoMessage;
 
@@ -255,6 +256,10 @@ public abstract class VirtualCommunicator {
     }
     
     public boolean sendMessage(RisikoMessage message) {
+        String type=message.getType();
+        if((!type.equals(MessageTypes.CHAT)) && (!type.equals(MessageTypes.PING)) && (!type.equals(MessageTypes.PONG)) && (!type.equals(MessageTypes.STATUS_PEER))&& (!type.equals(MessageTypes.ACK)) && (!type.equals(MessageTypes.RECOVERY)) && (!type.equals(MessageTypes.RETRASMISSION_REQUEST))){
+            this.messageSequencer.getAndIncrementID();
+        }
         if(!this.isCentral){
             try {
                 return sendMessageTo(message, managerUsername);
