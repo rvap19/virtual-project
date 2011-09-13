@@ -16,6 +16,7 @@ public  class GameParameter {
     private  int seed_cards;
     private  int maxPlayers;
     private int maxTurns;
+    private int players;
 
     public GameParameter(String mapName){
         maxPlayers=6;
@@ -23,6 +24,11 @@ public  class GameParameter {
         this.mapName=mapName;
     }
 
+    public void setPlayers(int players) {
+        this.players = players;
+    }
+
+    
     public String getMapName() {
         return mapName;
     }
@@ -69,6 +75,10 @@ public  class GameParameter {
 
     public void setSeed_region(int seed_region) {
         this.seed_region = seed_region;
+    }
+
+    public int getPlayers() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     

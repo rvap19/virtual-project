@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class AckMessage extends VirtualRisikoMessage{
+public class AckMessage extends VirtualRisikoMessage implements middle.messages.AckMessage{
 
 
         public static final String ACK_FOR_MESSAGE_ID="ack_message";
@@ -23,7 +24,7 @@ public class AckMessage extends VirtualRisikoMessage{
     public AckMessage(int ack_message_id){
         super();
         this.ack_message_id=ack_message_id;
-        StringMessageElement mE=new StringMessageElement(TYPE, ACK, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ACK, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(ACK_FOR_MESSAGE_ID,Integer.toString(ack_message_id), null);

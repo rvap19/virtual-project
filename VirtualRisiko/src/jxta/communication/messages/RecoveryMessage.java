@@ -7,6 +7,7 @@ package jxta.communication.messages;
 
 import java.util.ArrayList;
 import java.util.List;
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 import virtualrisikoii.RecoveryParameter;
@@ -15,7 +16,7 @@ import virtualrisikoii.RecoveryParameter;
  *
  * @author root
  */
-public class RecoveryMessage extends VirtualRisikoMessage{
+public class RecoveryMessage extends VirtualRisikoMessage implements middle.messages.RecoveryMessage{
 
 
         public static final String OBJECTIVE_INFO="objective_info";
@@ -44,7 +45,7 @@ public class RecoveryMessage extends VirtualRisikoMessage{
     public RecoveryMessage(RecoveryParameter parameter){
         super();
         this.parameter=parameter;
-        StringMessageElement mE=new StringMessageElement(TYPE, RECOVERY, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.RECOVERY, null);
         addMessageElement(namespace, mE);
         addMapNameElement(parameter.getMapName());
 

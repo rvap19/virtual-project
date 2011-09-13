@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class PongMessage extends VirtualRisikoMessage{
+public class PongMessage extends VirtualRisikoMessage implements middle.messages.PongMessage{
 
 
         public static final String PING_PEER_ID="pong_peer_id";
@@ -23,7 +24,7 @@ public class PongMessage extends VirtualRisikoMessage{
     public PongMessage(String peerId){
         super();
         this.peer_id=peerId;
-        StringMessageElement mE=new StringMessageElement(TYPE, PONG, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.PONG, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PING_PEER_ID,peerId, null);

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 //import jxta.communication.Communicator;
-import jxta.communication.VirtualCommunicator;
-import jxta.communication.messages.ChatMessage;
+import middle.event.ChatEvent;
+
 
 import services.ChatSender;
 import services.GameController;
@@ -37,7 +37,7 @@ public class ChatSendPanel extends javax.swing.JPanel {
         Tavolo tavolo=Tavolo.getInstance();
         sender=GameController.getInstance();
         players=new ArrayList<String>();
-        players.add(ChatMessage.TO_ALL);
+        players.add(ChatEvent.TO_ALL);
 
         Iterator<Giocatore> iter=tavolo.getGiocatori().iterator();
 

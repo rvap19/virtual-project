@@ -8,14 +8,16 @@ package jxta.communication.messages;
 
 import java.util.ArrayList;
 import java.util.List;
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
+import util.GameParameter;
 
 /**
  *
  * @author root
  */
-public class InitMessage extends VirtualRisikoMessage{
+public class InitMessage extends VirtualRisikoMessage implements middle.messages.InitMessage{
     public static final String SEED_DICE="seed_dice";
     public static final String MAP_NAME="map_name";
     public static final String SEED_CARDS="seed_cards";
@@ -30,23 +32,25 @@ public class InitMessage extends VirtualRisikoMessage{
     private String map_name;
     private int seed_card;
     private int seed_region;
-    private int myTurno;
+   
     private List<String> names;
     private int maxTurns;
+    private GameParameter gameParameter;
 
     
 
-    public InitMessage(int maxTurns,int players,int seed_dice,String map_name,int seed_card,int seed_region,List<String> playerNames){
+    public InitMessage(GameParameter parameter,List<String> playerNames){
         super();
-        this.maxTurns=maxTurns;
-        this.players=players;
-        this.seed_dice=seed_dice;
-        this.map_name=map_name;
-        this.seed_card=seed_card;
-        this.seed_region=seed_region;
-       
+        this.gameParameter=parameter;
+        this.maxTurns=parameter.getMaxTurns();
+        this.players=playerNames.size();
+        this.seed_dice=parameter.getSeed_dice();
+        this.map_name=parameter.getMapName();
+        this.seed_card=parameter.getSeed_cards();
+        this.seed_region=parameter.getSeed_region();
         
-        StringMessageElement mE=new StringMessageElement(TYPE, INIT, null);
+        
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.INIT, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(SEED_DICE,Integer.toString(seed_dice), null);
@@ -81,22 +85,30 @@ public class InitMessage extends VirtualRisikoMessage{
          seed_card=Integer.parseInt(message.getMessageElement(namespace, SEED_CARDS).toString());
          seed_region=Integer.parseInt(message.getMessageElement(namespace, SEED_REGION).toString());
          players=Integer.parseInt(message.getMessageElement(namespace, PLAYERS).toString());
-         myTurno=Integer.parseInt(message.getMessageElement(namespace, TURN).toString());
+        // myTurno=Integer.parseInt(message.getMessageElement(namespace, TURN).toString());
          this.maxTurns=Integer.parseInt(message.getMessageElement(namespace, MAX_TURNS).toString());
          this.names=new ArrayList<String>();
          ElementIterator iter=message.getMessageElements(namespace, PLAYER_NAMES);
          while(iter.hasNext()){
             names.add(iter.next().toString());
          }
+         
+         this.gameParameter=new GameParameter(map_name);
+         gameParameter.setMaxPlayers(players);
+         gameParameter.setMaxTurns(maxTurns);
+         gameParameter.setPlayers(players);
+         gameParameter.setSeed_cards(seed_card);
+         gameParameter.setSeed_dice(seed_dice);
+         gameParameter.setSeed_region(seed_region);
+         
+         
     }
 
     public String getMap_name() {
         return map_name;
     }
 
-    public int getMyTurno() {
-        return myTurno;
-    }
+    
 
     public int getMaxTurns() {
         return maxTurns;
@@ -121,6 +133,10 @@ public class InitMessage extends VirtualRisikoMessage{
 
     public List<String> getNames() {
         return names;
+    }
+
+    public GameParameter getGameParameter() {
+        return this.gameParameter;
     }
 
     

@@ -5,35 +5,36 @@
 
 package jxta.discover;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jxta.advertisement.GameAdvertisement;
-import jxta.listener.GameListener;
+import jxta.advertisement.JXTADiscoveryResponseMsg;
+import jxta.advertisement.JXTARisikoDiscoveryEvent;
+import jxta.communication.JXTAPeerGroup;
+import middle.PeerGroup;
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.discovery.DiscoveryService;
 import net.jxta.document.Advertisement;
 import net.jxta.document.AdvertisementFactory;
-import net.jxta.document.MimeMediaType;
-import net.jxta.exception.PeerGroupException;
-import net.jxta.id.IDFactory;
-import net.jxta.peer.PeerID;
-import net.jxta.peergroup.PeerGroup;
-import net.jxta.peergroup.PeerGroupID;
-
 import net.jxta.protocol.DiscoveryResponseMsg;
+
+
+
+
 
 
 /**
  *
  * @author root
  */
-public class GameDiscover implements DiscoveryListener {
+public class GameDiscover extends middle.management.discover.GameDiscover implements DiscoveryListener {
 
     /**
      * The default expiration timeout for published presence advertisements.
@@ -53,7 +54,6 @@ public class GameDiscover implements DiscoveryListener {
      */
     private DiscoveryService discovery = null;
     
-    private List<GameListener> registeredListeners;
     
 
      /**
@@ -67,16 +67,6 @@ public class GameDiscover implements DiscoveryListener {
     private PeerGroup peerGroup = null;
 
     
-
-    public  void addGameListener(GameListener listener)
-    {
-        registeredListeners.add(listener);
-    }
-
-    public void removeGameListener(GameListener listener){
-        registeredListeners.remove(listener);
-    }
-
   
 
     public void discoveryEvent(DiscoveryEvent TheDiscoveryEvent) {
@@ -90,7 +80,7 @@ public class GameDiscover implements DiscoveryListener {
         if (TheDiscoveryResponseMsg!=null) {
 
             Enumeration<Advertisement> TheEnumeration = TheDiscoveryResponseMsg.getAdvertisements();
-
+            Vector<middle.management.advertisement.Advertisement> result=new Vector<middle.management.advertisement.Advertisement>();
             while (TheEnumeration.hasMoreElements()) {
 
                 Advertisement adv=TheEnumeration.nextElement();
@@ -98,14 +88,8 @@ public class GameDiscover implements DiscoveryListener {
                     if(adv.getAdvType().equalsIgnoreCase(GameAdvertisement.getAdvertisementType())){
                         GameAdvertisement advertisement = (GameAdvertisement) adv;
                         
-                        Iterator<GameListener> listeners = registeredListeners.iterator();
-                        while (listeners.hasNext())
-                        {
-                            GameListener listener = listeners.next();
-
-                            // Notify the listener of the presence update.
-                            listener.gameUpdated(advertisement);
-                        }
+                        result.add(advertisement);
+                        
                        
                         
                     }
@@ -120,6 +104,9 @@ public class GameDiscover implements DiscoveryListener {
                 }
 
             }
+            JXTADiscoveryResponseMsg msg=new JXTADiscoveryResponseMsg(result.elements());
+            JXTARisikoDiscoveryEvent event=new JXTARisikoDiscoveryEvent(msg);
+            super.discoveryEvent(event);
 
         }
         
@@ -170,8 +157,8 @@ public class GameDiscover implements DiscoveryListener {
         
     }
 
-    public void registerPlayer(GameAdvertisement gameAdv,List<String>playersID) throws IOException{
-        
+    public void registerPlayer(middle.management.advertisement.GameAdvertisement g,List<String>playersID) throws IOException{
+        GameAdvertisement gameAdv=(GameAdvertisement) g;
         this.discovery.flushAdvertisement(gameAdv);
         gameAdv.setPlayerIds(playersID);
         try
@@ -191,17 +178,18 @@ public class GameDiscover implements DiscoveryListener {
     }
     
 
-    public void init(PeerGroup group)throws PeerGroupException    {
+    public void init(PeerGroup group)   {
         
-
+        super.init(group);
         // Save a reference to the group of which that this service is
         // a part.
         peerGroup = group;
+        JXTAPeerGroup pG=(JXTAPeerGroup) peerGroup;
 
         // Get the local Peer ID.
-        localPeerID = group.getPeerID().toString();
+        localPeerID = pG.getPeerGroup().getPeerID().toString();
 
-        this.registeredListeners=new ArrayList<GameListener>();
+        
         
         // Registering our customized advertisement instance
         
@@ -217,23 +205,29 @@ public class GameDiscover implements DiscoveryListener {
     public int startApp(String[] args) throws IOException
 
     {
-        
+        JXTAPeerGroup pG=(JXTAPeerGroup) peerGroup;
         // Now that the service is being started, set the DiscoveryService
         // object to use to publish presence information.
-        discovery = peerGroup.getDiscoveryService();
+        discovery = pG.getPeerGroup().getDiscoveryService();
 
         discovery.addDiscoveryListener(this);
 
         return 0;
     }
 
-    public List<GameAdvertisement> searchGames(boolean includeRemote) throws IOException{
+    public List<middle.management.advertisement.GameAdvertisement> searchGames(boolean includeRemote) {
         
         // Add ourselves as a listener.
         
 
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
-        ArrayList<GameAdvertisement> advs=new ArrayList<GameAdvertisement>();
+        Enumeration<Advertisement>e;
+        try {
+            e = discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
+        } catch (IOException ex) {
+            System.out.println("IO Exception in finding game advertisement");
+            return null;
+        }
+        ArrayList<middle.management.advertisement.GameAdvertisement> advs=new ArrayList<middle.management.advertisement.GameAdvertisement>();
         while(e.hasMoreElements()){
             Advertisement a=e.nextElement();
             if(a.getAdvType().equals(GameAdvertisement.AdvertisementType)){
@@ -263,11 +257,22 @@ public class GameDiscover implements DiscoveryListener {
             discovery = null;
 
             // Empty the set of listeners.
-            registeredListeners.clear();
+            
             
         }
         
     }
+
+    @Override
+    protected boolean isGameAdvertisement(middle.management.advertisement.Advertisement sdv) {
+        return sdv.getAdvType().equals(GameAdvertisement.getAdvertisementType());
+    }
+
+    
+
+  
+
+    
 
   
 }

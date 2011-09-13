@@ -6,6 +6,8 @@
 package jxta.communication.messages;
 
 
+import middle.MessageTypes;
+import middle.messages.RetrasmissionRequestMessage;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -13,7 +15,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class RetrasmissionRequest extends VirtualRisikoMessage{
+public class RetrasmissionRequest extends VirtualRisikoMessage implements RetrasmissionRequestMessage{
 
             public static final String RETRASMIT_MESG_ID="rts_msg_ID";
 
@@ -23,7 +25,7 @@ public class RetrasmissionRequest extends VirtualRisikoMessage{
     public RetrasmissionRequest(int messageID){
         super();
         this.messageID=messageID;
-        StringMessageElement mE=new StringMessageElement(TYPE, RETRASMIT_REQUEST, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.RETRASMISSION_REQUEST, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(RETRASMIT_MESG_ID,Integer.toString(messageID), null);

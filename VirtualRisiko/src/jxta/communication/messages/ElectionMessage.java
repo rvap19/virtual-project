@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class ElectionMessage extends VirtualRisikoMessage{
+public class ElectionMessage extends VirtualRisikoMessage implements middle.messages.ElectionMessage{
 
 
     public static final String PEER_ID="peerID";
@@ -28,7 +29,7 @@ public class ElectionMessage extends VirtualRisikoMessage{
         this.peerID=peerID;
         this.currentTurn=currentTurn;
       
-        StringMessageElement mE=new StringMessageElement(TYPE, ELECTION, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ELECTION, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PEER_ID,peerID, null);

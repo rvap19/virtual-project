@@ -1,12 +1,8 @@
 
-import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import jxta.gui.VirtualPlayerManagerGUI;
-import net.jxta.exception.PeerGroupException;
-import services.VirtualPlayerManager;
+import jxta.JXTAVirtualPlayerManager;
 
 /*
  * To change this template, choose Tools | Templates
@@ -129,7 +125,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random random=new Random();
         try {
-              VirtualPlayerManager manager=new VirtualPlayerManager(this.usernameField.getText(), random.nextInt(9800));
+              JXTAVirtualPlayerManager manager=new JXTAVirtualPlayerManager(this.usernameField.getText(), random.nextInt(9800));
               fullGUI = new VirtualPlayerManagerGUI(manager);
               fullGUI.setListeners();
             this.setVisible(false);
@@ -146,14 +142,14 @@ public class Login extends javax.swing.JFrame {
 
     /**
     * @param args the command line arguments
-    */
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class ChangeCardMessage extends VirtualRisikoMessage{
+public class ChangeCardMessage extends VirtualRisikoMessage implements middle.messages.ChangeCardMessage{
 
 
         public static final String CARD1_ID="card1_id";
@@ -25,7 +26,7 @@ public class ChangeCardMessage extends VirtualRisikoMessage{
     private int card3;
     public ChangeCardMessage(int card1,int card2,int card3){
 
-        StringMessageElement mE=new StringMessageElement(TYPE, CHANGE_CARD, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.CHANGE_CARDS, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(CARD1_ID,Integer.toString(card1), null);

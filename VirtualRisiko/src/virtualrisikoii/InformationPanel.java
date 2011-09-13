@@ -12,18 +12,19 @@
 package virtualrisikoii;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
-import jxta.communication.VirtualCommunicator;
-import jxta.communication.messages.ChatMessage;
+import middle.EventTypes;
+import middle.event.ChatEvent;
+import middle.event.RisikoEvent;
+import middle.listener.ChatEventListener;
+import middle.messages.ChatMessage;
+
 import services.GameController;
 import services.HistoryListener;
 import services.PlayerDataListener;
 import services.TimeoutNotifier;
-import jxta.communication.messages.listener.ChatListener;
-import virtualrisikoii.risiko.Giocatore;
+
 import virtualrisikoii.risiko.Suono;
 import virtualrisikoii.risiko.Tavolo;
 
@@ -31,7 +32,7 @@ import virtualrisikoii.risiko.Tavolo;
  *
  * @author root
  */
-public class InformationPanel extends javax.swing.JPanel implements ChatListener,HistoryListener,PlayerDataListener,TimeoutNotifier{
+public class InformationPanel extends javax.swing.JPanel implements ChatEventListener,HistoryListener,PlayerDataListener,TimeoutNotifier{
 
    private GameController controller;
 
@@ -48,7 +49,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
         border.setTitle("Benvenuto "+controller.getNomeMyGiocatore());
         border= (TitledBorder) this.jPanel1.getBorder();
         border.setTitle("Obiettivo "+controller.getNomeMyGiocatore());
-        controller.setChatListener(this);
+        
+        controller.getMiddle().addListener(EventTypes.CHAT, this);
         controller.setPlayerDataListener(this);
         controller.setHistoryListener(this);
         controller.initCurrentPlayerData();
@@ -344,12 +346,13 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
     private javax.swing.JPanel turnoPanel;
     // End of variables declaration//GEN-END:variables
 
-    public void updateChat(ChatMessage msg) {
+    public void notify(ChatEvent event) {
+        ChatMessage msg=(ChatMessage)event.getSource();
         String from=msg.getFrom();
         String to=msg.getTo();
         String messageString=msg.getMessageString();
         String me=Tavolo.getInstance().getMyGiocatore().getNome();
-        if(to.equals(ChatMessage.TO_ALL)){
+        if(to.equals(ChatEvent.TO_ALL)){
            this.chatTextArea.append(from +" > "+messageString+"\n");
            this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }else if(to.equals(me)||from.equals(me)){
@@ -357,6 +360,8 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
             this.chatTextArea.setCaretPosition(this.chatTextArea.getDocument().getLength());
         }
     }
+    
+    
 
     public void timeoutNotify() {
        
@@ -368,6 +373,10 @@ public class InformationPanel extends javax.swing.JPanel implements ChatListener
              Suono.playSound("/virtualrisikoii/resources/dadi/time.wav");
              
         }
+    }
+
+    public void notify(RisikoEvent event) {
+        this.notify((ChatEvent)event);
     }
 
    

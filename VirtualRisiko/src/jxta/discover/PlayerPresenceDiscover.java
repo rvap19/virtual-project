@@ -5,39 +5,41 @@
 
 package jxta.discover;
 
-import jxta.listener.PlayerListener;
-import jxta.listener.PipeListener;
-import jxta.advertisement.PlayerAdvertisement;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.jar.Attributes.Name;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jxta.advertisement.JXTADiscoveryResponseMsg;
+import jxta.advertisement.JXTAPipeAdvertisement;
+import jxta.advertisement.JXTARisikoDiscoveryEvent;
+import jxta.advertisement.PlayerAdvertisement;
+import net.jxta.protocol.PipeAdvertisement;
+import jxta.communication.JXTAPeerGroup;
+import middle.PeerGroup;
+
+
 import net.jxta.discovery.DiscoveryEvent;
 import net.jxta.discovery.DiscoveryListener;
 import net.jxta.discovery.DiscoveryService;
 import net.jxta.document.Advertisement;
 import net.jxta.document.AdvertisementFactory;
-import net.jxta.document.MimeMediaType;
-import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
 import net.jxta.peer.PeerID;
-import net.jxta.peergroup.PeerGroup;
 import net.jxta.peergroup.PeerGroupID;
 import net.jxta.pipe.PipeID;
 import net.jxta.pipe.PipeService;
 import net.jxta.protocol.DiscoveryResponseMsg;
-import net.jxta.protocol.PeerAdvertisement;
-import net.jxta.protocol.PipeAdvertisement;
+
+
 
 /**
  *
  * @author root
  */
-public class PlayerPresenceDiscover implements DiscoveryListener {
+public class PlayerPresenceDiscover extends middle.management.discover.PlayerPresenceDiscover implements DiscoveryListener {
 
     /**
      * The default expiration timeout for published presence advertisements.
@@ -57,8 +59,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
      */
     private DiscoveryService discovery = null;
     
-    private List<PlayerListener> registeredListeners;
-    private List<PipeListener> registredPipeListeners;
+   
 
      /**
      * The local Peer ID.
@@ -78,23 +79,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
     private PeerID searchedPeer;
     
 
-    public  void addPlayerListener(PlayerListener listener)
-    {
-        registeredListeners.add(listener);
-    }
-
-    public void removePlayerListener(PlayerListener listener){
-        registeredListeners.remove(listener);
-    }
-
-    public void addPlayerPipeListener(PipeListener listener){
-        registredPipeListeners.add(listener);
-    }
-
-    public void removePlayerPipeListener(PipeListener listener){
-        registredPipeListeners.remove(listener);
-
-    }
+    
 
 
     public void getPlayerAdvertisementUpdated(PeerID peer){
@@ -114,35 +99,22 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
         if (TheDiscoveryResponseMsg!=null) {
 
             Enumeration<Advertisement> TheEnumeration = TheDiscoveryResponseMsg.getAdvertisements();
-
+            Vector<middle.management.advertisement.Advertisement> result=new Vector<middle.management.advertisement.Advertisement>();
             while (TheEnumeration.hasMoreElements()) {
 
                 Advertisement adv=TheEnumeration.nextElement();
                 try {   
-                    if(adv.getAdvType().equalsIgnoreCase(PlayerAdvertisement.getAdvertisementType())){
+                    if(adv.getAdvType().equalsIgnoreCase(jxta.advertisement.PlayerAdvertisement.getAdvertisementType())){
                         PlayerAdvertisement advertisement = (PlayerAdvertisement) adv;
+                        result.add(advertisement);
                         
-                        Iterator<PlayerListener> listeners = registeredListeners.iterator();
-                        while (listeners.hasNext())
-                        {
-                            PlayerListener listener = listeners.next();
-
-                            // Notify the listener of the presence update.
-                            listener.presenceUpdated(advertisement);
-                        }
                        
                         
-                    }else if(adv.getAdvType().equalsIgnoreCase(PipeAdvertisement.getAdvertisementType())){
+                    }else if(adv.getAdvType().equalsIgnoreCase(net.jxta.protocol.PipeAdvertisement.getAdvertisementType())){
                         PipeAdvertisement advertisement = (PipeAdvertisement) adv;
-
-                        Iterator<PipeListener> listeners = registredPipeListeners.iterator();
-                        while (listeners.hasNext())
-                        {
-                            PipeListener listener = listeners.next();
-
-                            // Notify the listener of the presence update.
-                            listener.pipeUpdated(advertisement);
-                        }
+                        JXTAPipeAdvertisement jxtaPipe=new JXTAPipeAdvertisement(advertisement);
+                        result.add(jxtaPipe);
+                        
                         
                         
                     }
@@ -157,6 +129,12 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
                 }
 
             }
+            
+            JXTADiscoveryResponseMsg msg=new JXTADiscoveryResponseMsg(result.elements());
+            JXTARisikoDiscoveryEvent event=new JXTARisikoDiscoveryEvent(msg);
+            super.discoveryEvent(event);
+            
+            
 
         }
         
@@ -171,7 +149,7 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
         {
              presenceInfo = (PlayerAdvertisement)
                 AdvertisementFactory.newAdvertisement(
-                    PlayerAdvertisement.getAdvertisementType());
+                    jxta.advertisement.PlayerAdvertisement.getAdvertisementType());
             
              searchedPeer=null;
             
@@ -208,19 +186,18 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
 
     
 
-    public void init(PeerGroup group)throws PeerGroupException    {
+    public void init(PeerGroup group)   {
+        super.init(group);
         System.out.println("init player presence discover");
 
         // Save a reference to the group of which that this service is
         // a part.
         peerGroup = group;
-
+        JXTAPeerGroup pG=(JXTAPeerGroup) peerGroup;
         // Get the local Peer ID.
-        localPeerID = group.getPeerID().toString();
+        localPeerID = pG.getPeerGroup().getPeerID().toString();
 
-        this.registeredListeners=new ArrayList<PlayerListener>();
-        this.registredPipeListeners=new ArrayList<PipeListener>();
-        // Registering our customized advertisement instance
+        
        
         
     }
@@ -234,27 +211,33 @@ public class PlayerPresenceDiscover implements DiscoveryListener {
     public int startApp(String[] args) throws IOException
 
     {
-        
+        JXTAPeerGroup pG=(JXTAPeerGroup) peerGroup;
         // Now that the service is being started, set the DiscoveryService
         // object to use to publish presence information.
-        discovery = peerGroup.getDiscoveryService();
+        discovery = pG.getPeerGroup().getDiscoveryService();
 
         
-discovery.addDiscoveryListener(this);
+        discovery.addDiscoveryListener(this);
         return 0;
     }
 
-    public List<PlayerAdvertisement> searchPlayers(boolean includeRemoteSearch) throws IOException{
+    public List<middle.management.advertisement.PlayerAdvertisement> searchPlayers(boolean includeRemoteSearch) {
        
         // Add ourselves as a listener.
         
 
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
-        ArrayList<PlayerAdvertisement> advs=new ArrayList<PlayerAdvertisement>();
+        Enumeration<Advertisement>e;
+        try {
+            e = discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
+        } catch (IOException ex) {
+            System.out.println("IO Exception in finding player advs");
+            return null;
+        }
+        ArrayList<middle.management.advertisement.PlayerAdvertisement> advs=new ArrayList<middle.management.advertisement.PlayerAdvertisement>();
         while(e.hasMoreElements()){
             Advertisement a=e.nextElement();
             if(a.getAdvType().equals(PlayerAdvertisement.AdvertisementType)){
-                advs.add((PlayerAdvertisement) a);
+                advs.add((middle.management.advertisement.PlayerAdvertisement) a);
             }
         }
         
@@ -265,17 +248,24 @@ discovery.addDiscoveryListener(this);
         return advs;
     }
 
-    public List<PipeAdvertisement> searchPipes(boolean includeRemoteSearch) throws IOException{
+    public List<middle.management.advertisement.PipeAdvertisement> searchPipes(boolean includeRemoteSearch) {
        
         // Add ourselves as a listener.
 
 
-        Enumeration<Advertisement>e= discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
-        ArrayList<PipeAdvertisement> advs=new ArrayList<PipeAdvertisement>();
+        Enumeration<Advertisement>e;
+        try {
+            e = discovery.getLocalAdvertisements(DiscoveryService.ADV, null, null);
+        } catch (IOException ex) {
+            System.out.println("IO Exception in finding pipe advs");
+            return null;
+        }
+        ArrayList<middle.management.advertisement.PipeAdvertisement> advs=new ArrayList<middle.management.advertisement.PipeAdvertisement>();
         while(e.hasMoreElements()){
             Advertisement a=e.nextElement();
             if(a.getAdvType().equals(PipeAdvertisement.getAdvertisementType())){
-                advs.add((PipeAdvertisement) a);
+                JXTAPipeAdvertisement jxtaA=new JXTAPipeAdvertisement((PipeAdvertisement) a);
+                advs.add(jxtaA);
             }
         }
 
@@ -308,7 +298,7 @@ discovery.addDiscoveryListener(this);
         
     }
 
-    private void  publishPipeAdvertisement(String name) throws IOException {
+    public void  publishPipeAdvertisement(String name) throws IOException {
 
         
         // Creating a Pipe Advertisement
@@ -330,7 +320,17 @@ discovery.addDiscoveryListener(this);
 
     }
 
-    public PipeAdvertisement getPipeAdvertisement(){
-        return this.MyPipeAdvertisement;
+    public middle.management.advertisement.PipeAdvertisement getPipeAdvertisement(){
+        return new JXTAPipeAdvertisement(MyPipeAdvertisement);
+    }
+
+    @Override
+    protected boolean isPresenceAdvertisement(middle.management.advertisement.Advertisement sdv) {
+        return sdv.getAdvType().equals(PlayerAdvertisement.getAdvertisementType());
+    }
+
+    @Override
+    protected boolean isPipeAdvertisement(middle.management.advertisement.Advertisement sdv) {
+        return sdv.getAdvType().equals(PipeAdvertisement.getAdvertisementType());
     }
 }

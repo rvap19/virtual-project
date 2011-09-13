@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class AttackMessage extends VirtualRisikoMessage{
+public class AttackMessage extends VirtualRisikoMessage implements middle.messages.AttackMessage{
 
     public static final String TROOPS_NUMBER="troops";
     public static final String FROM_REGION_ID="from_region";
@@ -28,7 +29,7 @@ public class AttackMessage extends VirtualRisikoMessage{
         this.to=to;
         this.from=from;
 
-        StringMessageElement mE=new StringMessageElement(TYPE, ATTACK, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ATTACK, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(TROOPS_NUMBER,Integer.toString(troops_number), null);

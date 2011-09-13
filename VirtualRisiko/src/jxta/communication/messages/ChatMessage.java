@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class ChatMessage extends VirtualRisikoMessage{
+public class ChatMessage extends VirtualRisikoMessage implements middle.messages.ChatMessage{
     
         public static final String MESSAGE="message";
         public static final String DESTINATION="destination";
@@ -31,7 +32,7 @@ public class ChatMessage extends VirtualRisikoMessage{
         this.from=from;
         this.messageString=messageString;
 
-        StringMessageElement mE=new StringMessageElement(TYPE, CHAT, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.CHAT, null);
         addMessageElement(namespace, mE);
 
          mE=new StringMessageElement(DESTINATION , to, null);

@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.messages.RisikoMessage;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class VirtualRisikoMessage extends Message{
+public class VirtualRisikoMessage extends Message implements RisikoMessage{
 
     public static final String namespace="VRNameSpace";
 
@@ -20,22 +21,7 @@ public class VirtualRisikoMessage extends Message{
     public static final  String GAMER="gamer";
     public static final String ID_MSG="IDMSG";
 
-    public static final String INIT="init";
-    public static final String APPLIANCE="appliance";
-    public static final String ATTACK="attack";
-    public static final String MOVEMENT="movement";
-    public static final String CHANGE_CARD="change_cards";
-    public static final String PASSES="passes";
-    public static final String ACK="ack";
-    public static final String CHAT="chat";
-    public static final String WELCOME="welcome";
-    public static final String RECOVERY="recovery";
-    public static final String STATUS="status";
-    public static final String PING="ping";
-    public static final String PONG="pong";
-    public static final String ELECTION="election";
-    public static final String REQUEST_ELECTION="request_election";
-    public static final String RETRASMIT_REQUEST="retrasmit_request";
+    
     
 
     protected String playerName;
@@ -49,7 +35,7 @@ public class VirtualRisikoMessage extends Message{
     public VirtualRisikoMessage(Message message){
         playerName=message.getMessageElement(namespace, GAMER).toString();
         msgID=Integer.parseInt(message.getMessageElement(namespace,ID_MSG).toString());
-
+        type=message.getMessageElement(namespace,TYPE).toString();
     }
 
     public String getType(){
