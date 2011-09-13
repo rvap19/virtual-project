@@ -257,33 +257,39 @@ public abstract class VirtualCommunicator {
     
     public boolean sendMessage(RisikoMessage message) {
         String type=message.getType();
+        boolean result=false;
+        
+        
+        if(!this.isCentral){
+            try {
+                
+                result= sendMessageTo(message, managerUsername);
+                
+            } catch (Exception ex) {
+                System.err.println("Impossibile inviare messaggio al coordinatore");
+                result=false;
+                
+            }
+            
+        }else{
+             result=true;
+
+            try{
+
+                Iterator<String> users=this.playerNames.iterator();
+                while(users.hasNext()){
+
+                            result = result && sendMessageTo(message,users.next());
+                }
+            } catch (IOException ex) {
+                System.err.println("impossibile inviare msg");
+                result=false;
+            }
+        }
+        
         if((!type.equals(MessageTypes.CHAT)) && (!type.equals(MessageTypes.PING)) && (!type.equals(MessageTypes.PONG)) && (!type.equals(MessageTypes.STATUS_PEER))&& (!type.equals(MessageTypes.ACK)) && (!type.equals(MessageTypes.RECOVERY)) && (!type.equals(MessageTypes.RETRASMISSION_REQUEST))){
             this.messageSequencer.getAndIncrementID();
         }
-        if(!this.isCentral){
-            try {
-                return sendMessageTo(message, managerUsername);
-            } catch (Exception ex) {
-                System.err.println("Impossibile inviare messaggio al coordinatore");
-                
-
-            }
-            return true;
-        }
-        boolean result=true;
-
-        try{
-            
-            Iterator<String> users=this.playerNames.iterator();
-            while(users.hasNext()){
-                
-                        result = result && sendMessageTo(message,users.next());
-            }
-        } catch (IOException ex) {
-            System.err.println("impossibile inviare msg");
-        }
-            
-        
         
         
         return result;
