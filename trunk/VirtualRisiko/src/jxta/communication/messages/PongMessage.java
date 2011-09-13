@@ -23,6 +23,7 @@ public class PongMessage extends VirtualRisikoMessage implements middle.messages
 
     public PongMessage(String peerId){
         super();
+        setType(MessageTypes.PONG);
         this.peer_id=peerId;
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.PONG, null);
         addMessageElement(namespace, mE);

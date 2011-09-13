@@ -25,6 +25,7 @@ public class ApplianceMessage extends VirtualRisikoMessage implements middle.mes
     
     public ApplianceMessage(int troops_number,int region){
         super();
+        setType( MessageTypes.APPLIANCE);
         this.troops_number=troops_number;
         this.region=region;
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.APPLIANCE, null);

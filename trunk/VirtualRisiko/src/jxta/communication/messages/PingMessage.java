@@ -21,6 +21,7 @@ public class PingMessage extends VirtualRisikoMessage implements middle.messages
 
     public PingMessage(){
         super();
+        setType(MessageTypes.PING);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.PING, null);
         addMessageElement(namespace, mE);
 

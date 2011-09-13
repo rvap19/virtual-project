@@ -30,7 +30,7 @@ public class VirtualRisikoMessage extends Message implements RisikoMessage{
 
     public VirtualRisikoMessage(){
         super();
-        type=getMessageElement(namespace,TYPE).toString();
+        
     }
 
     public VirtualRisikoMessage(Message message){
@@ -64,5 +64,8 @@ public class VirtualRisikoMessage extends Message implements RisikoMessage{
         addMessageElement(namespace, mElement);
     }
 
+    protected void setType(String type){
+        this.type=type;
+    }
 
 }

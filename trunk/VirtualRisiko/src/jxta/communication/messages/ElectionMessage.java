@@ -28,7 +28,7 @@ public class ElectionMessage extends VirtualRisikoMessage implements middle.mess
         super();
         this.peerID=peerID;
         this.currentTurn=currentTurn;
-      
+        setType(MessageTypes.ELECTION);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ELECTION, null);
         addMessageElement(namespace, mE);
 

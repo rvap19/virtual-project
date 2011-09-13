@@ -27,7 +27,7 @@ public class ChatMessage extends VirtualRisikoMessage implements middle.messages
 
     public ChatMessage(String to,String from,String messageString){
         super();
-
+        setType(MessageTypes.CHAT);
         this.to=to;
         this.from=from;
         this.messageString=messageString;

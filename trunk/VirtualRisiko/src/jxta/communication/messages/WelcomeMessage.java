@@ -21,11 +21,13 @@ public class WelcomeMessage extends VirtualRisikoMessage implements middle.messa
 
     public WelcomeMessage(String welcomePlayerName){
         super();
+        setType(MessageTypes.WELCOME);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.WELCOME, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PEER_NAME,welcomePlayerName, null);
         addMessageElement(namespace, mElement);
+        
     }
 
     public WelcomeMessage(Message message){

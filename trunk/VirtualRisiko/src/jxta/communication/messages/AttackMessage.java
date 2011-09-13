@@ -28,7 +28,7 @@ public class AttackMessage extends VirtualRisikoMessage implements middle.messag
         this.troopNumber=troops_number;
         this.to=to;
         this.from=from;
-
+        setType(MessageTypes.ATTACK);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ATTACK, null);
         addMessageElement(namespace, mE);
 
