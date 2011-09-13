@@ -386,8 +386,8 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
         try {
             int myTurno=0;
             
-            
-            InitMessage msg=this.messageBuilder.generateInitMSG(middle.getPlayerNames(),gameParameter);
+            List<String> names=middle.getPlayerNames();
+            InitMessage msg=this.messageBuilder.generateInitMSG(names,gameParameter);
             communicator.sendMessage(msg);
             GameFactory factory = new GameFactory();
 
@@ -395,9 +395,9 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
             factory.loadGame(gameParameter.getMapName());
             Mappa mappa = factory.getMappa();
             List<Obiettivo> obiettivi = factory.getObiettivi();
-            int turno = 0;
-
-            List<String> names=communicator.getPlayerNames();
+            int turno = names.indexOf(middle.getPlayerName());
+            
+            
             Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno,gameParameter.getMaxTurns(), communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
             tavolo.setNameMap(gameParameter.getMapName());
             GameController controller=GameController.createGameController(middle);
