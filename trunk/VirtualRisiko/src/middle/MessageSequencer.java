@@ -84,16 +84,16 @@ public class MessageSequencer implements RisikoMessageListener{
 
     public void insertMessage(RisikoMessage message)throws NumberFormatException{
 
-        int i=0;
+        int received_msg_id=0;
         String type=message.getType();
         String player=message.playerName();
         
-        i=message.getMSG_ID();
+        received_msg_id=message.getMSG_ID();
        
        // System.out.println("Waiting for ::: "+currentMessageID);
         System.out.println("Waiting for ::: "+currentMSG_ID.get());
-
-        System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+i);
+        int currentID=currentMSG_ID.get();
+        System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+received_msg_id);
 
 
         if(type.equals(MessageTypes.CHAT)){
@@ -128,20 +128,20 @@ public class MessageSequencer implements RisikoMessageListener{
         }*/
 
         if(type.equals(MessageTypes.INIT)){
-            System.out.println("# connessione con msg id "+i);
+            System.out.println("# connessione con msg id "+received_msg_id);
             this.permitRetrasmissionRequest=true;
          //   this.currentMessageID=i;
-            this.currentMSG_ID.set(i);
-            notifyMessage(i,message);
+            this.currentMSG_ID.set(received_msg_id);
+            notifyMessage(received_msg_id,message);
             return;
         }
 
         if(type.equals(MessageTypes.RECOVERY)){
-            System.out.println("## riconnessione con msg id "+i);
+            System.out.println("## riconnessione con msg id "+received_msg_id);
             this.permitRetrasmissionRequest=true;
            // this.currentMessageID=i-1;
-            this.currentMSG_ID.set(i-1);
-            notifyMessage(i,message);
+            this.currentMSG_ID.set(received_msg_id-1);
+            notifyMessage(received_msg_id,message);
             return;
         }
 
@@ -182,16 +182,16 @@ public class MessageSequencer implements RisikoMessageListener{
         
             try{
                 lock.lock();
-                buffer[i%buffer.length]=message;
-                System.out.println("Messaggio "+i+" bufferizzato");
+                buffer[received_msg_id%buffer.length]=message;
+                System.out.println("Messaggio "+received_msg_id+" bufferizzato");
             }finally{
                 lock.unlock();
             }
             
 
-            if(currentMSG_ID.get()==i){
+            if(currentID==received_msg_id){
 
-                notifyMessage(i,message);
+                notifyMessage(received_msg_id,message);
 
             }
             
