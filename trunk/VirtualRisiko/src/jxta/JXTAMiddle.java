@@ -30,12 +30,7 @@ public class JXTAMiddle extends Middle{
         
     }
 
-    @Override
-    public void init() {
-        super.init();
-        
-        
-    }
+    
 
     
     

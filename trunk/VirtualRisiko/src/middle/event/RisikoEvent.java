@@ -15,7 +15,7 @@ public class RisikoEvent {
     protected String type;
     public RisikoEvent(RisikoMessage source){
         this.source=source;
-        type=source.getType();
+       
     }
 
     public RisikoMessage getSource() {

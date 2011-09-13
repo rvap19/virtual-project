@@ -44,7 +44,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     protected int maxPlayers;
     protected boolean isClose;
     
-    public void init(){
+    protected void init(){
         this.messageBuilder=createMessageBuilder();
         this.eventGenerator=createEventGenerator();
         sequencer=new MessageSequencer(this.playerName,150);
@@ -142,12 +142,15 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
         this.addListener(EventTypes.PASS,(PassEventListener)controller);
     }
     public void addListener(String eventName,RisikoEventListener listener){
+        
         Collection<RisikoEventListener> currentCollection=this.listeners.get(eventName);
-        if(currentCollection==null){
+        if((!listeners.containsKey(eventName)) || currentCollection==null ){
             currentCollection=new ArrayList<RisikoEventListener>();
-            listeners.put(eventName, currentCollection);
+            
         }
+        
         currentCollection.add(listener);
+        listeners.put(eventName, currentCollection);
     }
     
     public void notifyEvent(RisikoEvent event){
