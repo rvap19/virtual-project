@@ -203,6 +203,17 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
 
     }
     
+    public void notifyMessage(RisikoMessage message) {
+        if(this.communicator.isCentral){
+            this.communicator.propagateMessage(message);
+        }
+        RisikoEvent e=eventGenerator.generateEvent(message);
+        
+        notifyEvent(e);
+        
+        
+    }
+    
     protected void initListeners(){
         this.listeners=new HashMap<String, Collection<RisikoEventListener>>();
     }
