@@ -60,6 +60,7 @@ public class JXTARisikoPipe extends  RisikoPipe implements PipeMsgListener{
     protected boolean send(RisikoMessage message) {
         VirtualRisikoMessage msg=(VirtualRisikoMessage)message;
         try {
+            System.out.println("invio msg "+message.getType()+" con ID "+message.getMSG_ID());
             this.pipe.sendMessage(msg);
             return true;
         } catch (IOException ex) {
