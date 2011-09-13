@@ -6,20 +6,24 @@ package jxta;
 
 import java.io.IOException;
 import jxta.communication.JXTAVirtualCommunicator;
+import middle.EventTypes;
 import middle.Middle;
 import middle.PeerGroup;
 import middle.RisikoEventGenerator;
 import middle.RisikoMessageGenerator;
 import middle.VirtualCommunicator;
+import middle.event.PingEvent;
 import middle.event.RisikoEvent;
+import middle.listener.PingEventListener;
 import middle.management.advertisement.PipeAdvertisement;
+import middle.messages.PongMessage;
 import middle.messages.RisikoMessage;
 
 /**
  *
  * @author root
  */
-public class JXTAMiddle extends Middle{
+public class JXTAMiddle extends Middle implements PingEventListener{
     
     
     
@@ -27,6 +31,7 @@ public class JXTAMiddle extends Middle{
         super.playerName=name;
         
         init();
+        super.addListener(EventTypes.PING, this);
         
     }
 
@@ -84,6 +89,15 @@ public class JXTAMiddle extends Middle{
     @Override
     public RisikoEventGenerator createEventGenerator() {
         return new JXTARisikoEventGenerator();
+    }
+
+    public void notify(PingEvent c) {
+        PongMessage message=super.messageBuilder.generatePongMSG(playerName);
+        super.communicator.sendMessage(message);
+    }
+
+    public void notify(RisikoEvent event) {
+        notify((PingEvent)event);
     }
 
     
