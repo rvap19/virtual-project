@@ -1,7 +1,4 @@
 
-import corba.client.RemoteLogin;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -81,17 +78,7 @@ public class Launcher extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    RemoteLogin.start(null);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
         
-        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

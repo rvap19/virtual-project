@@ -14,26 +14,34 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import jxta.communication.VirtualCommunicator;
-import jxta.communication.messages.ApplianceMessage;
-import jxta.communication.messages.AttackMessage;
-import jxta.communication.messages.ChangeCardMessage;
-import jxta.communication.messages.ChatMessage;
-import jxta.communication.messages.MovementMessage;
-import jxta.communication.messages.PassMessage;
-import jxta.communication.messages.PingMessage;
-import jxta.communication.messages.PongMessage;
-import jxta.communication.messages.StatusPeerMessage;
+import middle.AbstractGameController;
+import middle.EventTypes;
+import middle.Middle;
+import middle.RisikoMessageGenerator;
+import middle.VirtualCommunicator;
+import middle.event.ApplianceEvent;
+import middle.event.AttackEvent;
+import middle.event.ChangeCardEvent;
+import middle.event.MovementEvent;
+import middle.event.PassEvent;
+import middle.event.PongEvent;
+import middle.event.RecoveryEvent;
+import middle.event.RisikoEvent;
+import middle.listener.PongEventListener;
+import middle.listener.RecoveryEventListener;
+import middle.messages.ApplianceMessage;
+import middle.messages.AttackMessage;
+import middle.messages.ChangeCardMessage;
+import middle.messages.ChatMessage;
+import middle.messages.MovementMessage;
+import middle.messages.PassMessage;
+import middle.messages.PongMessage;
+import middle.messages.RecoveryMessage;
+import middle.messages.RisikoMessage;
+import util.RecoveryUtil;
+import virtualrisikoii.RecoveryParameter;
 
-import net.jxta.endpoint.Message;
-import jxta.communication.messages.listener.ApplianceListener;
-import jxta.communication.messages.listener.AttackListener;
-import jxta.communication.messages.listener.ChangeCardListener;
-import jxta.communication.messages.listener.ChatListener;
-import jxta.communication.messages.listener.MovementListener;
-import jxta.communication.messages.listener.PassListener;
-import jxta.communication.messages.listener.PongListener;
-import jxta.communication.messages.listener.ReconnectionRequestListener;
+
 import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Carta;
@@ -49,7 +57,9 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController implements ApplianceListener,AttackListener,MovementListener,ChangeCardListener,ChatSender,PassListener,TimeoutNotifier,ReconnectionRequestListener,PongListener{
+public class GameController extends AbstractGameController implements ChatSender,TimeoutNotifier,RecoveryEventListener,PongEventListener{
+    
+    private Middle middle;
     private MapListener mapListener;
     private HistoryListener historyListener;
     private PlayerDataListener playerDataListener;
@@ -57,7 +67,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private TroopsSelector troopsSelector;
     private CardListener cardListener;
     private CardChangeListener cardChangeListener;
-    private VirtualCommunicator comunicator;
+    
+    
     private TimeoutNotifier timeoutNotifier;
     private GameTimer timer;
 
@@ -74,34 +85,30 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     private HashMap<String,Integer> turns;
     private boolean gameOver;
     
+    private VirtualCommunicator communicator;
+    private RisikoMessageGenerator messageBuilder;
 
-    public static GameController createGameController(){
+    public static GameController createGameController(Middle middle){
         
-            instance=new GameController();
+            instance=new GameController(middle);
         
         return instance;
     }
 
     public static GameController getInstance(){
-        if(instance==null){
-            instance=new GameController();
-        }
+
         return instance;
     }
 
     
 
-    private GameController(){
+    private GameController(Middle middle){
         //this.comunicator=Communicator.getInstance();
-        this.comunicator=VirtualCommunicator.getInstance();
+        this.middle=middle;
+        this.middle.setGameController(instance);
+        communicator=middle.getCommunicator();
+        
         this.turns=new HashMap<String, Integer>();
-        comunicator.addPassListener(this);
-        comunicator.addApplianceListener(this);
-        comunicator.addAttackListener(this);
-        comunicator.addMovementListener(this);
-        comunicator.addChangeCardsListener(this);
-        comunicator.setRecoveryRequestListener(this);
-        comunicator.addPongListener(this);
         gameOver=false;
         this.victoryListeners=new ArrayList<VictoryListener>();
         Tavolo tavolo=Tavolo.getInstance();
@@ -127,7 +134,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         if(tavolo.isTurnoMyGiocatore()){
                  timer.start();
              }
-        if(comunicator.isManager()){
+        if(communicator.isManager()){
             messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
 
 
@@ -143,6 +150,15 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         return gameOver;
     }
 
+    public Middle getMiddle() {
+        return middle;
+    }
+
+    public void setMiddle(Middle middle) {
+        this.middle = middle;
+    }
+
+    
     
 
     public void restartTimers(){
@@ -150,7 +166,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         if(Tavolo.getInstance().isTurnoMyGiocatore()){
                  timer.start();
         }
-        if(comunicator.isManager()){
+        if(communicator.isManager()){
             messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
 
 
@@ -169,9 +185,18 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         this.timeoutNotifier = timeoutNotifier;
     }
 
+    public RisikoMessageGenerator getMessageBuilder() {
+        return messageBuilder;
+    }
+
+    public void setMessageBuilder(RisikoMessageGenerator messageBuilder) {
+        this.messageBuilder = messageBuilder;
+    }
+
 
     
-
+ 
+    
     public int getIDObiettivo(){
         return Tavolo.getInstance().getMyGiocatore().getObiettivo().getCodice();
     }
@@ -237,7 +262,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         this.playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
     }
 
-    public void updateAppliance(ApplianceMessage msg) {
+    public void notify(ApplianceEvent event) {
+        ApplianceMessage msg=(ApplianceMessage)event.getSource();
         if(gameOver){
             return;
         }
@@ -262,7 +288,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         //showInfo("Disposizione", message);
     }
 
-    public void updateAttack(AttackMessage msg) {
+    public void notify(AttackEvent event) {
+        AttackMessage msg=(AttackMessage) event.getSource();
         if(gameOver){
             return;
         }
@@ -334,7 +361,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
-    public void updateMovement(MovementMessage msg) {
+    public void notify(MovementEvent event) {
+        MovementMessage msg=(MovementMessage) event.getSource();
         if(gameOver){
             return;
         }
@@ -368,7 +396,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     }
 
-    public void updateChangeCards(ChangeCardMessage msg) {
+    public void notify(ChangeCardEvent event) {
+        ChangeCardMessage msg=(ChangeCardMessage) event.getSource();
         if(gameOver){
             return;
         }
@@ -472,14 +501,13 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                   azione.setNumeroTruppe(truppeSelezionate);
                 tavolo.eseguiAttacco((Attacco)azione);
                 
-                try {
-                        Message msg=new AttackMessage(truppeSelezionate,secondSelection.getCodice(), firstSelection.getCodice());
+              
+                        AttackMessage msg=this.messageBuilder.generateAttackMSG(firstSelection.getCodice(), secondSelection.getCodice(), truppeSelezionate);
+                     
                        // Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
-                        comunicator.sendMessage(msg,false);
+                        communicator.sendMessage(msg);
 
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+                    
 
                 this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
 
@@ -569,21 +597,19 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     corrente=tavolo.getGiocatoreCorrente();
                 //    new JFrameTurno(corrente.getID()).setVisible(true);
                     this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-                    try {
-                        Message msg=new MovementMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
+                    
+                        MovementMessage msg1=this.messageBuilder.generateMovementMSG(firstSelection.getCodice(), secondSelection.getCodice(), truppeSelezionate);
                         //Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
-                        comunicator.sendMessage(msg,false);
+                        communicator.sendMessage(msg1);
+                        PassMessage msg2=this.messageBuilder.generatePassMSG(tavolo.getTurno());
                         
-                        msg=new PassMessage(tavolo.getTurno());
                         StatoGiocoPanel.instance.updateGiocatore(corrente);
                         playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
-                        comunicator.sendMessage(msg,false);
+                        communicator.sendMessage(msg2);
                         
 
 
-                    } catch (Exception ex) {
-                       ex.printStackTrace();
-                    }
+                    
 
                     
 
@@ -611,7 +637,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         if(this.reconnectionNeeds[giocatore]){
             try {
                 String name=Tavolo.getInstance().getGiocatori().get(giocatore).getUsername();
-                this.comunicator.sendRecoveryMessage(name,giocatore);
+                RecoveryUtil util=new RecoveryUtil();
+                RecoveryParameter backup=util.createBackup();
+                RecoveryMessage msg=this.messageBuilder.generateRecoveryMSG(backup);
+                this.communicator.sendMessageTo(msg,name);
                 this.reconnectionNeeds[giocatore] = false;
                 System.out.println("send recovery message to player "+name+" with ID "+giocatore);
             } catch (Exception ex) {
@@ -657,7 +686,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             return;
         }
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isManager()){
             locker.releaseTavolo();
             return;
         }
@@ -667,9 +696,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         if(tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==corrente){
             if(tavolo.assegnaUnita(t)){
                 try {
-                        Message msg=new ApplianceMessage(1, t.getCodice());
+                        ApplianceMessage msg=this.messageBuilder.generateApplianceMSG(t.getCodice(), 1); 
+                                //new ApplianceMessage(1, t.getCodice());
                        // Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
-                        comunicator.sendMessage(msg,false);
+                        communicator.sendMessage(msg);
                         this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                         if(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0){
                             
@@ -701,7 +731,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             return;
         }
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isManager()){
             locker.releaseTavolo();
             return;
         }
@@ -712,9 +742,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
                 if(tavolo.assegnaUnita(t)){
                     try {
-                        Message msg=new ApplianceMessage(1, t.getCodice());
+                        ApplianceMessage msg=this.messageBuilder.generateApplianceMSG(t.getCodice(), 1); 
+                                //new ApplianceMessage(1, t.getCodice());
                       //  Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
-                        comunicator.sendMessage(msg,false);
+                        communicator.sendMessage(msg);
 
                         truppeSelezionate++;
                         this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
@@ -737,8 +768,9 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                     Giocatore prossimo=tavolo.getGiocatoreCorrente();
                     this.playerDataListener.updateDatiGiocatore(prossimo.getNome(), prossimo.getNumeroTruppe(), prossimo.getArmateDisposte(), prossimo.getNazioni().size());
                  //   Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-                    Message msg=new PassMessage(tavolo.getTurno());
-                    comunicator.sendMessage(msg,false);
+                    PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurno()); 
+                            //new PassMessage(tavolo.getTurno());
+                    communicator.sendMessage(msg);
                     Giocatore g=tavolo.getGiocatoreCorrente();
                     StatoGiocoPanel.instance.updateGiocatore(g);
                     playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
@@ -760,16 +792,16 @@ public class GameController implements ApplianceListener,AttackListener,Movement
 
     public void sendMessage(String from, String to, String message) {
 
-        Message msg=new ChatMessage(to, Tavolo.getInstance().getMyGiocatore().getNome(), message);
+        ChatMessage msg=this.messageBuilder.generateChatMSG(from, to, message); 
+                //new ChatMessage(to, Tavolo.getInstance().getMyGiocatore().getNome(), message);
         
-        try {
-            this.comunicator.sendMessage(msg,false);
-        } catch (IOException ex) {
-            System.out.println("impossibile inviare msg a "+to+" msg --> "+message);
-        }
+       
+            this.communicator.sendMessage(msg);
+       
     }
 
-    public void updatePass(PassMessage msg) {
+    public void notify(PassEvent event) {
+        PassMessage msg=(PassMessage)event.getSource();
         if(gameOver){
             return;
         }
@@ -834,7 +866,7 @@ public class GameController implements ApplianceListener,AttackListener,Movement
     }
     private   void  passaTurno_() throws IOException{
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()&&!this.comunicator.isManager()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isManager()){
             locker.releaseTavolo();
             return;
         }
@@ -858,14 +890,15 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                 this.cardListener.notifyCard(carta.getCodice(), s);
             }
             tavolo.passaTurno();
-            Message msg= new PassMessage(tavolo.getTurno());
+            PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurno()); 
+                    //new PassMessage(tavolo.getTurno());
             Giocatore g=tavolo.getGiocatoreCorrente();
             StatoGiocoPanel.instance.updateGiocatore(g);
             playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
 
             try {
                         //Thread.sleep(3000);
-                        this.comunicator.sendMessage(msg,false);
+                        this.communicator.sendMessage(msg);
                         
 
 
@@ -884,10 +917,6 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
         
         locker.releaseTavolo();
-    }
-
-    public void setChatListener(ChatListener aThis) {
-        this.comunicator.addChatListener(aThis);
     }
 
     public void setCardListener(CardListener aThis) {
@@ -964,7 +993,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         
     }
 
-    public void notifyPong(PongMessage msg) {
+    public void notify(PongEvent event) {
+       PongMessage msg=(PongMessage) event.getSource();
        this.messageReceived[turns.get(msg.getPeerID())]=true;
     }
 
@@ -991,15 +1021,51 @@ public class GameController implements ApplianceListener,AttackListener,Movement
         }
         this.gameOver=true;
         this.timer.stopTimer();
-        VirtualCommunicator comunicator=VirtualCommunicator.getInstance();
-        comunicator.stopServer();
+        
         Iterator<VictoryListener> iter=this.victoryListeners.iterator();
         while(iter.hasNext()){
             iter.next().notifyVictory(giocatori, g, vistory);
         }
     }
+    /*
+     * ApplianceEventListener,AttackEventListener,MovementEventListener,ChangeCardEventListener,PassEventListener{
+     */
 
+    public void notify(RisikoEvent event) {
+        String type=event.getType();
+        if(type.equals(EventTypes.APPLIANCE)){
+            ApplianceEvent x=(ApplianceEvent)event;
+            notify(x);
+        }else if(type.equals(EventTypes.ATTACK)){
+            AttackEvent x=(AttackEvent)event;
+            notify(x);
+        }else if(type.equals(EventTypes.MOVEMENT)){
+            MovementEvent x=(MovementEvent)event;
+            notify(x);
+        }else if(type.equals(EventTypes.CHANGE_CARDS)){
+            ChangeCardEvent x=(ChangeCardEvent)event;
+            notify(x);
+        }else if(type.equals(EventTypes.PASS)){
+            PassEvent x=(PassEvent)event;
+            notify(x);
+        }
+    }
 
+    
+
+    public void notify(RecoveryEvent c) {
+        RecoveryUtil util=new RecoveryUtil();
+        RecoveryMessage msg=(RecoveryMessage)c.getSource();
+        RecoveryParameter parameter=msg.getParameter();
+        try {
+            util.recoveryTable(parameter);
+        } catch (Exception ex) {
+            System.out.println("Impossibile recuperare dati");
+            System.exit(-1);
+        } 
+    }
+
+    
     private  class  ManagerPingerThread extends Thread{
 
         private int sleepTime=30 * 1000 ;
@@ -1022,8 +1088,8 @@ public class GameController implements ApplianceListener,AttackListener,Movement
                         for(int j=1;j<messageReceived.length;j++){
                             messageReceived[j]=false;
                         }
-                        Message ping=new PingMessage();
-                        comunicator.sendMessage(ping,false);
+                        RisikoMessage ping=messageBuilder.generatePingMSG();
+                        communicator.sendMessage(ping);
                         this.sleep(sleepTime);
                         sendStatusMessage();
 
@@ -1038,9 +1104,10 @@ public class GameController implements ApplianceListener,AttackListener,Movement
             List<Giocatore> giocatori=Tavolo.getInstance().getGiocatori();
             for(int i=0;i<messageReceived.length;i++){
                 
-                    Message msg=new StatusPeerMessage(i, messageReceived[i]||reconnectionNeeds[i]||i==myTurn);
-                    comunicator.sendMessage(msg,false);
-                    panel.updateStatus((StatusPeerMessage) msg);
+                    RisikoMessage msg=messageBuilder.generateStatusPeerMSG(i, messageReceived[i]||reconnectionNeeds[i]||i==myTurn);
+                    
+                    communicator.sendMessage(msg);
+                   // panel.updateStatus((StatusPeerMessage) msg);
                 
             }
         }

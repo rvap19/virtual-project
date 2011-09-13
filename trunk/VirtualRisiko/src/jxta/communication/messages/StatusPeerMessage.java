@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class StatusPeerMessage extends VirtualRisikoMessage{
+public class StatusPeerMessage extends VirtualRisikoMessage implements middle.messages.StatusPeerMessage{
     public static final String PEER_ID="peer_id";
     public static final String PEER_STATUS="status";
 
@@ -23,7 +24,7 @@ public class StatusPeerMessage extends VirtualRisikoMessage{
         super();
         this.id=id;
         this.online=online;
-        StringMessageElement mE=new StringMessageElement(TYPE, STATUS, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.STATUS_PEER, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PEER_ID,Integer.toString(id), null);

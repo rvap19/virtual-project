@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import jxta.communication.VirtualCommunicator;
-import jxta.communication.messages.ChangeCardMessage;
-import net.jxta.endpoint.Message;
+import middle.Middle;
+import jxta.JXTARisikoMessageGenerator;
+import middle.VirtualCommunicator;
+import middle.messages.ChangeCardMessage;
+
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Mappa;
@@ -25,7 +27,7 @@ import virtualrisikoii.risiko.Tavolo;
  */
 public class CardChangeController {
     private Giocatore giocatore;
-
+    private JXTARisikoMessageGenerator messageBuilder;
     private List<Carta> selezionate;
     private List<Carta> cavalieri;
     private List<Carta> fanti;
@@ -37,7 +39,7 @@ public class CardChangeController {
     public boolean jollyAvailable;
 
     public CardChangeController (){
-
+        messageBuilder=new JXTARisikoMessageGenerator(GameController.getInstance().getNomeMyGiocatore());
     }
 
     public boolean isJollyAvailable() {
@@ -189,13 +191,13 @@ public class CardChangeController {
         list.add(c2);
         list.add(c3);
 
-        VirtualCommunicator communicator=VirtualCommunicator.getInstance();
-        Message msg=new ChangeCardMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
-        try {
-            communicator.sendMessage(msg,false);
-        } catch (IOException ex) {
-            System.out.println("Impossibile inviare messaggio di change card");
-        }
+        Middle middle=GameController.getInstance().getMiddle();
+        VirtualCommunicator communicator=middle.getCommunicator();
+        ChangeCardMessage msg=this.messageBuilder.generateChangeCardMSG(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice()); 
+                //new ChangeCardMessage(c1.getTerritorio().getCodice(), c2.getTerritorio().getCodice(), c3.getTerritorio().getCodice());
+        
+        communicator.sendMessage(msg);
+        
     }
 
     

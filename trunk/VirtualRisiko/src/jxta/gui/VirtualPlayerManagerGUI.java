@@ -11,10 +11,7 @@
 
 package jxta.gui;
 
-import jxta.advertisement.GameAdvertisement;
-import jxta.advertisement.PlayerAdvertisement;
-import jxta.advertisement.RegistrationAdvertisement;
-import net.jxta.protocol.PipeAdvertisement;
+
 import virtualrisikoii.GameDialog;
 import java.io.IOException;
 import java.util.Iterator;
@@ -23,12 +20,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import jxta.listener.GameListener;
-import jxta.listener.PipeListener;
-import jxta.listener.PlayerListener;
-import jxta.listener.RegistrationListener;
-import net.jxta.exception.PeerGroupException;
-import services.VirtualPlayerManager;
+
+
+import jxta.JXTAVirtualPlayerManager;
+import middle.management.advertisement.GameAdvertisement;
+import middle.management.advertisement.PlayerAdvertisement;
+import middle.management.advertisement.RegistrationAdvertisement;
+import middle.management.listener.GameListener;
+import middle.management.listener.PipeListener;
+import middle.management.listener.PlayerListener;
+import middle.management.listener.RegistrationListener;
 
 
 /**
@@ -39,13 +40,13 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
 
     
     protected GameDialog gameDialog;
-    protected VirtualPlayerManager virtualPlayerManager;
+    protected JXTAVirtualPlayerManager virtualPlayerManager;
     protected boolean local;
     /** Creates new form PlayerManagerGUI */
     
     
 
-    public VirtualPlayerManagerGUI(VirtualPlayerManager virtualPlayermanager) throws IOException, PeerGroupException {
+    public VirtualPlayerManagerGUI(JXTAVirtualPlayerManager virtualPlayermanager) throws IOException {
       
         this.virtualPlayerManager=virtualPlayermanager;
         local=true;
@@ -65,6 +66,7 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
     }
 
     public void setListeners(){
+        
         virtualPlayerManager.getManager().addRegistrationListener(this);
         virtualPlayerManager.getManager().addGameListener(this);
         virtualPlayerManager.getManager().addPlayerListener(this);
@@ -267,8 +269,6 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
             Set<String> games=this.virtualPlayerManager.findGames();
             updateList(games, gamesList);
   
-        } catch (PeerGroupException ex) {
-            Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(VirtualPlayerManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -421,15 +421,18 @@ public class VirtualPlayerManagerGUI extends javax.swing.JFrame implements GameL
         
     }
 
-    public void pipeUpdated(PipeAdvertisement pipeInfo) {
-        this.virtualPlayerManager.pipeUpdated(pipeInfo);
-    }
+    
 
     public void registrationUpdated(RegistrationAdvertisement adv) {
         if(!this.virtualPlayerManager.getRegistrations().contains(adv.getPeerID())){
             this.virtualPlayerManager.registrationUpdated(adv);
             this.updateList(virtualPlayerManager.getRegistrations(), currentPlayersInGameList);
         }
+    }
+
+    public void pipeUpdated(middle.management.advertisement.PipeAdvertisement pipeInfo) {
+        
+        this.virtualPlayerManager.pipeUpdated(pipeInfo);
     }
 
 

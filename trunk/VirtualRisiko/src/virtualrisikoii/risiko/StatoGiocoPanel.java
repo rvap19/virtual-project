@@ -15,17 +15,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import jxta.communication.VirtualCommunicator;
-import jxta.communication.messages.PassMessage;
-import jxta.communication.messages.StatusPeerMessage;
-import jxta.communication.messages.listener.PassListener;
-import jxta.communication.messages.listener.StatusPeerListener;
+import middle.EventTypes;
+import middle.Middle;
+
+import middle.event.PassEvent;
+import middle.event.RisikoEvent;
+import middle.event.StatusPeerEvent;
+import middle.listener.PassEventListener;
+import middle.listener.StatusPeerEventListener;
+import middle.messages.PassMessage;
+import middle.messages.StatusPeerMessage;
+import services.GameController;
+
 
 /**
  *
  * @author Administrator
  */
-public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerListener,PassListener {
+public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerEventListener,PassEventListener {
 
 
     /** Creates new form StatoGiocoPanel */
@@ -47,8 +54,9 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
         initComponents();
         //String pathColore=null;
         this.tavolo=Tavolo.getInstance();
-        VirtualCommunicator.getInstance().addStatusListener(this);
-        VirtualCommunicator.getInstance().addPassListener(this);
+        Middle middle=GameController.getInstance().getMiddle();
+        middle.addListener(EventTypes.STATUS_PEER,this);
+        middle.addListener(EventTypes.PASS,this);
         String colore=null;
         Color color;
         List<Giocatore> giocatori=tavolo.getGiocatori();
@@ -674,7 +682,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
     private Tavolo tavolo;
     private int numGioc;
 
-    public void updateStatus(StatusPeerMessage message) {
+    public void notify(StatusPeerEvent event) {
+        StatusPeerMessage message=(StatusPeerMessage)event.getSource();
         Giocatore g=tavolo.getGiocatori().get(message.getId());
         boolean offline=!message.isOnline();
 
@@ -683,7 +692,8 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
 
     }
 
-    public void updatePass(PassMessage m) {
+    public void notify(PassEvent event) {
+        PassMessage m=(PassMessage)event.getSource();
         Tavolo tavolo=Tavolo.getInstance();
         int turno=tavolo.getTurno();
         List<Giocatore> giocatori=tavolo.getGiocatori();
@@ -723,5 +733,16 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerLis
 
 
 
+    }
+
+    public void notify(RisikoEvent event) {
+        String type=event.getType();
+        if(type.equals(EventTypes.STATUS_PEER)){
+            StatusPeerEvent x=(StatusPeerEvent)event;
+            notify(x);
+        }else if(type.equals(EventTypes.PASS)){
+            PassEvent x=(PassEvent)event;
+            notify(x);
+        }
     }
 }

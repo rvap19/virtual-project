@@ -15,7 +15,7 @@ import net.jxta.document.TextElement;
 import net.jxta.id.ID;
 import net.jxta.id.IDFactory;
 
-public class PlayerAdvertisement extends Advertisement {
+public class PlayerAdvertisement extends Advertisement implements middle.management.advertisement.PlayerAdvertisement{
     
     public static final String Name = "Player advertisement";
 

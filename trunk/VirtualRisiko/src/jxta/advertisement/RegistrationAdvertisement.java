@@ -16,7 +16,7 @@ import net.jxta.id.ID;
 import net.jxta.id.IDFactory;
 import net.jxta.protocol.PipeAdvertisement;
 
-public class RegistrationAdvertisement  extends Advertisement implements Comparable<RegistrationAdvertisement> {
+public class RegistrationAdvertisement  extends Advertisement implements Comparable<RegistrationAdvertisement>,middle.management.advertisement.RegistrationAdvertisement {
     
     public static final String Name = "Registration advertisement";
 

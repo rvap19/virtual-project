@@ -1,0 +1,19 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package middle;
+
+import middle.messages.RisikoMessage;
+
+/**
+ *
+ * @author root
+ */
+public interface ConnectionListener {
+    
+
+    public void notifyConnection(RisikoPipe pipe, RisikoMessage msg);
+
+}

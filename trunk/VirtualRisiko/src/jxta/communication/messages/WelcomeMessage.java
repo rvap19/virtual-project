@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class WelcomeMessage extends VirtualRisikoMessage{
+public class WelcomeMessage extends VirtualRisikoMessage implements middle.messages.WelcomeMessage{
     
         public static final String PEER_NAME="peer_name";
 
@@ -20,7 +21,7 @@ public class WelcomeMessage extends VirtualRisikoMessage{
 
     public WelcomeMessage(String welcomePlayerName){
         super();
-        StringMessageElement mE=new StringMessageElement(TYPE, WELCOME, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.WELCOME, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(PEER_NAME,welcomePlayerName, null);

@@ -5,6 +5,7 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,7 +13,7 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class PingMessage extends VirtualRisikoMessage{
+public class PingMessage extends VirtualRisikoMessage implements middle.messages.PingMessage{
 
 
 
@@ -20,7 +21,7 @@ public class PingMessage extends VirtualRisikoMessage{
 
     public PingMessage(){
         super();
-        StringMessageElement mE=new StringMessageElement(TYPE, PING, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.PING, null);
         addMessageElement(namespace, mE);
 
         

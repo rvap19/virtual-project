@@ -5,6 +5,8 @@
 
 package jxta.communication.messages;
 
+import middle.MessageTypes;
+import middle.messages.RisikoMessage;
 import net.jxta.endpoint.Message;
 import net.jxta.endpoint.StringMessageElement;
 
@@ -12,14 +14,14 @@ import net.jxta.endpoint.StringMessageElement;
  *
  * @author root
  */
-public class PassMessage extends VirtualRisikoMessage{
+public class PassMessage extends VirtualRisikoMessage implements middle.messages.PassMessage{
 
         public static final String SUCC_TURN="successive_turn";
         private int turno_successivo;
 
     public PassMessage(int turno_successivo){
         super();
-        StringMessageElement mE=new StringMessageElement(TYPE, PASSES, null);
+        StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.PASS, null);
         addMessageElement(namespace, mE);
 
         StringMessageElement mElement = new StringMessageElement(SUCC_TURN,Integer.toString(turno_successivo), null);
