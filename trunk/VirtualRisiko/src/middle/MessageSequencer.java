@@ -91,8 +91,9 @@ public class MessageSequencer implements RisikoMessageListener{
         received_msg_id=message.getMSG_ID();
        
        // System.out.println("Waiting for ::: "+currentMessageID);
-        System.out.println("Waiting for ::: "+currentMSG_ID.get());
         int currentID=currentMSG_ID.get();
+        System.out.println("Waiting for ::: "+currentID);
+        
         System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+received_msg_id);
 
 
@@ -217,7 +218,10 @@ public class MessageSequencer implements RisikoMessageListener{
                     position=currentMSG_ID.get()%buffer.length;
                 
             }
-        }finally{
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
             lock.unlock();
         }
     }
