@@ -398,7 +398,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
             int turno = names.indexOf(middle.getPlayerName());
             
             
-            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno,gameParameter.getMaxTurns(), communicator.getCurrentPlayerNumber(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
+            Tavolo tavolo = Tavolo.createInstance(mappa, obiettivi, turno,gameParameter.getMaxTurns(), names.size(), myTurno, gameParameter.getSeed_dice(), gameParameter.getSeed_region(), gameParameter.getSeed_cards(),names);
             tavolo.setNameMap(gameParameter.getMapName());
             GameController controller=GameController.createGameController(middle);
             factory.loadMapPanel();
