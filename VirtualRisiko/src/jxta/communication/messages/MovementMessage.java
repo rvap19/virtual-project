@@ -28,7 +28,7 @@ public class MovementMessage extends VirtualRisikoMessage implements middle.mess
         this.troopNumber=troops_number;
         this.from=from;
         this.to=to;
-        
+        setType(MessageTypes.MOVEMENT);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.MOVEMENT, null);
         addMessageElement(namespace, mE);
 

@@ -44,6 +44,7 @@ public class RecoveryMessage extends VirtualRisikoMessage implements middle.mess
 
     public RecoveryMessage(RecoveryParameter parameter){
         super();
+        setType( MessageTypes.RECOVERY);
         this.parameter=parameter;
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.RECOVERY, null);
         addMessageElement(namespace, mE);

@@ -21,6 +21,7 @@ public class PassMessage extends VirtualRisikoMessage implements middle.messages
 
     public PassMessage(int turno_successivo){
         super();
+        setType(MessageTypes.PASS);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.PASS, null);
         addMessageElement(namespace, mE);
 

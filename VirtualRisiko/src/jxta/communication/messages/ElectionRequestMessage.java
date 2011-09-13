@@ -22,7 +22,7 @@ public class ElectionRequestMessage extends VirtualRisikoMessage implements midd
     public ElectionRequestMessage(){
         super();
 
-
+        setType(MessageTypes.ELECTION_REQUEST);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ELECTION_REQUEST, null);
         addMessageElement(namespace, mE);
 

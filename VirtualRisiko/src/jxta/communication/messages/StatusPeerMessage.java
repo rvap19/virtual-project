@@ -24,6 +24,7 @@ public class StatusPeerMessage extends VirtualRisikoMessage implements middle.me
         super();
         this.id=id;
         this.online=online;
+        setType(MessageTypes.STATUS_PEER);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.STATUS_PEER, null);
         addMessageElement(namespace, mE);
 

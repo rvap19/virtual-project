@@ -24,6 +24,7 @@ public class RetrasmissionRequest extends VirtualRisikoMessage implements Retras
 
     public RetrasmissionRequest(int messageID){
         super();
+        setType(MessageTypes.RETRASMISSION_REQUEST);
         this.messageID=messageID;
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.RETRASMISSION_REQUEST, null);
         addMessageElement(namespace, mE);

@@ -23,6 +23,7 @@ public class AckMessage extends VirtualRisikoMessage implements middle.messages.
 
     public AckMessage(int ack_message_id){
         super();
+        setType(MessageTypes.ACK);
         this.ack_message_id=ack_message_id;
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.ACK, null);
         addMessageElement(namespace, mE);
