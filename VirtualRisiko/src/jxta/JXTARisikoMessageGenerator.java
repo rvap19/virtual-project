@@ -107,6 +107,7 @@ public class JXTARisikoMessageGenerator extends RisikoMessageGenerator{
         pm.setPlayerName(playerName);
         return pm;
     }
+    
 
     @Override
     public PongMessage generatePongMSG(String peerID) {

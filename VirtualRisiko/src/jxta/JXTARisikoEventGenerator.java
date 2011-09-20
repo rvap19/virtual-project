@@ -4,6 +4,7 @@
  */
 package jxta;
 
+
 import jxta.communication.messages.VirtualRisikoMessage;
 import middle.MessageTypes;
 import middle.RisikoEventGenerator;
@@ -20,6 +21,7 @@ import middle.event.PassEvent;
 import middle.event.PingEvent;
 import middle.event.PongEvent;
 import middle.event.RecoveryEvent;
+import middle.event.RecoveryRequestEvent;
 import middle.event.RetrasmissionRequestEvent;
 import middle.event.RisikoEvent;
 import middle.event.StatusPeerEvent;
@@ -37,6 +39,7 @@ import middle.messages.PassMessage;
 import middle.messages.PingMessage;
 import middle.messages.PongMessage;
 import middle.messages.RecoveryMessage;
+
 import middle.messages.RetrasmissionRequestMessage;
 import middle.messages.RisikoMessage;
 import middle.messages.StatusPeerMessage;
@@ -101,6 +104,7 @@ public class JXTARisikoEventGenerator implements RisikoEventGenerator{
         if(type.equals(MessageTypes.WELCOME)){
             return new WelcomeEvent((WelcomeMessage)message);
         }
+        
             
         return null;
     }
