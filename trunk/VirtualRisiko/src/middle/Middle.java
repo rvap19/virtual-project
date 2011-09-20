@@ -38,6 +38,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     protected List<String> playerNames;
     protected RisikoMessageGenerator messageBuilder; 
     protected RisikoEventGenerator eventGenerator;
+    protected MessageWaiter waiter;
     protected String playerName;
     protected boolean gameInProgress;
     protected int playersNumber;
@@ -45,6 +46,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     protected boolean isClose;
     
     protected void init(){
+        
         this.messageBuilder=createMessageBuilder();
         this.eventGenerator=createEventGenerator();
         sequencer=new MessageSequencer(this.playerName,150);
@@ -61,10 +63,26 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
         communicator.setElectionManager(electionManager);
         communicator.setMessageNotifier(sequencer);
         communicator.setMessageSequencer(sequencer);
-        
+        waiter=null;
         initListeners();
     }
 
+    public void startMessageWaiter(){
+        if(waiter==null){
+            waiter=new MessageWaiter(communicator);
+             waiter.start();
+
+        }else{
+            waiter.stopTimer();
+            waiter=new MessageWaiter(communicator);
+            waiter.start();
+        }
+        
+        waiter.setElectionManager(electionManager);
+
+        
+    }
+    
     public ElectionController getElectionManager() {
         return electionManager;
     }
@@ -211,6 +229,8 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
                 this.communicator.propagateMessage(message);
             }
             
+        }else{
+            this.waiter.setMessageReceived(true);
         }
         RisikoEvent e=eventGenerator.generateEvent(message);
         

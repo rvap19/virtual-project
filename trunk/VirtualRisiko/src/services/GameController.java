@@ -137,7 +137,7 @@ public class GameController extends AbstractGameController implements ChatSender
         if(tavolo.isTurnoMyGiocatore()){
                  timer.start();
              }
-        if(communicator.isManager()){
+        if(communicator.isCentral()){
             messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
 
 
@@ -145,6 +145,8 @@ public class GameController extends AbstractGameController implements ChatSender
              this.managerTimer=new ManagerPingerThread();
              managerTimer.start();
              
+        }else{
+            middle.startMessageWaiter();
         }
 
     }
@@ -169,7 +171,7 @@ public class GameController extends AbstractGameController implements ChatSender
         if(Tavolo.getInstance().isTurnoMyGiocatore()){
                  timer.start();
         }
-        if(communicator.isManager()){
+        if(communicator.isCentral()){
             messageReceived[Tavolo.getInstance().getMyGiocatore().getID()]=true;
 
 
@@ -689,7 +691,7 @@ public class GameController extends AbstractGameController implements ChatSender
             return;
         }
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isManager()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isCentral()){
             locker.releaseTavolo();
             return;
         }
@@ -734,7 +736,7 @@ public class GameController extends AbstractGameController implements ChatSender
             return;
         }
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isManager()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isCentral()){
             locker.releaseTavolo();
             return;
         }
@@ -869,7 +871,7 @@ public class GameController extends AbstractGameController implements ChatSender
     }
     private   void  passaTurno_() throws IOException{
         Tavolo tavolo=locker.acquireTavolo();
-        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isManager()){
+        if(!tavolo.isTurnoMyGiocatore()&&!this.communicator.isCentral()){
             locker.releaseTavolo();
             return;
         }
@@ -997,7 +999,7 @@ public class GameController extends AbstractGameController implements ChatSender
     }
 
     public void notify(PongEvent event) {
-        if(!communicator.isManager()){
+        if(!communicator.isCentral()){
             return;
         }
        PongMessage msg=(PongMessage) event.getSource();
@@ -1066,7 +1068,7 @@ public class GameController extends AbstractGameController implements ChatSender
     
 
     public void notify(RecoveryEvent c) {
-        if(!communicator.isManager()){
+        if(!communicator.isCentral()){
             return;
         }
         RecoveryUtil util=new RecoveryUtil();
@@ -1163,7 +1165,7 @@ public class GameController extends AbstractGameController implements ChatSender
                                     System.out.println("giocatore "+g.getUsername()+" continua a non rispondere ...");
                                     if(!reconnectionNeeds[g.getID()]){
                                         System.out.println(" giocatore "+g.getUsername()+" non ha effettuato richiesta riconnessione ... chiusura pipe");
-                                        //comunicator.closePipeFor(g.getID(),g.getUsername());
+                                        communicator.closePipeFor(g.getID(),g.getUsername());
                                     }
                                     autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                     passaTurno_();
