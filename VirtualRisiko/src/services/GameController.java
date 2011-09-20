@@ -106,6 +106,7 @@ public class GameController extends AbstractGameController implements ChatSender
         //this.comunicator=Communicator.getInstance();
         this.middle=middle;
         this.middle.setGameController(this);
+        middle.setGameInProgress(true);
         middle.addListener(EventTypes.PONG, this);
         middle.addListener(EventTypes.RECOVERY, this);
         communicator=middle.getCommunicator();
