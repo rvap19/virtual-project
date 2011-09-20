@@ -63,24 +63,18 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
         communicator.setElectionManager(electionManager);
         communicator.setMessageNotifier(sequencer);
         communicator.setMessageSequencer(sequencer);
-        waiter=null;
+        initMessageWaiter();
         initListeners();
+        
     }
 
-    public void startMessageWaiter(){
-        if(waiter==null){
-            waiter=new MessageWaiter(communicator);
-             waiter.start();
-
-        }else{
-            waiter.stopTimer();
-            waiter=new MessageWaiter(communicator);
-            waiter.start();
-        }
-        
+    public void initMessageWaiter(){
+        waiter=new MessageWaiter(communicator);
         waiter.setElectionManager(electionManager);
-
-        
+    }
+    
+    public void startMessageWaiter(){    
+             waiter.start();
     }
     
     public ElectionController getElectionManager() {
