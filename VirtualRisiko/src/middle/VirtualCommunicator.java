@@ -8,14 +8,10 @@ package middle;
 import java.util.Set;
 import middle.management.advertisement.PipeAdvertisement;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
-import javax.sound.midi.Sequencer;
-import middle.event.RisikoEvent;
 import middle.messages.RisikoMessage;
 
 
@@ -89,11 +85,11 @@ public abstract class VirtualCommunicator {
         this.gameParameter = gameParameter;
     }
 
-    public boolean isIsCentral() {
+    public boolean isCentral() {
         return isCentral;
     }
 
-    public void setIsCentral(boolean isCentral) {
+    public void setCentral(boolean isCentral) {
         this.isCentral = isCentral;
     }
 
@@ -252,7 +248,9 @@ public abstract class VirtualCommunicator {
 
     public   boolean sendMessageTo(RisikoMessage message,String to) throws IOException{
         RisikoPipe x=this.pipes.get(to);
-        return x.sendMessage(message);
+        if(x!=null)
+            return x.sendMessage(message);
+        else return true;
     }
     
     public boolean sendMessage(RisikoMessage message) {
@@ -304,51 +302,14 @@ public abstract class VirtualCommunicator {
         this.maxPlayers=maxPlayers;
     }
 
-    
-
-    private void startMessageWaiter(){
-        if(waiter==null){
-            waiter=new MessageWaiter();
-             waiter.start();
-
-        }else{
-            waiter.stopTimer();
-            waiter=new MessageWaiter();
-            waiter.start();
-        }
-
-        
-    }
-
-   public void notifyMessage(RisikoMessage msg,int msgID){
-        
-        
-         messageReceived=true;
-      
-         if(this.isCentral){
-                this.sendMessage(msg);
-
-         }
-
-    }
-
-    
-
-    
-    public boolean isManager() {
-        return this.isCentral;
-    }
-
-
-    
     public void closePipeFor(int turn,String name) throws IOException{
         try{
              pipeLock.lock();
              RisikoPipe pipe=this.pipes.get(name);
              if(pipe!=null){
                  pipe.close();
-                 
-                 
+                 this.pipes.put(name, null);
+                 System.out.println("pipe chiusa per "+name);
              }
         }catch(Exception ex){
             ex.printStackTrace();
@@ -407,67 +368,7 @@ public abstract class VirtualCommunicator {
 
    
 
-    private  class  MessageWaiter extends Thread{
-
-        private int sleepTime=45 * 1000 ;
-        private int interval=1;
-
-        private AtomicBoolean continueTimer;
-
-        public MessageWaiter(){
-            this.continueTimer=new AtomicBoolean(true);
-        }
-
-        public void stopTimer(){
-            this.continueTimer.set(false);
-        }
-        
-        @Override
-        public void run() {
-            while(continueTimer.get()){
-                try {
-                    messageReceived=false;
-                    
-                    for(int i=0;i<interval;i++){
-                        this.sleep(sleepTime);
-                    }
-                    if(!messageReceived){
-                        System.out.println("Nessun messaggio ricevuto dal manager .... riconnessione");
-                        boolean connectSuccess=connect();
-                        continueTimer.set(connectSuccess);
-                        if(connectSuccess){
-                            System.out.println("Riconnessione riuscita");
-                        }else{
-                            System.out.println("rinnessione fallita");
-                        }
-                    }else{
-                        System.out.println("ricevuto dal coordinatore");
-                    }
-            
-                } catch (Exception ex) {
-                   ex.printStackTrace();
-                }
-
-            }
-
-            closeVirtualCommunicator();
-            try {
-                if(!electionManager.isStarted()){
-                        electionManager.startElection();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-
-        }
-
-        private void closeVirtualCommunicator() {
-            System.err.println("close Virtual communicator");
-        }
-
-        
-    }
+   
 
     
     

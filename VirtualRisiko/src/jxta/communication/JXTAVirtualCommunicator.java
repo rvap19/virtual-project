@@ -36,7 +36,7 @@ public class JXTAVirtualCommunicator extends middle.VirtualCommunicator{
         
         setPipeLock(new ReentrantLock(true));
         setGameInProgress(false);
-        setIsCentral(true);
+        setCentral(true);
         setCurrentPlayerNumber(1);
         setPipes(new HashMap<String, RisikoPipe>());
         try {
@@ -56,7 +56,7 @@ public class JXTAVirtualCommunicator extends middle.VirtualCommunicator{
     public void initPeerComunicator(String peerName, PeerGroup group, PipeAdvertisement centralPeerPipeAdv, PipeAdvertisement peerPipeAdv) {
         
         setPipeLock(new ReentrantLock(true));
-        setIsCentral(false);
+        setCentral(false);
         setCentralPeerPipeAdv(centralPeerPipeAdv);
         setGroup(group);
         setPipes(new HashMap<String, RisikoPipe>());
