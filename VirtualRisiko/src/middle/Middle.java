@@ -204,8 +204,13 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     }
     
     public void notifyMessage(RisikoMessage message) {
+
         if(this.communicator.isCentral){
-            this.communicator.propagateMessage(message);
+            if(!message.getType().equals(MessageTypes.PONG)){
+                message.setPropagationMessage(true);
+                this.communicator.propagateMessage(message);
+            }
+            
         }
         RisikoEvent e=eventGenerator.generateEvent(message);
         

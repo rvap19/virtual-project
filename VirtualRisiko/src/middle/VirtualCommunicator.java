@@ -258,8 +258,7 @@ public abstract class VirtualCommunicator {
     public boolean sendMessage(RisikoMessage message) {
         String type=message.getType();
         boolean result=false;
-        
-        
+  
         if(!this.isCentral){
             try {
                 
@@ -389,14 +388,17 @@ public abstract class VirtualCommunicator {
 
     public void propagateMessage(RisikoMessage message) {
         try{
-
+            String source=message.playerName();
             Iterator<String> users=this.playerNames.iterator();
             while(users.hasNext()){
-                sendMessageTo(message,users.next());
+                String currentPlayer=users.next();
+                if(!currentPlayer.equalsIgnoreCase(source)){
+                    sendMessageTo(message,currentPlayer);
+                }
             }
         } catch (IOException ex) {
             System.err.println("impossibile propagare msg");
-            
+            ex.printStackTrace();
         }
     }
 

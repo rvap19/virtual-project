@@ -106,6 +106,8 @@ public class GameController extends AbstractGameController implements ChatSender
         //this.comunicator=Communicator.getInstance();
         this.middle=middle;
         this.middle.setGameController(this);
+        middle.addListener(EventTypes.PONG, this);
+        middle.addListener(EventTypes.RECOVERY, this);
         communicator=middle.getCommunicator();
         this.messageBuilder=middle.getMessageBuilder();
         
@@ -793,7 +795,7 @@ public class GameController extends AbstractGameController implements ChatSender
 
     public void sendMessage(String from, String to, String message) {
 
-        ChatMessage msg=this.messageBuilder.generateChatMSG(from, to, message); 
+        ChatMessage msg=this.messageBuilder.generateChatMSG(middle.getPlayerName(), to, message); 
                 //new ChatMessage(to, Tavolo.getInstance().getMyGiocatore().getNome(), message);
         
        
@@ -995,6 +997,9 @@ public class GameController extends AbstractGameController implements ChatSender
     }
 
     public void notify(PongEvent event) {
+        if(!communicator.isManager()){
+            return;
+        }
        PongMessage msg=(PongMessage) event.getSource();
        this.messageReceived[turns.get(msg.getPeerID())]=true;
     }
@@ -1049,12 +1054,21 @@ public class GameController extends AbstractGameController implements ChatSender
         }else if(type.equals(EventTypes.PASS)){
             PassEvent x=(PassEvent)event;
             notify(x);
+        }else if(type.equals(EventTypes.RECOVERY)){
+            RecoveryEvent x=(RecoveryEvent)event;
+            notify(x);
+        }else if(type.equals(EventTypes.PONG)){
+            PongEvent x=(PongEvent)event;
+            notify(x);
         }
     }
 
     
 
     public void notify(RecoveryEvent c) {
+        if(!communicator.isManager()){
+            return;
+        }
         RecoveryUtil util=new RecoveryUtil();
         RecoveryMessage msg=(RecoveryMessage)c.getSource();
         RecoveryParameter parameter=msg.getParameter();

@@ -27,9 +27,13 @@ public class VirtualRisikoMessage extends Message implements RisikoMessage{
     protected String playerName;
     protected int msgID;
     protected String type;
+    protected boolean isPropagationMessage;
+    protected Message source;
 
     public VirtualRisikoMessage(){
         super();
+        isPropagationMessage=false;
+        source=null;
         
     }
 
@@ -37,6 +41,8 @@ public class VirtualRisikoMessage extends Message implements RisikoMessage{
         playerName=message.getMessageElement(namespace, GAMER).toString();
         msgID=Integer.parseInt(message.getMessageElement(namespace,ID_MSG).toString());
         type=message.getMessageElement(namespace,TYPE).toString();
+        isPropagationMessage=false;
+        source=message;
     }
 
     public String getType(){
@@ -67,5 +73,19 @@ public class VirtualRisikoMessage extends Message implements RisikoMessage{
     protected void setType(String type){
         this.type=type;
     }
+
+    public boolean isPropagationMessage() {
+        return this.isPropagationMessage;
+    }
+    
+    public void setPropagationMessage(boolean prop){
+        this.isPropagationMessage=prop;
+    }
+
+    public Message getSource() {
+        return source;
+    }
+    
+    
 
 }
