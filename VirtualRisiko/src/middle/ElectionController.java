@@ -148,6 +148,7 @@ public abstract class ElectionController implements ElectionEventListener{
         if(pipe!=null){
             pipes.put(name, pipe);
             ElectionRequestMessage message=this.messageBuilder.generateElectionRequestMSG();
+            message.setMSG_ID(0);
                     //new ElectionRequestMessage();
             
             System.out.println("send election request to "+name);
@@ -169,6 +170,7 @@ public abstract class ElectionController implements ElectionEventListener{
                      message=this.messageBuilder.generateElectionMSG(playerName, Tavolo.getInstance().getTurno()); 
                              //new ElectionMessage(playerName,Tavolo.getInstance().getTurno());
                     System.out.println("send election message to "+name);
+                    message.setMSG_ID(0);
                      pipe.send(message);
                 }
             }
@@ -217,6 +219,7 @@ public abstract class ElectionController implements ElectionEventListener{
         AckMessage ack=this.messageBuilder.generateAckMSG(0); 
                 //new AckMessage(0);
         try {
+            ack.setMSG_ID(0);
             pipe.send(ack);
             if(!this.isStarted()){
                 this.startElection();
@@ -233,6 +236,7 @@ public abstract class ElectionController implements ElectionEventListener{
             AckMessage ack=messageBuilder.generateAckMSG(0); 
                     //new AckMessage(0);
             try {
+                ack.setMSG_ID(0);
                 pipe.send(ack);
             }catch(Exception ex){
                 ex.printStackTrace();
