@@ -6,6 +6,7 @@ package jxta;
 
 import java.io.IOException;
 import jxta.communication.JXTAVirtualCommunicator;
+import middle.ElectionController;
 import middle.EventTypes;
 import middle.Middle;
 import middle.PeerGroup;
@@ -96,6 +97,7 @@ public class JXTAMiddle extends Middle implements PingEventListener{
     public void notify(RisikoEvent event) {
         notify((PingEvent)event);
     }
+
 
     
 
