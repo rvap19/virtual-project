@@ -58,6 +58,7 @@ public class JXTARisikoPipe extends  RisikoPipe implements PipeMsgListener{
 
     public void close() {
         try {
+            super.isClose=true;
             this.pipe.close();
         } catch (IOException ex) {
             

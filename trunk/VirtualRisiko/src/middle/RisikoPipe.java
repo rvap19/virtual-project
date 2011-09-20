@@ -14,6 +14,7 @@ import middle.messages.RisikoMessage;
 public abstract class RisikoPipe {
     protected MessageSequencer sequencer;
     protected RisikoMessageListener messageNotifier;
+    protected boolean isClose;
     
     public  void setRisikoMessageNotifier(RisikoMessageListener messageNotifier){
         this.messageNotifier=messageNotifier;
@@ -53,5 +54,9 @@ public abstract class RisikoPipe {
     protected abstract boolean send(RisikoMessage message)throws IOException;
 
     public abstract void close();
+
+    public boolean isClose() {
+        return isClose;
+    }
     
 }
