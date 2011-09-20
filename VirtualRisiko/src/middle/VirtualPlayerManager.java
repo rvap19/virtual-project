@@ -206,6 +206,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
         communicator.setPlayerName(myName);
         ElectionController electionController=initElectionController(this.myName, this.manager.getPeerGroup(), pipes);
         middle.addListener(EventTypes.ELECTION, electionController);
+        middle.setElectionManager(electionController);
         electionController.setElectionListener(this);
         Random random=new Random();
         this.gameParameter=new GameParameter(mapName);
@@ -290,6 +291,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
                  electionController=this.initElectionController(myName, manager.getPeerGroup(), pipes);//new ElectionController(this.myName, this.manager.getPeerGroup(), pipes);
                 
                 electionController.setElectionListener(this);
+                middle.setElectionManager(electionController);
                 middle.addListener(EventTypes.ELECTION, electionController);
                 WelcomeMessage msg=this.messageBuilder.generateWelcomeMSG(this.myName);
                 this.communicator.sendMessage(msg);

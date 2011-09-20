@@ -49,6 +49,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
         
         this.messageBuilder=createMessageBuilder();
         this.eventGenerator=createEventGenerator();
+
         sequencer=new MessageSequencer(this.playerName,150);
         sequencer.setCurrentMessageID(0);
         sequencer.setNotifier(this);
@@ -282,6 +283,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     public abstract VirtualCommunicator createVirtualCommunicator();
     public abstract RisikoMessageGenerator createMessageBuilder();
     public abstract RisikoEventGenerator createEventGenerator();
+
     
     public abstract void configureVirtualCommunicator(String peername,PeerGroup group,PipeAdvertisement managerPipe,PipeAdvertisement peerPipe)throws IOException;
    
@@ -290,6 +292,8 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     public abstract void  configureVirtualCommunicatorAsPeer(String peerName,PeerGroup group,PipeAdvertisement centralPeerPipeAdv,PipeAdvertisement peerPipeAdv);
 
     protected abstract void sendInitMessages();
+
+    
 
     
     
