@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import middle.event.RecoveryEvent;
+import middle.event.RecoveryRequestEvent;
 import middle.event.RisikoEvent;
 import middle.listener.ApplianceEventListener;
 import middle.listener.AttackEventListener;
@@ -281,7 +282,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
         }
         communicator.remove(name);
         communicator.put(name, pipe);
-        RecoveryEvent event=new RecoveryEvent((RecoveryMessage)msg);
+        RecoveryRequestEvent event=new RecoveryRequestEvent((WelcomeMessage)msg);
         this.notifyEvent(event);
         
     }

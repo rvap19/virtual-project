@@ -16,5 +16,6 @@ public class EventTypes {
     public static String RETRASMISSION_REQUEST="RETASMISSION_REQUEST_EVENT";
     public static String STATUS_PEER="STATUS_PEER_EVENT";
     public static String WELCOME="WELCOME_EVENT";
+    public static  String RECOVERY_REQUEST="RECOVERY_REQUEST_EVENT";
     
 }

@@ -25,5 +25,6 @@ public class MessageTypes {
     public static String RETRASMISSION_REQUEST="RETASMISSION_REQUEST_MSG";
     public static String STATUS_PEER="STATUS_PEER_MSG";
     public static String WELCOME="WELCOME_MSG";
+    public static String RECOVERY_REQUEST="RECOVERY_REQUEST_MSG";
     
 }

@@ -26,9 +26,11 @@ import middle.event.MovementEvent;
 import middle.event.PassEvent;
 import middle.event.PongEvent;
 import middle.event.RecoveryEvent;
+import middle.event.RecoveryRequestEvent;
 import middle.event.RisikoEvent;
 import middle.listener.PongEventListener;
 import middle.listener.RecoveryEventListener;
+import middle.listener.RecoveryRequestEventListener;
 import middle.messages.ApplianceMessage;
 import middle.messages.AttackMessage;
 import middle.messages.ChangeCardMessage;
@@ -57,7 +59,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController extends AbstractGameController implements ChatSender,TimeoutNotifier,RecoveryEventListener,PongEventListener{
+public class GameController extends AbstractGameController implements ChatSender,TimeoutNotifier,RecoveryRequestEventListener,PongEventListener{
     
     private Middle middle;
     private MapListener mapListener;
@@ -108,7 +110,7 @@ public class GameController extends AbstractGameController implements ChatSender
         this.middle.setGameController(this);
         middle.setGameInProgress(true);
         middle.addListener(EventTypes.PONG, this);
-        middle.addListener(EventTypes.RECOVERY, this);
+        middle.addListener(EventTypes.RECOVERY_REQUEST, this);
         communicator=middle.getCommunicator();
         this.messageBuilder=middle.getMessageBuilder();
         
@@ -1068,7 +1070,7 @@ public class GameController extends AbstractGameController implements ChatSender
 
     
 
-    public void notify(RecoveryEvent c) {
+    public void notify(RecoveryRequestEvent c) {
         if(!communicator.isCentral()){
             return;
         }
