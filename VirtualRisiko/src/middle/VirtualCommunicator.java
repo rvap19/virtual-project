@@ -248,7 +248,7 @@ public abstract class VirtualCommunicator {
 
     public   boolean sendMessageTo(RisikoMessage message,String to) throws IOException{
         RisikoPipe x=this.pipes.get(to);
-        if(x!=null)
+        if(x!=null && !x.isClose())
             return x.sendMessage(message);
         else return true;
     }
@@ -308,14 +308,14 @@ public abstract class VirtualCommunicator {
              RisikoPipe pipe=this.pipes.get(name);
              if(pipe!=null){
                  pipe.close();
-                 this.pipes.put(name, null);
+                 this.pipes.remove(name);
                  System.out.println("pipe chiusa per "+name);
              }
         }catch(Exception ex){
             ex.printStackTrace();
         }
         finally{
-            pipes.put(name, null);
+            
             pipeLock.unlock();
         }
     }
