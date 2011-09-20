@@ -194,7 +194,9 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     
     public void notifyConnection(RisikoPipe pipe, RisikoMessage msg) {
          String type=msg.getType();
+         System.out.println("nuova connessione ricevuta");
             if(type.equals(MessageTypes.ELECTION_REQUEST)){
+                System.out.println("ricevuta richiesta elezione");
                 this.elaborateRequestElectionMessage(pipe,msg);
                 
                 return;
@@ -202,16 +204,19 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
             }
 
             if(type.equals(MessageTypes.ELECTION)){
+                System.out.println("ricevuto msg elezione");
                 this.elaborateElectionMessage(pipe,msg);
                 
                 return;
             }
 
             if(!this.gameInProgress){
-            
+                System.out.println("ricevuto msg welcome");
                 this.elaborateWelcomeMessage(pipe, msg);
+                
             
             }else{
+                System.out.println("ricevuta richiesta riconnessione");
                 this.elaborateReconnectRequest(pipe,msg);
             }
 

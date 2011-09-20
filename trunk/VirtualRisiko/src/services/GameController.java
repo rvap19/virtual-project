@@ -1071,15 +1071,18 @@ public class GameController extends AbstractGameController implements ChatSender
         if(!communicator.isCentral()){
             return;
         }
-        RecoveryUtil util=new RecoveryUtil();
+        
+        this.reconnectionNeeds[turns.get(c.getSource().playerName())]=true;
+        /*RecoveryUtil util=new RecoveryUtil();
         RecoveryMessage msg=(RecoveryMessage)c.getSource();
         RecoveryParameter parameter=msg.getParameter();
         try {
             util.recoveryTable(parameter);
+            
         } catch (Exception ex) {
             System.out.println("Impossibile recuperare dati");
             System.exit(-1);
-        } 
+        } */
     }
 
     
