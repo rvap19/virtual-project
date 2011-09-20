@@ -5,25 +5,7 @@
 package jxta.communication;
 
 import java.io.IOException;
-import jxta.communication.messages.AckMessage;
-import jxta.communication.messages.ApplianceMessage;
-import jxta.communication.messages.AttackMessage;
-import jxta.communication.messages.ChangeCardMessage;
-import jxta.communication.messages.ChatMessage;
-import jxta.communication.messages.ElectionMessage;
-import jxta.communication.messages.ElectionRequestMessage;
-import jxta.communication.messages.InitMessage;
-import jxta.communication.messages.MovementMessage;
-import jxta.communication.messages.PassMessage;
-import jxta.communication.messages.PingMessage;
-import jxta.communication.messages.PongMessage;
-import jxta.communication.messages.RecoveryMessage;
-import jxta.communication.messages.RetrasmissionRequest;
-import jxta.communication.messages.StatusPeerMessage;
 import jxta.communication.messages.VirtualRisikoMessage;
-import jxta.communication.messages.WelcomeMessage;
-import middle.MessageTypes;
-import middle.RisikoMessageListener;
 import middle.RisikoPipe;
 import middle.messages.RisikoMessage;
 import net.jxta.endpoint.Message;
@@ -59,13 +41,19 @@ public class JXTARisikoPipe extends  RisikoPipe implements PipeMsgListener{
     
     protected boolean send(RisikoMessage message) {
         VirtualRisikoMessage msg=(VirtualRisikoMessage)message;
-        try {
-            System.out.println("invio msg "+message.getType()+" con ID "+message.getMSG_ID());
-            this.pipe.sendMessage(msg);
-            return true;
-        } catch (IOException ex) {
-            return false;
+        System.out.println("invio msg "+message.getType()+" con ID "+message.getMSG_ID()+" propagation :: "+message.isPropagationMessage());
+        boolean result=false;
+        try{
+            if(msg.isPropagationMessage()){
+                result=this.pipe.sendMessage(msg.getSource());
+            }else{
+                result=this.pipe.sendMessage(msg); 
+            }
+        }catch(IOException io){
+            io.printStackTrace();
         }
+        
+        return result;
     }
 
     public void close() {

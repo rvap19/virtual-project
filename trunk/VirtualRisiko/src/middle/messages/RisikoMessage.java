@@ -18,6 +18,9 @@ public interface RisikoMessage {
     public void setPlayerName(String name);
 
     public void setMSG_ID(int id);
+    
+    public boolean isPropagationMessage();
+    public void setPropagationMessage(boolean prop);
 
     
 }

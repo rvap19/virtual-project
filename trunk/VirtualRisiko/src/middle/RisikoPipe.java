@@ -34,13 +34,18 @@ public abstract class RisikoPipe {
     
 
     public  boolean sendMessage(RisikoMessage message) {
-        int ID=this.sequencer.getCurrentMessageID();
-        message.setMSG_ID(ID);
+        if(!message.isPropagationMessage()){
+            int ID=this.sequencer.getCurrentMessageID();
+            message.setMSG_ID(ID);
+        }
+        
         
         try {
+            
             this.send(message);
             return true;
         } catch (IOException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
