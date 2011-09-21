@@ -226,7 +226,7 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     
     public void notifyMessage(RisikoMessage message) {
 
-        if(this.communicator.isCentral){
+        if(this.communicator.isCentral && !message.playerName().equals(this.playerName)){
             if(!message.getType().equals(MessageTypes.PONG)){
                 message.setPropagationMessage(true);
                 this.communicator.propagateMessage(message);
