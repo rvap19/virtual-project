@@ -26,6 +26,7 @@ public class RecoveryUtil {
     private Mappa mappa;
     private List<Obiettivo> obiettivi;
     private XMapPanel panel;
+    private GameFactory gameFactory;
     public RecoveryParameter createBackup(){
         Tavolo tavolo=Tavolo.getInstance();
         RecoveryParameter parameter=new RecoveryParameter();
@@ -51,7 +52,7 @@ public class RecoveryUtil {
     }
 
     public void recoveryTable(RecoveryParameter parameter) throws MappaException, ObiettiviException{
-        GameFactory gameFactory=new GameFactory();
+         gameFactory=new GameFactory();
         gameFactory.loadGame(parameter.getMapName());
 
          mappa=gameFactory.getMappa();
@@ -81,8 +82,7 @@ public class RecoveryUtil {
         setNumeroTruppe(tavolo, parameter.getNumeroTruppe());
         setNumeroArmateDisponibili(tavolo,parameter.getArmateDisponibili());
         setCarte(parameter.getCarteGiocatori(),parameter.getPosizioneCarte() , tavolo);
-        gameFactory.loadMapPanel();
-             panel = gameFactory.getMapPanel();
+        
        
     }
 
@@ -258,6 +258,8 @@ public class RecoveryUtil {
     }
 
     public XMapPanel getPanel() {
+        gameFactory.loadMapPanel();
+             panel = gameFactory.getMapPanel();
         return panel;
     }
 
