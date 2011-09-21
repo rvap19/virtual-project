@@ -48,6 +48,7 @@ public class InitMessage extends VirtualRisikoMessage implements middle.messages
         this.map_name=parameter.getMapName();
         this.seed_card=parameter.getSeed_cards();
         this.seed_region=parameter.getSeed_region();
+        this.names=playerNames;
         setType(MessageTypes.INIT);
         
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.INIT, null);

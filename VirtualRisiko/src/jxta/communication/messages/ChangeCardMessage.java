@@ -26,6 +26,9 @@ public class ChangeCardMessage extends VirtualRisikoMessage implements middle.me
     private int card3;
     public ChangeCardMessage(int card1,int card2,int card3){
         super();
+        this.card1=card1;
+        this.card2=card2;
+        this.card3=card3;
         setType(MessageTypes.CHANGE_CARDS);
         StringMessageElement mE=new StringMessageElement(TYPE, MessageTypes.CHANGE_CARDS, null);
         addMessageElement(namespace, mE);

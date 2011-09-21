@@ -699,9 +699,7 @@ public class StatoGiocoPanel extends javax.swing.JPanel implements StatusPeerEve
         List<Giocatore> giocatori=tavolo.getGiocatori();
         int numeroG=tavolo.getGiocatori().size();
         updatePoints(numGioc, giocatori);
-        
-        
-        Giocatore g=giocatori.get(turno);
+        System.out.println();
         this.updateGiocatore(giocatori.get(m.getTurno_successivo()));
     }
 

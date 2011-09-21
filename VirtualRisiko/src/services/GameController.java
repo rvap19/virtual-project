@@ -51,7 +51,7 @@ import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.JFrameTurno;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
-import virtualrisikoii.risiko.StatoGiocoPanel;
+
 import virtualrisikoii.risiko.Tavolo;
 import virtualrisikoii.risiko.Territorio;
 
@@ -749,7 +749,7 @@ public class GameController extends AbstractGameController implements ChatSender
         if(gameOver){
             return;
         }
-        int turno=msg.getTurno_successivo();
+        int turnoSucc=msg.getTurno_successivo();
             Tavolo tavolo=locker.acquireTavolo();
 
             
@@ -758,7 +758,7 @@ public class GameController extends AbstractGameController implements ChatSender
                 System.err.println("ricevo turno precedente");
                 return;
             }*/
-            int turnoSucc=tavolo.getTurnoSuccessivo();
+            
             if(turnoSucc==0&&tavolo.getGiocatori().get(0).getNumeroTruppe()==0){
                 tavolo.setInizializzazione(false);
             }
@@ -776,7 +776,10 @@ public class GameController extends AbstractGameController implements ChatSender
                 }
             }
             
-            
+            if(tavolo.isTurnoMyGiocatore()){
+               new JFrameTurno(tavolo.getTurnoSuccessivo()).setVisible(true);
+ 
+            }
 
             tavolo.passaTurno();
 
@@ -1050,7 +1053,7 @@ public class GameController extends AbstractGameController implements ChatSender
          }
 
         private void sendStatusMessage() throws IOException{
-            StatoGiocoPanel panel=StatoGiocoPanel.getInstance();
+            //StatoGiocoPanel panel=StatoGiocoPanel.getInstance();
             int myTurn=Tavolo.getInstance().getMyGiocatore().getID();
             List<Giocatore> giocatori=Tavolo.getInstance().getGiocatori();
             for(int i=0;i<messageReceived.length;i++){
