@@ -319,7 +319,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
             RecoveryUtil util=new RecoveryUtil();
             util.recoveryTable(parameter);
             Tavolo tavolo = Tavolo.getInstance();
-             GameController controller=GameController.getInstance();
+             GameController controller=GameController.createGameController(middle);
 
             XMapPanel panel = util.getPanel();
              app = new VirtualRisikoIIApp();

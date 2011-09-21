@@ -185,7 +185,9 @@ public class MessageSequencer implements RisikoMessageListener{
                 lock.lock();
                 buffer[received_msg_id%buffer.length]=message;
                 System.out.println("Messaggio "+received_msg_id+" bufferizzato");
-            }finally{
+            }catch(Exception ex ){
+                    ex.printStackTrace();
+            } finally{
                 lock.unlock();
             }
             

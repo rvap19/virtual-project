@@ -92,12 +92,15 @@ public class GameController extends AbstractGameController implements ChatSender
 
     public static GameController createGameController(Middle middle){
         
+        if(instance==null){
             instance=new GameController(middle);
+        }
         
         return instance;
     }
 
     public static GameController getInstance(){
+        
 
         return instance;
     }
