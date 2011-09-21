@@ -171,10 +171,11 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     public void notifyEvent(RisikoEvent event){
         
         
-        
+        System.out.println("avvio notifica evento "+event.getType()+" da "+event.getSource().playerName());
         String type=event.getType();
         Collection<RisikoEventListener> collection=this.listeners.get(type);
         if(collection!=null){
+            System.out.println("notifica dell'evento "+event.getType());
             Iterator<RisikoEventListener> iter=collection.iterator();
             while(iter.hasNext()){
                 iter.next().notify(event);

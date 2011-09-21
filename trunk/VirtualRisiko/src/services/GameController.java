@@ -1059,8 +1059,8 @@ public class GameController extends AbstractGameController implements ChatSender
         }else if(type.equals(EventTypes.PASS)){
             PassEvent x=(PassEvent)event;
             notify(x);
-        }else if(type.equals(EventTypes.RECOVERY)){
-            RecoveryEvent x=(RecoveryEvent)event;
+        }else if(type.equals(EventTypes.RECOVERY_REQUEST)){
+            RecoveryRequestEvent x=(RecoveryRequestEvent)event;
             notify(x);
         }else if(type.equals(EventTypes.PONG)){
             PongEvent x=(PongEvent)event;
@@ -1076,6 +1076,7 @@ public class GameController extends AbstractGameController implements ChatSender
         }
         
         this.reconnectionNeeds[turns.get(c.getSource().playerName())]=true;
+        System.out.println("Richiesta riconnessione "+c.getSource().playerName()+" registrata ");
         /*RecoveryUtil util=new RecoveryUtil();
         RecoveryMessage msg=(RecoveryMessage)c.getSource();
         RecoveryParameter parameter=msg.getParameter();
