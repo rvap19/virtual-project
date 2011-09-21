@@ -509,54 +509,17 @@ public class GameController extends AbstractGameController implements ChatSender
                       locker.releaseTavolo();
                       return false;
                   }
-                  azione.setNumeroTruppe(truppeSelezionate);
-                tavolo.eseguiAttacco((Attacco)azione);
+                 
                 
               
                         AttackMessage msg=this.messageBuilder.generateAttackMSG(firstSelection.getCodice(), secondSelection.getCodice(), truppeSelezionate);
                      
                        // Message msg = comunicator.createAttackMessage(truppeSelezionate, firstSelection.getCodice(), secondSelection.getCodice());
                         communicator.sendMessage(msg);
-
+                        middle.notifyMessage(msg);
                     
 
-                this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
-
-                this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
-                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());
-
-
-               
-
-                    //variabili per i dati di Luigi
-                    int [] att={0,0,0};
-                    int [] dif={0,0,0};
-
-                    int[] a=((Attacco)azione).getPunteggio();
-                    String s="";
-                    for(int i=0;i<a.length;i++){
-                        s=s+" - "+Integer.toString(a[i]);
-                        att[i]=a[i];
-                    }
-                    this.historyListener.appendActionInHistory(s);
-
-                    a=((Attacco)azione).getPunteggioAvversario();
-                     s="";
-                    for(int i=0;i<a.length;i++){
-                        s=s+" - "+Integer.toString(a[i]);
-                        dif[i]=a[i];
-                    }
-                    this.historyListener.appendActionInHistory(s);
-
-                    //lancia il panel di Luigi
-                    System.out.println();
-                    this.mapListener.notifyAttacco("Attacco da"+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(), att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID());
-//                    new dadiGui("Attacco da "+azione.getDaTerritorio().getNome()+" a "+azione.getaTerritorio().getNome(),att[0],att[1],att[2],dif[0],dif[1],dif[2],attaccante.getID(),difensore.getID()).setVisible(true);
-
-                if(tavolo.controllaObiettivoGiocatore(tavolo.getGiocatoreCorrente())){
-
-                   this.notifyVictory(tavolo.getGiocatori(), tavolo.getGiocatoreCorrente(),true);
-                }
+                
                 locker.releaseTavolo();
                 return true;
             }
@@ -589,35 +552,19 @@ public class GameController extends AbstractGameController implements ChatSender
                         locker.releaseTavolo();
                         return false;
                     }
-                    azione.setNumeroTruppe(truppeSelezionate);
-                    tavolo.eseguiSpostamento((Spostamento) azione);
+                    
                     timer.stopTimer();
 
 
-                    //codice per il recupero carta
-                    Carta carta=tavolo.recuperaCarta(corrente);
-                    if(carta!=null){
-                        String s="null";
-                        Territorio territorio=carta.getTerritorio();
-                        if(territorio!=null){
-                            s=territorio.getNome();
-                        }
-                        this.cardListener.notifyCard(carta.getCodice(), s);
-                    }
-                    tavolo.passaTurno();
-                    corrente=tavolo.getGiocatoreCorrente();
-                //    new JFrameTurno(corrente.getID()).setVisible(true);
-                    this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                     
                         MovementMessage msg1=this.messageBuilder.generateMovementMSG(firstSelection.getCodice(), secondSelection.getCodice(), truppeSelezionate);
                         //Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         communicator.sendMessage(msg1);
+                        middle.notifyMessage(msg1);
                         PassMessage msg2=this.messageBuilder.generatePassMSG(tavolo.getTurno());
                         
-                        StatoGiocoPanel.instance.updateGiocatore(corrente);
-                        playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                         communicator.sendMessage(msg2);
-                        
+                        middle.notifyMessage(msg2);
 
 
                     
@@ -625,10 +572,7 @@ public class GameController extends AbstractGameController implements ChatSender
                     
 
                     
-                    this.historyListener.appendActionInHistory(azione.toString()); //setAzione(azione.toString());
-                this.mapListener.setLabelAttributes(azione.getDaTerritorio().getCodice(), azione.getDaTerritorio().getNumeroUnita(), azione.getDaTerritorio().getOccupante().getID());
-                this.mapListener.setLabelAttributes(azione.getaTerritorio().getCodice(), azione.getaTerritorio().getNumeroUnita(), azione.getaTerritorio().getOccupante().getID());                
-                
+                    
                     locker.releaseTavolo();
                     return true;
 
@@ -705,13 +649,13 @@ public class GameController extends AbstractGameController implements ChatSender
         Giocatore corrente=tavolo.getGiocatoreCorrente();
 
         if(tavolo.getGiocatoreCorrente().getNumeroTruppe()>0&&t.getOccupante()==corrente){
-            if(tavolo.assegnaUnita(t)){
+            if(tavolo.canAssegnaUnita(t)){
                 try {
                         ApplianceMessage msg=this.messageBuilder.generateApplianceMSG(t.getCodice(), 1); 
                                 //new ApplianceMessage(1, t.getCodice());
                        // Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
                         communicator.sendMessage(msg);
-                        this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
+                        middle.notifyMessage(msg);
                         if(tavolo.getGiocatoreCorrente().getNumeroTruppe()==0){
                             
                             timer.setInterval(GameTimer.ACTION);
@@ -720,8 +664,7 @@ public class GameController extends AbstractGameController implements ChatSender
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                this.mapListener.setLabelAttributes(t.getCodice(), t.getNumeroUnita(), t.getOccupante().getID());
-
+                
             }
             locker.releaseTavolo();
             return;
@@ -751,20 +694,19 @@ public class GameController extends AbstractGameController implements ChatSender
         if(tavolo.isInizializzazione()){
             if(truppeSelezionate<3&&tavolo.getGiocatoreCorrente().getNumeroTruppe()>0){
 
-                if(tavolo.assegnaUnita(t)){
+                if(tavolo.canAssegnaUnita(t)){
                     try {
                         ApplianceMessage msg=this.messageBuilder.generateApplianceMSG(t.getCodice(), 1); 
                                 //new ApplianceMessage(1, t.getCodice());
                       //  Message msg = comunicator.createApplicanceMessage(1, t.getCodice());
                         communicator.sendMessage(msg);
-
+                        middle.notifyMessage(msg);
                         truppeSelezionate++;
-                        this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
-                this.mapListener.setLabelAttributes(terrID, t.getNumeroUnita(), t.getOccupante().getID());
+                
             }
             if((truppeSelezionate==3)||(corrente.getNumeroTruppe()==0)){
                 try{
@@ -772,27 +714,17 @@ public class GameController extends AbstractGameController implements ChatSender
                     timer.stopTimer();
                    
                     
-                    if((tavolo.getTurno()==(tavolo.getGiocatori().size()-1))&&(corrente.getNumeroTruppe()==0)){
-                        tavolo.setInizializzazione(false);
-                    }
-                    tavolo.passaTurno();
-                    Giocatore prossimo=tavolo.getGiocatoreCorrente();
-                    this.playerDataListener.updateDatiGiocatore(prossimo.getNome(), prossimo.getNumeroTruppe(), prossimo.getArmateDisposte(), prossimo.getNazioni().size());
-                 //   Message msg=comunicator.createPassesMessage(tavolo.getTurnoSuccessivo());
-                    PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurno()); 
+                    
+                    
+                    
+                    PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurnoSuccessivo()); 
                             //new PassMessage(tavolo.getTurno());
                     communicator.sendMessage(msg);
-                    Giocatore g=tavolo.getGiocatoreCorrente();
-                    StatoGiocoPanel.instance.updateGiocatore(g);
-                    playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
-                    
-                    new JFrameTurno(prossimo.getID()).setVisible(true);
-                    
+                    middle.notifyMessage(msg);
 
                 }catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                this.playerDataListener.updateDatiGiocatore(corrente.getNome(), corrente.getNumeroTruppe(), corrente.getArmateDisposte(), corrente.getNazioni().size());
                 truppeSelezionate=0;
             }
 
@@ -808,6 +740,7 @@ public class GameController extends AbstractGameController implements ChatSender
         
        
             this.communicator.sendMessage(msg);
+            middle.notifyMessage(msg);
        
     }
 
@@ -883,7 +816,7 @@ public class GameController extends AbstractGameController implements ChatSender
         }
         
         
-        Giocatore giocatore=Tavolo.getInstance().getGiocatoreCorrente();
+        
         int troops=tavolo.getGiocatoreCorrente().getNumeroTruppe();
         if(troops>0&&!tavolo.isInizializzazione()){
             this.autoDispose(troops);
@@ -891,40 +824,19 @@ public class GameController extends AbstractGameController implements ChatSender
         this.timer.stopTimer();
         if((!tavolo.isInizializzazione())){
             //codice per il recupero carta
-            Carta carta=tavolo.recuperaCarta(giocatore);
-            if(carta!=null){
-                String s="null";
-                Territorio territorio=carta.getTerritorio();
-                if(territorio!=null){
-                    s=territorio.getNome();
-                }
-                this.cardListener.notifyCard(carta.getCodice(), s);
-            }
-            tavolo.passaTurno();
+           
             PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurno()); 
                     //new PassMessage(tavolo.getTurno());
-            Giocatore g=tavolo.getGiocatoreCorrente();
-            StatoGiocoPanel.instance.updateGiocatore(g);
-            playerDataListener.updateDatiGiocatore(g.getNome(), g.getNumeroTruppe(), g.getArmateDisposte(), g.getNazioni().size());
-
-            try {
+            
+            
                         //Thread.sleep(3000);
                         this.communicator.sendMessage(msg);
-                        
+                        middle.notifyMessage(msg);
 
-
-                    } catch (Exception  ex) {
-                        ex.printStackTrace();
-                    }
            
 
     //        new JFrameTurno(g.getID()).setVisible(true);
-            this.playerDataListener.updateDatiGiocatore(g.getNome(),g.getNumeroTruppe(),g.getArmateDisposte(),g.getNazioni().size());
-            if(tavolo.gameOver()){
-                List<Giocatore> giocatori=tavolo.getGiocatori();
-                Giocatore bestP=this.findBestGiocatore(giocatori);
-                this.notifyVictory(giocatori, bestP, false);
-            }
+            
         }
         
         locker.releaseTavolo();
@@ -1134,6 +1046,7 @@ public class GameController extends AbstractGameController implements ChatSender
                     RisikoMessage msg=messageBuilder.generateStatusPeerMSG(i, messageReceived[i]||reconnectionNeeds[i]||i==myTurn);
                     
                     communicator.sendMessage(msg);
+                    middle.notifyMessage(msg);
                    // panel.updateStatus((StatusPeerMessage) msg);
                 
             }

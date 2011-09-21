@@ -330,8 +330,27 @@ public  class Tavolo {
     public boolean assegnaUnita(Territorio t){
         return this.assegnaUnita(1,t);
     }
+    
+    public boolean canAssegnaUnita(int unita,Territorio territorio){
+        Giocatore g=territorio.getOccupante();
+        if(this.giocatori.get(turno)!=territorio.getOccupante()){
+            return false;
+        }
+        
+        if(unita>territorio.getOccupante().getNumeroTruppe()){
+            return false;
+        }
+
+        
+        return true;
+    }
+
+    public boolean canAssegnaUnita(Territorio t){
+        return this.canAssegnaUnita(1, t);
+    }
 
 
+    
 
 
     private void assegnaTerritori(int seed){

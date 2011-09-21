@@ -95,11 +95,7 @@ public class MessageSequencer implements RisikoMessageListener{
                     return;
          }
         
-        if(type.equals(MessageTypes.CHAT)){
-                this.notifier.notifyMessage(message);
-                
-                return;
-            }
+        
         
         if(type.equals(MessageTypes.CHAT)||type.equals(MessageTypes.PING)||type.equals(MessageTypes.PONG)||type.equals(MessageTypes.ACK)||type.equals(MessageTypes.STATUS_PEER)){
                 this.notifier.notifyMessage(message);
