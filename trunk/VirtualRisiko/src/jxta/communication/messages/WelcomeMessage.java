@@ -27,6 +27,7 @@ public class WelcomeMessage extends VirtualRisikoMessage implements middle.messa
 
         StringMessageElement mElement = new StringMessageElement(PEER_NAME,welcomePlayerName, null);
         addMessageElement(namespace, mElement);
+        this.welcomeName=welcomeName;
         
     }
 
