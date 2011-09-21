@@ -45,7 +45,7 @@ public class RecoveryUtil {
         parameter.setElapsedTurns(tavolo.getTurnElapsed());
         parameter.setTurno(tavolo.getTurno());
         parameter.setPlayersNames(getPlayersNames(tavolo));
-        parameter.setTurnoMyGiocatore(tavolo.getGiocatori().indexOf(tavolo.getMyGiocatore()));
+        parameter.setTurnoMyGiocatore(tavolo.getTurno());
         parameter.setCarteGiocatori(this.getCarte(tavolo));
         parameter.setPosizioneCarte(this.getPosizioneCarte(tavolo));
         return parameter;
