@@ -282,6 +282,8 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
         }
         communicator.remove(name);
         communicator.put(name, pipe);
+        pipe.setRisikoMessageNotifier(sequencer);
+        pipe.setSequencer(sequencer);
         RecoveryRequestEvent event=new RecoveryRequestEvent((WelcomeMessage)msg);
         this.notifyEvent(event);
         
