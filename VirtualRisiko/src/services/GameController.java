@@ -764,7 +764,19 @@ public class GameController extends AbstractGameController implements ChatSender
             }
 
             Giocatore precedente=tavolo.getGiocatoreCorrente();
-            tavolo.recuperaCarta(precedente);
+            Carta carta=tavolo.recuperaCarta(precedente);
+            if(tavolo.isTurnoMyGiocatore()){
+                if(carta!=null){
+                    String s="null";
+                    Territorio territorio=carta.getTerritorio();
+                    if(territorio!=null){
+                        s=territorio.getNome();
+                    }
+                    this.cardListener.notifyCard(carta.getCodice(), s);
+                }
+            }
+            
+            
 
             tavolo.passaTurno();
 
