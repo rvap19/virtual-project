@@ -561,7 +561,7 @@ public class GameController extends AbstractGameController implements ChatSender
                         //Message msg = comunicator.createMovementMessage(truppeSelezionate, firstSelection.getCodice(),secondSelection.getCodice());
                         communicator.sendMessage(msg1);
                         middle.notifyMessage(msg1);
-                        PassMessage msg2=this.messageBuilder.generatePassMSG(tavolo.getTurno());
+                        PassMessage msg2=this.messageBuilder.generatePassMSG(tavolo.getTurnoSuccessivo());
                         
                         communicator.sendMessage(msg2);
                         middle.notifyMessage(msg2);
@@ -825,7 +825,7 @@ public class GameController extends AbstractGameController implements ChatSender
         if((!tavolo.isInizializzazione())){
             //codice per il recupero carta
            
-            PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurno()); 
+            PassMessage msg=this.messageBuilder.generatePassMSG(tavolo.getTurnoSuccessivo()); 
                     //new PassMessage(tavolo.getTurno());
             
             
