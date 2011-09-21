@@ -83,29 +83,48 @@ public class MessageSequencer implements RisikoMessageListener{
     
 
     public void insertMessage(RisikoMessage message)throws NumberFormatException{
-
-        int received_msg_id=0;
-        String type=message.getType();
         String player=message.playerName();
-        
-        received_msg_id=message.getMSG_ID();
-       
-       // System.out.println("Waiting for ::: "+currentMessageID);
-        int currentID=currentMSG_ID.get();
-        System.out.println("Waiting for ::: "+currentID);
-        
-        System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+received_msg_id);
-
-
-        if(type.equals(MessageTypes.CHAT)){
-            this.notifier.notifyMessage(message);
-            return;
-        }
-
-        if(player.equals(myPlayername)){
-
+        String type=message.getType();
+        if(!enabled){
+                this.notifier.notifyMessage(message);
                 return;
             }
+        
+        if(player.equals(myPlayername)){
+                    
+                    return;
+         }
+        
+        if(type.equals(MessageTypes.CHAT)){
+                this.notifier.notifyMessage(message);
+                
+                return;
+            }
+        
+        if(type.equals(MessageTypes.CHAT)||type.equals(MessageTypes.PING)||type.equals(MessageTypes.PONG)||type.equals(MessageTypes.ACK)||type.equals(MessageTypes.STATUS_PEER)){
+                this.notifier.notifyMessage(message);
+                
+                return;
+            }
+        
+        try{
+            lock.lock();
+            int received_msg_id=0;
+            
+            
+        
+            received_msg_id=message.getMSG_ID();
+       
+            // System.out.println("Waiting for ::: "+currentMessageID);
+            int currentID=currentMSG_ID.get();
+            System.out.println("Waiting for ::: "+currentID);
+
+            System.out.println("@@@@ NEW MESSAGE RECEIVED ::: "+type+" FROM "+player+" MSG_ID "+received_msg_id);
+
+
+            
+
+            
 
    /*     if(type.equalsIgnoreCase(MessageTypes.RETRASMISSION_REQUEST)){
             RetrasmissionRequestMessage request=new RetrasmissionRequestMessage(message);
@@ -128,23 +147,25 @@ public class MessageSequencer implements RisikoMessageListener{
 
         }*/
 
-        if(type.equals(MessageTypes.INIT)){
-            System.out.println("# connessione con msg id "+received_msg_id);
-            this.permitRetrasmissionRequest=true;
-         //   this.currentMessageID=i;
-            this.currentMSG_ID.set(received_msg_id);
-            notifyMessage(received_msg_id,message);
-            return;
-        }
+            if(type.equals(MessageTypes.INIT)){
+                System.out.println("# connessione con msg id "+received_msg_id);
+                this.permitRetrasmissionRequest=true;
+             //   this.currentMessageID=i;
+                this.currentMSG_ID.set(received_msg_id);
+                notifyMessage(received_msg_id,message);
+                lock.unlock();
+                return;
+            }
 
-        if(type.equals(MessageTypes.RECOVERY)){
-            System.out.println("## riconnessione con msg id "+received_msg_id);
-            this.permitRetrasmissionRequest=true;
-           // this.currentMessageID=i-1;
-            this.currentMSG_ID.set(received_msg_id-1);
-            notifyMessage(received_msg_id,message);
-            return;
-        }
+            if(type.equals(MessageTypes.RECOVERY)){
+                System.out.println("## riconnessione con msg id "+received_msg_id);
+                this.permitRetrasmissionRequest=true;
+               // this.currentMessageID=i-1;
+                this.currentMSG_ID.set(received_msg_id-1);
+                notifyMessage(received_msg_id,message);
+                lock.unlock();
+                return;
+            }
 
 
 
@@ -163,10 +184,7 @@ public class MessageSequencer implements RisikoMessageListener{
             }*/
 
 
-        if(!enabled){
-            this.notifier.notifyMessage(message);
-            return;
-        }
+            
 
         
         
@@ -175,21 +193,14 @@ public class MessageSequencer implements RisikoMessageListener{
 
 
 
-        if(type.equals(MessageTypes.CHAT)||type.equals(MessageTypes.PING)||type.equals(MessageTypes.PONG)||type.equals(MessageTypes.ACK)||type.equals(MessageTypes.STATUS_PEER)){
-            this.notifier.notifyMessage(message);
-            return;
-        }
+            
 
         
-            try{
-                lock.lock();
+            
+                
                 buffer[received_msg_id%buffer.length]=message;
                 System.out.println("Messaggio "+received_msg_id+" bufferizzato");
-            }catch(Exception ex ){
-                    ex.printStackTrace();
-            } finally{
-                lock.unlock();
-            }
+            
             
 
             if(currentID==received_msg_id){
@@ -197,13 +208,18 @@ public class MessageSequencer implements RisikoMessageListener{
                 notifyMessage(received_msg_id,message);
 
             }
+        }catch(Exception ex ){
+                ex.printStackTrace();
+        } finally{
+            lock.unlock();
+        }
             
         
     }
 
     private void notifyMessage(int i,RisikoMessage message){
-        try{
-            lock.lock();
+     //   try{
+          //  lock.lock();
             currentMSG_ID.getAndIncrement();
             this.notifier.notifyMessage(message);
             
@@ -220,12 +236,12 @@ public class MessageSequencer implements RisikoMessageListener{
                     position=currentMSG_ID.get()%buffer.length;
                 
             }
-        }catch(Exception ex){
+       /* }catch(Exception ex){
             ex.printStackTrace();
         }
         finally{
             lock.unlock();
-        }
+        }*/
     }
 
   
