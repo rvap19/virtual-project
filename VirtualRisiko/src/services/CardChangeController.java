@@ -38,8 +38,9 @@ public class CardChangeController {
 
     public boolean jollyAvailable;
 
+
     public CardChangeController (){
-        messageBuilder=new JXTARisikoMessageGenerator(GameController.getInstance().getNomeMyGiocatore());
+       // messageBuilder=new JXTARisikoMessageGenerator(GameController.getInstance().getNomeMyGiocatore());
     }
 
     public boolean isJollyAvailable() {
@@ -85,7 +86,7 @@ public class CardChangeController {
                cavalieri.add(current);
            }else if(current.getCodice()==Carta.FANTE){
                fanti.add(current);
-           }else{
+           }else if(current.getCodice()==Carta.JOLLY){
                jolly.add(current);
            }
        }

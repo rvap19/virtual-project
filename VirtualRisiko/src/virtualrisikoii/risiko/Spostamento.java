@@ -14,9 +14,7 @@ public class Spostamento extends Azione{
    public Spostamento(){
        super.type=Azione.SPOSTAMENTO;
    }
-
-
-  
+ 
 
     @Override
     public void eseguiAzione() {
