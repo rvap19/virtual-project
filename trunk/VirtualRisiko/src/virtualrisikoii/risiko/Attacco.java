@@ -63,6 +63,7 @@ public class Attacco extends Azione{
                 
             }
         }
+       
 
         this.aTerritorio.setNumeroUnita(this.aTerritorio.getNumeroUnita()+this.numeroTruppeAvversario);
         
@@ -133,7 +134,7 @@ public class Attacco extends Azione{
         return "Attacco da "+super.daTerritorio.getNome()+" a "+super.aTerritorio.getNome()+" con "+this.punteggio.length+" truppe ";
     }
 
-    int getNumeroTruppeInAttacco() {
+    public int getNumeroTruppeInAttacco() {
         return this.numeroTruppeAttacco;
     }
 
