@@ -40,14 +40,14 @@ import virtualrisikoii.risiko.Territorio;
  */
 
  @RunWith(JMock.class)
-public class ControllerJmockTest1 {
+public class ControllerJmockTest4 {
 
   Mockery context_1 = new Mockery();
   Mockery context_2 = new Mockery();
   Mockery context_3 = new Mockery();
 
   /*
-   * test per la  notifica di un messaggio di disposizione armata inviato dal giocatore di turno per un numero di truppe superiore al numero delle sue armate disponibili
+   * test per la  notifica di un messaggio di disposizione armata inviato dal giocatore di turno avente ancora la possibilita di disporre armate
    */
      @Test
      public void testNotifyApplianceJMock() throws Exception
@@ -85,8 +85,8 @@ public class ControllerJmockTest1 {
 
          final int numTruppeterritorioPrima=1;
          final int numerotruppeGiocatorePrima=21;
-         final int truppe=50;
-          final String message="Il giocatore rosso posiziona "+truppe+" in Alaska"+" -> ERRORE :: turno "+Tavolo.getInstance().getTurno()+" tavolo in init? "+Tavolo.getInstance().isInizializzazione();
+         final int truppe=1;
+          final String message="Il giocatore rosso posiziona 1 in Alaska";
           controller.setHistoryListener(historyListenerMock);
           controller.setMapListener(mapListenerMock);
           controller.setPlayerDataListener(dataListenerMock);
@@ -97,7 +97,7 @@ public class ControllerJmockTest1 {
           context_1.checking( new Expectations()
 		 {
 			 {
-				 never( mapListenerMock ).setLabelAttributes(with(territorioID), with(numeroTruppeDopoMessaggio), with(idGiocatore));
+				 oneOf( mapListenerMock ).setLabelAttributes(with(territorioID), with(numeroTruppeDopoMessaggio), with(idGiocatore));
 
 			 }
 		 });
@@ -105,7 +105,7 @@ public class ControllerJmockTest1 {
           context_2.checking( new Expectations()
 		 {
 			 {
-				 never( dataListenerMock ).updateDatiGiocatore(with("giocatore rosso"), with(numerotruppeDisponibili), with(numeroTruppeDisposte),with(numeroNazioniOccupate));
+				 oneOf( dataListenerMock ).updateDatiGiocatore(with("giocatore rosso"), with(numerotruppeDisponibili), with(numeroTruppeDisposte),with(numeroNazioniOccupate));
 
 			 }
 		 });
@@ -126,8 +126,8 @@ public class ControllerJmockTest1 {
           controller.notify(event);
 
           
-          Assert.assertEquals(t.getNumeroUnita(), numTruppeterritorioPrima);
-          Assert.assertEquals(giocatore.getNumeroTruppe(), numerotruppeGiocatorePrima);
+          Assert.assertEquals(t.getNumeroUnita(), numTruppeterritorioPrima+truppe);
+          Assert.assertEquals(giocatore.getNumeroTruppe(), numerotruppeGiocatorePrima-truppe);
 
      }
 

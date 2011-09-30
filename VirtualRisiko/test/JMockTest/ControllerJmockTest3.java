@@ -40,14 +40,14 @@ import virtualrisikoii.risiko.Territorio;
  */
 
  @RunWith(JMock.class)
-public class ControllerJmockTest1 {
+public class ControllerJmockTest3 {
 
   Mockery context_1 = new Mockery();
   Mockery context_2 = new Mockery();
   Mockery context_3 = new Mockery();
 
   /*
-   * test per la  notifica di un messaggio di disposizione armata inviato dal giocatore di turno per un numero di truppe superiore al numero delle sue armate disponibili
+   * test per la  notifica di un messaggio di disposizione armata inviato da un  giocatore cui non spetta di turno che la possibilita di disporre armate
    */
      @Test
      public void testNotifyApplianceJMock() throws Exception
@@ -65,28 +65,29 @@ public class ControllerJmockTest1 {
          final GameController controller=GameController.createGameController(middle);
 
         
-         final Giocatore giocatore=tavolo.getMyGiocatore();
+         final Giocatore giocatore=tavolo.getGiocatori().get(0);
+         giocatore.setNumeroTruppe(0);
+         
          final MapListener mapListenerMock=context_1.mock(MapListener.class);
          final PlayerDataListener dataListenerMock=context_2.mock(PlayerDataListener.class);
          final HistoryListener historyListenerMock=context_3.mock(HistoryListener.class);
 
-         final int territorioID=0;
-         final int numeroTruppeDopoMessaggio=2;
+         
+         final int numeroTruppeDopoMessaggio=1;
          final int idGiocatore=giocatore.getID();
-         final int numerotruppeDisponibili=20;
+         final int numerotruppeDisponibili=0;
          final int numeroTruppeDisposte=16;
          final int numeroNazioniOccupate=15;
 
          Mappa m=tavolo.getMappa();
-         Territorio t=m.getTerritorio(territorioID);
-         t.setOccupante(giocatore);
-         giocatore.getNazioni().add(t);
+         final int territorioID=giocatore.getNazioni().iterator().next().getCodice();
+         
 
 
-         final int numTruppeterritorioPrima=1;
-         final int numerotruppeGiocatorePrima=21;
-         final int truppe=50;
-          final String message="Il giocatore rosso posiziona "+truppe+" in Alaska"+" -> ERRORE :: turno "+Tavolo.getInstance().getTurno()+" tavolo in init? "+Tavolo.getInstance().isInizializzazione();
+         final int numTruppeterritorioPrima=m.getTerritorio(territorioID).getNumeroUnita();
+         final int numerotruppeGiocatorePrima=giocatore.getNumeroTruppe();
+         final int truppe=1;
+          final String message="Il giocatore rosso posiziona 1 in "+m.getTerritorio(territorioID).getNome()+" -> ERRORE :: turno 0 tavolo in init? true";
           controller.setHistoryListener(historyListenerMock);
           controller.setMapListener(mapListenerMock);
           controller.setPlayerDataListener(dataListenerMock);
@@ -120,13 +121,13 @@ public class ControllerJmockTest1 {
 
          //Excution
 
-          ApplianceMessage msg=new ApplianceMessage(truppe, t.getCodice());
+          ApplianceMessage msg=new ApplianceMessage(truppe, territorioID);
 
           ApplianceEvent event=new ApplianceEvent(msg);
           controller.notify(event);
 
           
-          Assert.assertEquals(t.getNumeroUnita(), numTruppeterritorioPrima);
+          Assert.assertEquals(m.getTerritorio(territorioID).getNumeroUnita(), numTruppeterritorioPrima);
           Assert.assertEquals(giocatore.getNumeroTruppe(), numerotruppeGiocatorePrima);
 
      }
