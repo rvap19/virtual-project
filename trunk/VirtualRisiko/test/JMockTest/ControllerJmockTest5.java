@@ -15,6 +15,7 @@ import middle.event.ApplianceEvent;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.Sequence;
 import org.jmock.integration.junit4.JMock;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,14 +41,14 @@ import virtualrisikoii.risiko.Territorio;
  */
 
  @RunWith(JMock.class)
-public class ControllerJmockTest1 {
+public class ControllerJmockTest5 {
 
   Mockery context_1 = new Mockery();
   Mockery context_2 = new Mockery();
   Mockery context_3 = new Mockery();
 
   /*
-   * test per la  notifica di un messaggio di disposizione armata inviato dal giocatore di turno per un numero di truppe superiore al numero delle sue armate disponibili
+   * test per la  notifica di un messaggio di disposizione armata inviato dal giocatore di turno avente ancora la possibilita di disporre armate
    */
      @Test
      public void testNotifyApplianceJMock() throws Exception
@@ -85,27 +86,35 @@ public class ControllerJmockTest1 {
 
          final int numTruppeterritorioPrima=1;
          final int numerotruppeGiocatorePrima=21;
-         final int truppe=50;
-          final String message="Il giocatore rosso posiziona "+truppe+" in Alaska"+" -> ERRORE :: turno "+Tavolo.getInstance().getTurno()+" tavolo in init? "+Tavolo.getInstance().isInizializzazione();
+         final int truppe=1;
+          final String message="Il giocatore rosso posiziona 1 in Alaska";
+          final String message2="Il giocatore rosso posiziona 1 in "+m.getTerritorio(territorioID).getNome()+" -> ERRORE :: turno 0 tavolo in init? true";
           controller.setHistoryListener(historyListenerMock);
           controller.setMapListener(mapListenerMock);
           controller.setPlayerDataListener(dataListenerMock);
 
+          final Sequence map = context_1.sequence("map");
+          final Sequence dati=context_2.sequence("dati"); 
+          final Sequence history=context_3.sequence("hist"); 
 
                //Expectation
 
           context_1.checking( new Expectations()
 		 {
 			 {
-				 never( mapListenerMock ).setLabelAttributes(with(territorioID), with(numeroTruppeDopoMessaggio), with(idGiocatore));
-
+				 oneOf( mapListenerMock ).setLabelAttributes(with(territorioID), with(numeroTruppeDopoMessaggio), with(idGiocatore));inSequence(map);
+                                 oneOf( mapListenerMock ).setLabelAttributes(with(territorioID), with(numeroTruppeDopoMessaggio+truppe), with(idGiocatore));inSequence(map);
+                                 oneOf( mapListenerMock ).setLabelAttributes(with(territorioID), with(numeroTruppeDopoMessaggio+truppe+truppe), with(idGiocatore));inSequence(map);
+                                 
 			 }
 		 });
 
           context_2.checking( new Expectations()
 		 {
 			 {
-				 never( dataListenerMock ).updateDatiGiocatore(with("giocatore rosso"), with(numerotruppeDisponibili), with(numeroTruppeDisposte),with(numeroNazioniOccupate));
+				 oneOf( dataListenerMock ).updateDatiGiocatore(with("giocatore rosso"), with(numerotruppeDisponibili), with(numeroTruppeDisposte),with(numeroNazioniOccupate));inSequence(dati);
+                                 oneOf( dataListenerMock ).updateDatiGiocatore(with("giocatore rosso"), with(numerotruppeDisponibili-truppe), with(numeroTruppeDisposte+truppe),with(numeroNazioniOccupate));inSequence(dati);
+                                 oneOf( dataListenerMock ).updateDatiGiocatore(with("giocatore rosso"), with(numerotruppeDisponibili-truppe-truppe), with(numeroTruppeDisposte+truppe+truppe),with(numeroNazioniOccupate));inSequence(dati);
 
 			 }
 		 });
@@ -113,7 +122,8 @@ public class ControllerJmockTest1 {
            context_3.checking( new Expectations()
 		 {
 			 {
-				 oneOf( historyListenerMock ).appendActionInHistory(message);
+				 exactly(3).of( historyListenerMock ).appendActionInHistory(message);inSequence(history);
+                                 oneOf(historyListenerMock).appendActionInHistory(message2);inSequence(history);
 
 			 }
 		 });
@@ -124,10 +134,11 @@ public class ControllerJmockTest1 {
 
           ApplianceEvent event=new ApplianceEvent(msg);
           controller.notify(event);
-
-          
-          Assert.assertEquals(t.getNumeroUnita(), numTruppeterritorioPrima);
-          Assert.assertEquals(giocatore.getNumeroTruppe(), numerotruppeGiocatorePrima);
+          controller.notify(event);
+          controller.notify(event);
+          controller.notify(event);
+          /*Assert.assertEquals(t.getNumeroUnita(), numTruppeterritorioPrima+truppe);
+          Assert.assertEquals(giocatore.getNumeroTruppe(), numerotruppeGiocatorePrima-truppe);*/
 
      }
 
