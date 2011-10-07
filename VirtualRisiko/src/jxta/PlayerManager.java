@@ -25,7 +25,7 @@ import net.jxta.platform.NetworkManager;
 public class PlayerManager extends middle.management.PlayerManager{
     
     private NetworkManager MyNetworkManager;
-    private   int TcpPort;// = 9721;
+    private   int TcpPort = 9721;
 
     private PeerID PID;// = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
     private File ConfigurationFile;// = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
@@ -38,7 +38,7 @@ public class PlayerManager extends middle.management.PlayerManager{
     }
     public PlayerManager(String name,int tcpPort){
         this.Name=name;
-        this.TcpPort=tcpPort;
+      //  this.TcpPort=tcpPort;
         PID=IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
         ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + "config_file"+ System.getProperty("file.separator") + Name);
     }
@@ -76,7 +76,7 @@ public class PlayerManager extends middle.management.PlayerManager{
 
             MyNetworkConfigurator.clearRendezvousSeeds();
             if(seed!=null){
-                URI TheSeed = URI.create("tcp://"+seed+":9701");
+                URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
             }
 
@@ -96,6 +96,7 @@ public class PlayerManager extends middle.management.PlayerManager{
              NetPeerGroup  = new JXTAPeerGroup(MyNetworkManager.startNetwork());
         } catch (PeerGroupException ex) {
             System.out.println("PG Exception starting network");
+            ex.printStackTrace();
             System.exit(-1);
         }
             JXTAPeerGroup pG=(JXTAPeerGroup) NetPeerGroup;

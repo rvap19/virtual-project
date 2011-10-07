@@ -266,6 +266,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
 
     }
 
+    
     public boolean startCreatedGame(String gamaName) throws IOException{
         GameAdvertisement gameAdv = this.games.get(gamaName);
         if(manager==null){
@@ -386,9 +387,10 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
 
     }
 
-
+protected boolean startedGame=false;
     protected void startGame(){
         try {
+            startedGame=true;
             int myTurno=0;
             
             List<String> names=middle.getPlayerNames();
