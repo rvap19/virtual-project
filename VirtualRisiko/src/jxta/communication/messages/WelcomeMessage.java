@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package jxta.communication.messages;
+package jxta.communication.messages; 
 
 import middle.MessageTypes;
 import net.jxta.endpoint.Message;

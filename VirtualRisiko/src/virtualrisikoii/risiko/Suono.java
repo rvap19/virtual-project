@@ -19,14 +19,14 @@ public class Suono {
     new Thread(new Runnable() {
             @Override
       public void run() {
-        try {
+       /* try {
           Clip clip = AudioSystem.getClip();
           AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream(url));
           clip.open(inputStream);
           clip.start();
         } catch (Exception e) {
           System.err.println(e.getMessage());
-        }
+        }*/
       }
     }).start();
   }

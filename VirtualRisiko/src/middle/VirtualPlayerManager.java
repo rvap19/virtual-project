@@ -268,6 +268,9 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
 
     public boolean startCreatedGame(String gamaName) throws IOException{
         GameAdvertisement gameAdv = this.games.get(gamaName);
+        if(manager==null){
+            return false;
+        }
         this.manager.createRegistration(gameAdv.getGameID());
         if (this.myName.equals(gameAdv.getCreatorID())) {
             this.registrations.put(manager.getMyRegistrationAdvertisement().getPeerID(), manager.getMyRegistrationAdvertisement());
