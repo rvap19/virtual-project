@@ -27,12 +27,7 @@ import remote.Risiko;
 import domain.Game;
 import domain.Gameregistration;
 import domain.User;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.net.MalformedURLException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jboss.remoting.Client;
 import org.jboss.remoting.InvokerLocator;
 
