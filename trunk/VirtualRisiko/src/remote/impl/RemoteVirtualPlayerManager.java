@@ -179,6 +179,17 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
         game=server.createGame(game);
         
         server.registerPlayer(game,myself );
+        
+        while(!super.startedGame){
+            manager.findPipes();
+            manager.findPlayers();
+            manager.findGames();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override
