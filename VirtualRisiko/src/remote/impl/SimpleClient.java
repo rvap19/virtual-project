@@ -61,7 +61,7 @@ public class SimpleClient implements Risiko
        System.out.println("### inserire indirizzo server");
        Scanner scanner=new Scanner(System.in);
        String address=scanner.nextLine();
-       if(address!=null && address.trim().equals("")){
+       if(address!=null && !address.trim().equals("")){
            host=address;
        }
    }
