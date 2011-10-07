@@ -41,12 +41,12 @@ import remote.data.RegistrationData;
  *
  * @author <a href="mailto:telrod@e2technologies.net">Tom Elrod</a>
  */
-public class SimpleClient implements Risiko
+public  class SimpleClient implements Risiko
 {
    // Default locator values
    private static String transport = "socket";
    private static String host = "localhost";
-   private static int port = 5400;
+   private static int port = SimpleServer.port;
    private String locatorURI;
    
    public SimpleClient() throws Throwable{

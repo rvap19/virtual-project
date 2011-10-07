@@ -43,7 +43,7 @@ public class PlayerManager extends middle.management.PlayerManager{
         ConfigurationFile=new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + "config_file"+ System.getProperty("file.separator") + Name);
     }
 
-    
+    @Override
     public void init(String seed,boolean startAsRendezvous) throws IOException{
         super.init(seed, startAsRendezvous);
        AdvertisementFactory.registerAdvertisementInstance(
@@ -76,8 +76,8 @@ public class PlayerManager extends middle.management.PlayerManager{
 
             MyNetworkConfigurator.clearRendezvousSeeds();
             if(seed!=null){
-                URI TheSeed = URI.create(seed);
-                MyNetworkConfigurator.addSeedRendezvous(TheSeed);
+                URI TheSeed = URI.create("tcp://"+seed+":9701");
+                MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
             }
 
             
