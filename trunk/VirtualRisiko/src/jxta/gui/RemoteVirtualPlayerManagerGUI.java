@@ -294,7 +294,7 @@ public class RemoteVirtualPlayerManagerGUI extends javax.swing.JFrame implements
          if(!gameDialog.isConfirmed()){
              return;
          }
-         this.jButton1.setEnabled(local);
+        // this.jButton1.setEnabled(local);
         try {
              this.virtualPlayerManager.creategame(name,mapName,maxPlayers,maxTurns);    
         } catch (IOException ex) {

@@ -93,7 +93,13 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             
             MyNetworkConfigurator.setTcpOutgoing(true);
             MyNetworkConfigurator.setUseMulticast(true);
-            
+            MyNetworkConfigurator.setHttpEnabled(true);
+            MyNetworkConfigurator.setHttpIncoming(true);
+            MyNetworkConfigurator.setHttpOutgoing(true);
+            if(seed==null){
+                MyNetworkConfigurator.setHttpPort(8080);
+                MyNetworkConfigurator.setHttpPublicAddress("79.23.39.214:8080", true);
+            }
 
             MyNetworkConfigurator.setPeerID(PID);
         try {
