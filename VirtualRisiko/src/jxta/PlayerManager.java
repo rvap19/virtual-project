@@ -21,8 +21,10 @@ import net.jxta.peergroup.PeerGroupID;
 import net.jxta.pipe.OutputPipe;
 import net.jxta.platform.NetworkConfigurator;
 import net.jxta.platform.NetworkManager;
+import net.jxta.rendezvous.RendezvousEvent;
+import net.jxta.rendezvous.RendezvousListener;
 
-public class PlayerManager extends middle.management.PlayerManager{
+public class PlayerManager extends middle.management.PlayerManager implements RendezvousListener{
     
     private NetworkManager MyNetworkManager;
     private   int TcpPort = 9721;
@@ -105,10 +107,11 @@ public class PlayerManager extends middle.management.PlayerManager{
             JXTAPeerGroup pG=(JXTAPeerGroup) NetPeerGroup;
             net.jxta.peergroup.PeerGroup peerGroup=pG.getPeerGroup();
             if(startAsRendezvous){
+                peerGroup.getRendezVousService().addListener(this);
                 peerGroup.getRendezVousService().startRendezVous();
             }else{
                 peerGroup.getRendezVousService().setAutoStart(true);
-                 MyNetworkManager.waitForRendezvousConnection(3000);
+                 
                 if(!peerGroup.getRendezVousService().isConnectedToRendezVous()){
                     peerGroup.getRendezVousService().startRendezVous();
                 }
@@ -145,6 +148,51 @@ public class PlayerManager extends middle.management.PlayerManager{
         this.gameDiscover.stopApp();
         this.MyNetworkManager.stopNetwork();
     }
+
+    public void rendezvousEvent(RendezvousEvent event) {
+      String eventDescription;
+      int    eventType;
+
+         eventType = event.getType();
+
+         switch( eventType ) {
+            case RendezvousEvent.RDVCONNECT:
+               eventDescription = "RDVCONNECT";
+               break;
+            case RendezvousEvent.RDVRECONNECT:
+               eventDescription = "RDVRECONNECT";
+               break;
+            case RendezvousEvent.RDVDISCONNECT:
+               eventDescription = "RDVDISCONNECT";
+               break;
+            case RendezvousEvent.RDVFAILED:
+               eventDescription = "RDVFAILED";
+               break;
+            case RendezvousEvent.CLIENTCONNECT:
+               eventDescription = "CLIENTCONNECT";
+               break;
+            case RendezvousEvent.CLIENTRECONNECT:
+               eventDescription = "CLIENTRECONNECT";
+               break;
+            case RendezvousEvent.CLIENTDISCONNECT:
+               eventDescription = "CLIENTDISCONNECT";
+               break;
+            case RendezvousEvent.CLIENTFAILED:
+               eventDescription = "CLIENTFAILED";
+               break;
+            case RendezvousEvent.BECAMERDV:
+               eventDescription = "BECAMERDV";
+               break;
+            case RendezvousEvent.BECAMEEDGE:
+               eventDescription = "BECAMEEDGE";
+               break;
+            default:
+               eventDescription = "UNKNOWN RENDEZVOUS EVENT";
+         }
+
+         System.out.println("RendezvousEvent:  event =  " 
+                     + eventDescription + " from peer = " + event.getPeer());
+   }
 
 
 
