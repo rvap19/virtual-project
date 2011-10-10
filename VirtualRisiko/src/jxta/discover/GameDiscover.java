@@ -139,7 +139,7 @@ public class GameDiscover extends middle.management.discover.GameDiscover implem
                 discovery.publish(gameInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
                 // Publish the advertisement remotely.
                 discovery.remotePublish(gameInfo,DEFAULT_LIFETIME);
-                
+                discovery.remotePublish(null, gameInfo, DEFAULT_LIFETIME);
             }
             catch (IOException e)
             {
@@ -167,6 +167,7 @@ public class GameDiscover extends middle.management.discover.GameDiscover implem
                 discovery.publish(gameAdv, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
                 // Publish the advertisement remotely.
                 discovery.remotePublish(gameAdv,DEFAULT_LIFETIME);
+                discovery.remotePublish(null, gameAdv, DEFAULT_LIFETIME);
 
             }
             catch (IOException e)

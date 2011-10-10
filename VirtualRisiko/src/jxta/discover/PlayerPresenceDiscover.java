@@ -167,7 +167,7 @@ public class PlayerPresenceDiscover extends middle.management.discover.PlayerPre
                 // Publish the advertisement remotely.
                 discovery.remotePublish(presenceInfo,DEFAULT_LIFETIME);
 
-                
+                discovery.remotePublish(null, presenceInfo, DEFAULT_LIFETIME);
                     this.publishPipeAdvertisement(name);
             }
             catch (IOException e)
@@ -315,6 +315,7 @@ public class PlayerPresenceDiscover extends middle.management.discover.PlayerPre
 
         this.discovery.publish(MyPipeAdvertisement,DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
         this.discovery.remotePublish(MyPipeAdvertisement, DEFAULT_LIFETIME);
+        discovery.remotePublish(null, MyPipeAdvertisement, DEFAULT_LIFETIME);
 
        
 
