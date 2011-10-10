@@ -115,17 +115,18 @@ public class PlayerManager extends middle.management.PlayerManager{
 
              playerDiscover=new PlayerPresenceDiscover();
              playerDiscover.init(NetPeerGroup);
-           //  playerDiscover.addPlayerListener(this);
+             playerDiscover.addPlayerListener(this);
+             playerDiscover.addPlayerPipeListener(this);
              playerDiscover.startApp(null);
 
              gameDiscover=new GameDiscover();
              gameDiscover.init(NetPeerGroup);
-           // gameDiscover.addGameListener(this);
+            gameDiscover.addGameListener(this);
             gameDiscover.startApp(null);
 
             registrationDiscover=new RegistrationDiscovery();
             registrationDiscover.init(NetPeerGroup);
-      //      registrationDiscover.addRegistrationListener( this);
+            registrationDiscover.addRegistrationListener( this);
             registrationDiscover.startApp(null);
 
     }

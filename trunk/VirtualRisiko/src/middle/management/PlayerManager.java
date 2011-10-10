@@ -19,7 +19,7 @@ import middle.management.listener.PlayerListener;
 import middle.management.listener.RegistrationListener;
 
 
-public abstract class PlayerManager implements PlayerListener,GameListener,RegistrationListener {
+public abstract class PlayerManager implements PipeListener,PlayerListener,GameListener,RegistrationListener {
     
 
     
@@ -28,6 +28,7 @@ public abstract class PlayerManager implements PlayerListener,GameListener,Regis
     protected HashMap<String,PlayerAdvertisement> players;
     protected HashMap<String,GameAdvertisement> games;
     protected HashMap<String,RegistrationAdvertisement> registrations;
+    protected HashMap<String,PipeAdvertisement> pipes;
 
     protected PlayerAdvertisement myPlayerAdvertisement;
     protected GameAdvertisement myGameAdvertisement;
@@ -54,6 +55,7 @@ public abstract class PlayerManager implements PlayerListener,GameListener,Regis
         this.players=new HashMap<String, PlayerAdvertisement>();
             this.games=new HashMap<String, GameAdvertisement>();
             this.registrations=new HashMap<String, RegistrationAdvertisement>();
+            this.pipes=new HashMap<String,PipeAdvertisement>();
     }
 
     public List<PlayerAdvertisement> findPlayers() throws  IOException{
@@ -101,6 +103,12 @@ public abstract class PlayerManager implements PlayerListener,GameListener,Regis
         this.players.put(playerInfo.getPeerID(), playerInfo);
     }
 
+    public void pipeUpdated(PipeAdvertisement pipeInfo) {
+        System.out.println("trovata nuova pipe ::"+pipeInfo.getName());
+        this.pipes.put(pipeInfo.getName(), pipeInfo);
+    }
+
+    
      public void gameUpdated(GameAdvertisement adv) {
         
         this.games.put(adv.getGameID().toString(), adv);
@@ -161,6 +169,21 @@ public abstract class PlayerManager implements PlayerListener,GameListener,Regis
         return this.playerDiscover.getPipeAdvertisement();
     }
 
+    public PlayerAdvertisement getPlayerAdvertisement(String player){
+        return this.players.get(player);
+    }
+    
+    public PipeAdvertisement getPipeAdvertisement(String pipe){
+        return this.pipes.get(pipe);
+    }
+    
+    public GameAdvertisement getGameAdvertisement(String game){
+        return this.games.get(game);
+    }
+    
+    public RegistrationAdvertisement getRegistrationAdvertisement(String reg){
+        return this.registrations.get(reg);
+    }
      
     
    

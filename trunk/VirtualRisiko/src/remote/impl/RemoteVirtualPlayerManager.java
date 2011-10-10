@@ -160,7 +160,6 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
     public void creategame(String name, String mapName, int maxPlayers, int maxTurns) throws IOException {
         if(manager==null){
             manager=this.initPlayerManager();
-            
             manager.init(null, true);
             manager.findPlayers();
             manager.findGames();
@@ -180,7 +179,7 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
         
         server.registerPlayer(game,myself );
         
-        while(!super.startedGame){
+      /*  while(!super.startedGame){
             manager.findPipes();
             manager.findPlayers();
             manager.findGames();
@@ -189,7 +188,7 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
-        }
+        }*/
     }
 
     @Override
@@ -235,8 +234,9 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
                 System.exit(-1);
             }
             creatorPipe = pipes.get(creatorName + " Pipe");
+            creatorPipe=manager.getPipeAdvertisement(creatorName+" Pipe");
         }
-        
+        System.out.println("pipe creatore trovata");
         
         
         
