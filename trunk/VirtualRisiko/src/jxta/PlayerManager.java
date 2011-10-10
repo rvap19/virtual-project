@@ -118,7 +118,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                     peerGroup.getRendezVousService().startRendezVous();
                 }
             }
-             
+            
              
 
              playerDiscover=new PlayerPresenceDiscover();
@@ -136,6 +136,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             registrationDiscover.init(NetPeerGroup);
             registrationDiscover.addRegistrationListener( this);
             registrationDiscover.startApp(null);
+            System.out.println("Rendezvous "+ peerGroup.getRendezVousService().isRendezVous());
 
     }
 
@@ -153,6 +154,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
 
     public void rendezvousEvent(RendezvousEvent event) {
       String eventDescription;
+      
       int    eventType;
 
          eventType = event.getType();
@@ -193,7 +195,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
          }
 
          System.out.println("RendezvousEvent:  event =  " 
-                     + eventDescription + " from peer = " + event.getPeer());
+                     + eventDescription + " from peer = " + event.getPeerID().toURI());
    }
 
 

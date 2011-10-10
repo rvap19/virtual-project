@@ -133,6 +133,7 @@ public class RegistrationDiscovery extends middle.management.discover.Registrati
                 discovery.publish(registrationInfo, DEFAULT_EXPIRATION, DEFAULT_LIFETIME);
                 // Publish the advertisement remotely.
                 discovery.remotePublish(registrationInfo,DEFAULT_LIFETIME);
+                discovery.remotePublish(null, registrationInfo, DEFAULT_LIFETIME);
                 
             }
             catch (IOException e)
