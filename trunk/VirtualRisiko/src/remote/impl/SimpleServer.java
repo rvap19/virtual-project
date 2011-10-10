@@ -73,7 +73,7 @@ public class SimpleServer
    private Risiko risikoService;
    private HashMap<String,InetAddress> address;
    private static String transport = "socket";
-   private static String host = "192.168.1.4";
+   private static String host = "192.168.1.114";
    public static int port = 80;
 
    // String to be returned from invocation handler upon client invocation calls.

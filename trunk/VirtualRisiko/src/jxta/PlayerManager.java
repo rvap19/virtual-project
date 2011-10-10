@@ -76,8 +76,11 @@ public class PlayerManager extends middle.management.PlayerManager{
 
             MyNetworkConfigurator.clearRendezvousSeeds();
             if(seed!=null){
+                /*iunserire tcp indirizzo*/
+                
                 URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
+                MyNetworkConfigurator.addSeedRelay(TheSeed);
             }
 
             
