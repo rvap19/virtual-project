@@ -70,11 +70,11 @@ public class SimpleServer
   
     
    // Default locator values
-    private Risiko risikoService;
-    private HashMap<String,InetAddress> address;
+   private Risiko risikoService;
+   private HashMap<String,InetAddress> address;
    private static String transport = "socket";
-   private static String host = "192.168.1.114";
-   public static int port = 5400;
+   private static String host = "192.168.1.4";
+   public static int port = 80;
 
    // String to be returned from invocation handler upon client invocation calls.
    private static final String RESPONSE_VALUE = "This is the return to SampleInvocationHandler invocation";
