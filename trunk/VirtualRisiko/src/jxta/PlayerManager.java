@@ -80,7 +80,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
-                URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
+                URI TheSeed = URI.create("http://"+seed+":"+TcpPort);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
                 MyNetworkConfigurator.addSeedRelay(TheSeed);
                 
