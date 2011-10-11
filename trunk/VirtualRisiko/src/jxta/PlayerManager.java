@@ -34,7 +34,7 @@ import net.jxta.rendezvous.RendezvousListener;
 public class PlayerManager extends middle.management.PlayerManager implements RendezvousListener{
     
     private NetworkManager MyNetworkManager;
-    private   int TcpPort = 9721;
+    private   int TcpPort = 9701;
 
     private PeerID PID;// = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
     private File ConfigurationFile;// = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
@@ -87,13 +87,15 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
              MyNetworkConfigurator.setTcpEnabled(true);
              MyNetworkConfigurator.setHttpEnabled(true);
              MyNetworkConfigurator.setTcpPort(TcpPort);
+             MyNetworkConfigurator.setHttpPort(TcpPort+1);
              MyNetworkConfigurator.setUseMulticast(true);
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
                 URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
-                MyNetworkConfigurator.addSeedRelay(TheSeed);
+                TheSeed = URI.create("tcp://"+seed+":"+(TcpPort+1));
+                MyNetworkConfigurator.addSeedRendezvous(TheSeed);
                 MyNetworkConfigurator.setTcpOutgoing(true);
             }else{
                 MyNetworkConfigurator.setTcpIncoming(true);
