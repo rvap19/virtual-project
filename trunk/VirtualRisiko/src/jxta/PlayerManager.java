@@ -125,7 +125,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
 
              NetPeerGroup  = new JXTAPeerGroup(MyNetworkManager.startNetwork());
              net.jxta.peergroup.PeerGroup pg=((JXTAPeerGroup)NetPeerGroup).getPeerGroup();
-            
+             
             
         } catch (PeerGroupException ex) {
             System.out.println("PG Exception starting network");

@@ -57,6 +57,7 @@ public class JXTAConnectionHandler extends middle.ConnectionHandler{
             JXTAPeerGroup pG=(JXTAPeerGroup) super.group;
             JXTAPipeAdvertisement pA=(JXTAPipeAdvertisement) super.pipeadv;
             server = new JxtaServerPipe(pG.getPeerGroup(), pA.getPipe(), backlog, timeout);
+            server.bind(pG.getPeerGroup(), pA.getPipe(), backlog);
         } catch (IOException ex) {
             System.err.println("impossibile avviare server");
             System.exit(-1);
@@ -66,6 +67,7 @@ public class JXTAConnectionHandler extends middle.ConnectionHandler{
                 JxtaBiDiPipe pipe;
                 try {
                     pipe = server.accept();
+                    System.out.println("connection handler <-> connessione accettata");
                     pipe.setMaxRetryTimeout(10*1000);
                     pipe.setRetryTimeout(10*1000);
                     Message msg=pipe.getMessage(0);
