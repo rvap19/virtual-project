@@ -76,7 +76,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             NetworkManager.RecursiveDelete(ConfigurationFile);
             // Creation of the network manager
             if(!startAsRendezvous){
-             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS_RELAY,
+             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
                     Name, ConfigurationFile.toURI());
             }else{
                  MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS_RELAY,
@@ -96,6 +96,8 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                 MyNetworkConfigurator.setHttpOutgoing(true);
                 MyNetworkConfigurator.setTcpIncoming(true);
                 MyNetworkConfigurator.setHttpIncoming(true);
+                MyNetworkConfigurator.setTcpPublicAddress("151.75.207.198:"+TcpPort, true);
+                MyNetworkConfigurator.setHttpPublicAddress("151.75.207.198:"+(TcpPort+1), true);
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
