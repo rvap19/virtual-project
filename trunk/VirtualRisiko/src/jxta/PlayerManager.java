@@ -84,23 +84,29 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             NetworkConfigurator MyNetworkConfigurator = MyNetworkManager.getConfigurator();
 
             MyNetworkConfigurator.clearRendezvousSeeds();
+             MyNetworkConfigurator.setTcpEnabled(true);
+             MyNetworkConfigurator.setHttpEnabled(true);
+             MyNetworkConfigurator.setTcpPort(TcpPort);
+             MyNetworkConfigurator.setUseMulticast(true);
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
                 URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
                 MyNetworkConfigurator.addSeedRelay(TheSeed);
-                
+                MyNetworkConfigurator.setTcpOutgoing(true);
+            }else{
+                MyNetworkConfigurator.setTcpIncoming(true);
             }
 
             
-            MyNetworkConfigurator.setTcpPort(TcpPort);
-            MyNetworkConfigurator.setTcpEnabled(true);
-            MyNetworkConfigurator.setTcpIncoming(true);
+            
            
-            MyNetworkConfigurator.setTcpOutgoing(true);
-            MyNetworkConfigurator.setUseMulticast(true);
-            MyNetworkConfigurator.setHttpEnabled(true);
+            
+           
+            
+            
+            
         
                
             
