@@ -57,7 +57,7 @@ public class JXTAConnectionHandler extends middle.ConnectionHandler{
             JXTAPeerGroup pG=(JXTAPeerGroup) super.group;
             JXTAPipeAdvertisement pA=(JXTAPipeAdvertisement) super.pipeadv;
             server = new JxtaServerPipe(pG.getPeerGroup(), pA.getPipe(), backlog, timeout);
-            server.bind(pG.getPeerGroup(), pA.getPipe(), backlog);
+            //server.bind(pG.getPeerGroup(), pA.getPipe(), backlog);
         } catch (IOException ex) {
             System.err.println("impossibile avviare server");
             System.exit(-1);
