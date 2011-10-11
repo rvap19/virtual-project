@@ -34,7 +34,7 @@ import net.jxta.rendezvous.RendezvousListener;
 public class PlayerManager extends middle.management.PlayerManager implements RendezvousListener{
     
     private NetworkManager MyNetworkManager;
-    private   int TcpPort = 9701;
+    private   int TcpPort = 9700;
 
     private PeerID PID;// = IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());
     private File ConfigurationFile;// = new File(new File(".").getAbsoluteFile().getParentFile().getParentFile().getParentFile()+ System.getProperty("file.separator") + Name);
@@ -93,12 +93,18 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                 /*iunserire tcp indirizzo*/
                 
                 URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
-                MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
-                TheSeed = URI.create("tcp://"+seed+":"+(TcpPort+1));
-                MyNetworkConfigurator.addSeedRendezvous(TheSeed);
+                MyNetworkConfigurator.addRdvSeedingURI(TheSeed);//       TheSeed);
+                MyNetworkConfigurator.addRelaySeedingURI(TheSeed);
+            //    MyNetworkConfigurator.addSeedRendezvous(TheSeed);
+                TheSeed = URI.create("http://"+seed+":"+(TcpPort+1));
+                MyNetworkConfigurator.addRdvSeedingURI(TheSeed);
+                MyNetworkConfigurator.addRelaySeedingURI(TheSeed);
+            //    MyNetworkConfigurator.addSeedRendezvous(TheSeed);
                 MyNetworkConfigurator.setTcpOutgoing(true);
+                MyNetworkConfigurator.setHttpOutgoing(true);
             }else{
                 MyNetworkConfigurator.setTcpIncoming(true);
+                MyNetworkConfigurator.setHttpIncoming(true);
             }
 
             
