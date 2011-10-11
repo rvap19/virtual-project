@@ -89,6 +89,10 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
              MyNetworkConfigurator.setTcpPort(TcpPort);
              MyNetworkConfigurator.setHttpPort(TcpPort+1);
              MyNetworkConfigurator.setUseMulticast(true);
+             MyNetworkConfigurator.setTcpOutgoing(true);
+                MyNetworkConfigurator.setHttpOutgoing(true);
+                MyNetworkConfigurator.setTcpIncoming(true);
+                MyNetworkConfigurator.setHttpIncoming(true);
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
@@ -99,11 +103,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                 TheSeed = URI.create("http://"+seed+":"+(TcpPort+1));
                 MyNetworkConfigurator.addSeedRelay(TheSeed);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);
-                MyNetworkConfigurator.setTcpOutgoing(true);
-                MyNetworkConfigurator.setHttpOutgoing(true);
-            }else{
-                MyNetworkConfigurator.setTcpIncoming(true);
-                MyNetworkConfigurator.setHttpIncoming(true);
+                
             }
 
             
