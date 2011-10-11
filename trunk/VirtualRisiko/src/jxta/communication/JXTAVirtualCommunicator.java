@@ -117,7 +117,7 @@ public class JXTAVirtualCommunicator extends middle.VirtualCommunicator{
     @Override
     public boolean connect() throws IOException {
         int counter=0;
-        int limit=1;
+        int limit=4;
         JxtaBiDiPipe toCentralPeer=new JxtaBiDiPipe();
         
         while((!toCentralPeer.isBound())&&counter<limit){
