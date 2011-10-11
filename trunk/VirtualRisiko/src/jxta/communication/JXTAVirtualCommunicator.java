@@ -125,13 +125,14 @@ public class JXTAVirtualCommunicator extends middle.VirtualCommunicator{
                 JXTAPeerGroup pG=(JXTAPeerGroup) super.group;
                 JXTAPipeAdvertisement pA=(JXTAPipeAdvertisement) super.centralPeerPipeAdv;
                 JXTARisikoPipe pipe=new JXTARisikoPipe();
-                toCentralPeer = new JxtaBiDiPipe(pG.getPeerGroup(), pA.getPipe(), 25 * 1000, pipe, true);
+                toCentralPeer = new JxtaBiDiPipe(pG.getPeerGroup(), pA.getPipe(), 60 * 1000, pipe, true);
                 pipe.setPipe(toCentralPeer);
                 pipe.setRisikoMessageNotifier(this.messageNotifier);
                 pipe.setSequencer(messageSequencer);
                 super.pipes.put(super.managerUsername, pipe);
             } catch (IOException ex) {
                 System.err.println("connection timeout :: impossibile connettersi al amanger");
+                ex.printStackTrace();
             }
             
             counter++;
