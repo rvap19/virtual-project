@@ -7,6 +7,7 @@ import jxta.advertisement.PlayerAdvertisement;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Iterator;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.RegistrationAdvertisement;
 import jxta.communication.JXTAPeerGroup;
@@ -14,6 +15,12 @@ import jxta.discover.GameDiscover;
 import jxta.discover.RegistrationDiscovery;
 import net.jxta.discovery.DiscoveryService;
 import net.jxta.document.AdvertisementFactory;
+import net.jxta.endpoint.EndpointAddress;
+import net.jxta.endpoint.EndpointListener;
+import net.jxta.endpoint.Message;
+import net.jxta.endpoint.MessageElement;
+import net.jxta.endpoint.MessageFilterListener;
+import net.jxta.endpoint.MessageTransport;
 import net.jxta.exception.PeerGroupException;
 import net.jxta.id.IDFactory;
 import net.jxta.peer.PeerID;
@@ -80,24 +87,24 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
-                URI TheSeed = URI.create("http://"+seed+":"+TcpPort);
+                URI TheSeed = URI.create("tcp://"+seed+":"+TcpPort);
                 MyNetworkConfigurator.addSeedRendezvous(TheSeed);//       TheSeed);
                 MyNetworkConfigurator.addSeedRelay(TheSeed);
                 
             }
 
             
-           /* MyNetworkConfigurator.setTcpPort(TcpPort);
+            MyNetworkConfigurator.setTcpPort(TcpPort);
             MyNetworkConfigurator.setTcpEnabled(true);
-            MyNetworkConfigurator.setTcpIncoming(true);*/
-            
-          //  MyNetworkConfigurator.setTcpOutgoing(true);
+            MyNetworkConfigurator.setTcpIncoming(true);
+           
+            MyNetworkConfigurator.setTcpOutgoing(true);
             MyNetworkConfigurator.setUseMulticast(true);
             MyNetworkConfigurator.setHttpEnabled(true);
             MyNetworkConfigurator.setHttpIncoming(true);
             MyNetworkConfigurator.setHttpOutgoing(true);
-            
-                MyNetworkConfigurator.setHttpPort(TcpPort);
+           
+                
                
             
 
@@ -107,6 +114,9 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
              // MyNetworkManager.waitForRendezvousConnection(3000);
 
              NetPeerGroup  = new JXTAPeerGroup(MyNetworkManager.startNetwork());
+             net.jxta.peergroup.PeerGroup pg=((JXTAPeerGroup)NetPeerGroup).getPeerGroup();
+            
+            
         } catch (PeerGroupException ex) {
             System.out.println("PG Exception starting network");
             ex.printStackTrace();
@@ -114,6 +124,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
         }
             JXTAPeerGroup pG=(JXTAPeerGroup) NetPeerGroup;
             net.jxta.peergroup.PeerGroup peerGroup=pG.getPeerGroup();
+
             if(startAsRendezvous){
                 peerGroup.getRendezVousService().addListener(this);
                 peerGroup.getRendezVousService().startRendezVous();
@@ -204,6 +215,18 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                      + eventDescription + " from peer = " + event.getPeerID().toURI());
    }
 
+     private static class ChatUnicastReceiver implements EndpointListener {
+        public void processIncomingMessage(Message msg, EndpointAddress source, EndpointAddress destination) {
+            MessageElement chat = msg.getMessageElement("Chat");
+           
+            
+        }
+
+        public Message filterMessage(Message msg, EndpointAddress ea, EndpointAddress ea1) {
+             System.out.println("##### "+ea.toURI());
+             return msg;
+        }
+    }
 
 
 }
