@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Iterator;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import jxta.advertisement.GameAdvertisement;
 import jxta.advertisement.RegistrationAdvertisement;
 import jxta.communication.JXTAPeerGroup;
@@ -46,6 +48,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
         this("foggiano",9721);
     }
     public PlayerManager(String name,int tcpPort){
+        
         this.Name=name;
       //  this.TcpPort=tcpPort;
         PID=IDFactory.newPeerID(PeerGroupID.defaultNetPeerGroupID, Name.getBytes());

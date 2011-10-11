@@ -30,7 +30,7 @@ public class Login extends javax.swing.JFrame {
 
       // Suono.playSound("/virtualrisikoii/resources/dadi/intro2.wav");
 
-        LogManager.getLogManager().reset();
+       
     }
 
     /** This method is called from within the constructor to

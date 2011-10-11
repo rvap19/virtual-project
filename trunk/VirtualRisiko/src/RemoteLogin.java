@@ -37,7 +37,7 @@ public class RemoteLogin extends javax.swing.JFrame {
         //     Suono.playSound("/virtualrisikoii/resources/dadi/intro2.wav");
 
         client=new SimpleClient();
-        LogManager.getLogManager().reset();
+        
     }
     
     public Risiko getHelloImpl() {
