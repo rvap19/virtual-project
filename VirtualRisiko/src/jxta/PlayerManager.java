@@ -32,6 +32,7 @@ import net.jxta.platform.NetworkConfigurator;
 import net.jxta.platform.NetworkManager;
 import net.jxta.rendezvous.RendezvousEvent;
 import net.jxta.rendezvous.RendezvousListener;
+import remote.impl.NetManager;
 
 public class PlayerManager extends middle.management.PlayerManager implements RendezvousListener{
     
@@ -96,8 +97,8 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                 MyNetworkConfigurator.setHttpOutgoing(true);
                 MyNetworkConfigurator.setTcpIncoming(true);
                 MyNetworkConfigurator.setHttpIncoming(true);
-                MyNetworkConfigurator.setTcpPublicAddress("151.75.207.198:"+TcpPort, true);
-                MyNetworkConfigurator.setHttpPublicAddress("151.75.207.198:"+(TcpPort+1), true);
+                MyNetworkConfigurator.setTcpPublicAddress(new NetManager().findMeExternalIP()+":"+TcpPort, true);
+                MyNetworkConfigurator.setHttpPublicAddress(new NetManager().findMeExternalIP()+":"+(TcpPort+1), true);
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
