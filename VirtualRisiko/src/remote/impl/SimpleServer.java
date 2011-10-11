@@ -74,7 +74,7 @@ public class SimpleServer
    private HashMap<String,InetAddress> address;
    private static String transport = "socket";
    private static String host = "192.168.1.2";
-   public static int port = 80;
+   public static int port = 9200;
 
    // String to be returned from invocation handler upon client invocation calls.
    private static final String RESPONSE_VALUE = "This is the return to SampleInvocationHandler invocation";
