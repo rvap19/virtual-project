@@ -73,7 +73,7 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             NetworkManager.RecursiveDelete(ConfigurationFile);
             // Creation of the network manager
             if(!startAsRendezvous){
-             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.EDGE,
+             MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS_RELAY,
                     Name, ConfigurationFile.toURI());
             }else{
                  MyNetworkManager = new NetworkManager(NetworkManager.ConfigMode.RENDEZVOUS_RELAY,
