@@ -15,7 +15,7 @@
 * Lesser General Public License for more details.
 *
 * You should have received a copy of the GNU Lesser General Public
-* License along with this software; if not, write to the Free
+* License 79.23.39.214along with this software; if not, write to the Free
 * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 */
@@ -73,7 +73,7 @@ public class SimpleServer
    private Risiko risikoService;
    private HashMap<String,InetAddress> address;
    private static String transport = "socket";
-   private static String host = "192.168.1.114";
+   private static String host = "192.168.1.2";
    public static int port = 80;
 
    // String to be returned from invocation handler upon client invocation calls.
