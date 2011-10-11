@@ -97,8 +97,8 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
                 MyNetworkConfigurator.setHttpOutgoing(true);
                 MyNetworkConfigurator.setTcpIncoming(true);
                 MyNetworkConfigurator.setHttpIncoming(true);
-                MyNetworkConfigurator.setTcpPublicAddress(new NetManager().findMeExternalIP()+":"+TcpPort, true);
-                MyNetworkConfigurator.setHttpPublicAddress(new NetManager().findMeExternalIP()+":"+(TcpPort+1), true);
+                MyNetworkConfigurator.setTcpPublicAddress(NetManager.findMeExternalIP()+":"+TcpPort, true);
+                MyNetworkConfigurator.setHttpPublicAddress(NetManager.findMeExternalIP()+":"+(TcpPort+1), true);
             if(seed!=null){
                 /*iunserire tcp indirizzo*/
                 
