@@ -99,9 +99,9 @@ public class PlayerManager extends middle.management.PlayerManager implements Re
             MyNetworkConfigurator.setTcpIncoming(true);
            
             MyNetworkConfigurator.setTcpOutgoing(true);
-            
-           
-                
+            MyNetworkConfigurator.setUseMulticast(true);
+            MyNetworkConfigurator.setHttpEnabled(true);
+        
                
             
 
