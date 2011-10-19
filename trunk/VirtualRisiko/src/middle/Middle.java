@@ -4,6 +4,7 @@
  */
 package middle;
 
+import services.AbstractGameController;
 import middle.management.advertisement.PipeAdvertisement;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +46,12 @@ public abstract class Middle implements RisikoMessageListener,ConnectionListener
     protected int playersNumber;
     protected int maxPlayers;
     protected boolean isClose;
+    
+    protected static Middle instance;
+    
+    public static Middle getCurrentInstance(){
+        return instance;
+    }
     
     protected void init(){
         

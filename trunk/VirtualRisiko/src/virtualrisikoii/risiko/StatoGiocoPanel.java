@@ -25,7 +25,7 @@ import middle.listener.PassEventListener;
 import middle.listener.StatusPeerEventListener;
 import middle.messages.PassMessage;
 import middle.messages.StatusPeerMessage;
-import services.GameController;
+import services.impl.GameController;
 
 
 /**

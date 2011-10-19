@@ -20,7 +20,7 @@ import middle.event.RisikoEvent;
 import middle.listener.ChatEventListener;
 import middle.messages.ChatMessage;
 
-import services.GameController;
+import services.impl.GameController;
 import services.HistoryListener;
 import services.PlayerDataListener;
 import services.TimeoutNotifier;

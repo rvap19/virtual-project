@@ -11,17 +11,13 @@
 
 package virtualrisikoii;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 //import jxta.communication.Communicator;
-import middle.event.ChatEvent;
+import middle.Middle;
+import services.impl.ChatMessageSender;
 
 
-import services.ChatSender;
-import services.GameController;
-import virtualrisikoii.risiko.Giocatore;
-import virtualrisikoii.risiko.Tavolo;
+
 
 /**
  *
@@ -31,19 +27,15 @@ public class ChatSendPanel extends javax.swing.JPanel {
 
     /** Creates new form ChatSendPanel */
     private List<String> players;
-    private ChatSender sender;
-
+    private ChatMessageSender sender;
     public ChatSendPanel() {
-        Tavolo tavolo=Tavolo.getInstance();
-        sender=GameController.getInstance();
-        players=new ArrayList<String>();
-        players.add(ChatEvent.TO_ALL);
-
-        Iterator<Giocatore> iter=tavolo.getGiocatori().iterator();
-
-        while(iter.hasNext()){
-            players.add(iter.next().getNome());
+        Middle middle=Middle.getCurrentInstance();
+        sender=new ChatMessageSender(middle);
+        if(sender!=null){
+            players=sender.getPlayersNames();
         }
+        
+        
         initComponents();
         this.jComboBox1.setSelectedIndex(0);
     }
@@ -55,6 +47,19 @@ public class ChatSendPanel extends javax.swing.JPanel {
     public void setPlayers(List<String> players) {
         this.players = players;
     }
+
+    public ChatMessageSender getSender() {
+        return sender;
+    }
+
+    public void setSender(ChatMessageSender sender) {
+        this.sender = sender;
+        this.players=sender.getPlayersNames();
+        initComponents();
+        this.jComboBox1.setSelectedIndex(0);
+    }
+    
+    
     
 
     /** This method is called from within the constructor to

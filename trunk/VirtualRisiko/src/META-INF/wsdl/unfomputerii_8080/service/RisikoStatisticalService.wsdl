@@ -1,0 +1,200 @@
+<definitions name='RisikoService' targetNamespace='http://service.risiko/' xmlns='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:tns='http://service.risiko/' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+ <types>
+  <xs:schema targetNamespace='http://service.risiko/' version='1.0' xmlns:tns='http://service.risiko/' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+   <xs:complexType name='user'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='codiceConferma' type='xs:int'/>
+     <xs:element minOccurs='0' name='cognome' type='xs:string'/>
+     <xs:element minOccurs='0' name='confermato' type='xs:boolean'/>
+     <xs:element minOccurs='0' name='dataDiIscrizione' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataDiNascita' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='email' type='xs:string'/>
+     <xs:element minOccurs='0' name='nazione' type='xs:string'/>
+     <xs:element minOccurs='0' name='nome' type='xs:string'/>
+     <xs:element minOccurs='0' name='password' type='xs:string'/>
+     <xs:element minOccurs='0' name='username' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='gameregistration'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='id' type='tns:gameregistrationId'/>
+     <xs:element minOccurs='0' name='punteggio' type='xs:int'/>
+     <xs:element minOccurs='0' name='vincitore' type='xs:boolean'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='gameregistrationId'>
+    <xs:sequence>
+     <xs:element name='gameId' type='xs:int'/>
+     <xs:element minOccurs='0' name='userUsername' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='gameregistrationArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='tns:gameregistration'/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+ </types>
+ <message name='Risiko_getPlayerStatisticsResponse'>
+  <part name='return' type='tns:gameregistrationArray'></part>
+ </message>
+ <message name='Risiko_getGameStatisticsResponse'>
+  <part name='return' type='tns:gameregistrationArray'></part>
+ </message>
+ <message name='Risiko_sendEmailForPasswordResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='Risiko_createUser'>
+  <part name='user' type='tns:user'></part>
+ </message>
+ <message name='Risiko_getGameStatistics'>
+  <part name='game' type='xsd:int'></part>
+ </message>
+ <message name='Risiko_checkEmailResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='Risiko_activateUser'>
+  <part name='username' type='xsd:string'></part>
+  <part name='password' type='xsd:string'></part>
+  <part name='codice' type='xsd:int'></part>
+ </message>
+ <message name='Risiko_checkUsername'>
+  <part name='username' type='xsd:string'></part>
+ </message>
+ <message name='Risiko_getAllStatistics'></message>
+ <message name='Risiko_getAllStatisticsResponse'>
+  <part name='return' type='tns:gameregistrationArray'></part>
+ </message>
+ <message name='Risiko_checkEmail'>
+  <part name='email' type='xsd:string'></part>
+ </message>
+ <message name='Risiko_sendEmailForPassword'>
+  <part name='username' type='xsd:string'></part>
+ </message>
+ <message name='Risiko_activateUserResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='Risiko_createUserResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='Risiko_checkUsernameResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='Risiko_getPlayerStatistics'>
+  <part name='username' type='xsd:string'></part>
+ </message>
+ <portType name='Risiko'>
+  <operation name='activateUser' parameterOrder='username password codice'>
+   <input message='tns:Risiko_activateUser'></input>
+   <output message='tns:Risiko_activateUserResponse'></output>
+  </operation>
+  <operation name='checkEmail' parameterOrder='email'>
+   <input message='tns:Risiko_checkEmail'></input>
+   <output message='tns:Risiko_checkEmailResponse'></output>
+  </operation>
+  <operation name='checkUsername' parameterOrder='username'>
+   <input message='tns:Risiko_checkUsername'></input>
+   <output message='tns:Risiko_checkUsernameResponse'></output>
+  </operation>
+  <operation name='createUser' parameterOrder='user'>
+   <input message='tns:Risiko_createUser'></input>
+   <output message='tns:Risiko_createUserResponse'></output>
+  </operation>
+  <operation name='getAllStatistics'>
+   <input message='tns:Risiko_getAllStatistics'></input>
+   <output message='tns:Risiko_getAllStatisticsResponse'></output>
+  </operation>
+  <operation name='getGameStatistics' parameterOrder='game'>
+   <input message='tns:Risiko_getGameStatistics'></input>
+   <output message='tns:Risiko_getGameStatisticsResponse'></output>
+  </operation>
+  <operation name='getPlayerStatistics' parameterOrder='username'>
+   <input message='tns:Risiko_getPlayerStatistics'></input>
+   <output message='tns:Risiko_getPlayerStatisticsResponse'></output>
+  </operation>
+  <operation name='sendEmailForPassword' parameterOrder='username'>
+   <input message='tns:Risiko_sendEmailForPassword'></input>
+   <output message='tns:Risiko_sendEmailForPasswordResponse'></output>
+  </operation>
+ </portType>
+ <binding name='RisikoBinding' type='tns:Risiko'>
+  <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+  <operation name='activateUser'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='checkEmail'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='checkUsername'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='createUser'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getAllStatistics'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getGameStatistics'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getPlayerStatistics'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+  <operation name='sendEmailForPassword'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://service.risiko/' use='literal'/>
+   </output>
+  </operation>
+ </binding>
+ <service name='RisikoService'>
+  <port binding='tns:RisikoBinding' name='RisikoPort'>
+   <soap:address location='http://unfomputerII:8080/service/RisikoStatisticalService'/>
+  </port>
+ </service>
+</definitions>
