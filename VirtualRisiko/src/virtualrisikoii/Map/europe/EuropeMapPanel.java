@@ -18,7 +18,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import services.CardListener;
-import services.GameController;
+import services.impl.GameController;
 import services.MapListener;
 import services.TroopsSelector;
 import services.VictoryListener;

@@ -5,6 +5,7 @@
 
 package middle;
 
+import services.impl.GameController;
 import middle.event.ElectionEvent;
 import middle.event.InitEvent;
 import middle.event.RecoveryEvent;
@@ -95,6 +96,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
         
         middle=this.initMiddleLayer();
         messageBuilder=initMessageGenerator();
+      initRecoveryRequestListener();
         manager=initPlayerManager();
         manager.init(null,false);
         
@@ -255,7 +257,7 @@ public abstract class VirtualPlayerManager implements  InitEventListener,Recover
             XMapPanel panel = factory.getMapPanel();
              app = new VirtualRisikoIIApp();
               view=new VirtualRisikoIIView(app, panel);
-
+              
             app.show(view);
 
 
@@ -437,7 +439,7 @@ protected boolean startedGame=false;
     protected abstract PlayerManager initPlayerManager();
     protected abstract RisikoMessageGenerator initMessageGenerator();
     protected abstract middle.ElectionController initElectionController(String myName, PeerGroup peerGroup, HashMap<String, PipeAdvertisement> pipes) ;
-
+    protected abstract RisikoRecoveryRequestEventListener initRecoveryRequestListener();
      
 
 }

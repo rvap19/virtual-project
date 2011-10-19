@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package services;
+package services.impl;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

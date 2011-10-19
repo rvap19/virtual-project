@@ -33,7 +33,7 @@ public class JXTAMiddle extends Middle implements PingEventListener{
         
         init();
         super.addListener(EventTypes.PING, this);
-        
+        Middle.instance=this;
     }
 
     

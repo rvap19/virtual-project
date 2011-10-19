@@ -4,9 +4,7 @@
  */
 package remote.impl;
 
-import domain.Game;
-import domain.Gameregistration;
-import domain.User;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Date;

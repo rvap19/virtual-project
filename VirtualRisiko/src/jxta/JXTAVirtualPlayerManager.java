@@ -10,6 +10,7 @@ import middle.ElectionController;
 import middle.Middle;
 import middle.PeerGroup;
 import middle.RisikoMessageGenerator;
+import middle.RisikoRecoveryRequestEventListener;
 import middle.VirtualPlayerManager;
 import middle.management.advertisement.PipeAdvertisement;
 
@@ -60,6 +61,12 @@ public class JXTAVirtualPlayerManager extends VirtualPlayerManager{
     @Override
     protected ElectionController initElectionController(String myName, PeerGroup peerGroup, HashMap<String, PipeAdvertisement> pipes) {
         return new jxta.ElectionController(myName, peerGroup, pipes);
+    }
+
+    @Override
+    protected RisikoRecoveryRequestEventListener initRecoveryRequestListener() {
+        RisikoRecoveryRequestEventListener listener=new RisikoRecoveryRequestEventListener(middle);
+        return listener;
     }
 
     

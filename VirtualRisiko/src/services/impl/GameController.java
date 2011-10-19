@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package services;
+package services.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import middle.AbstractGameController;
+import services.AbstractGameController;
 import middle.EventTypes;
 import middle.Middle;
 import middle.RisikoMessageGenerator;
@@ -25,23 +25,23 @@ import middle.event.ChangeCardEvent;
 import middle.event.MovementEvent;
 import middle.event.PassEvent;
 import middle.event.PongEvent;
-import middle.event.RecoveryEvent;
-import middle.event.RecoveryRequestEvent;
 import middle.event.RisikoEvent;
 import middle.listener.PongEventListener;
-import middle.listener.RecoveryEventListener;
-import middle.listener.RecoveryRequestEventListener;
 import middle.messages.ApplianceMessage;
 import middle.messages.AttackMessage;
 import middle.messages.ChangeCardMessage;
-import middle.messages.ChatMessage;
 import middle.messages.MovementMessage;
 import middle.messages.PassMessage;
 import middle.messages.PongMessage;
-import middle.messages.RecoveryMessage;
 import middle.messages.RisikoMessage;
-import util.RecoveryUtil;
-import virtualrisikoii.RecoveryParameter;
+import services.CardChangeListener;
+import services.CardListener;
+import services.HistoryListener;
+import services.MapListener;
+import services.PlayerDataListener;
+import services.TimeoutNotifier;
+import services.TroopsSelector;
+import services.VictoryListener;
 
 
 import virtualrisikoii.risiko.Attacco;
@@ -59,7 +59,7 @@ import virtualrisikoii.risiko.Territorio;
  *
  * @author root
  */
-public class GameController extends AbstractGameController implements ChatSender,TimeoutNotifier,RecoveryRequestEventListener,PongEventListener{
+public class GameController extends AbstractGameController implements TimeoutNotifier,PongEventListener{
     
     private Middle middle;
     private MapListener mapListener;
@@ -80,7 +80,6 @@ public class GameController extends AbstractGameController implements ChatSender
     private Territorio firstSelection;
     private Territorio secondSelection;
     private int truppeSelezionate;
-    private boolean[] reconnectionNeeds;
     private boolean[] messageReceived;
     private ManagerPingerThread managerTimer;
     private static GameController instance=null;
@@ -128,12 +127,8 @@ public class GameController extends AbstractGameController implements ChatSender
             turns.put(g.getUsername(), g.getID());
         }
 
-        this.reconnectionNeeds=new boolean[tavolo.getGiocatori().size()];
         this.locker=new TableLocker();
-        for(int i=0;i<reconnectionNeeds.length;i++){
-            reconnectionNeeds[i]=false;
-           
-        }
+        
 
         messageReceived=new boolean[Tavolo.getInstance().getGiocatori().size()];
         for(int i=0;i<messageReceived.length;i++){
@@ -582,29 +577,7 @@ public class GameController extends AbstractGameController implements ChatSender
 
     }
 
-    private synchronized  void sendRecoveryMessage(int giocatore){
-        if(gameOver){
-            return;
-        }
-        
-        
-
-        if(this.reconnectionNeeds[giocatore]){
-            try {
-                String name=Tavolo.getInstance().getGiocatori().get(giocatore).getUsername();
-                RecoveryUtil util=new RecoveryUtil();
-                RecoveryParameter backup=util.createBackup();
-                RecoveryMessage msg=this.messageBuilder.generateRecoveryMSG(backup);
-                this.communicator.sendMessageTo(msg,name);
-                this.reconnectionNeeds[giocatore] = false;
-                System.out.println("send recovery message to player "+name+" with ID "+giocatore);
-            } catch (Exception ex) {
-                System.err.println("Impossibile inviare messaggio di recupero");
-                ex.printStackTrace();
-            }
-        }
-        
-    }
+   
 
     public void makeSecondSelection(int terrID){
         if(gameOver){
@@ -733,16 +706,7 @@ public class GameController extends AbstractGameController implements ChatSender
         locker.releaseTavolo();
     }
 
-    public void sendMessage(String from, String to, String message) {
-
-        ChatMessage msg=this.messageBuilder.generateChatMSG(middle.getPlayerName(), to, message); 
-                //new ChatMessage(to, Tavolo.getInstance().getMyGiocatore().getNome(), message);
-        
-       
-            this.communicator.sendMessage(msg);
-            middle.notifyMessage(msg);
-       
-    }
+   
 
     public void notify(PassEvent event) {
         PassMessage msg=(PassMessage)event.getSource();
@@ -864,15 +828,7 @@ public class GameController extends AbstractGameController implements ChatSender
        this.cardChangeListener=aThis;
     }
 
-    public void notifyReconnectionRequest(String playerName) {
-        if(gameOver){
-            return;
-        }
-        System.out.println("Ricevuto richiesta riconnessione da "+playerName);
-        int turn=this.turns.get(playerName).intValue();
-        reconnectionNeeds[turn]=true;
-        messageReceived[turn]=true;
-    }
+   
 
     public void timeoutNotify() {
         Tavolo tavolo=locker.acquireTavolo();
@@ -989,9 +945,6 @@ public class GameController extends AbstractGameController implements ChatSender
         }else if(type.equals(EventTypes.PASS)){
             PassEvent x=(PassEvent)event;
             notify(x);
-        }else if(type.equals(EventTypes.RECOVERY_REQUEST)){
-            RecoveryRequestEvent x=(RecoveryRequestEvent)event;
-            notify(x);
         }else if(type.equals(EventTypes.PONG)){
             PongEvent x=(PongEvent)event;
             notify(x);
@@ -1000,24 +953,7 @@ public class GameController extends AbstractGameController implements ChatSender
 
     
 
-    public void notify(RecoveryRequestEvent c) {
-        if(!communicator.isCentral()){
-            return;
-        }
-        
-        this.reconnectionNeeds[turns.get(c.getSource().playerName())]=true;
-        System.out.println("Richiesta riconnessione "+c.getSource().playerName()+" registrata ");
-        /*RecoveryUtil util=new RecoveryUtil();
-        RecoveryMessage msg=(RecoveryMessage)c.getSource();
-        RecoveryParameter parameter=msg.getParameter();
-        try {
-            util.recoveryTable(parameter);
-            
-        } catch (Exception ex) {
-            System.out.println("Impossibile recuperare dati");
-            System.exit(-1);
-        } */
-    }
+    
 
     
     private  class  ManagerPingerThread extends Thread{
@@ -1058,7 +994,7 @@ public class GameController extends AbstractGameController implements ChatSender
             List<Giocatore> giocatori=Tavolo.getInstance().getGiocatori();
             for(int i=0;i<messageReceived.length;i++){
                 
-                    RisikoMessage msg=messageBuilder.generateStatusPeerMSG(i, messageReceived[i]||reconnectionNeeds[i]||i==myTurn);
+                    RisikoMessage msg=messageBuilder.generateStatusPeerMSG(i, messageReceived[i]||i==myTurn);
                     
                     communicator.sendMessage(msg);
                     middle.notifyMessage(msg);
@@ -1086,11 +1022,8 @@ public class GameController extends AbstractGameController implements ChatSender
                     
 
                     g=Tavolo.getInstance().getGiocatoreCorrente();
-                    if(messageReceived[g.getID()]){
-                         sendRecoveryMessage(g.getID());
-
-                    }
-                    else if(!Tavolo.getInstance().isTurnoMyGiocatore())
+                    
+                    if(!Tavolo.getInstance().isTurnoMyGiocatore())
                     {
                         //autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                         
@@ -1101,10 +1034,6 @@ public class GameController extends AbstractGameController implements ChatSender
 
                                  if(!Tavolo.getInstance().isTurnoMyGiocatore()&&!messageReceived[g.getID()]){
                                     System.out.println("giocatore "+g.getUsername()+" continua a non rispondere ...");
-                                    if(!reconnectionNeeds[g.getID()]){
-                                        System.out.println(" giocatore "+g.getUsername()+" non ha effettuato richiesta riconnessione ... chiusura pipe");
-                                        communicator.closePipeFor(g.getID(),g.getUsername());
-                                    }
                                     autoDispose(Tavolo.getInstance().getGiocatoreCorrente().getNumeroTruppe());
                                     passaTurno_();
                                     if(Tavolo.getInstance().isTurnoMyGiocatore()){

@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import services.CardChangeListener;
 import services.CardListener;
-import services.GameController;
+import services.impl.GameController;
 import services.MapListener;
 import services.TroopsSelector;
 import services.VictoryListener;

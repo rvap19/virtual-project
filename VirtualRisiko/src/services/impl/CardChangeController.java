@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package services;
+package services.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;

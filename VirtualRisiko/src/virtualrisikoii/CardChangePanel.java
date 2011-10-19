@@ -12,8 +12,8 @@
 package virtualrisikoii;
 
 import javax.swing.JList;
-import services.CardChangeController;
-import services.GameController;
+import services.impl.CardChangeController;
+import services.impl.GameController;
 import virtualrisikoii.InformationPanel;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
