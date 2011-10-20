@@ -19,7 +19,11 @@ import middle.management.advertisement.PipeAdvertisement;
 import middle.management.advertisement.PlayerAdvertisement;
 import middle.management.advertisement.RegistrationAdvertisement;
 import middle.messages.WelcomeMessage;
+import remote.Game;
+import remote.Gameregistration;
+import remote.GameregistrationId;
 import remote.Risiko;
+import remote.User;
 
 /**
  *
@@ -120,7 +124,7 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
             User[] gr=server.getPlayers(g);
             for(int i=0;i<gr.length;i++){
                 User x=gr[i];
-                Gameregistration reg=new Gameregistration(g.getId(), x.getUsername());
+                Gameregistration reg=new Gameregistration(new GameregistrationId(x.getUsername(),g.getId()),g,x);
                 remote_registrations.put(x.getUsername(), reg);
             }
         }

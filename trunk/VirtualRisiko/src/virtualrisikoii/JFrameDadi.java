@@ -1,10 +1,11 @@
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Random;
 import javax.swing.JFrame;
+import virtualrisikoii.risiko.Suono;
 
 /*
  * To change this template, choose Tools | Templates
@@ -206,12 +207,12 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dadoAtt1 = new virtualrisikoii.risiko.JPanelDadi();
-        dadoAtt2 = new virtualrisikoii.risiko.JPanelDadi();
-        dadoAtt3 = new virtualrisikoii.risiko.JPanelDadi();
-        dadoDif1 = new virtualrisikoii.risiko.JPanelDadi();
-        dadoDif2 = new virtualrisikoii.risiko.JPanelDadi();
-        dadoDif3 = new virtualrisikoii.risiko.JPanelDadi();
+        dadoAtt1 = new virtualrisikoii.JPanelDadi();
+        dadoAtt2 = new virtualrisikoii.JPanelDadi();
+        dadoAtt3 = new virtualrisikoii.JPanelDadi();
+        dadoDif1 = new virtualrisikoii.JPanelDadi();
+        dadoDif2 = new virtualrisikoii.JPanelDadi();
+        dadoDif3 = new virtualrisikoii.JPanelDadi();
         titolo = new javax.swing.JLabel();
         descrizioneAttacco = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -625,12 +626,12 @@ public class JFrameDadi extends javax.swing.JFrame implements Runnable {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private virtualrisikoii.risiko.JPanelDadi dadoAtt1;
-    private virtualrisikoii.risiko.JPanelDadi dadoAtt2;
-    private virtualrisikoii.risiko.JPanelDadi dadoAtt3;
-    private virtualrisikoii.risiko.JPanelDadi dadoDif1;
-    private virtualrisikoii.risiko.JPanelDadi dadoDif2;
-    private virtualrisikoii.risiko.JPanelDadi dadoDif3;
+    private virtualrisikoii.JPanelDadi dadoAtt1;
+    private virtualrisikoii.JPanelDadi dadoAtt2;
+    private virtualrisikoii.JPanelDadi dadoAtt3;
+    private virtualrisikoii.JPanelDadi dadoDif1;
+    private virtualrisikoii.JPanelDadi dadoDif2;
+    private virtualrisikoii.JPanelDadi dadoDif3;
     private javax.swing.JLabel descrizioneAttacco;
     private javax.swing.JLabel freccia1;
     private javax.swing.JLabel freccia2;

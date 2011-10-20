@@ -5,10 +5,12 @@ import java.util.Random;
 import jxta.gui.RemoteVirtualPlayerManagerGUI;
 import remote.Risiko;
 import remote.impl.JXTARemoteVirtualPlayerManager;
-import xxx.CompleteStatisticsFrame;
-import xxx.PlayerDetailsFrame;
-import xxx.RisikoStatisticalClient;
-import xxx.User;
+import web_service.CompleteStatisticsFrame;
+import web_service.PlayerDetailsFrame;
+import web_service.RisikoStatisticalClient;
+import remote.User;
+import web_service.TrasmitPasswordFrame;
+import web_service.UserActivactionFrame;
 
 
 
@@ -29,7 +31,7 @@ import xxx.User;
 public class RemoteLogin extends javax.swing.JFrame {
 
     /** Creates new form Login */
-    private Risiko client;
+    private Risiko remote;
     private RisikoStatisticalClient statisticalClient;
     private RemoteVirtualPlayerManagerGUI fullGUI;
 
@@ -45,11 +47,11 @@ public class RemoteLogin extends javax.swing.JFrame {
     }
     
     public Risiko getHelloImpl() {
-        return client;
+        return remote;
     }
     
     public void setHelloImpl(Risiko helloImpl) {
-        this.client = helloImpl;
+        this.remote = helloImpl;
     }
 
     /** This method is called from within the constructor to
@@ -71,6 +73,7 @@ public class RemoteLogin extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -110,6 +113,11 @@ public class RemoteLogin extends javax.swing.JFrame {
 
         jMenu1.setText("Account");
         jMenu1.setName("jMenu1"); // NOI18N
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setText("new account");
         jMenuItem1.setName("jMenuItem1"); // NOI18N
@@ -129,6 +137,15 @@ public class RemoteLogin extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem4.setText("retrieve password");
+        jMenuItem4.setName("jMenuItem4"); // NOI18N
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Statistics");
@@ -136,6 +153,11 @@ public class RemoteLogin extends javax.swing.JFrame {
 
         jMenuItem3.setText("show statistics");
         jMenuItem3.setName("jMenuItem3"); // NOI18N
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -193,14 +215,14 @@ public class RemoteLogin extends javax.swing.JFrame {
             pss = "";
         }
         
-        User user = client.authenticate(userName, pss);
+        User user = remote.authenticate(userName, pss);
         if (user!=null) {
             System.out.println("Utente " + usernameField.getText() + " autenticato");
             // server.shutdown();
             Random random=new Random();
             try {
                   JXTARemoteVirtualPlayerManager manager=new JXTARemoteVirtualPlayerManager(this.usernameField.getText(), random.nextInt(9800));
-                  manager.setServer(client);
+                  manager.setServer(remote);
                   manager.setMyself(user);
                   fullGUI = new RemoteVirtualPlayerManagerGUI(manager);
                   
@@ -229,10 +251,29 @@ public class RemoteLogin extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        CompleteStatisticsFrame frame=new CompleteStatisticsFrame(this.statisticalClient.getAllStatistics());
+        UserActivactionFrame frame=new UserActivactionFrame();
         frame.setClient(statisticalClient);
         frame.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        CompleteStatisticsFrame frame=new CompleteStatisticsFrame(this.statisticalClient.getAllStatistics());
+        frame.setClient(statisticalClient);
+        frame.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        TrasmitPasswordFrame frame=new TrasmitPasswordFrame();
+        frame.setClient(statisticalClient);
+        frame.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     
    
@@ -247,6 +288,7 @@ public class RemoteLogin extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables

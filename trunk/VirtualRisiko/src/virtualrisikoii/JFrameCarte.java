@@ -9,7 +9,7 @@
  * Created on 24-mag-2011, 15.29.23
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
@@ -19,6 +19,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
+import virtualrisikoii.risiko.Suono;
 
 /**
  *
@@ -70,7 +71,7 @@ public class JFrameCarte extends javax.swing.JFrame implements Runnable {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         labelTerritorio = new javax.swing.JLabel();
-        labelCarta = new virtualrisikoii.risiko.JPanelDadi();
+        labelCarta = new virtualrisikoii.JPanelDadi();
         labelNomeCarta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -261,7 +262,7 @@ public class JFrameCarte extends javax.swing.JFrame implements Runnable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private virtualrisikoii.risiko.JPanelDadi labelCarta;
+    private virtualrisikoii.JPanelDadi labelCarta;
     private javax.swing.JLabel labelNomeCarta;
     private javax.swing.JLabel labelTerritorio;
     // End of variables declaration//GEN-END:variables

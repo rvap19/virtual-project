@@ -26,9 +26,9 @@ import virtualrisikoii.ActionDialog;
 import virtualrisikoii.EndGameFrame;
 import virtualrisikoii.XMapPanel;
 import virtualrisikoii.risiko.Giocatore;
-import virtualrisikoii.risiko.JFrameCarte;
-import virtualrisikoii.risiko.JFrameDadi;
-import virtualrisikoii.risiko.dadiGui;
+import virtualrisikoii.JFrameCarte;
+import virtualrisikoii.JFrameDadi;
+import virtualrisikoii.dadiGui;
 
 /**
  *
@@ -160,7 +160,7 @@ public class ItaliaMapPanel extends XMapPanel {
         lAquilaLabel = new javax.swing.JLabel();
         latinaLabel = new javax.swing.JLabel();
         triesteLabel = new javax.swing.JLabel();
-        statoGiocoPanel1 = virtualrisikoii.risiko.StatoGiocoPanel.getInstance();
+        statoGiocoPanel1 = virtualrisikoii.StatoGiocoPanel.getInstance();
 
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -761,7 +761,7 @@ public class ItaliaMapPanel extends XMapPanel {
     private javax.swing.JLabel salernoLabel;
     private javax.swing.JLabel sassariLabel;
     private javax.swing.JLabel sienaLabel;
-    private virtualrisikoii.risiko.StatoGiocoPanel statoGiocoPanel1;
+    private virtualrisikoii.StatoGiocoPanel statoGiocoPanel1;
     private javax.swing.JLabel torinoLabel;
     private javax.swing.JLabel trapaniLabel;
     private javax.swing.JLabel trentoLabel;

@@ -9,7 +9,7 @@
  * Created on 9-giu-2011, 14.00.03
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;

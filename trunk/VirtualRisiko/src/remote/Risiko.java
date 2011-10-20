@@ -1,8 +1,6 @@
 package remote;
 
-import domain.Game;
-import domain.Gameregistration;
-import domain.User;
+
 import java.net.InetAddress;
 
 

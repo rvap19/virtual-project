@@ -9,10 +9,12 @@
  * Created on 10-giu-2011, 10.38.07
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
+import virtualrisikoii.risiko.Carta;
+import virtualrisikoii.risiko.Giocatore;
 
 /**
  *
@@ -73,16 +75,16 @@ public class JFrameScambioCarte extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18));
         jLabel1.setText("Il ");
         jLabel1.setName("jLabel1"); // NOI18N
 
-        giocatoreLabel.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        giocatoreLabel.setFont(new java.awt.Font("Times New Roman", 0, 18));
         giocatoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         giocatoreLabel.setText("giocatore  giallo");
         giocatoreLabel.setName("giocatoreLabel"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18));
         jLabel2.setText("ha giocato le seguenti carte:");
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -98,26 +100,26 @@ public class JFrameScambioCarte extends javax.swing.JFrame {
         carta3Label.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         carta3Label.setName("carta3Label"); // NOI18N
 
-        nomecarta1Label.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        nomecarta1Label.setFont(new java.awt.Font("Times New Roman", 0, 10));
         nomecarta1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nomecarta1Label.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         nomecarta1Label.setName("nomecarta1Label"); // NOI18N
 
-        nomecarta2Label.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        nomecarta2Label.setFont(new java.awt.Font("Times New Roman", 0, 10));
         nomecarta2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nomecarta2Label.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         nomecarta2Label.setName("nomecarta2Label"); // NOI18N
 
-        nomecarta3Label.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        nomecarta3Label.setFont(new java.awt.Font("Times New Roman", 0, 10));
         nomecarta3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nomecarta3Label.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         nomecarta3Label.setName("nomecarta3Label"); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18));
         jLabel3.setText("rinforzi ottenuti");
         jLabel3.setName("jLabel3"); // NOI18N
 
-        numeroRinforziLabel.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        numeroRinforziLabel.setFont(new java.awt.Font("Times New Roman", 1, 20));
         numeroRinforziLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         numeroRinforziLabel.setText("0");
         numeroRinforziLabel.setName("numeroRinforziLabel"); // NOI18N

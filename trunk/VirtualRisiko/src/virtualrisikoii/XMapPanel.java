@@ -20,9 +20,6 @@ import services.TroopsSelector;
 import services.VictoryListener;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
-import virtualrisikoii.risiko.JFrameCarte;
-import virtualrisikoii.risiko.JFrameDadi;
-import virtualrisikoii.risiko.JFrameScambioCarte;
 
 /**
  *
