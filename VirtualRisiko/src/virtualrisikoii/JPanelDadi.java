@@ -1,4 +1,4 @@
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 
 import java.awt.Dimension;

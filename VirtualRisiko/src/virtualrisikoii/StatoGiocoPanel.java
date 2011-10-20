@@ -9,7 +9,7 @@
  * Created on 15-giu-2011, 11.57.02
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,6 +26,8 @@ import middle.listener.StatusPeerEventListener;
 import middle.messages.PassMessage;
 import middle.messages.StatusPeerMessage;
 import services.impl.GameController;
+import virtualrisikoii.risiko.Giocatore;
+import virtualrisikoii.risiko.Tavolo;
 
 
 /**

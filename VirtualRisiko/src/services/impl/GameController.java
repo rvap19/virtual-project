@@ -48,7 +48,7 @@ import virtualrisikoii.risiko.Attacco;
 import virtualrisikoii.risiko.Azione;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
-import virtualrisikoii.risiko.JFrameTurno;
+import virtualrisikoii.JFrameTurno;
 import virtualrisikoii.risiko.Rinforzo;
 import virtualrisikoii.risiko.Spostamento;
 

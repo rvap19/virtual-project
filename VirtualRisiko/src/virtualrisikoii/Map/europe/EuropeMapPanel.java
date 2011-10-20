@@ -26,9 +26,9 @@ import virtualrisikoii.ActionDialog;
 import virtualrisikoii.EndGameFrame;
 import virtualrisikoii.XMapPanel;
 import virtualrisikoii.risiko.Giocatore;
-import virtualrisikoii.risiko.JFrameCarte;
-import virtualrisikoii.risiko.JFrameDadi;
-import virtualrisikoii.risiko.dadiGui;
+import virtualrisikoii.JFrameCarte;
+import virtualrisikoii.JFrameDadi;
+import virtualrisikoii.dadiGui;
 
 /**
  *
@@ -161,7 +161,7 @@ public class EuropeMapPanel extends XMapPanel {
         portogalloLabel = new javax.swing.JLabel();
         spagnaLabel = new javax.swing.JLabel();
         turchiaLabel = new javax.swing.JLabel();
-        statoGiocoPanel1 =  virtualrisikoii.risiko.StatoGiocoPanel.getInstance();
+        statoGiocoPanel1 =  virtualrisikoii.StatoGiocoPanel.getInstance();
 
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -757,7 +757,7 @@ public class EuropeMapPanel extends XMapPanel {
     private javax.swing.JLabel siriaLabel;
     private javax.swing.JLabel slovacchiaLabel;
     private javax.swing.JLabel spagnaLabel;
-    private virtualrisikoii.risiko.StatoGiocoPanel statoGiocoPanel1;
+    private virtualrisikoii.StatoGiocoPanel statoGiocoPanel1;
     private javax.swing.JLabel sveziaLabel;
     private javax.swing.JLabel svizzeraLabel;
     private javax.swing.JLabel tunisiaLabel;

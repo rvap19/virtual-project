@@ -763,7 +763,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="virtualrisikoii.risiko.StatoGiocoPanel" name="statoGiocoPanel1">
+        <Component class="virtualrisikoii.StatoGiocoPanel" name="statoGiocoPanel1">
           <Properties>
             <Property name="name" type="java.lang.String" value="statoGiocoPanel1" noResource="true"/>
           </Properties>

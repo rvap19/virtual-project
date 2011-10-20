@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import javax.swing.JFrame;
 

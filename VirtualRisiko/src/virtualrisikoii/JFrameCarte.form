@@ -96,7 +96,7 @@
         <Property name="name" type="java.lang.String" value="labelTerritorio" noResource="true"/>
       </Properties>
     </Component>
-    <Container class="virtualrisikoii.risiko.JPanelDadi" name="labelCarta">
+    <Container class="virtualrisikoii.JPanelDadi" name="labelCarta">
       <Properties>
         <Property name="name" type="java.lang.String" value="labelCarta" noResource="true"/>
       </Properties>

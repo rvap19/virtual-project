@@ -20,7 +20,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
-import virtualrisikoii.risiko.JFrameInfo;
 import virtualrisikoii.risiko.Tavolo;
 
 /**

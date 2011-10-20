@@ -9,11 +9,12 @@
  * Created on 23-mag-2011, 21.10.07
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
+import virtualrisikoii.risiko.Suono;
 
 /**
  *

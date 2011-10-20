@@ -9,11 +9,12 @@
  * Created on 19-mag-2011, 17.56.36
  */
 
-package virtualrisikoii.risiko;
+package virtualrisikoii;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.LogManager;
+import virtualrisikoii.risiko.Suono;
 
 /**
  *

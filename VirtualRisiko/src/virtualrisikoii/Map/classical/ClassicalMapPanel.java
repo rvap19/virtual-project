@@ -144,7 +144,7 @@ public class ClassicalMapPanel extends   XMapPanel{
         africaSudLabel = new javax.swing.JLabel();
         madagascarLabel = new javax.swing.JLabel();
         islandaLabel = new javax.swing.JLabel();
-        statoGiocoPanel1 = virtualrisikoii.risiko.StatoGiocoPanel.getInstance();
+        statoGiocoPanel1 = virtualrisikoii.StatoGiocoPanel.getInstance();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(ClassicalMapPanel.class);
         jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N
@@ -668,7 +668,7 @@ public class ClassicalMapPanel extends   XMapPanel{
     private javax.swing.JLabel siberiaLabel;
     private javax.swing.JLabel statiUnitiOccLabel;
     private javax.swing.JLabel statiUnitiOriLabel;
-    private virtualrisikoii.risiko.StatoGiocoPanel statoGiocoPanel1;
+    private virtualrisikoii.StatoGiocoPanel statoGiocoPanel1;
     private javax.swing.JLabel territorioNOLabel;
     private javax.swing.JLabel ucrainaLabel;
     private javax.swing.JLabel uraliLabel;
