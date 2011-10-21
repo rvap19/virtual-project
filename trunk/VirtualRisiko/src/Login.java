@@ -1,8 +1,8 @@
 
 import java.util.Random;
 import java.util.logging.LogManager;
-import jxta.gui.VirtualPlayerManagerGUI;
-import jxta.JXTAVirtualPlayerManager;
+import virtualrisikoii.VirtualPlayerManagerGUI;
+import virtualrisikoii.jxta.middle.JXTAVirtualPlayerManager;
 
 /*
  * To change this template, choose Tools | Templates

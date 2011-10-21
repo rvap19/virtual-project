@@ -2,15 +2,17 @@
 
 
 import java.util.Random;
-import jxta.gui.RemoteVirtualPlayerManagerGUI;
-import remote.Risiko;
+import virtualrisikoii.RemoteVirtualPlayerManagerGUI;
+import org.domain.risikoweb.entity.RisikoRemote;
 import remote.impl.JXTARemoteVirtualPlayerManager;
 import web_service.CompleteStatisticsFrame;
 import web_service.PlayerDetailsFrame;
 import web_service.RisikoStatisticalClient;
-import remote.User;
+import org.domain.risikoweb.entity.User;
+import virtualrisikoii.util.NetManager;
 import web_service.TrasmitPasswordFrame;
 import web_service.UserActivactionFrame;
+import web_service.UserRegistratorImpl;
 
 
 
@@ -31,7 +33,7 @@ import web_service.UserActivactionFrame;
 public class RemoteLogin extends javax.swing.JFrame {
 
     /** Creates new form Login */
-    private Risiko remote;
+    private RisikoRemote remote;
     private RisikoStatisticalClient statisticalClient;
     private RemoteVirtualPlayerManagerGUI fullGUI;
 
@@ -46,11 +48,11 @@ public class RemoteLogin extends javax.swing.JFrame {
         
     }
     
-    public Risiko getHelloImpl() {
+    public RisikoRemote getHelloImpl() {
         return remote;
     }
     
-    public void setHelloImpl(Risiko helloImpl) {
+    public void setHelloImpl(RisikoRemote helloImpl) {
         this.remote = helloImpl;
     }
 
@@ -215,7 +217,7 @@ public class RemoteLogin extends javax.swing.JFrame {
             pss = "";
         }
         
-        User user = remote.authenticate(userName, pss);
+        User user = remote.authenticate(userName, pss,NetManager.findMeExternalIP());
         if (user!=null) {
             System.out.println("Utente " + usernameField.getText() + " autenticato");
             // server.shutdown();
@@ -245,7 +247,7 @@ public class RemoteLogin extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        PlayerDetailsFrame frame=new PlayerDetailsFrame(statisticalClient);
+        PlayerDetailsFrame frame=new PlayerDetailsFrame(new UserRegistratorImpl(statisticalClient));
         frame.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
