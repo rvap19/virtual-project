@@ -15,7 +15,7 @@ import middle.listener.PassEventListener;
 import middle.listener.RecoveryRequestEventListener;
 import middle.messages.PassMessage;
 import middle.messages.RecoveryMessage;
-import util.RecoveryUtil;
+import virtualrisikoii.util.RecoveryUtil;
 import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Tavolo;
