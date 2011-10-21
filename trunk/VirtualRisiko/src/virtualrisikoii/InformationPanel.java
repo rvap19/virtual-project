@@ -20,10 +20,10 @@ import middle.event.RisikoEvent;
 import middle.listener.ChatEventListener;
 import middle.messages.ChatMessage;
 
-import services.impl.GameController;
-import services.HistoryListener;
-import services.PlayerDataListener;
-import services.TimeoutNotifier;
+import virtualrisikoii.services.impl.GameController;
+import virtualrisikoii.services.HistoryListener;
+import virtualrisikoii.services.PlayerDataListener;
+import virtualrisikoii.services.TimeoutNotifier;
 
 import virtualrisikoii.risiko.Suono;
 import virtualrisikoii.risiko.Tavolo;

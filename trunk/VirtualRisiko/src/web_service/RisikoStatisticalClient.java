@@ -4,10 +4,7 @@
  */
 package web_service;
 
-import xxx.GameregistrationArray;
-import xxx.Risiko;
-import xxx.RisikoService;
-import xxx.User;
+
 
 /**
  *
@@ -16,6 +13,9 @@ import xxx.User;
 public class RisikoStatisticalClient {
     private Risiko risiko;
     
+    public RisikoStatisticalClient(Risiko risiko){
+        this.risiko=risiko;
+    }
     public RisikoStatisticalClient(){
         RisikoService service = new RisikoService();
         risiko = service.getRisikoPort();

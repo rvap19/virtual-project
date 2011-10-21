@@ -20,18 +20,18 @@ import javax.swing.JOptionPane;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import xxx.User;
+
 
 /**
  *
  * @author root
  */
 public class PlayerDetailsFrame extends javax.swing.JFrame {
-    private RisikoStatisticalClient client;
+    private UserRegistrator registrator;
 
-    public PlayerDetailsFrame(RisikoStatisticalClient client){
+    public PlayerDetailsFrame(UserRegistrator reg){
         this();
-        this.client=client;
+        this.registrator=reg;
     }
 
     /** Creates new form PlayerDetailsFrame */
@@ -39,13 +39,15 @@ public class PlayerDetailsFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    public RisikoStatisticalClient getClient() {
-        return client;
+    public UserRegistrator getRegistrator() {
+        return registrator;
     }
 
-    public void setClient(RisikoStatisticalClient client) {
-        this.client = client;
+    public void setRegistrator(UserRegistrator registrator) {
+        this.registrator = registrator;
     }
+
+    
 
     
 
@@ -240,11 +242,7 @@ public class PlayerDetailsFrame extends javax.swing.JFrame {
                  
             return;
         }
-        if(!this.client.checkUsername(username)){
-            JOptionPane.showMessageDialog(this, "username non disponibile", "Virtual Risiko info", JOptionPane.ERROR_MESSAGE);
-           
-            return;
-        }
+        
 
         String pwd1=this.passwordField1.getText();
         if(pwd1==null||pwd1.equals("")){
@@ -270,11 +268,7 @@ public class PlayerDetailsFrame extends javax.swing.JFrame {
            
             return;
         }
-        if(!this.client.checkEmail(email)){
-            JOptionPane.showMessageDialog(this, "email gia presente", "Virtual Risiko info", JOptionPane.ERROR_MESSAGE);
-           
-            return;
-        }
+        
         
 
         String nome=this.nomeText.getText();
@@ -311,12 +305,13 @@ public class PlayerDetailsFrame extends javax.swing.JFrame {
         user.setCodiceConferma(null);
         user.setConfermato(false);
         
-                
-        if(client.createUser(user)){
-            JOptionPane.showMessageDialog(this, "il tuo codice di attivazione è stato inviato all email specificata", "Virtual Risiko info", JOptionPane.INFORMATION_MESSAGE);
+        String message=this.registrator.createUser(user);
+        boolean success=this.registrator.isSuccess();
+        if(success){
+            JOptionPane.showMessageDialog(this, message, "Virtual Risiko info", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }else{
-            JOptionPane.showMessageDialog(this, "impossibile registrare utente", "Virtual Risiko info", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, message, "Virtual Risiko info", JOptionPane.ERROR_MESSAGE);
            
         }
         

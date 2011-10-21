@@ -6,6 +6,7 @@ package remote.impl;
 
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,23 +20,45 @@ import middle.management.advertisement.PipeAdvertisement;
 import middle.management.advertisement.PlayerAdvertisement;
 import middle.management.advertisement.RegistrationAdvertisement;
 import middle.messages.WelcomeMessage;
-import remote.Game;
-import remote.Gameregistration;
-import remote.GameregistrationId;
-import remote.Risiko;
-import remote.User;
+import org.domain.risikoweb.entity.Game;
+import org.domain.risikoweb.entity.Gameregistration;
+import org.domain.risikoweb.entity.GameregistrationId;
+import org.domain.risikoweb.entity.RisikoRemote;
+import org.domain.risikoweb.entity.User;
+import org.domain.risikoweb.entity.UserOnLine;
 
 /**
  *
  * @author root
  */
 public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
-    protected Risiko server;
+    protected RisikoRemote server;
     protected User myself;
     
-    protected HashMap<String,User>remote_players;
+    protected HashMap<String,UserOnLine>remote_players;
     protected HashMap<String,Game>remote_games;
     protected HashMap<String,Gameregistration>remote_registrations;
+    
+    public boolean deleteRegistrationForGame(String  name){
+        Game g=this.remote_games.get(name);
+        Game game=this.server.getGame(g.getId());
+        if(game.isAttiva()&&game.getIdtorneo()==null){
+            GameregistrationId id=new GameregistrationId(this.myself.getUsername(), game.getId());
+            Gameregistration registartion=new Gameregistration(id, game, myself);
+            return this.server.deleteRegistration(registartion);
+        }
+        return false;        
+    }
+    
+    public boolean deleteGame(String name){
+        Game g=this.remote_games.get(name);
+        Game game=this.server.getGame(g.getId());
+        if(game.isAttiva()&&game.getManagerUsername().equals(this.myself.getUsername()) &&game.getIdtorneo()==null){
+            
+            return this.server.deleteGame(game);
+        }
+        return false;  
+    }
 
     @Override
     public void init() throws IOException {
@@ -45,7 +68,7 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
         pipes=new HashMap<String,PipeAdvertisement>();
         
         remote_games=new HashMap<String, Game>();
-        remote_players=new HashMap<String, User>();
+        remote_players=new HashMap<String, UserOnLine>();
         remote_registrations=new HashMap<String, Gameregistration>();
         
         
@@ -105,10 +128,11 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
             super.findPlayers();
             
         }
-        User[] ur=server.getAuthenticateUsers();
+        UserOnLine[] ur=server.getAuthenticateUsers();
         for(int i=0;i<ur.length;i++){
-            User x=ur[i];
-            remote_players.put(x.getUsername(), x);
+           
+            
+            remote_players.put(ur[i].getUserUsername(), ur[i]);
         }
         return remote_players.keySet();
     }
@@ -150,11 +174,11 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
 
     
     
-    public Risiko getServer() {
+    public RisikoRemote getServer() {
         return server;
     }
 
-    public void setServer(Risiko server) {
+    public void setServer(RisikoRemote server) {
         this.server = server;
     }
 
@@ -201,9 +225,9 @@ public abstract class RemoteVirtualPlayerManager extends VirtualPlayerManager{
         }
         if(manager==null){
             manager=this.initPlayerManager();
-             InetAddress address=server.getAddressFor(g.getManagerUsername());
-             System.out.println(address.getHostAddress());
-            manager.init(address.getHostAddress(), false);
+             String address=this.remote_players.get(g.getManagerUsername()).getIpaddress();
+             System.out.println(address);
+            manager.init(address, false);
            //  manager.init(null, true);
             manager.findGames();
             manager.findPipes();

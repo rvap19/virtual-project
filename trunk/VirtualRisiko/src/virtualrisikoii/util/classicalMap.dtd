@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/classicalMap.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE mappa SYSTEM "classicalMap.dtd">
+
+    <mappa>
+    ...
+    </mappa>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT mappa (continente|Territorio)*>
+<!ATTLIST mappa
+    continenti CDATA #IMPLIED
+    territori CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT Territorio (confina)*>
+<!ATTLIST Territorio
+    nome CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT confina (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT continente (territorio)*>
+<!ATTLIST continente
+    rinforzi CDATA #IMPLIED
+    nome CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT territorio (#PCDATA)>

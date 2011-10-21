@@ -11,8 +11,7 @@
 package web_service;
 
 import java.util.List;
-import xxx.Gameregistration;
-import xxx.GameregistrationArray;
+
 
 /**
  *
