@@ -12,7 +12,7 @@
 package virtualrisikoii;
 
 import javax.swing.JFrame;
-import services.impl.CardChangeController;
+import virtualrisikoii.services.impl.CardChangeController;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 import virtualrisikoii.risiko.Territorio;

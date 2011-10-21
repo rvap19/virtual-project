@@ -12,7 +12,7 @@
 package virtualrisikoii.Map.classical;
 
 import javax.swing.JLabel;
-import services.impl.GameController;
+import virtualrisikoii.services.impl.GameController;
 import virtualrisikoii.XMapPanel;
 
 /**

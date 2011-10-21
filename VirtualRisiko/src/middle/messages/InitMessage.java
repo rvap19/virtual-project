@@ -5,7 +5,7 @@
 package middle.messages;
 
 import java.util.List;
-import util.GameParameter;
+import virtualrisikoii.util.GameParameter;
 
 /**
  *

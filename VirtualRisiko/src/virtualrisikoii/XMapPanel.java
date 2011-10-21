@@ -12,12 +12,12 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import services.CardChangeListener;
-import services.CardListener;
-import services.impl.GameController;
-import services.MapListener;
-import services.TroopsSelector;
-import services.VictoryListener;
+import virtualrisikoii.services.CardChangeListener;
+import virtualrisikoii.services.CardListener;
+import virtualrisikoii.services.impl.GameController;
+import virtualrisikoii.services.MapListener;
+import virtualrisikoii.services.TroopsSelector;
+import virtualrisikoii.services.VictoryListener;
 import virtualrisikoii.risiko.Carta;
 import virtualrisikoii.risiko.Giocatore;
 

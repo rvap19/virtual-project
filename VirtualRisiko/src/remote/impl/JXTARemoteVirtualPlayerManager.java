@@ -5,8 +5,8 @@
 package remote.impl;
 
 import java.util.HashMap;
-import jxta.JXTAMiddle;
-import jxta.JXTARisikoMessageGenerator;
+import virtualrisikoii.jxta.middle.JXTAMiddle;
+import virtualrisikoii.jxta.middle.JXTARisikoMessageGenerator;
 import middle.ElectionController;
 import middle.Middle;
 import middle.PeerGroup;
@@ -28,7 +28,7 @@ public class JXTARemoteVirtualPlayerManager extends RemoteVirtualPlayerManager{
     }
     @Override
     protected ElectionController initElectionController() {
-        ElectionController c=new jxta.ElectionController(myName, super.manager.getPeerGroup(), pipes);
+        ElectionController c=new virtualrisikoii.jxta.middle.ElectionController(myName, super.manager.getPeerGroup(), pipes);
         return c;
     }
 
@@ -40,7 +40,7 @@ public class JXTARemoteVirtualPlayerManager extends RemoteVirtualPlayerManager{
 
     @Override 
     protected middle.management.PlayerManager initPlayerManager() {
-        PlayerManager m=new jxta.PlayerManager(myName, tcpPort);
+        PlayerManager m=new virtualrisikoii.jxta.middle.PlayerManager(myName, tcpPort);
         return m;
     }
     
@@ -53,7 +53,7 @@ public class JXTARemoteVirtualPlayerManager extends RemoteVirtualPlayerManager{
 
     @Override
     protected ElectionController initElectionController(String myName, PeerGroup peerGroup, HashMap<String, PipeAdvertisement> pipes) {
-        return new jxta.ElectionController(myName, peerGroup, pipes);
+        return new virtualrisikoii.jxta.middle.ElectionController(myName, peerGroup, pipes);
     }
 
     @Override

@@ -14,7 +14,7 @@ package virtualrisikoii;
 import java.util.List;
 //import jxta.communication.Communicator;
 import middle.Middle;
-import services.impl.ChatMessageSender;
+import virtualrisikoii.services.impl.ChatMessageSender;
 
 
 
