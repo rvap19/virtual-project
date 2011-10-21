@@ -4,7 +4,7 @@
  */
 package middle;
 
-import services.AbstractGameController;
+import virtualrisikoii.services.AbstractGameController;
 import middle.management.advertisement.PipeAdvertisement;
 import java.io.IOException;
 import java.util.ArrayList;

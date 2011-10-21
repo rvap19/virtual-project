@@ -5,12 +5,11 @@
 
 package middle;
 
-import services.impl.GameController;
+import virtualrisikoii.services.impl.GameController;
 import middle.event.ElectionEvent;
 import middle.event.InitEvent;
 import middle.event.RecoveryEvent;
 import middle.event.RisikoEvent;
-import services.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +30,9 @@ import middle.messages.RecoveryMessage;
 import middle.messages.WelcomeMessage;
 
 
-import util.GameFactory;
-import util.GameParameter;
-import util.RecoveryUtil;
+import virtualrisikoii.util.GameFactory;
+import virtualrisikoii.util.GameParameter;
+import virtualrisikoii.util.RecoveryUtil;
 import virtualrisikoii.RecoveryParameter;
 import virtualrisikoii.VirtualRisikoIIApp;
 import virtualrisikoii.VirtualRisikoIIView;

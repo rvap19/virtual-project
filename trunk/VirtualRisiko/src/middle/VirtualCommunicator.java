@@ -18,7 +18,7 @@ import middle.messages.RisikoMessage;
 
 
 
-import util.GameParameter;
+import virtualrisikoii.util.GameParameter;
 
 
 

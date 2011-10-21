@@ -22,7 +22,7 @@ import middle.messages.RetrasmissionRequestMessage;
 import middle.messages.RisikoMessage;
 import middle.messages.StatusPeerMessage;
 import middle.messages.WelcomeMessage;
-import util.GameParameter;
+import virtualrisikoii.util.GameParameter;
 import virtualrisikoii.RecoveryParameter;
 
 /**
